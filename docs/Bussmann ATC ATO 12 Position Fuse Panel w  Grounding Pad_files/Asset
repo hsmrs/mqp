@@ -1,0 +1,571 @@
+/* BASE STYLES
+----------------------------------------------- */
+H1, .h1 {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:16px;
+	color:#555555;
+	font-weight:bold;
+	margin-top:10px
+}
+
+H2, .h2 {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:16px;
+	color:#3D89BD;
+	font-weight:bold
+}
+
+TABLE {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	color:#666666
+}
+
+.red_text {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	color:#CC0000
+}
+
+.black_text {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	color:#000000
+}
+.bold_text {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	color:#666666;
+	font-weight:bold
+}
+.border_r {
+	border-right:1px solid #cccccc;
+	padding:2px
+}
+.border_l {
+	border-left:1px solid #cccccc;
+	padding:2px
+}	
+.border_t {
+	border-top:1px solid #cccccc;
+	padding:2px
+}
+.border_b {
+	border-bottom:1px solid #cccccc;
+	padding:2px
+}
+.border {
+	border:1px solid #cccccc;
+	padding:2px
+}
+.bg_dddddd {
+	background-color:#dddddd;
+	color:#333333
+}
+.hr {
+	border-bottom:1px solid #cccccc;
+	margin:0px 0px 8px 0px
+}
+/* NAV STYLES FOR CONTEMPORARY AND BUILD YOUR OWN
+----------------------------------------------- */
+span.navBarLeft{float:left;margin-top:0px}
+span.navBarLeft IMG{*left:8px;}
+.navBarRight div{float:right;margin-top:1px}
+.btn_advanced_search {margin-left:2px;margin-top:0px}
+
+/* BUTTONS
+----------------------------------------------- */
+/******* ACTION BUTTON *******/
+
+/* Both browsers apply these styles to the action button */
+.actn_button_color {
+	border:3px double #8FB6DB;
+	cursor:pointer;
+	white-space:nowrap;
+	padding:2px 3px 2px 3px;
+	font-family:Arial, Helvetica, sans-serif;
+	color:#444444;
+	font-size:12px;
+	font-weight:bold;
+	text-align:center
+}
+/* IE uses the filter for the blend */
+.actn_button_color {
+	* filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr='#ffffff',EndColorStr='#CCE6F9')
+	}
+/* FireFox uses a background color and white gradient image for the blend */
+html>body .actn_button_color {
+	background: #A5D6FA url("/shared/style/images/white_gradient.png") repeat-x top
+}
+/******* BEGIN FIREFOX HOVER FOR ACTION BUTTON *******/
+.actn_button_color.actn_button:hover {
+	border:3px double #54A2EB;
+	color:#444444;
+	background: #B3D8F4 url("/shared/style/images/white_gradient.png") repeat-x top
+}	
+/******* END FIREFOX HOVER FOR ACTION BUTTON *******/
+
+/******* REGULAR BUTTON *******/
+/* Both browsers apply these styles to the regular button */
+.button_color {
+	border:3px double #8FB6DB;
+	cursor:pointer;
+	white-space:nowrap;
+	padding:2px 3px 2px 3px;
+	font-family:Arial, Helvetica, sans-serif;
+	color:#444444;
+	font-size:12px;
+	font-weight:bold;
+	text-align:center
+}
+/* IE uses the filter for the blend */
+.button_color {
+	* filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr='#ffffff',EndColorStr='#EDF3F7')
+}
+/* FireFox uses the background-color and white gradient image for the blend */
+html>body .button_color {
+	background: #C7E5FB url("/shared/style/images/white_gradient.png") repeat-x top
+}
+/******* BEGIN FIREFOX HOVER FOR REGULAR BUTTON *******/
+.button_color.button:hover {
+	border:3px double #54A2EB;
+	color:#444444;
+	background: #B3D8F4 url("/shared/style/images/white_gradient.png") repeat-x top
+}
+/******* END FIREFOX HOVER FOR ACTION BUTTON *******/
+
+/******* SPECIAL BUTTON STYLES*******/
+.go-btn-width {
+	width:40px;
+	margin-top:2px;
+	}
+.btn_small_update, .btn_small_change {
+	font-size:9px
+}		
+.btn_update {
+	font-size:9px
+}	
+.btn_continue {
+	width:170px;
+	padding:4px
+}
+.btn_add_to_cart{
+	width:80px;
+	* height:23px;
+	font-size:11px;
+	margin-top:5px;
+	* padding:1px 0px 0px 0px
+}
+html>body .btn_add_to_cart {
+	height:15px;
+	padding:1px 0px 0px 0px
+}
+.btn_buy_it_now {
+	width:80px;
+	font-size:11px;
+	margin:5px 0px 0px 5px;
+	padding:0px
+}
+.btn_proceed_to_checkout {
+  padding:2px 2px 2px 25px;
+  width:190px;
+  height:32px
+}
+.wish-list-icon {
+	position:relative;
+	left:110%;
+	*left:106%;
+	*top:2px;
+}
+.btn_wish_list {
+  	padding:2px 2px 2px 20px;
+  	width:115px;
+  	height:26px;
+  	font-size:10px;
+}
+.btn_add_to_cart_lrg {
+	width:115px;
+}
+.btn_ordering_info {
+	font-size:11px;
+	width:150px
+}
+.btn_go {
+	height:23px;
+	padding:0px !important;
+}
+
+/******* END SPECIAL BUTTON STYLES*******/
+
+/* box around product detail quantity and add to cart button
+----------------------------------------------- */
+.quantity {
+	border:1px solid #CCCCCC; 
+	width:260px; 
+	white-space:nowrap;
+	padding:5px
+}
+
+/* ADDED TO CART home page, product list and product detail pages
+----------------------------------------------- */
+.added_to_cart {
+	background-color:#FFFAF4;
+	border:1px solid #E2A269;
+	margin:5px 0px 5px 0px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	color:#333333
+	}
+.added_to_cart A:link, .added_to_cart A:visited, .added_to_cart A:hover, .added_to_cart A:active {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	color:#333333
+	}
+
+/* PRICE 
+product list and some home pages
+----------------------------------------------- */
+.small_price {
+	color:#3D89BD;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	font-weight:bold
+}
+
+/* product detail page */
+.large_price {
+	color:#3D89BD;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:16px;
+	font-weight:bold
+}
+.totalsavings {	
+	font-weight:bold;
+	border:1px solid #cccccc;
+	padding:10px;
+	text-align:center;
+	width:185px;
+	color:#3D89BD
+}
+.opc-totalsavings {	
+	font-weight:bold;
+	font-size:13px;
+	padding:2px 1px;
+	color:#3D89BD;
+	text-align:right
+}
+/* TABS 
+product detail page
+----------------------------------------------- */
+.tabcontainer {
+	width:100%;
+	position:relative;
+	color:#ffffff
+}
+.tab_on {
+	color:#333333;
+	font-weight:bold;
+	text-align:center;
+	margin-top:10px;
+	border-top:1px solid #CCCCCC;
+	border-left:1px solid #CCCCCC;
+	border-right:1px solid #CCCCCC;
+	background-color:#e5e5e5;
+	padding:3px;
+	width:165px;
+	float:left;
+	display:inline;
+	white-space:nowrap
+	}
+.tab_off {
+	color:#333333;
+	font-weight:normal;
+	text-align:center;
+	margin-top:10px;
+	border-top:1px solid #CCCCCC;
+	border-left:1px solid #CCCCCC;
+	border-right:1px solid #CCCCCC;
+	background-color:#F5F5F5;
+	padding:3px;
+	width:165px;
+	float:left;
+	cursor:pointer;
+	display:inline;
+	white-space:nowrap
+	}
+.descriptioncontainer {
+	width:100%;
+	position:relative
+}
+.detaildesc {
+	border-top:4px solid #e5e5e5;
+	border-left:1px solid #CCCCCC;
+	border-right:1px solid #CCCCCC;	
+	border-bottom:2px solid #e5e5e5;
+	padding:5px;
+	margin-bottom:10px;
+	width:99%;
+	text-align:left
+}
+
+/****** MULTIPLE IMAGES ****** product detail page */
+.click {cursor:pointer}
+.imagesmallcontainer {
+	background-color:#ffffff;
+	border:2px solid #CCCCCC;
+	float:left;
+	height:65px;
+	margin:8px 4px 2px 0px;
+	overflow:hidden;
+	width:65px
+}
+.hoverover {
+	clear:both;
+	float:left;
+	font-size:11px;
+	padding-bottom:2px;
+	padding-top:2px;
+	width:300px
+}
+.notavailable {
+	background-color:#ffffff;
+	border:1px solid #cccccc;
+	color:#666666;
+	padding:10px;
+	text-align:center
+}
+/* ALL CATEGORIES PAGE
+----------------------------------------------- */
+.category_outline {
+	width:99%;
+	border:1px solid #dddddd;
+	text-align:center;
+	margin:5px;
+	padding:0px
+}
+.chain {
+	text-align:left;
+	margin-left:5px;
+	font-size:13px;
+	padding:4px;
+	font-weight:bold;
+	color:#666666
+	}
+.chain A:link, .chain A:visited, .chain A:active, .chain A:hover {
+	font-family:Arial, Helvetica, sans-serif;
+	color:#3D89BD;
+	font-size:13px;
+	}
+.all_categories {
+	width:220px
+}
+.all_categories A:link, .all_categories A:visited, .all_categories A:active, .all_categories A:hover {
+	font-family:Arial, Helvetica, sans-serif;
+	color:#666666;
+	font-size:13px;
+	font-weight:normal
+	}
+.parent {
+	margin-top:3px;
+	margin-bottom:3px
+}
+.parent A:link, .parent A:visited, .parent A:active, .parent A:hover {
+	font-weight:bold
+	}
+.parent_more {
+	font-weight:bold;
+	margin-top:5px;
+	color:#3D89BD
+}
+.parent_more A:link, .parent_more A:visited, .parent_more A:hover, .parent_more A:active {
+	font-weight:bold;
+	color:#3D89BD
+	}		
+.sub_category {
+	margin-top:5px;
+	margin-bottom:5px
+	}
+.sub_category_more {	
+	font-weight:bold;
+	color:#3D89BD
+	}	
+.sub_category_more A:link, .sub_category_more A:visited, .sub_category_more A:hover, .sub_category_more A:active {
+	margin-left:1px;
+	font-size:11px;
+	font-weight:bold;
+	color:#3D89BD
+	}	
+
+.viewAllCategories {
+	padding:6px 4px 6px 25px;
+	line-height:normal;
+	display:block;
+	border-bottom:4px solid #3D89BD;
+	font-weight:100;
+}
+
+.viewAllCategories a:link, .viewAllCategories a:visited {
+	color:#3D89BD;
+	text-decoration:none;
+	font-weight:bold
+}
+
+.viewAllCategories a:hover {
+	text-decoration:underline;
+	background-color:#edecec
+}	
+/* CHECKOUT BREADCRUMB
+----------------------------------------------- */
+.breadcrumb_on {
+	font-family:Arial, Helvetica, sans-serif;
+	color:#3D89BD;
+	padding-right:3px;
+	font-size:13px;
+	font-weight:bold;
+	white-space:nowrap;
+	vertical-align:middle
+}
+.breadcrumb_off {
+	font-family:Arial, Helvetica, sans-serif;
+	color:#666666;
+	padding-right:3px;
+	font-size:13px;
+	white-space:nowrap; 
+	vertical-align:middle
+}
+.clear {
+	clear:both
+	}
+.floatRight {
+	float:right
+	}
+.floatLeft {
+	float:left
+	}
+.note {
+ 	font-family:Arial, Helvetica, sans-serif;
+	color:#666666;
+	font-size:12px
+	}	
+
+/* e-gift cards */	
+.egift_dashed_outline {
+	border:3px dashed #b8dffb;
+	height:99%;
+	padding:3px;
+	margin:5px
+	}
+.egift_background {
+	padding:3px;
+	}	
+/* wish list */	
+.create-wishlist {
+	background:url(/images/USA_Only_Shipping/wishlist-banner.gif) no-repeat left top;
+	width:285px;
+	height:300px;
+	text-align:center;
+	}
+.create-wishlist-content {
+	padding-top:190px;
+	width:280px;
+	text-align:center;
+	color:#999999;
+	font-size:11px;
+	}
+.create-wishlist-text {
+	padding:5px;
+	width:260px;
+	margin:0px 2px 0px 2px;
+	text-align:center;
+	font-size:13px;
+}	
+.find-wishlist {
+	background:url(/images/USA_Only_Shipping/find-wishlist-banner.gif) no-repeat left top;
+	width:280px;
+	height:300px;
+	text-align:center;
+	}
+.find-wishlist-content {
+	padding-top:200px;
+	margin:0px 0px 0px 30px;
+	*margin:0px 0px 0px 25px;
+	width:235px;
+	}
+.wishlist-label {
+	font-size:11px;
+	font-weight:bold;
+	background-color:#def4fb;
+	}
+.wishies {
+	padding-top:10px;
+	padding-left:50px;
+	background:url(/images/USA_Only_Shipping/wishies.gif) no-repeat left top;
+	height:60px;
+}
+.wishies-find {
+	padding-top:25px;
+	background:url(/images/USA_Only_Shipping/wishies-find.gif) no-repeat left top;
+	height:60px;	
+	width:240px;
+}	
+.wishlist-heading {
+	background-color:#ffffff;
+	border-bottom:3px solid #def4fb;
+	height:60px;
+	}	
+.wishlist-title {
+	margin-top:10px;
+	font-size:22px;
+	color:#666666
+	}			
+.wishlist-table-border {
+	border-top:2px solid #def4fb;
+	}	
+.wishlist_border_r {border-right:1px solid #e5e5e5;}
+.wishlist_border_l {border-left:1px solid #e5e5e5;}
+.wishlist_border_t {border-top:1px solid #e5e5e5;}
+.wishlist_border_b {border-bottom:1px solid #e5e5e5;}
+.wishlist_border {border:1px solid #e5e5e5;}	
+.e-gift-card-banner
+	{
+		background:url(/images/USA_Only_Shipping/e-gift-card-banner.gif) no-repeat left top;
+		width:526px;
+		height:460px;
+		margin-top:10px;
+		clear:both;
+	}
+.e-gift-card-text
+	{
+		font-size:13px;
+	}
+.giftcard-entry {
+		border: 1px solid #dedede; 
+		padding:5px 5px 5px 8px;
+		text-align:left;
+		margin-top:15px;
+		margin-bottom:5px;
+		background-color: #f5f5f5;
+		width:310px;
+		font-size:11px;
+	}	
+.giftcard-balance {
+		border: 4px solid #efefef; 
+		padding:5px 5px 5px 8px;
+		width:210px;
+		font-size:11px;
+		margin:10px 0px 10px 15px	
+	}	
+.giftcard-balance-amt {
+		border: 3px solid #efefef; 
+		padding:5px;
+		width:180px;
+		margin-top:8px
+	}
+img.thumbnail  {
+		max-height:40px;
+		max-width:40px;
+		border:0px;
+		vspace:3px;
+		height: expression(this.height > 41 ? "40px" : this.height);
+		width: expression(this.width > 41 ? "40px" : this.width);
+	}

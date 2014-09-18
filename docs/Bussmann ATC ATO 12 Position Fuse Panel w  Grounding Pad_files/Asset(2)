@@ -1,0 +1,68 @@
+// assign global object to prostores variable
+var ProStores;
+if (!ProStores)
+    ProStores = {};
+
+ProStores.namespace = function() {
+    
+    for (var i = 0; i < arguments.length; ++i) {
+        var aParts = arguments[i].split(".");
+        var objCurrentObject = ProStores;
+
+        // ProStores is implied, so it is ignored if it is included
+        for (var j = (aParts[0] == "ProStores") ? 1 : 0; j < aParts.length; ++j) {
+            objCurrentObject[aParts[j]] = objCurrentObject[aParts[j]] || {};
+            objCurrentObject = objCurrentObject[aParts[j]];
+        }
+    }
+};
+
+ProStores.ListenOnEvent = function(strEvent, fcn) {
+	 if (window.addEventListener)
+		window.addEventListener(strEvent, fcn, false);
+	 else if (document.addEventListener)
+		document.addEventListener(strEvent, fcn, false);
+	 else if(window.attachEvent)
+		 window.attachEvent("on" + strEvent, fcn);
+};
+
+function createBookmark() {
+	if (window.sidebar) // Mozilla Firefox Bookmark
+		window.sidebar.addPanel(document.title, location.href, '');
+	else if (window.external) // IE Favorite
+		window.external.AddFavorite(location.href, document.title);
+	else // all others
+		alert("Please press CTRL+D to bookmark this page.");
+};
+
+var intTimeout = 500;
+var intCloseTimer = 0;
+var intCategoryItem = 0;
+
+function openMenu(id) {	
+	clearMenuTimeout();
+
+	closeMenu();
+
+	intCategoryItem = document.getElementById(id.getAttribute("idhref"));
+	if (intCategoryItem)
+		intCategoryItem.style.visibility = 'visible';
+}
+
+function closeMenu() {
+	if (intCategoryItem) 
+		intCategoryItem.style.visibility = 'hidden';
+}
+
+function setMenuTimeout() {	
+	intCloseTimer = window.setTimeout(closeMenu, intTimeout);
+}
+
+function clearMenuTimeout() {
+	if (intCloseTimer) {
+		window.clearTimeout(intCloseTimer);
+		intCloseTimer = null;
+	}
+}
+
+//document.onclick = closeMenu; 

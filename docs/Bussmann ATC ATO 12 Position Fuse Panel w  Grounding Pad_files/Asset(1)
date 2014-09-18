@@ -1,0 +1,47 @@
+
+//assign global object to prostores variable
+var ProStores;
+if (!ProStores)
+    ProStores = {};
+
+// activityrecord.js
+ProStores.redirectWithTracking = function(el) {
+	var strUrl = el.href;
+	var qAppend = "&";
+    if (strUrl.lastIndexOf("?") == -1) {
+       qAppend = "?";
+    }
+  el.href = strUrl + qAppend + "ps_VISITOR="+ProStores.getCookie("ps_VISITOR")+"&ps_SHOPSESSION="+ProStores.getCookie("ps_SHOPSESSION");
+  location.replace(el.href);
+}
+
+ProStores.addPostTracking = function(elForm) {
+	var strUrl = elForm.action;
+	var qAppend = "&";
+    if (strUrl.lastIndexOf("?") == -1) {
+       qAppend = "?";
+    }
+   elForm.action = (strUrl + qAppend + "ps_VISITOR="+ProStores.getCookie("ps_VISITOR")+"&ps_SHOPSESSION="+ProStores.getCookie("ps_SHOPSESSION"));
+   return true;
+}
+
+ProStores.getCookie = function(strName) {
+  var strVar = ProStores.loadCookies()[strName];
+  if (strVar == undefined)
+	  strVar = "";
+  return strVar;
+}
+
+ProStores.loadCookies = function() {
+  if (typeof COOKIE_ARRAY == "undefined") {
+    COOKIE_ARRAY = []; 
+    if (document.cookie != '') {
+       var ck = document.cookie.split('; ');
+       for (var i=ck.length - 1; i>= 0; i--) {
+         var cv = ck[i].split('=');
+	 COOKIE_ARRAY[cv[0]]=unescape(cv[1]);
+       }
+    }
+  }
+  return COOKIE_ARRAY;
+}

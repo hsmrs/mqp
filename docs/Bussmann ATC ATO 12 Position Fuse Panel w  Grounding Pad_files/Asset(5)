@@ -1,0 +1,241 @@
+function _(strId) {
+	return document.getElementById(strId);
+}
+
+var ProStores;
+if (!ProStores)
+	ProStores = {};
+
+ProStores.Detail = {
+	ACTIVE_BORDER_COLOR : "#8FB6DB",
+	INACTIVE_BORDER_COLOR : "#CCCCCC",
+
+	ID_DIV_MEDIUM_CONTAINER : "divMediumContainer",	
+	ID_DIV_SMALL_IMAGE : "divSmallImage_",
+	ID_IMG_MEDIUM : "imgMedium",
+	ID_IMG_SMALL : "imgSmall_",
+	ID_TBL_IMAGE_CONTAINER : "imgtable",
+	ID_PARAM_REFERER : "param_referer",
+	
+	ID_DIV_TAB : "divTab_",
+	ID_DIV_DESC : "divDesc_",
+	
+	aProductImages : [],
+	nActiveImage : 1,
+	nMaxHeight : 200,
+	nMaxWidth : 200,
+	nTabCount : 0,
+	
+	init:
+		function() {
+			// Allow the merchant to modify height/width of medium image container to meed their needs.
+			if (typeof(nMinHeight) != "undefined")
+				ProStores.Detail.nMaxHeight = nMinHeight;
+
+			if (typeof(nMinWidth) != "undefined")
+				ProStores.Detail.nMaxWidth = nMinWidth;
+			
+			var nFirstHeight = 0;
+			var nFirstWidth = 0;
+			
+			for (var i = 0; i < ProStores.Detail.aProductImages.length; i++) {
+				var elSmallImage = _(ProStores.Detail.ID_IMG_SMALL + (i + 1));
+				if (elSmallImage) {
+					elSmallImage.onmouseover = ProStores.Detail.swapImage;
+					elSmallImage.onmouseout = ProStores.Detail.updateStyle;
+				}
+				var nHeight = parseInt(ProStores.Detail.aProductImages[i].getMediumHeight);
+				var nWidth = parseInt(ProStores.Detail.aProductImages[i].getMediumWidth);
+
+				if (i == 0) {
+					nFirstHeight = nHeight;
+					nFirstWidth = nWidth;
+				}
+				ProStores.Detail.nMaxHeight = Math.max(nHeight, ProStores.Detail.nMaxHeight);
+				ProStores.Detail.nMaxWidth = Math.max(ProStores.Detail.nMaxWidth, nWidth);				
+			}
+		
+			if (ProStores.Detail.aProductImages.length > 1) {
+				var elDivMediumContainer = _(ProStores.Detail.ID_TBL_IMAGE_CONTAINER);
+				if (elDivMediumContainer && ProStores.Detail.nMaxHeight > 0 && ProStores.Detail.nMaxWidth > 0) {
+					elDivMediumContainer.style.height = ProStores.Detail.nMaxHeight + 10;
+					elDivMediumContainer.style.width = ProStores.Detail.nMaxWidth + 10;
+				}
+			}
+			
+			var elImgMedium = _(ProStores.Detail.ID_IMG_MEDIUM);
+			if (elImgMedium) {
+			 	if (ProStores.Detail.aProductImages.length > 0)
+					elImgMedium.onclick = ProStores.Detail.zoomImage;
+				else
+					elImgMedium.style.cursor = 'default';
+			}
+
+			// Add listeners for tabs.
+			// Allow the merchant to add more tabs on the fly.
+			if (typeof(nTabCount) != "undefined")
+				ProStores.Detail.nTabCount = nTabCount;
+				
+			for (var i = 0; i < ProStores.Detail.nTabCount; i++) {
+				var elTab = _(ProStores.Detail.ID_DIV_TAB + (i + 1));
+				if (elTab)
+					elTab.onclick = ProStores.Detail.toggleTabs;
+			}
+
+			var elParamReferer = _(ProStores.Detail.ID_PARAM_REFERER);
+			if (elParamReferer)
+				elParamReferer.value = window.location.href;
+		},
+
+	oProductImage:
+		function (urlMediumImage, heightMedium, widthMedium, urlLargeImage, strTitle){
+			this.getMediumImage = urlMediumImage;
+			this.getMediumHeight = heightMedium;
+			this.getMediumWidth = widthMedium;
+			this.getLargeImage = urlLargeImage;
+			this.getTitle = strTitle;
+		},
+
+	swapImage:
+		function(e) {
+			var elEvent = e || window.event;
+			var elTarget = null;
+			if (elEvent) {
+				elTarget = elEvent.target;
+				if (elTarget == null)
+					elTarget = elEvent.srcElement;
+
+				// Make sure we caught an event for an element we care about.
+				if (elTarget) {
+					var id = elTarget.id;
+					if (id.indexOf(ProStores.Detail.ID_IMG_SMALL) != -1) {
+						ProStores.Detail.nActiveImage = id.substring(ProStores.Detail.ID_IMG_SMALL.length);
+						
+						var elDivSmallImage = _(ProStores.Detail.ID_DIV_SMALL_IMAGE + ProStores.Detail.nActiveImage);
+						if (elDivSmallImage)
+							elDivSmallImage.style.borderColor = ProStores.Detail.ACTIVE_BORDER_COLOR;
+						
+						var elImgMedium = _(ProStores.Detail.ID_IMG_MEDIUM);
+						if (elImgMedium) {
+							var url = ProStores.Detail.aProductImages[ProStores.Detail.nActiveImage - 1].getMediumImage;
+							if (url) {
+								elImgMedium.src = url;
+								
+								var strTitle = ProStores.Detail.aProductImages[ProStores.Detail.nActiveImage - 1].getTitle;
+								if (strTitle)
+									elImgMedium.title = strTitle;
+							}
+						}
+					}
+				}
+			}
+		},
+	
+	toggleTabs:
+		function(e) {
+			var elEvent = e || window.event;
+			var elTarget = null;
+			if (elEvent) {
+				elTarget = elEvent.target;
+				if (elTarget == null)
+					elTarget = elEvent.srcElement;
+
+				// Ignore event if shopper clicks on active tab.
+				if (elTarget && elTarget.className != "tab_on") {
+					var id = elTarget.id;
+					if (id.indexOf(ProStores.Detail.ID_DIV_TAB) != -1) {
+						var nIdx = id.substring(ProStores.Detail.ID_DIV_TAB.length);
+						
+						for (var i = 0; i < ProStores.Detail.nTabCount; i++) {
+							var j = i + 1;
+							var strClassName = "tab_off";
+							var elDesc = _(ProStores.Detail.ID_DIV_DESC + j);
+							if (elDesc) {
+								if (j == nIdx)
+									elDesc.style.display = "inline-block";
+								else
+									elDesc.style.display = "none";
+							}
+							var elTab = _(ProStores.Detail.ID_DIV_TAB + j);
+							if (elTab) {
+								if (j == nIdx)
+									elTab.className = "tab_on";
+								else
+									elTab.className = "tab_off";
+							}
+						}
+					}
+				}
+			}
+		},
+		
+	updateStyle:
+		function(e) {
+			var elEvent = e || window.event;
+			var elTarget = null;
+			if (elEvent) {
+				elTarget = elEvent.target;
+				if (elTarget == null)
+					elTarget = elEvent.srcElement;
+
+				// Make sure we caught an event for an element we care about.
+				if (elTarget) {
+					var id = elTarget.id;
+					if (id.indexOf(ProStores.Detail.ID_IMG_SMALL) != -1) {
+						var elDivSmallImage = _(ProStores.Detail.ID_DIV_SMALL_IMAGE + id.substring(ProStores.Detail.ID_IMG_SMALL.length));
+						if (elDivSmallImage)
+							elDivSmallImage.style.borderColor = ProStores.Detail.INACTIVE_BORDER_COLOR;
+					}
+				}
+			}
+		},
+		
+	zoomImage:
+		function() {
+		 	if (ProStores.Detail.aProductImages.length > 0) {
+				var urlZoom = ProStores.Detail.aProductImages[ProStores.Detail.nActiveImage - 1].getLargeImage;
+	
+				if (!urlZoom)
+					var urlZoom = ProStores.Detail.aProductImages[ProStores.Detail.nActiveImage - 1].getMediumImage;
+					
+				if (urlZoom) {
+					zoomWindow = window.open(urlZoom, 'zoomLargeImage','width=600,height=650,resizable=yes,menubar=yes,location=no,status=no,scrollbars=yes');
+					zoomWindow.focus();
+				}
+			}
+		}
+};
+
+ProStores.Detail.Images = function(urlMediumImage, heightMedium, widthMedium, urlLargeImage) {
+	this.m_urlMediumImage = urlMediumImage;
+	this.m_heightMedium = heightMedium;
+	this.m_widthMedium = widthMedium;
+	this.m_urlLargeImage = urlLargeImage;
+};
+
+ProStores.Detail.Images.prototype = {
+
+	getMediumHeight:
+		function() {
+			return this.m_heightMedium;
+		},
+
+	getMediumImageUrl:
+		function() {
+			return this.m_urlMediumImage;
+		},
+
+	getMediumWidth:
+		function() {
+			return this.m_widthMedium;
+		},
+
+	getLargeImageUrl:
+		function() {
+			return this.m_urlLargeImage;
+		}
+};
+YAHOO.util.Event.addListener(window, "load", function() {
+	ProStores.Detail.init();
+	}
+);

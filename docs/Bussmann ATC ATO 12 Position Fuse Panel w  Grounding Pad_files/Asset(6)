@@ -1,0 +1,32 @@
+.list-boundary {
+	
+}
+
+.list-boundary td {
+	padding:0px;
+}
+
+.item-cell {
+	vertical-align:bottom;
+	text-align:left;
+	padding:8px
+}
+.group-title {	
+	border:1px solid #cccccc;
+	padding:5px;
+	font-weight:bold
+}
+.titlebar {margin:5px 2px 0px 2px}
+
+.group-title td {
+	font-weight: 401;
+	color:#333333;
+}
+.default-item-border {border:1px solid #cccccc}
+.top-border {border-top:1px solid #cccccc}
+.note-text {font-size:11px}
+.paging {float:left;padding:4px;font-size:11px}
+.paging a{float:left;display:inline-block;border:1px solid #dddddd;padding:1px 3px 1px 3px;text-align:center;margin:2px;text-decoration:none;color:#06C;font-weight:bold}
+.paging a:hover, .paging a:focus{background-color:#e7f2f7;cursor:pointer;text-decoration:none}
+.paging a.selected, .paging a.selected:hover{cursor:text;border:1px solid #06C;padding:1px 3px 1px 3px;text-align:center;margin:2px;text-decoration:none;color:#ffffff;font-weight:bold;background-color:#06C}
+.paging a.unavailable, .paging a.unavailable:hover{cursor:text;border:1px solid #dddddd;padding:1px 3px 1px 3px;text-align:center;margin:2px;text-decoration:none;color:#cccccc;font-weight:bold;background-color:#fff}		

@@ -1,0 +1,596 @@
+	html {
+		overflow-y:scroll;
+	}
+
+	body {
+		margin:0px;
+		text-align:center;
+		background-color:#ffffff;
+		font-family:Arial, Helvetica, sans-serif;
+	}
+	
+	a:link, a:visited {
+		text-decoration:none;
+		color:#555555;
+		font-weight:bold;
+	}
+
+	a:hover {
+		text-decoration:underline;
+	}
+	
+/* Base Styles
+----------------------------------------------- */
+H1, .h1 {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:20px;
+	color:#555555;
+	font-weight:bold;
+	margin-top:10px
+}
+
+H2, .h2 {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:18px;
+	color:#3D89BD;
+	font-weight:bold
+}
+
+TABLE {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	color:#666666
+}
+
+.bold_text {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	color:#666666;
+	font-weight:bold
+}
+
+/* BUTTONS
+----------------------------------------------- */
+/******* ACTION BUTTON *******/
+
+/* Both browsers apply these styles to the action button */
+.actn_button_color {
+	border:3px double #8FB6DB;
+	cursor:pointer;
+	white-space:nowrap;
+	padding:2px 3px 2px 3px;
+	font-family:Arial, Helvetica, sans-serif;
+	color:#444444;
+	font-size:12px;
+	font-weight:bold;
+	text-align:center
+}
+/* IE uses the filter for the blend */
+.actn_button_color {
+	* filter:progid:DXImageTransform.Microsoft.Gradient (GradientType=0,StartColorStr='#ffffff',EndColorStr='#CCE6F9')
+	}
+/* FireFox uses a background color and white gradient image for the blend */
+html>body .actn_button_color {
+	background: #C0E1F9 url(/shared/style/images/white_gradient.png) repeat-x top
+}
+/******* BEGIN FIREFOX HOVER FOR ACTION BUTTON *******/
+.actn_button_color.actn_button:hover {
+	border:3px double #54A2EB;
+	color:#444444;
+	background: #B3D8F4 url(/shared/style/images/white_gradient.png) repeat-x top
+}	
+/******* END FIREFOX HOVER FOR ACTION BUTTON *******/
+
+/******* REGULAR BUTTON *******/
+/* Both browsers apply these styles to the regular button */
+.button_color {
+	border:3px double #8FB6DB;
+	cursor:pointer;
+	white-space:nowrap;
+	padding:2px 3px 2px 3px;
+	font-family:Arial, Helvetica, sans-serif;
+	color:#444444;
+	font-size:12px;
+	font-weight:bold;
+	text-align:center
+}
+/* IE uses the filter for the blend */
+.button_color {
+	* filter:progid:DXImageTransform.Microsoft.Gradient (GradientType=0,StartColorStr='#ffffff',EndColorStr='#EDF3F7')
+}
+/* FireFox uses the background-color and white gradient image for the blend */
+html>body .button_color {
+	background: #E1EFF9 url(/shared/style/images/white_gradient.png) repeat-x top
+}
+/******* BEGIN FIREFOX HOVER FOR REGULAR BUTTON *******/
+.button_color.button:hover {
+	border:3px double #54A2EB;
+	color:#444444;
+	background: #B3D8F4 url(/shared/style/images/white_gradient.png) repeat-x top
+}
+/******* END FIREFOX HOVER FOR ACTION BUTTON *******/
+
+/******* SPECIAL BUTTON STYLES *******/
+.btn_small_update, .btn_small_change {
+	font-size:9px
+}		
+.btn_update {
+	font-size:9px
+}	
+.btn_continue {
+	width:170px;
+	padding:4px
+}
+.btn_add_to_cart{
+	width:80px;
+	* height:23px;
+	font-size:11px;
+	margin-top:5px;
+	* padding:1px 0px 0px 0px
+}
+html>body .btn_add_to_cart {
+	height:15px;
+	padding:1px 0px 0px 0px
+}
+.btn_buy_it_now {
+	width:80px;
+	font-size:11px;
+	margin:5px 0px 0px 5px;
+	padding:0px
+}
+.btn_proceed_to_checkout {
+  padding:2px 2px 2px 25px;
+  width:190px;
+  height:32px
+}
+.wish-list-icon {
+	position:relative;
+	left:110%;
+	*left:106%;
+	*top:2px;
+}
+.btn_wish_list {
+  	padding:2px 2px 2px 20px;
+  	width:115px;
+  	height:26px;
+  	font-size:10px;
+}
+.btn_add_to_cart_lrg {
+	width:115px;
+}
+.btn_ordering_info {
+ font-size:11px;
+ width:150px
+}
+/* search button in theme header */
+.btn_advanced_search {
+	font-size:12px;
+	font-weight:bold;
+	background-color:#333333;
+	border:1px double #ffffff;
+	color:#ffffff;
+	cursor:pointer;
+}
+/* FireFox */
+html>body .btn_advanced_search {
+	padding-bottom:2px
+}
+	
+/******* END SPECIAL BUTTON STYLES *******/
+
+/* box around product detail quantity and add to cart button
+----------------------------------------------- */
+.quantity {
+	border:1px solid #CCCCCC; 
+	width:260px; 
+	white-space:nowrap;
+	padding:5px
+}
+/*  Price - product list and some home pages
+----------------------------------------------- */
+
+.small_price {
+	color:#3D89BD;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	font-weight:bold
+}
+
+/*  Product detail page 
+----------------------------------------------- */
+
+.large_price {
+	color:#3D89BD;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:18px;
+	font-weight:bold
+}
+
+/*  All categories page
+----------------------------------------------- */
+.category_outline {
+	border:1px solid #dddddd;
+	text-align:center;
+	margin:5px;
+	padding:0px;
+	width:99%
+	}
+.chain {
+	text-align:left;
+	margin-left:5px;
+	font-size:13px;
+	padding:4px;
+	font-weight:bold;
+	color:#666666
+	}
+.chain A:link, .chain A:visited, .chain A:active, .chain A:hover {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	color:#3D89BD
+	}
+.all_categories {
+	width:220px;
+}
+.all_categories A:link, .all_categories A:visited, .all_categories A:active, .all_categories A:hover {
+	font-family:Arial, Helvetica, sans-serif;
+	color:#666666;
+	font-size:13px;
+	font-weight:normal;
+	}	
+.parent {
+	margin-top:3px;
+	margin-bottom:3px;
+}
+.parent A:link, .parent A:visited, .parent A:hover, .parent A:active {
+	font-weight:bold;
+	}
+.parent_more {
+	margin-top:5px;
+	color:#3D89BD
+}
+.parent_more A:link, .parent_more A:visited, .parent_more A:hover, .parent_more A:active {
+	font-weight:bold;
+	color:#3D89BD
+	}	
+.sub_category {
+	margin-top:5px;
+	margin-bottom:5px
+	}
+.sub_category_more {	
+	font-weight:bold;
+	color:#3D89BD
+	}	
+.sub_category_more A:link, .sub_category_more A:visited, .sub_category_more A:hover, .sub_category_more A:active {
+	margin-left:1px;
+	font-size:11px;
+	font-weight:bold;
+	color:#3D89BD
+	}	
+
+.red_text {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	color:#CC0000
+}
+
+.black_text {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	color:#000000
+}
+
+/*  Added to cart - home page, product list and product detail pages
+----------------------------------------------- */
+
+.added_to_cart {
+	background-color:#FFFAF4;
+	border:1px solid #E2A269;
+	margin:5px 0px 5px 0px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	color:#666666
+	}
+.added_to_cart A:link, .added_to_cart A:visited, .added_to_cart A:hover, .added_to_cart A:active {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	color:#666666
+	}	
+
+/*  Product detail tabs
+----------------------------------------------- */
+
+.tabcontainer {
+	width:100%;
+	position:relative;
+	color:#ffffff
+}
+.tab_on {
+	color:#666666;
+	font-weight:bold;
+	text-align:center;
+	margin-top:10px;
+	border-top:1px solid #cccccc;
+	border-left:1px solid #cccccc;
+	border-right:1px solid #cccccc; 
+	background-color:#e5e5e5;
+	padding:3px;
+	width:165px;
+	float:left;
+	display:inline
+	}
+.tab_off {
+	color:#666666;
+	font-weight:normal;	
+	text-align:center;
+	margin-top:10px;
+	border-top:1px solid #cccccc;
+	border-left:1px solid #cccccc;
+	border-right:1px solid #cccccc; 
+	background-color:#f5f5f5;
+	padding:3px;
+	width:165px;
+	float:left;
+	cursor:pointer;
+	display:inline
+	}	
+.descriptioncontainer {
+	width:100%;
+	position:relative
+}	
+.detaildesc {
+	border-top:4px solid #e5e5e5;
+	border-left:1px solid #cccccc;
+	border-right:1px solid #cccccc;	
+	border-bottom:2px solid #e5e5e5;
+	padding:5px;
+	margin-bottom:10px;
+	width:99%;
+	text-align:left
+}	
+
+/* Custom font definitions
+----------------------------------------------- */
+	p {
+		margin:4px 0;
+		line-height:normal;
+	}
+
+	.headPrice {
+		font-weight:bold;
+		color:#990000
+	}
+
+/* Custom form elements
+----------------------------------------------- */
+form {
+	padding:0px;
+	margin:0px;
+}
+
+.inputFormat {
+	height:21px;
+	font-size:12px;
+	color:#333;
+	vertical-align:middle;
+}
+
+#search input{
+	vertical-align:middle;
+ 	margin:0;
+ 	padding:0;
+}
+
+/* Top Menu 
+----------------------------------------------- */
+
+.cartInfo {
+	padding-top:5px;
+	font-size:12px;
+	line-height:3px;
+	margin-bottom:3px
+}
+
+.cartInfo a{
+	display:block;
+}
+
+.cartInfo a:hover {
+	background-color:#F1F1EB;
+}
+
+.cartInfo img {
+	border:0;
+	vertical-align:middle;
+}
+
+#myAccount,	#shoppingCart {
+	width:150px;
+	font-weight:100;
+	color:#666666;
+}
+
+.cartInfoHeadings {
+	color:#555555;
+	font-size:14px;
+	font-weight:bold;
+}
+
+#myAccountDL, #shoppingCartDL {
+	padding-left:18px;
+}
+
+/* Top NavBar
+----------------------------------------------- */
+.navBar {
+	height:30px;
+	padding-top:1px;
+	background-color:#489BCF;
+}
+
+.navBarBottom {
+	height:10px;
+	background-color:#3D89BD;
+}
+
+.navBarInner {
+	width:980px;
+	height:30px
+}
+.navBarLeft {
+	font-family:Arial, Helvetica, sans-serif;
+	padding-top:1px;
+	color:white;
+	height:30px
+}
+.navBarRight {
+	font-family:Arial, Helvetica, sans-serif;
+	padding-top:1px;
+	padding-right:35px;
+	color:white;
+	text-align:right;
+	height:30px
+}
+.navBarLeft a:link, .navBarLeft a:visited, .navBarRight a:link, .navBarRight a:visited{
+	color:white;
+	font-weight:bold;
+	font-size:12px;
+}
+.search {
+	width:150px;
+	margin-top:5px;
+}
+
+/* Left Navigation Column
+----------------------------------------------- */
+.leftColumn {
+	margin:0px 15px 10px 0px;
+	padding:2px 0px 5px 0px;
+	width:230px;
+	background-color:#f7f7f7;
+	font-size:12px;
+	font-family:Arial, Helvetica, sans-serif
+}
+.leftColumn h2 {
+	display:block; 
+	font-weight:bold; 
+	font-size:18px; 
+	color:#555555; 
+	margin:0 !important; 
+	padding:10px 8px; 
+	background-color:#f7f7f7;
+	border-bottom:1px solid #dedcdc
+}	
+
+.viewMoreCats a{
+	padding:6px 4px 6px 15px;
+	line-height:normal;
+	display:block;
+	border-bottom:1px solid #dedcdc;
+	font-weight:bold
+}
+.viewMoreCats a:link, .viewMoreCats a:visited {
+	color:#555555;
+	text-decoration:none
+}
+.viewMoreCats a:hover {
+	text-decoration:none;
+	color:#333333;	
+	background-color:#efefef
+}
+
+.viewAllCatgories {
+	border-bottom:4px solid #3D89BD
+}
+.viewAllCatgories a{
+	padding:6px 4px 6px 15px;
+	line-height:normal;
+	display:block;
+	font-weight:bold
+}
+.viewAllCatgories a:link, .viewAllCatgories a:visited {
+	color:#3D89BD;
+	text-decoration:none
+}
+.viewAllCatgories a:hover {
+	text-decoration:none;
+	color:#333333;	
+	background-color:#efefef
+}
+
+.vertNavLinkMisc {
+	font-size:12px;
+	background-color:#edecec;
+	width:230px
+}
+.vertNavLinkMisc a{
+	padding:6px 4px 6px 25px;
+	line-height:normal;
+	display:block;
+	border-bottom:1px solid #dedcdc
+}
+.vertNavLinkMisc a:link, .vertNavLinkMisc a:visited {
+	color:#555555;
+	text-decoration:none
+}
+.vertNavLinkMisc a:hover {
+	color:#333333;
+	background-color:#edecec
+}
+
+.leftSubCats {
+	border-bottom:1px solid #ffffff
+}
+.leftSubCats a{
+	padding:6px 4px 6px 20px;
+	line-height:normal;
+	display:block;
+	border-bottom:1px solid #dedcdc
+}
+.leftSubCats a:link, .leftSubCats a:visited {
+	color:#555555;
+	text-decoration:none;
+	font-weight:normal
+}
+.leftSubCats a:hover {
+	text-decoration:none;
+	background-color:#efefef
+}
+
+
+/* Footer
+----------------------------------------------- */
+.footer {
+	font-size:12px;
+	font-family:Arial, Helvetica, sans-serif;
+	color:#555555;
+}
+.footerBorders {
+	text-align:center;
+	padding:15px 0px 15px 0px;
+	border-top:3px solid #E1DED6;
+	border-bottom:1px solid #E1DED6;
+}	
+/* CHECKOUT BREADCRUMB
+----------------------------------------------- */
+.breadcrumb_on {
+	font-family:Arial, Helvetica, sans-serif;
+	color:#3D89BD;
+	padding-right:3px;
+	font-size:13px;
+	font-weight:bold;
+	white-space:nowrap;
+	vertical-align:middle
+}
+.breadcrumb_off {
+	font-family:Arial, Helvetica, sans-serif;
+	color:#666666;
+	padding-right:3px;
+	font-size:13px;
+	white-space:nowrap; 
+	vertical-align:middle
+}
+.note {
+ 	font-family:Arial, Helvetica, sans-serif;
+	color:#666666;
+	font-size:12px
+	}	
