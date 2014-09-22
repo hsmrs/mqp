@@ -3,5 +3,5 @@
 
 	<node name="map_server" pkg="map_server" type="map_server" args="$(find turtlebot_dev)/maps/blankmap.yaml" />
 
-	<node name="zig_zag" pkg="turtlebot_dev" type="zig_zag_demo.py" />
+	<node name="zig_zag" pkg="turtlebot_dev" type="zig_zag_demo.py" output="screen"/>
 </launch>
