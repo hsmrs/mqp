@@ -1,5 +1,14 @@
 <launch>
+
+	<include file="$(find turtlebot_bringup)/launch/minimal.launch" />
+
+	<include file="$(find turtlebot_bringup)/launch/3dsensor.launch" />
+
 	<include file="$(find turtlebot_dev)/launch/ar_tag_v2.launch" />
+
+	<node name="ar_latch" pkg="turtlebot_dev" type="ar_latch.py" />
+
+	<node name="ar_tf_to_odom" pkg="turtlebot_dev" type="ar_tf_to_odom.py" />
 
 	<node name="map_server" pkg="map_server" type="map_server" args="$(find turtlebot_dev)/maps/blankmap.yaml" />
 
@@ -8,4 +17,6 @@
 	<node name="odom_map" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 map odom 100" />
 
 	<include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml"/>
+
+	<include file="$(find turtlebot_dev)/launch/ekf.launch" />
 </launch>
