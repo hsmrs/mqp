@@ -22,8 +22,8 @@ class ZigZag:
 		self.listener = tf.TransformListener()
 
 		#Publishers
-		self.goal_pub = rospy.Publisher('/move_base_simple/goal', PoseStamped)
-		self.pose_array_pub = rospy.Publisher('/zig_zag_demo/pose_array', PoseArray)
+		self.goal_pub = rospy.Publisher('/move_base_simple/goal', PoseStamped, latch=True)
+		self.pose_array_pub = rospy.Publisher('/zig_zag_demo/pose_array', PoseArray, latch=True)
 
 		#Init Functions
 		self.init_waypoints()
@@ -33,9 +33,10 @@ class ZigZag:
 	def getTransform(self):
 		try:
 			(trans, rot) = self.listener.lookupTransform('ar_marker_0', 'base_link', rospy.Time(0))
-			return (trans.x, trans.y)
+			return (trans[0], trans[1])
 		except Exception as e:
-			rospy.loginfo("Ouch! " + str(e))
+			#rospy.loginfo("Ouch! " + str(e))
+			return
 
 	def init_waypoints(self):
 		self.waypoints = []
@@ -76,12 +77,14 @@ class ZigZag:
 			pose_stamp_msg.header = header
 			pose_msg.position.x = -x
 			pose_msg.position.z = y
+			pose_msg.orientation.w = 1;
 
-			pose_stamp_msg.pose = pose_msge
+			pose_stamp_msg.pose = pose_msg
 			pose_array_list.append(pose_msg)
 
-			self.waypoints.append(pose)
+			self.waypoints.append(pose_stamp_msg)
 
+		self.pose_array.header.frame_id = "ar_marker_0"
 		self.pose_array.poses = pose_array_list
 
 		self.pose_array_pub.publish(self.pose_array)
@@ -92,8 +95,12 @@ class ZigZag:
 		tol = 0.05
 
 		curXY = self.getTransform()
-		goalXY = (self.goal.pose.position.x, self.goal.pose.position.y)
+		goalXY = (self.goal.pose.position.x, self.goal.pose.position.z)
+		
+		if curXY == None or goalXY == None:
+			return False
 
+		#rospy.loginfo("areWeThereYet(): curr = " + str(curXY[0]) + "," + str(curXY[0]) + " goal = " + str(goalXY[0]) + "," + str(goalXY[1]))
 		if (curXY[0] - goalXY[0]) < tol and (curXY[1] - goalXY[1]) < tol:
 			rospy.loginfo("Goal reached!")
 			return True
@@ -103,12 +110,12 @@ class ZigZag:
 		if not self.waypoints == []:
 			self.goal = self.waypoints.pop(0)
 			self.goal_pub.publish(self.goal)
-			rospy.loginfo("Published new goal!")
+			rospy.loginfo("Published new goal: " + str(self.goal.pose.position.x) + "," + str(self.goal.pose.position.z))
 
 	def run(self):
 		self.nextGoal()
 		while not rospy.is_shutdown():
-			if self.areWeThereYet:
+			if self.areWeThereYet():
 				self.nextGoal()
 
 if __name__=="__main__":
