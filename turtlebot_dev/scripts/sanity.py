@@ -25,12 +25,10 @@ class Sanity:
 
 	def getTransform(self):
 		try:
-			transform = self.listener.lookupTransform("map", "ar_marker_0", rospy.Time(0))
-			rospy.loginfo("Transform found!")
+			transform = self.listener.lookupTransform('ar_marker_0', 'map', rospy.Time(0))
 			return transform
 		except Exception as e:
 			rospy.loginfo("Transform not found!")
-			
 			return None
 
 	def getHistoricTransform(self):
@@ -41,7 +39,6 @@ class Sanity:
 			return transform
 		except Exception as e:
 			rospy.loginfo("Historic transform not found! ROS is broken!")
-			rospy.loginfo(str(e))
 			return None
 
 	def run(self):
@@ -53,7 +50,7 @@ class Sanity:
 
 if __name__=="__main__":
 	try:
-		rospy.init_node('sanity_check')
+		rospy.init_node('sanity check')
 		Sanity()
 		rospy.spin()
 	except rospy.ROSInterruptException:
