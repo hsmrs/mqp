@@ -36,7 +36,7 @@ class ZigZag:
 
 	def getTransform(self):
 		try:
-			(trans, rot) = self.listener.lookupTransform('ar_marker_0', 'base_link', rospy.Time(0))
+			(trans, rot) = self.listener.lookupTransform('map', 'base_link', rospy.Time(0))
 			return (trans[0], trans[1])
 		except Exception as e:
 			#rospy.loginfo("Ouch! " + str(e))
@@ -88,6 +88,10 @@ class ZigZag:
 			pose_stamp_msg.pose = pose_msg
 
 			transformed_pose_stamp = (self.pose_transformer(String("map"), pose_stamp_msg)).transformed_pose
+			transformed_pose_stamp.pose.orientation.x = 0
+			transformed_pose_stamp.pose.orientation.y = 0
+			transformed_pose_stamp.pose.orientation.z = 0
+			transformed_pose_stamp.pose.orientation.w = 1
 
 			pose_array_list.append(pose_msg)
 
