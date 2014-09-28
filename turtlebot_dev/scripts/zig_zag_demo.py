@@ -111,7 +111,7 @@ class ZigZag:
 		rospy.loginfo("Waypoints initialized and published!")
 
 	def areWeThereYet(self):
-		tol = 0.1
+		tol = 0.13
 
 		curXY = (self.pose.position.x, self.pose.position.y)
 		goalXY = (self.goal.pose.position.x, self.goal.pose.position.y)
@@ -120,8 +120,8 @@ class ZigZag:
 			return False
 
 		#rospy.loginfo("areWeThereYet(): curr = " + str(curXY[0]) + "," + str(curXY[0]) + " goal = " + str(goalXY[0]) + "," + str(goalXY[1]))
-		if (curXY[0] - goalXY[0]) < tol and (curXY[1] - goalXY[1]) < tol:
-			rospy.loginfo("Goal reached!")
+		if abs(curXY[0] - goalXY[0]) < tol and abs(curXY[1] - goalXY[1]) < tol:
+			rospy.loginfo("Goal reached! " + str(curXY) + str(goalXY))
 			return True
 		else:
 			rospy.loginfo(math.sqrt((curXY[0] - goalXY[0])**2 +(curXY[1] - goalXY[1])**2))
@@ -132,6 +132,8 @@ class ZigZag:
 			self.goal = self.waypoints.pop(0)
 			self.goal_pub.publish(self.goal)
 			rospy.loginfo("Published new goal: " + str(self.goal.pose.position.x) + "," + str(self.goal.pose.position.y))
+		else:
+			rospy.spin()
 
 	def run(self):
 		self.nextGoal()
