@@ -5,7 +5,7 @@
 #the poses through the service WaypointServerService
 import rospy
 from std_msgs.msg import Header, String
-from geometry_msgs.msg import Pose, PoseStamped, PoseWithCovarianceStamped, PoseArray
+from geometry_msgs.msg import Pose, PoseStamped, PoseWithCovarianceStamped, PoseArray, Quaternion
 from nav_msgs.msg import OccupancyGrid, MapMetaData
 import tf
 import math
@@ -95,17 +95,23 @@ class ZigZag:
 			pose_stamp_msg.header = header
 			pose_msg.position.x = -x
 			pose_msg.position.z = y
-			pose_msg.orientation.w = 1
+			#pose_msg.orientation.w = 1
+			angle = math.radians(90) # angles are expressed in radians
+			quat = tf.transformations.quaternion_from_euler(0.0, angle, 0.0)
+			pose_msg.orientation = Quaternion(*quat.tolist())
 
 			pose_stamp_msg.pose = pose_msg
 			self.easyPossibleWaypoints.append(pose_msg)
 
 			transformed_pose_stamp = (self.pose_transformer(String("map"), pose_stamp_msg)).transformed_pose
+			"""
 			transformed_pose_stamp.pose.orientation.x = 0
 			transformed_pose_stamp.pose.orientation.y = 0
 			transformed_pose_stamp.pose.orientation.z = 0
 			transformed_pose_stamp.pose.orientation.w = 1
-
+			"""
+			quat = tf.transformations.quaternion_from_euler(0.0, 0.0, angle)
+			transformed_pose_stamp.pose.orientation = Quaternion(*quat.tolist())
 			pose_array_list.append(pose_msg)
 
 			self.possibleWaypoints.append(transformed_pose_stamp)
