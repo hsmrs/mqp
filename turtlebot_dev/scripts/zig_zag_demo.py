@@ -21,6 +21,9 @@ class ZigZag:
 		self.waypoints = []
 		self.goal = PoseStamped()
 		self.pose = Pose()
+		self.waypointsDone = 0
+
+		self.TOTAL_WAYPOINTS = 18
 
 		#Subscribers
 		self.listener = tf.TransformListener()
@@ -50,6 +53,9 @@ class ZigZag:
 
 	def init_waypoints(self):
 		self.waypoints = []
+		self.easyWaypoints = []
+		self.possibleWaypoints = []
+		self.easyPossibleWaypoints = []
 		self.pose_array = PoseArray()
 		pose_array_list = []
 
@@ -60,7 +66,7 @@ class ZigZag:
 		dx = 0.2
 		dy = 1
 
-		for i in range(16):
+		for i in range(self.TOTAL_WAYPOINTS):
 			x = 0
 			y = 0
 
@@ -92,6 +98,7 @@ class ZigZag:
 			pose_msg.orientation.w = 1;
 
 			pose_stamp_msg.pose = pose_msg
+			self.easyPossibleWaypoints.append(pose_msg)
 
 			transformed_pose_stamp = (self.pose_transformer(String("map"), pose_stamp_msg)).transformed_pose
 			transformed_pose_stamp.pose.orientation.x = 0
@@ -102,12 +109,35 @@ class ZigZag:
 
 			pose_array_list.append(pose_msg)
 
-			self.waypoints.append(transformed_pose_stamp)
+			self.possibleWaypoints.append(transformed_pose_stamp)
 
 		self.pose_array.header.frame_id = "ar_marker_0"
 		self.pose_array.poses = pose_array_list
 
 		self.pose_array_pub.publish(self.pose_array)
+		self.waypointsDone = 0
+		
+		self.waypoints.append(self.possibleWaypoints[0])
+		self.waypoints.append(self.possibleWaypoints[1])
+		self.waypoints.append(self.possibleWaypoints[5])
+		self.waypoints.append(self.possibleWaypoints[4])
+		self.waypoints.append(self.possibleWaypoints[8])
+		self.waypoints.append(self.possibleWaypoints[9])
+		self.waypoints.append(self.possibleWaypoints[13])
+		self.waypoints.append(self.possibleWaypoints[12])
+		self.waypoints.append(self.possibleWaypoints[16])
+		self.waypoints.append(self.possibleWaypoints[17])
+		
+		self.easyWaypoints.append(self.easyPossibleWaypoints[0])
+		self.easyWaypoints.append(self.easyPossibleWaypoints[1])
+		self.easyWaypoints.append(self.easyPossibleWaypoints[5])
+		self.easyWaypoints.append(self.easyPossibleWaypoints[4])
+		self.easyWaypoints.append(self.easyPossibleWaypoints[8])
+		self.easyWaypoints.append(self.easyPossibleWaypoints[9])
+		self.easyWaypoints.append(self.easyPossibleWaypoints[13])
+		self.easyWaypoints.append(self.easyPossibleWaypoints[12])
+		self.easyWaypoints.append(self.easyPossibleWaypoints[16])
+		self.easyWaypoints.append(self.easyPossibleWaypoints[17])
 
 		rospy.loginfo("Waypoints initialized and published!")
 
@@ -122,10 +152,11 @@ class ZigZag:
 
 		#rospy.loginfo("areWeThereYet(): curr = " + str(curXY[0]) + "," + str(curXY[0]) + " goal = " + str(goalXY[0]) + "," + str(goalXY[1]))
 		if abs(curXY[0] - goalXY[0]) < tol and abs(curXY[1] - goalXY[1]) < tol:
-			rospy.loginfo("Goal reached! " + str(curXY) + str(goalXY))
+			self.waypointsDone = self.waypointsDone + 1
+			rospy.loginfo("Goal " + str(self.waypointsDone) + " reached!\nCurrent pos:" + str(curXY) + "\nGoal pos:" + str(goalXY) + "\nEasy goal pos:" + str(self.easyWaypoints[self.waypointsDone - 1]))
 			return True
-		else:
-			rospy.loginfo(math.sqrt((curXY[0] - goalXY[0])**2 +(curXY[1] - goalXY[1])**2))
+		#else:
+		#	rospy.loginfo(math.sqrt((curXY[0] - goalXY[0])**2 +(curXY[1] - goalXY[1])**2))
 		return False
 
 	def nextGoal(self):
