@@ -20,9 +20,11 @@ class ZigZag:
 		#Globals
 		self.waypoints = []
 		self.goal = PoseStamped()
+		self.pose = Pose()
 
 		#Subscribers
 		self.listener = tf.TransformListener()
+		self.pose_sub = rospy.Subscriber("/robot_pose_ekf/odom", PoseWithCovarianceStamped, self.pose_callback)
 
 		#Publishers
 		self.goal_pub = rospy.Publisher('/move_base_simple/goal', PoseStamped, latch=True)
@@ -34,6 +36,9 @@ class ZigZag:
 		self.init_waypoints()
 
 		self.run()
+
+	def pose_callback(self, pose_msg):
+		self.pose = pose_msg.pose.pose
 
 	def getTransform(self):
 		try:
@@ -106,27 +111,29 @@ class ZigZag:
 		rospy.loginfo("Waypoints initialized and published!")
 
 	def areWeThereYet(self):
-		tol = 0.1
+		tol = 0.13
 
-		curXY = self.getTransform()
-		goalXY = (self.goal.pose.position.x, self.goal.pose.position.z)
+		curXY = (self.pose.position.x, self.pose.position.y)
+		goalXY = (self.goal.pose.position.x, self.goal.pose.position.y)
 		
 		if curXY == None or goalXY == None:
 			return False
 
 		#rospy.loginfo("areWeThereYet(): curr = " + str(curXY[0]) + "," + str(curXY[0]) + " goal = " + str(goalXY[0]) + "," + str(goalXY[1]))
-		if (curXY[0] - goalXY[0]) < tol and (curXY[1] - goalXY[1]) < tol:
-			rospy.loginfo("Goal reached!")
+		if abs(curXY[0] - goalXY[0]) < tol and abs(curXY[1] - goalXY[1]) < tol:
+			rospy.loginfo("Goal reached! " + str(curXY) + str(goalXY))
 			return True
 		else:
-			rospy.loginfo(math.sqrt((curXY[0] - goalXY[0])**2, (curXY[1] - goalXY[1])**2))
+			rospy.loginfo(math.sqrt((curXY[0] - goalXY[0])**2 +(curXY[1] - goalXY[1])**2))
 		return False
 
 	def nextGoal(self):
 		if not self.waypoints == []:
 			self.goal = self.waypoints.pop(0)
 			self.goal_pub.publish(self.goal)
-			rospy.loginfo("Published new goal: " + str(self.goal.pose.position.x) + "," + str(self.goal.pose.position.z))
+			rospy.loginfo("Published new goal: " + str(self.goal.pose.position.x) + "," + str(self.goal.pose.position.y))
+		else:
+			rospy.spin()
 
 	def run(self):
 		self.nextGoal()
