@@ -88,6 +88,10 @@ class ZigZag:
 			pose_stamp_msg.pose = pose_msg
 
 			transformed_pose_stamp = self.pose_transformer(String("map"), pose_stamp_msg)
+			transformed_pose_stamp.pose.orientation.x = 0
+			transformed_pose_stamp.pose.orientation.y = 0
+			transformed_pose_stamp.pose.orientation.z = 0
+			transformed_pose_stamp.pose.orientation.w = 1
 
 			pose_array_list.append(pose_msg)
 
