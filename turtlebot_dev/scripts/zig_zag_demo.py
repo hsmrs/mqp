@@ -87,7 +87,7 @@ class ZigZag:
 
 			pose_stamp_msg.pose = pose_msg
 
-			transformed_pose_stamp = self.pose_transformer(String("map"), pose_stamp_msg)
+			transformed_pose_stamp = (self.pose_transformer(String("map"), pose_stamp_msg)).transformed_pose
 
 			pose_array_list.append(pose_msg)
 
