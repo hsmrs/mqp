@@ -9,7 +9,7 @@
 
 	<include file="$(find turtlebot_rviz_launchers)/launch/view_robot.launch" />
 
-	<node name="ar_latch" pkg="turtlebot_dev" type="ar_latch.py" output="screen" />
+	<!--node name="ar_latch" pkg="turtlebot_dev" type="ar_latch.py" output="screen" /-->
 
 	<node name="ar_tf_to_odom" pkg="turtlebot_dev" type="ar_tf_to_odom.py" />
 

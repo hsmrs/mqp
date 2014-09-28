@@ -36,7 +36,7 @@ class ZigZag:
 
 	def getTransform(self):
 		try:
-			(trans, rot) = self.listener.lookupTransform('ar_marker_0', 'base_link', rospy.Time(0))
+			(trans, rot) = self.listener.lookupTransform('map', 'base_link', rospy.Time(0))
 			return (trans[0], trans[1])
 		except Exception as e:
 			#rospy.loginfo("Ouch! " + str(e))
