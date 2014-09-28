@@ -5,7 +5,7 @@
 #the poses through the service WaypointServerService
 import rospy
 from std_msgs.msg import Header, String
-from geometry_msgs.msg import Pose, PoseStamped, PoseWithCovarianceStamped, PoseArray
+from geometry_msgs.msg import Pose, PoseStamped, PoseWithCovarianceStamped, PoseArray, Quaternion
 from nav_msgs.msg import OccupancyGrid, MapMetaData
 import tf
 import math
@@ -75,17 +75,21 @@ class ZigZag:
 			if counter == 0:
 				x = x0
 				y = y0
+				angle = math.radians(180)
 			elif counter == 1:
 				x = x0
 				y = y0 - dy
+				angle = math.radians(90)
 			elif counter == 2:
 				x0 -= dx
 				x = x0
 				y = y0 - dy
+				angle = math.radians(0)
 			elif counter == 3:
 				x = x0
 				y = y0
 				x0 -= dx
+				angle = math.radians(90)
 
 			pose_msg = Pose()
 			pose_stamp_msg = PoseStamped()
@@ -95,18 +99,23 @@ class ZigZag:
 			pose_stamp_msg.header = header
 			pose_msg.position.x = -x
 			pose_msg.position.z = y
-			pose_msg.orientation.w = 1
-			pose_msg.orientation.y = 90
+			#pose_msg.orientation.w = 1
+			#angle = math.radians(90) # angles are expressed in radians
+			quat = tf.transformations.quaternion_from_euler(0.0, angle, 0.0)
+			pose_msg.orientation = Quaternion(*quat.tolist())
 
 			pose_stamp_msg.pose = pose_msg
 			self.easyPossibleWaypoints.append(pose_msg)
 
 			transformed_pose_stamp = (self.pose_transformer(String("map"), pose_stamp_msg)).transformed_pose
+			"""
 			transformed_pose_stamp.pose.orientation.x = 0
 			transformed_pose_stamp.pose.orientation.y = 0
 			transformed_pose_stamp.pose.orientation.z = 0
 			transformed_pose_stamp.pose.orientation.w = 1
-
+			"""
+			quat = tf.transformations.quaternion_from_euler(0.0, 0.0, angle)
+			transformed_pose_stamp.pose.orientation = Quaternion(*quat.tolist())
 			pose_array_list.append(pose_msg)
 
 			self.possibleWaypoints.append(transformed_pose_stamp)
@@ -142,7 +151,7 @@ class ZigZag:
 		rospy.loginfo("Waypoints initialized and published!")
 
 	def areWeThereYet(self):
-		tol = 0.09
+		tol = 0.12
 
 		curXY = (self.pose.position.x, self.pose.position.y)
 		goalXY = (self.goal.pose.position.x, self.goal.pose.position.y)
@@ -153,7 +162,7 @@ class ZigZag:
 		#rospy.loginfo("areWeThereYet(): curr = " + str(curXY[0]) + "," + str(curXY[0]) + " goal = " + str(goalXY[0]) + "," + str(goalXY[1]))
 		if abs(curXY[0] - goalXY[0]) < tol and abs(curXY[1] - goalXY[1]) < tol:
 			self.waypointsDone = self.waypointsDone + 1
-			rospy.loginfo("Goal " + str(self.waypointsDone) + " reached!\nCurrent pos:" + str(curXY) + "\nGoal pos:" + str(goalXY) + "\nEasy goal pos:" + str(self.easyWaypoints[self.waypointsDone - 1]))
+			rospy.loginfo("Goal " + str(self.waypointsDone) + " reached!\nCurrent pos:" + str(self.pose) + "\nGoal pos:" + str(self.goal.pose) + "\nEasy goal pos:" + str(self.easyWaypoints[self.waypointsDone - 1]))
 			return True
 		#else:
 		#	rospy.loginfo(math.sqrt((curXY[0] - goalXY[0])**2 +(curXY[1] - goalXY[1])**2))
@@ -162,6 +171,7 @@ class ZigZag:
 	def nextGoal(self):
 		if not self.waypoints == []:
 			self.goal = self.waypoints.pop(0)
+			rospy.sleep(10)
 			self.goal_pub.publish(self.goal)
 			rospy.loginfo("Published new goal: " + str(self.goal.pose.position.x) + "," + str(self.goal.pose.position.y))
 		else:
