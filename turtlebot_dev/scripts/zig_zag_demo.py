@@ -20,9 +20,11 @@ class ZigZag:
 		#Globals
 		self.waypoints = []
 		self.goal = PoseStamped()
+		self.pose = Pose()
 
 		#Subscribers
 		self.listener = tf.TransformListener()
+		self.pose_sub = rospy.Subscriber("/robot_pose_ekf/odom", PoseWithCovarianceStamped, self.pose_callback)
 
 		#Publishers
 		self.goal_pub = rospy.Publisher('/move_base_simple/goal', PoseStamped, latch=True)
@@ -34,6 +36,9 @@ class ZigZag:
 		self.init_waypoints()
 
 		self.run()
+
+	def pose_callback(self, pose_msg):
+		self.pose = pose_msg.pose.pose
 
 	def getTransform(self):
 		try:
@@ -108,8 +113,8 @@ class ZigZag:
 	def areWeThereYet(self):
 		tol = 0.1
 
-		curXY = self.getTransform()
-		goalXY = (self.goal.pose.position.x, self.goal.pose.position.z)
+		curXY = (self.pose.position.x, self.pose.position.y)
+		goalXY = (self.goal.pose.position.x, self.goal.pose.position.y)
 		
 		if curXY == None or goalXY == None:
 			return False
@@ -126,7 +131,7 @@ class ZigZag:
 		if not self.waypoints == []:
 			self.goal = self.waypoints.pop(0)
 			self.goal_pub.publish(self.goal)
-			rospy.loginfo("Published new goal: " + str(self.goal.pose.position.x) + "," + str(self.goal.pose.position.z))
+			rospy.loginfo("Published new goal: " + str(self.goal.pose.position.x) + "," + str(self.goal.pose.position.y))
 
 	def run(self):
 		self.nextGoal()
