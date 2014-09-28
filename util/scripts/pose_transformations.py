@@ -4,25 +4,24 @@
 #It subscribes to the robot's pose and receives IDs to save with
 #the poses through the service WaypointServerService
 import rospy
-from std_msgs.msg import Header
+from std_msgs.msg import Header, String
 from geometry_msgs.msg import Pose, PoseStamped, PoseWithCovarianceStamped, PoseArray
-from nav_msgs.msg import OccupancyGrid, MapMetaData
 import tf
 import numpy
 import math
+from util.srv import PoseTransformSrv
 
 
-class Sanity:
+class PoseTransformations:
 
     def __init__(self):
         #Globals
-        self.transform = None
 
         #Subscribers
         self.listener = tf.TransformListener()
+        pose_transform = rospy.Service('pose_transform', PoseTransformSrv, self.handle_pose_transform) 
 
         #Init Functions
-        self.init_waypoints()
 
         self.run()
 
@@ -163,71 +162,24 @@ class Sanity:
         r.pose = geometry_msgs.msg.Pose(geometry_msgs.msg.Point(*xyz), geometry_msgs.msg.Quaternion(*quat)) 
         return r
 
-    def init_waypoints(self):
-        self.waypoints = []
-        self.pose_array = PoseArray()
-        pose_array_list = []
+    def handle_pose_transform(self, srv_req):
+        target_frame = srv_req.target_frame.data
+        old_pose = srv_req.pose
 
-        x0 = 0.8
-        y0 = 1.5
-        dx = 0.2
-        dy = 1
+        result = self.transformPose(target_frame, old_pose)
 
-        for i in range(16):
-            x = 0
-            y = 0
+        print result
 
-            counter = i % 4
-
-            if counter == 0:
-                x = x0
-                y = y0
-            elif counter == 1:
-                x = x0
-                y = y0 - dy
-            elif counter == 2:
-                x0 -= dx
-                x = x0
-                y = y0 - dy
-            elif counter == 3:
-                x = x0
-                y = y0
-                x0 -= dx
-
-            pose_msg = Pose()
-            pose_stamp_msg = PoseStamped()
-            header = Header()
-            header.frame_id = "ar_marker_0"
-
-            pose_stamp_msg.header = header
-            pose_msg.position.x = -x
-            pose_msg.position.z = y
-            pose_msg.orientation.w = 1;
-
-            pose_stamp_msg.pose = pose_msg
-
-            test_pose = self.transformPose("map", pose_stamp_msg)
-
-
-            pose_array_list.append(test)
-
-            self.waypoints.append(pose_stamp_msg)
-
-        self.pose_array.header.frame_id = "map"
-        self.pose_array.poses = pose_array_list
-
-        self.pose_array_pub.publish(self.pose_array)
-
-        rospy.loginfo("Waypoints initialized and published!")
+        return result
 
     def run(self):
-        print self.waypoints
+        rospy.spin()
 
 if __name__=="__main__":
     try:
-        rospy.init_node('tf_practice')
-        Sanity()
+        rospy.init_node('pose_transformations')
+        PoseTransformations()
         rospy.spin()
     except rospy.ROSInterruptException:
-        rospy.loginfo("sanity check terminated.")
+        rospy.loginfo("pose_transformations terminated.")
 

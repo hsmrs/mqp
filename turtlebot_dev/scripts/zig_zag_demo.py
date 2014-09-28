@@ -4,12 +4,13 @@
 #It subscribes to the robot's pose and receives IDs to save with
 #the poses through the service WaypointServerService
 import rospy
-from std_msgs.msg import Header
+from std_msgs.msg import Header, String
 from geometry_msgs.msg import Pose, PoseStamped, PoseWithCovarianceStamped, PoseArray
 from nav_msgs.msg import OccupancyGrid, MapMetaData
 import tf
-from tf import TransformerROS
-import numpy
+
+from util.srv import PoseTransformSrv
+
 
 class ZigZag:
 
@@ -26,6 +27,8 @@ class ZigZag:
 		self.goal_pub = rospy.Publisher('/move_base_simple/goal', PoseStamped, latch=True)
 		self.pose_array_pub = rospy.Publisher('/zig_zag_demo/pose_array', PoseArray, latch=True)
 
+		self.pose_transformer = rospy.ServiceProxy('pose_transform', PoseTransformSrv)
+
 		#Init Functions
 		self.init_waypoints()
 
@@ -33,7 +36,7 @@ class ZigZag:
 
 	def getTransform(self):
 		try:
-			(trans, rot) = self.listener.lookupTransform('ar_marker_0', 'base_link', self.listener.getLatestCommonTime('ar_marker_0', 'base_link'))
+			(trans, rot) = self.listener.lookupTransform('ar_marker_0', 'base_link', rospy.Time(0))
 			return (trans[0], trans[1])
 		except Exception as e:
 			#rospy.loginfo("Ouch! " + str(e))
@@ -43,6 +46,8 @@ class ZigZag:
 		self.waypoints = []
 		self.pose_array = PoseArray()
 		pose_array_list = []
+
+		rospy.wait_for_service('pose_transform')
 
 		x0 = 0.8
 		y0 = 1.5
@@ -81,10 +86,12 @@ class ZigZag:
 			pose_msg.orientation.w = 1;
 
 			pose_stamp_msg.pose = pose_msg
+
+			transformed_pose_stamp = self.pose_transformer(String("map"), pose_stamp_msg)
+
 			pose_array_list.append(pose_msg)
-			
-			# self.listener.waitForTransform("map", "odom", rospy.Time(), rospy.Duration(5))
-			self.waypoints.append(pose_stamp_msg)
+
+			self.waypoints.append(transformed_pose_stamp)
 
 		self.pose_array.header.frame_id = "ar_marker_0"
 		self.pose_array.poses = pose_array_list
