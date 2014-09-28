@@ -5,7 +5,7 @@
 #the poses through the service WaypointServerService
 import rospy
 from std_msgs.msg import Header, String
-from geometry_msgs.msg import Pose, PoseStamped, PoseWithCovarianceStamped, PoseArray
+from geometry_msgs.msg import Pose, PoseStamped, PoseWithCovarianceStamped, PoseArray, Point, Quaternion
 import tf
 import numpy
 import math
@@ -25,7 +25,7 @@ class PoseTransformations:
 
         self.run()
 
-    def quaternion_matrix(quaternion): 
+    def quaternion_matrix(self, quaternion): 
         """Return homogeneous rotation matrix from quaternion. 
 
         >>> R = quaternion_matrix([0.06146124, 0, 0, 0.99810947]) 
@@ -46,7 +46,7 @@ class PoseTransformations:
           (                0.0,                 0.0,                 0.0, 1.0) 
           ), dtype=numpy.float64)
 
-    def translation_matrix(direction): 
+    def translation_matrix(self, direction): 
         """Return matrix to translate by direction vector. 
 
         >>> v = numpy.random.random(3) - 0.5 
@@ -58,7 +58,7 @@ class PoseTransformations:
         M[:3, 3] = direction[:3] 
         return M 
 
-    def translation_from_matrix(matrix): 
+    def translation_from_matrix(self, matrix): 
         """Return translation vector from translation matrix. 
     
         >>> v0 = numpy.random.random(3) - 0.5 
@@ -69,7 +69,7 @@ class PoseTransformations:
         """ 
         return numpy.array(matrix, copy=False)[:3, 3].copy() 
 
-    def quaternion_from_matrix(matrix): 
+    def quaternion_from_matrix(self, matrix): 
         """Return quaternion from rotation matrix. 
 
         >>> R = rotation_matrix(0.123, (1, 2, 3)) 
@@ -112,10 +112,10 @@ class PoseTransformations:
 
         return numpy.dot(self.translation_matrix(translation), self.quaternion_matrix(rotation))
 
-    def xyz_to_mat44(pos): 
+    def xyz_to_mat44(self, pos): 
         return self.translation_matrix((pos.x, pos.y, pos.z)) 
 
-    def xyzw_to_mat44(ori): 
+    def xyzw_to_mat44(self, ori): 
         return self.quaternion_matrix((ori.x, ori.y, ori.z, ori.w))
 
     def asMatrix(self, target_frame, hdr): 
@@ -146,7 +146,7 @@ class PoseTransformations:
         mat44 = self.asMatrix(target_frame, ps.header) 
 
         # pose44 is the given pose as a 4x4 
-        pose44 = numpy.dot(xyz_to_mat44(ps.pose.position), xyzw_to_mat44(ps.pose.orientation)) 
+        pose44 = numpy.dot(self.xyz_to_mat44(ps.pose.position), self.xyzw_to_mat44(ps.pose.orientation)) 
 
         # txpose is the new pose in target_frame as a 4x4 
         txpose = numpy.dot(mat44, pose44) 
@@ -156,10 +156,10 @@ class PoseTransformations:
         quat = tuple(self.quaternion_from_matrix(txpose)) 
 
         # assemble return value PoseStamped 
-        r = geometry_msgs.msg.PoseStamped() 
+        r = PoseStamped() 
         r.header.stamp = ps.header.stamp 
         r.header.frame_id = target_frame 
-        r.pose = geometry_msgs.msg.Pose(geometry_msgs.msg.Point(*xyz), geometry_msgs.msg.Quaternion(*quat)) 
+        r.pose = Pose(Point(*xyz), Quaternion(*quat)) 
         return r
 
     def handle_pose_transform(self, srv_req):
