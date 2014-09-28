@@ -106,7 +106,6 @@ class ZigZag:
 			transformed_pose_stamp.pose.orientation.z = 0
 			transformed_pose_stamp.pose.orientation.w = 1
 
-
 			pose_array_list.append(pose_msg)
 
 			self.possibleWaypoints.append(transformed_pose_stamp)
