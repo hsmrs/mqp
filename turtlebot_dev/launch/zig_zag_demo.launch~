@@ -1,5 +1,5 @@
 <launch>
-	<include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml">
+	<include file="move_base_zig_zag.launch">
 		<remap from="odom" to="robot_pose_ekf/odom" />
 	</include>
 
@@ -23,4 +23,6 @@
 	<node name="odom_map" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 map odom 100" />
 
 	<include file="$(find turtlebot_dev)/launch/ekf.launch" />
+
+	<node name="pose_transform" pkg="util" type="pose_transformations.py" />
 </launch>

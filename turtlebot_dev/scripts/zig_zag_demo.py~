@@ -95,7 +95,8 @@ class ZigZag:
 			pose_stamp_msg.header = header
 			pose_msg.position.x = -x
 			pose_msg.position.z = y
-			pose_msg.orientation.w = 1;
+			pose_msg.orientation.w = 1
+			pose_msg.orientation.y = 90
 
 			pose_stamp_msg.pose = pose_msg
 			self.easyPossibleWaypoints.append(pose_msg)
@@ -141,7 +142,7 @@ class ZigZag:
 		rospy.loginfo("Waypoints initialized and published!")
 
 	def areWeThereYet(self):
-		tol = 0.13
+		tol = 0.09
 
 		curXY = (self.pose.position.x, self.pose.position.y)
 		goalXY = (self.goal.pose.position.x, self.goal.pose.position.y)
@@ -152,7 +153,7 @@ class ZigZag:
 		#rospy.loginfo("areWeThereYet(): curr = " + str(curXY[0]) + "," + str(curXY[0]) + " goal = " + str(goalXY[0]) + "," + str(goalXY[1]))
 		if abs(curXY[0] - goalXY[0]) < tol and abs(curXY[1] - goalXY[1]) < tol:
 			self.waypointsDone = self.waypointsDone + 1
-			rospy.loginfo("Goal " + str(self.waypointsDone) + " reached!\nCurrent pos:" + str(curXY) + "\nGoal pos:" + str(goalXY) + "\nEasy goal pos:" + str(self.easyWaypoints[self.waypointsDone - 1))
+			rospy.loginfo("Goal " + str(self.waypointsDone) + " reached!\nCurrent pos:" + str(curXY) + "\nGoal pos:" + str(goalXY) + "\nEasy goal pos:" + str(self.easyWaypoints[self.waypointsDone - 1]))
 			return True
 		#else:
 		#	rospy.loginfo(math.sqrt((curXY[0] - goalXY[0])**2 +(curXY[1] - goalXY[1])**2))
