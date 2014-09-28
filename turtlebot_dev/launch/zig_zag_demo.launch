@@ -1,5 +1,5 @@
 <launch>
-	<include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml">
+	<include file="$(find turtlebot_dev)/launch/move_base_zig_zag.launch">
 		<remap from="odom" to="robot_pose_ekf/odom" />
 	</include>
 

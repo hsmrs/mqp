@@ -95,7 +95,7 @@ class ZigZag:
 			pose_stamp_msg.header = header
 			pose_msg.position.x = -x
 			pose_msg.position.z = y
-			pose_msg.orientation.w = 1;
+			pose_msg.orientation.w = 1
 
 			pose_stamp_msg.pose = pose_msg
 			self.easyPossibleWaypoints.append(pose_msg)
@@ -141,7 +141,7 @@ class ZigZag:
 		rospy.loginfo("Waypoints initialized and published!")
 
 	def areWeThereYet(self):
-		tol = 0.13
+		tol = 0.12
 
 		curXY = (self.pose.position.x, self.pose.position.y)
 		goalXY = (self.goal.pose.position.x, self.goal.pose.position.y)
