@@ -211,7 +211,7 @@ class Sanity:
 
             pose_array_list.append(test_pose)
 
-            self.waypoints.append(test_pose)
+            self.waypoints.append(pose_stamp_msg)
 
         self.pose_array.header.frame_id = "map"
         self.pose_array.poses = pose_array_list
