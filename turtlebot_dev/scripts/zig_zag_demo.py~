@@ -8,6 +8,7 @@ from std_msgs.msg import Header, String
 from geometry_msgs.msg import Pose, PoseStamped, PoseWithCovarianceStamped, PoseArray
 from nav_msgs.msg import OccupancyGrid, MapMetaData
 import tf
+import math
 
 from util.srv import PoseTransformSrv
 
@@ -105,7 +106,7 @@ class ZigZag:
 		rospy.loginfo("Waypoints initialized and published!")
 
 	def areWeThereYet(self):
-		tol = 0.05
+		tol = 0.1
 
 		curXY = self.getTransform()
 		goalXY = (self.goal.pose.position.x, self.goal.pose.position.z)
@@ -117,6 +118,8 @@ class ZigZag:
 		if (curXY[0] - goalXY[0]) < tol and (curXY[1] - goalXY[1]) < tol:
 			rospy.loginfo("Goal reached!")
 			return True
+		else:
+			rospy.loginfo(math.sqrt((curXY[0] - goalXY[0])**2, (curXY[1] - goalXY[1])**2))
 		return False
 
 	def nextGoal(self):

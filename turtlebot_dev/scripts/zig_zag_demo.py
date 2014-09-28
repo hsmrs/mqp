@@ -119,7 +119,7 @@ class ZigZag:
 			rospy.loginfo("Goal reached!")
 			return True
 		else:
-			rospy.loginfo(math.sqrt((curXY[0] - goalXY[0])**2, (curXY[1] - goalXY[1])**2))
+			rospy.loginfo(math.sqrt((curXY[0] - goalXY[0])**2 +(curXY[1] - goalXY[1])**2))
 		return False
 
 	def nextGoal(self):
