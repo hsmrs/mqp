@@ -20,7 +20,9 @@
 
 	<node name="zig_zag" pkg="turtlebot_dev" type="zig_zag_demo.py" output="screen"/>
 
-	<node name="odom_map" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 map odom 100" />
+	<node name="ar_map" pkg="tf" type="static_transform_publisher" args="0 0 0 90 0 90 ar_marker_0 map 100" />
+
+	<!--node name="odom_map" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 map odom 100" /-->
 
 	<include file="$(find turtlebot_dev)/launch/ekf.launch" />
 

@@ -94,7 +94,7 @@ class ZigZag:
 			pose_msg = Pose()
 			pose_stamp_msg = PoseStamped()
 			header = Header()
-			header.frame_id = "ar_marker_0"
+			header.frame_id = 'ar_marker_0'
 
 			pose_stamp_msg.header = header
 			pose_msg.position.x = -x
@@ -150,6 +150,13 @@ class ZigZag:
 
 		rospy.loginfo("Waypoints initialized and published!")
 
+		#test_pose = PoseStamped()
+		#test_pose.header.frame_id = 'map'
+		#test_pose.pose.position.x = 1
+		#test_pose.pose.position.y = -.63
+		#test_pose.pose.orientation.w = 1
+		#self.waypoints[0] = test_pose
+
 	def areWeThereYet(self):
 		tol = 0.12
 
@@ -169,6 +176,7 @@ class ZigZag:
 		return False
 
 	def nextGoal(self):
+		rospy.loginfo("waypoints size: " + str(len(self.waypoints)))
 		if not self.waypoints == []:
 			self.goal = self.waypoints.pop(0)
 			rospy.sleep(10)
@@ -182,6 +190,7 @@ class ZigZag:
 		while not rospy.is_shutdown():
 			if self.areWeThereYet():
 				self.nextGoal()
+			rospy.sleep(0.2)
 
 if __name__=="__main__":
 	try:

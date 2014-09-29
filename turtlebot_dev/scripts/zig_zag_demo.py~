@@ -5,7 +5,11 @@
 #the poses through the service WaypointServerService
 import rospy
 from std_msgs.msg import Header, String
+<<<<<<< Updated upstream
 from geometry_msgs.msg import Pose, PoseStamped, PoseWithCovarianceStamped, PoseArray, Quaternion
+=======
+from geometry_msgs.msg import Pose, PoseStamped, PoseWithCovarianceStamped
+>>>>>>> Stashed changes
 from nav_msgs.msg import OccupancyGrid, MapMetaData
 import tf
 import math
@@ -31,13 +35,18 @@ class ZigZag:
 
 		#Publishers
 		self.goal_pub = rospy.Publisher('/move_base_simple/goal', PoseStamped, latch=True)
+<<<<<<< Updated upstream
 		self.pose_array_pub = rospy.Publisher('/zig_zag_demo/pose_array', PoseArray, latch=True)
 
 		self.pose_transformer = rospy.ServiceProxy('pose_transform', PoseTransformSrv)
+=======
+		self.sanity_pub = rospy.Publisher('/sanity', String, latch=True)
+>>>>>>> Stashed changes
 
 		#Init Functions
 		self.init_waypoints()
 
+<<<<<<< Updated upstream
 		self.run()
 
 	def pose_callback(self, pose_msg):
@@ -50,6 +59,41 @@ class ZigZag:
 		except Exception as e:
 			#rospy.loginfo("Ouch! " + str(e))
 			return
+=======
+		rospy.on_shutdown(self.shutdown)
+		rospy.sleep(5)
+		self.run()
+
+	def sendTransform(self):
+		#tf from odom to ar tag
+		rospy.loginfo("No transform, sending!!!")
+		br = tf.TransformBroadcaster()
+		x = self.lastTransform[0][0]
+		y = self.lastTransform[0][1]
+		z = self.lastTransform[0][2]
+		yaw = self.lastTransform[1][2]
+		roll = self.lastTransform[1][0]
+		pitch = self.lastTransform[1][1]
+		br.sendTransform((x, y, z), tf.transformations.quaternion_from_euler(roll, pitch, yaw), rospy.Time.now(), "ar_marker_0", "odom")
+
+	def getTransform(self, frame, block=True):
+		isHurt = False
+		once = True
+		while once or block:
+			once = False
+			try:
+				(trans, rot) = self.listener.lookupTransform('ar_marker_0', frame, rospy.Time(0))
+				#rospy.loginfo(str(trans))
+				#if isHurt:
+					#rospy.loginfo("All better =D")
+				return (trans[0], trans[1])
+			except:
+				if not isHurt:
+					rospy.loginfo("Ouch!")
+					isHurt = True
+				continue
+		return None
+>>>>>>> Stashed changes
 
 	def init_waypoints(self):
 		self.waypoints = []
@@ -75,27 +119,28 @@ class ZigZag:
 			if counter == 0:
 				x = x0
 				y = y0
-				angle = math.radians(180)
+				angle = math.radians(270)
 			elif counter == 1:
 				x = x0
 				y = y0 - dy
-				angle = math.radians(90)
+				angle = math.radians(180)
 			elif counter == 2:
 				x0 -= dx
 				x = x0
 				y = y0 - dy
-				angle = math.radians(0)
+				angle = math.radians(90)
 			elif counter == 3:
 				x = x0
 				y = y0
 				x0 -= dx
-				angle = math.radians(90)
+				angle = math.radians(180)
 
 			pose_msg = Pose()
 			pose_stamp_msg = PoseStamped()
 			header = Header()
-			header.frame_id = "ar_marker_0"
+			header.frame_id = 'ar_marker_0'
 
+<<<<<<< Updated upstream
 			pose_stamp_msg.header = header
 			pose_msg.position.x = -x
 			pose_msg.position.z = y
@@ -149,10 +194,26 @@ class ZigZag:
 		self.easyWaypoints.append(self.easyPossibleWaypoints[17])
 
 		rospy.loginfo("Waypoints initialized and published!")
+=======
+			pose.header = header
+			pose.pose.position.x = -x
+			pose.pose.position.z = y
+			pose.pose.orientation.w = 1
+
+			self.waypoints.append(pose)
+>>>>>>> Stashed changes
+
+		#test_pose = PoseStamped()
+		#test_pose.header.frame_id = 'map'
+		#test_pose.pose.position.x = 1
+		#test_pose.pose.position.y = -.63
+		#test_pose.pose.orientation.w = 1
+		#self.waypoints[0] = test_pose
 
 	def areWeThereYet(self):
 		tol = 0.12
 
+<<<<<<< Updated upstream
 		curXY = (self.pose.position.x, self.pose.position.y)
 		goalXY = (self.goal.pose.position.x, self.goal.pose.position.y)
 		
@@ -163,25 +224,56 @@ class ZigZag:
 		if abs(curXY[0] - goalXY[0]) < tol and abs(curXY[1] - goalXY[1]) < tol:
 			self.waypointsDone = self.waypointsDone + 1
 			rospy.loginfo("Goal " + str(self.waypointsDone) + " reached!\nCurrent pos:" + str(self.pose) + "\nGoal pos:" + str(self.goal.pose) + "\nEasy goal pos:" + str(self.easyWaypoints[self.waypointsDone - 1]))
+=======
+		curXY = self.getTransform('base_link')
+		#rospy.loginfo("current pose: " + str(curXY))
+		goalXY = (self.goal.pose.position.x, self.goal.pose.position.z)
+		#rospy.loginfo("goal pose: " + str(goalXY))
+
+		if (curXY[0] - goalXY[0]) < tol and (curXY[1] - goalXY[1]) < tol:
+>>>>>>> Stashed changes
 			return True
 		#else:
 		#	rospy.loginfo(math.sqrt((curXY[0] - goalXY[0])**2 +(curXY[1] - goalXY[1])**2))
 		return False
 
 	def nextGoal(self):
+		rospy.loginfo("waypoints size: " + str(len(self.waypoints)))
 		if not self.waypoints == []:
 			self.goal = self.waypoints.pop(0)
+<<<<<<< Updated upstream
 			rospy.sleep(10)
 			self.goal_pub.publish(self.goal)
 			rospy.loginfo("Published new goal: " + str(self.goal.pose.position.x) + "," + str(self.goal.pose.position.y))
 		else:
 			rospy.spin()
+=======
+			self.goal_pub.publish(self.goal)
+			#self.goal_pub.publish(PoseStamped())
+			string = String()
+			string.data = "You are not insane"
+			self.sanity_pub.publish("RAAAAAAAAAAAGH")
+			rospy.loginfo("Published new goal: " + str(self.goal.pose.position.x) + "," + str(self.goal.pose.position.z))
+>>>>>>> Stashed changes
 
 	def run(self):
 		self.nextGoal()
 		while not rospy.is_shutdown():
+<<<<<<< Updated upstream
+=======
+			#Get transform from ar to odom
+			#If none, broadcast last received transfom
+			ar_odom = self.getTransform("odom", False)
+			if ar_odom == None:
+				self.sendTransform()
+			else:
+				self.lastTransform = ar_odom
+				rospy.loginfo("lastTransform: " + str(self.lastTransform))
+
+>>>>>>> Stashed changes
 			if self.areWeThereYet():
 				self.nextGoal()
+			rospy.sleep(0.2)
 
 if __name__=="__main__":
 	try:
