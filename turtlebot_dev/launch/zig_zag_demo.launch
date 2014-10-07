@@ -1,7 +1,9 @@
 <launch>
 	<include file="$(find turtlebot_dev)/launch/move_base_zig_zag.launch">
-		<remap from="odom" to="robot_pose_ekf/odom" />
+		#<remap from="odom" to="robot_pose_ekf/odom" />
 	</include>
+
+	<node name="odom_map" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 map odom 100" />
 
 	<include file="$(find turtlebot_bringup)/launch/minimal.launch" />
 
@@ -10,7 +12,7 @@
 	<include file="$(find turtlebot_dev)/launch/ar_tag_v2.launch" />
 
 	<!--include file="$(find turtlebot_rviz_launchers)/launch/view_robot.launch" /-->
-	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find turtlebot_dev)/rviz/zig_zag_rviz_config.rviz" />
+	<!--node name="rviz" pkg="rviz" type="rviz" args="-d $(find turtlebot_dev)/rviz/zig_zag_rviz_config.rviz" /-->
 
 	<!--node name="ar_latch" pkg="turtlebot_dev" type="ar_latch.py" output="screen" /-->
 
@@ -18,11 +20,9 @@
 
 	<node name="map_server" pkg="map_server" type="map_server" args="$(find turtlebot_dev)/maps/blankmap.yaml" />
 
-	<node name="zig_zag" pkg="turtlebot_dev" type="zig_zag_demo.py" output="screen"/>
+	<node name="zig_zag" pkg="turtlebot_dev" type="zig_zag_demov2.py" output="screen"/>
 
-	<node name="ar_map" pkg="tf" type="static_transform_publisher" args="0 0 0 90 0 90 ar_marker_0 map 100" />
-
-	<!--node name="odom_map" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 map odom 100" /-->
+	<!--node name="ar_map" pkg="tf" type="static_transform_publisher" args="0 0 0 90 0 90 ar_marker_0 map 100" /-->
 
 	<include file="$(find turtlebot_dev)/launch/ekf.launch" />
 

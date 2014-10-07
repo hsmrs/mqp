@@ -3,6 +3,7 @@
 #This node is used to store, retrieve and remove navigation locations
 #It subscribes to the robot's pose and receives IDs to save with
 #the poses through the service WaypointServerService
+import roslib; roslib.load_manifest('move_base');
 import rospy
 from std_msgs.msg import Header, String
 from geometry_msgs.msg import Pose, PoseStamped, PoseWithCovarianceStamped, PoseArray, Quaternion
@@ -11,6 +12,9 @@ import tf
 import math
 
 from util.srv import PoseTransformSrv
+import actionlib
+from move_base_msgs.msg import MoveBaseAction
+from move_base_msgs.msg import MoveBaseGoal
 
 
 class ZigZag:
@@ -34,7 +38,11 @@ class ZigZag:
 		self.pose_array_pub = rospy.Publisher('/zig_zag_demo/pose_array', PoseArray, latch=True)
 
 		self.pose_transformer = rospy.ServiceProxy('pose_transform', PoseTransformSrv)
-
+		
+		#Action client
+		self.client = actionlib.SimpleActionClient('move_base', MoveBaseAction)
+		self.client.wait_for_server()
+		
 		#Init Functions
 		self.init_waypoints()
 
@@ -52,6 +60,7 @@ class ZigZag:
 			return
 
 	def init_waypoints(self):
+	
 		self.waypoints = []
 		self.easyWaypoints = []
 		self.possibleWaypoints = []
@@ -59,7 +68,7 @@ class ZigZag:
 		self.pose_array = PoseArray()
 		pose_array_list = []
 
-		rospy.wait_for_service('pose_transform')
+		#rospy.wait_for_service('pose_transform')
 
 		x0 = 0.8
 		y0 = 1.5
@@ -106,26 +115,21 @@ class ZigZag:
 
 			pose_stamp_msg.pose = pose_msg
 			self.easyPossibleWaypoints.append(pose_msg)
-
+			"""
 			transformed_pose_stamp = (self.pose_transformer(String("map"), pose_stamp_msg)).transformed_pose
-			"""
-			transformed_pose_stamp.pose.orientation.x = 0
-			transformed_pose_stamp.pose.orientation.y = 0
-			transformed_pose_stamp.pose.orientation.z = 0
-			transformed_pose_stamp.pose.orientation.w = 1
-			"""
 			quat = tf.transformations.quaternion_from_euler(0.0, 0.0, angle)
 			transformed_pose_stamp.pose.orientation = Quaternion(*quat.tolist())
 			pose_array_list.append(pose_msg)
 
 			self.possibleWaypoints.append(transformed_pose_stamp)
+			"""
 
 		self.pose_array.header.frame_id = "ar_marker_0"
 		self.pose_array.poses = pose_array_list
 
 		self.pose_array_pub.publish(self.pose_array)
 		self.waypointsDone = 0
-		
+		"""
 		self.waypoints.append(self.possibleWaypoints[0])
 		self.waypoints.append(self.possibleWaypoints[1])
 		self.waypoints.append(self.possibleWaypoints[5])
@@ -147,6 +151,25 @@ class ZigZag:
 		self.easyWaypoints.append(self.easyPossibleWaypoints[12])
 		self.easyWaypoints.append(self.easyPossibleWaypoints[16])
 		self.easyWaypoints.append(self.easyPossibleWaypoints[17])
+		"""
+		#TODO remember to remove this test
+		pose_msg = Pose()
+		pose_stamp_msg = PoseStamped()
+		header = Header()
+		header.frame_id = 'odom'
+
+		pose_stamp_msg.header = header
+		pose_msg.position.x = 1
+		pose_msg.position.y = 0
+		pose_msg.position.z = 0
+		#pose_msg.orientation.w = 1
+		#angle = math.radians(90) # angles are expressed in radians
+		quat = tf.transformations.quaternion_from_euler(0.0, 0.0, 0.0)
+		pose_msg.orientation = Quaternion(*quat.tolist())
+
+		pose_stamp_msg.pose = pose_msg
+		
+		self.waypoints = [pose_stamp_msg]
 
 		rospy.loginfo("Waypoints initialized and published!")
 
@@ -180,7 +203,10 @@ class ZigZag:
 		if not self.waypoints == []:
 			self.goal = self.waypoints.pop(0)
 			rospy.sleep(10)
-			self.goal_pub.publish(self.goal)
+			#self.goal_pub.publish(self.goal)
+			action = MoveBaseGoal()
+			action.target_pose = self.goal
+			self.client.send_goal(action)
 			rospy.loginfo("Published new goal: " + str(self.goal.pose.position.x) + "," + str(self.goal.pose.position.y))
 		else:
 			rospy.spin()
@@ -188,9 +214,25 @@ class ZigZag:
 	def run(self):
 		self.nextGoal()
 		while not rospy.is_shutdown():
-			if self.areWeThereYet():
+			if self.client.wait_for_result(rospy.Duration.from_sec(2.0)):
+				rospy.loginfo("got result: " + self.printStatus())
 				self.nextGoal()
+			else:
+				rospy.loginfo("Haven't reach goal yet, sleeping...")
 			rospy.sleep(0.2)
+	
+	def printStatus(self):
+		code = self.client.get_state()
+		if code == 0:
+			return "PENDING"
+		elif code == 1:
+			return "ACTIVE"
+		elif code == 2:
+			return "PREEMPTED"
+		elif code == 3:
+			return "SUCCESS"
+		else:
+			return "Other, see actionlib_msgs/GoalStatus.msg"
 
 if __name__=="__main__":
 	try:

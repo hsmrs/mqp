@@ -1,0 +1,8 @@
+# Define the goal
+PoseStamped goal
+---
+# Define the result
+PoseStamped final
+---
+# Define a feedback message
+PoseStamped current

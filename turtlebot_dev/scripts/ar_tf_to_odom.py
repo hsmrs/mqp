@@ -49,6 +49,13 @@ class ArTfToOdom:
 			header_msg = Header()
 			pose_msg = PoseWithCovarianceStamped()
 			twist_msg = TwistWithCovarianceStamped()
+			
+			'''
+			Don's stuff for testing angle:
+			'''
+			print "roll =", roll
+			print "pitch =", pitch
+			print "yaw =", yaw
 
 			header.frame_id = "ar_marker_0"
 			odom_msg.child_frame_id = "ar_marker_0"

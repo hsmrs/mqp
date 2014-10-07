@@ -29,7 +29,7 @@ class ArTfToOdom:
 
 	def getTransform(self, frame):
 		try:
-			rospy.loginfo("Getting transform")
+			#rospy.loginfo("Getting transform")
 			(trans, rot) = self.listener.lookupTransform('ar_marker_0', frame, rospy.Time(0))
 			return (trans, rot)
 		except:
