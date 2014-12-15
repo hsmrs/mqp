@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+This program is a launch file for spawning the Clearpath Husky A200
+robot model in Gazebo, along with the joy node node to control the husky simulation.
+-->
+
+<launch>
+    roscore
+    <include file="$(find husky_gazebo)/launch/husky_empty_world.launch"/>
+    <node respawn="true" pkg="husky_demo" name="Joy2Husky" type="husky_joy.py" output="screen"/>
+
+    <!-- joy node -->
+    <node respawn="true" pkg="joy" type="joy_node" name="joy_node">
+      <param name="dev" type="string" value="/dev/input/js0" />
+    </node>
+
+    <!-- Axes -->
+    <param name="axis_linear" value="1" type="int"/>
+    <param name="axis_angular" value="0" type="int"/>
+    <param name="scale_linear" value="2" type="double"/>
+    <param name="scale_angular" value="2" type="double"/>
+</launch>
