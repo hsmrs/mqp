@@ -1,0 +1,8 @@
+<launch>
+	<node name="drive_motors" pkg="epos_manager" type="epos_manager" args="motor_a motor_b motor_c motor_d" ns="motors/Drive_Motors" output="screen"  >
+		<param name="Port" value="oryx1_EPOS2" />
+		<param name="Protocol" value="USB" />
+		<param name="Publish_Rate" value=".1" />
+		
+	</node>
+</launch>
