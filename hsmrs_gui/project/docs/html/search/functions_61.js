@@ -1,0 +1,6 @@
+var searchData=
+[
+  ['addchannel',['addChannel',['../classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1ConsoleModel.html#a5c9ef1875cbb0d6d67008abdbb0d1fcd',1,'src::main::java::com::github::hsmrs_gui::project::model::ConsoleModel.addChannel()'],['../classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html#aa29ed15302aa1254303ae40a69ab2e6b',1,'src::main::java::com::github::hsmrs_gui::project::view::feedback::ConsoleView.addChannel()']]],
+  ['addconsolechannel',['addConsoleChannel',['../classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1ConsoleController.html#aaecb3e80868566796139598b591dead4',1,'src::main::java::com::github::hsmrs_gui::project::controller::ConsoleController']]],
+  ['addlog',['addLog',['../classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1ConsoleController.html#ae318dae9a519b21147373274f7fde025',1,'src::main::java::com::github::hsmrs_gui::project::controller::ConsoleController.addLog()'],['../classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1ConsoleModel.html#a20cf46b35bda25bc2dc9591c75a91772',1,'src::main::java::com::github::hsmrs_gui::project::model::ConsoleModel.addLog()']]]
+];

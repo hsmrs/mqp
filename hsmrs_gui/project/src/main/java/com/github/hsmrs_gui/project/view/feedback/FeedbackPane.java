@@ -1,3 +1,11 @@
+/**********************************************************************
+***	HSMRS MQP - Donald Bourque - Thomas DeSilva - Nicholas Otero	***
+***																	***
+***	FeedbackPane.java												***
+***		The feedback pane is a placeholder to allow quick switching	*** 
+***		between different implementations of user feedback modules.	***
+**********************************************************************/
+
 package src.main.java.com.github.hsmrs_gui.project.view.feedback;
 
 import java.awt.Color;

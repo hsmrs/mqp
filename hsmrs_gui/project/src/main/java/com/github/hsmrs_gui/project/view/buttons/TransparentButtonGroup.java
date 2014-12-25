@@ -1,3 +1,10 @@
+/**********************************************************************
+***	HSMRS MQP - Donald Bourque - Thomas DeSilva - Nicholas Otero	***
+***																	***
+***	TransparentButtonGroup.java										***
+***		Comments pending.											***
+**********************************************************************/
+
 package src.main.java.com.github.hsmrs_gui.project.view.buttons;
 
 import java.util.ArrayList;

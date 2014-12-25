@@ -1,3 +1,12 @@
+/**********************************************************************
+***	HSMRS MQP - Donald Bourque - Thomas DeSilva - Nicholas Otero	***
+***																	***
+***	TransparentButton.java											***
+***		This class defines a transparent button. It retains all of	***
+***		the functionality of a JButton while extending it to react	***
+***		to mouse events.											***
+**********************************************************************/
+
 package src.main.java.com.github.hsmrs_gui.project.view.buttons;
 
 import java.awt.event.MouseEvent;
