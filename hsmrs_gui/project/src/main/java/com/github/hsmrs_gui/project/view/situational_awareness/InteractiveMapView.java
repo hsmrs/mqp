@@ -25,6 +25,9 @@ public class InteractiveMapView extends JPanel
 	private int height;
 	private int width;
 	
+	private final String INSTITUTE_PARK_MAP_PATH = "";
+	private final double INSTITUTE_PARK_MAP_SCALE = 6.3876889849; //pixels per meter
+	
 	public InteractiveMapView() {
 		setLayout(new MigLayout("insets 0, gap 0, align center"));
 		setBackground(Color.black);
@@ -47,4 +50,6 @@ public class InteractiveMapView extends JPanel
 			}
 		}
 	}
+	
+	
 }

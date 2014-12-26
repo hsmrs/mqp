@@ -43,7 +43,6 @@ public class RobotListView extends JPanel{
 		this.setLayout(new MigLayout("insets 0", "[left, fill]", "[]0[fill]"));
 		this.add(lblTitle, "wrap");
 		this.add(robotListView, "push, growy, wrap");
-		
 	}
 	
 	public RobotModel getRobotInFocus(){
