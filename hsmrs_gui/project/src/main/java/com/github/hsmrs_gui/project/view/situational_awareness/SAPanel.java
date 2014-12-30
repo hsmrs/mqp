@@ -31,8 +31,6 @@ public class SAPanel extends JPanel{
 	}
 	
 	public void setView(String view){
-		long timestamp = System.currentTimeMillis() / 1000;
-		ConsoleController.getInstance().addLog("System", timestamp, view);
 		if (view.equals("imgView")){
 			remove(mapView);
 			add(imgView, "push, grow");
