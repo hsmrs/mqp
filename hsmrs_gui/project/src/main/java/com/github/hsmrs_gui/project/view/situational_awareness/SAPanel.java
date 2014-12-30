@@ -14,13 +14,13 @@ public class SAPanel extends JPanel{
 	private boolean showCamera = true;
 	private boolean showMap = false;
 	private ImageView imgView;
-	private InteractiveMapView mapView;
+	private InteractiveMapViewLayered mapView;
 	private MuxPanel muxPanel;
 	
 	public SAPanel(){
 		setLayout(new MigLayout("insets 0", "[fill]", "[fill]0[fill]"));
 		imgView = new ImageView();
-		mapView = new InteractiveMapView();
+		mapView = new InteractiveMapViewLayered();
 		muxPanel = new MuxPanel(this);
 		
 		add(muxPanel, "wrap");

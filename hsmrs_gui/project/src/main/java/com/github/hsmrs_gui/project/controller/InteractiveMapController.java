@@ -60,6 +60,7 @@ public class InteractiveMapController implements MouseListener, MouseMotionListe
 	public void clearCells(){
 		for (JLabel cell : highlightedCells){
 			cell.setBackground(Color.white);
+			cell.setOpaque(false);
 		}
 		highlightedCells.clear();
 	}
@@ -77,11 +78,13 @@ public class InteractiveMapController implements MouseListener, MouseMotionListe
 			//Clear the highlighted cells
 			for (JLabel cell : highlightedCells){
 				cell.setBackground(Color.white);
+				cell.setOpaque(false);
 			}
 			//Was the target cell not highlighted previously?
 			if (!highlightedCells.contains(target)){
 				//If not: Highlight it
 				target.setBackground(Color.yellow);
+				target.setOpaque(true);
 				highlightedCells.clear();
 				highlightedCells.add(target);
 			} else{
@@ -92,6 +95,7 @@ public class InteractiveMapController implements MouseListener, MouseMotionListe
 			//Do not clear previously highlighted cells
 			target.setBackground(Color.yellow);
 			highlightedCells.add(target);
+			target.setOpaque(true);
 		}
 	}
 

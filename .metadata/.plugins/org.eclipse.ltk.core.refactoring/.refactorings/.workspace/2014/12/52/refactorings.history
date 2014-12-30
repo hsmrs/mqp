@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Delete resource &apos;hsmrs_gui/project/src/main/java/com/github/hsmrs_gui/project/hsmrs_gui.doxyfile&apos;" deleteContents="false" description="Delete resource &apos;hsmrs_gui/project/src/main/java/com/github/hsmrs_gui/project/hsmrs_gui.doxyfile&apos;" element1="/hsmrs_gui/project/src/main/java/com/github/hsmrs_gui/project/hsmrs_gui.doxyfile" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1419489514465"/>
-</session>
