@@ -16,6 +16,7 @@ import javax.swing.AbstractListModel;
 public class TaskListModel extends AbstractListModel{
 	private static TaskListModel instance;
 	private List<Task> taskList;
+	private int idCount = 0;
 	
 	private TaskListModel()
 	{
@@ -23,13 +24,15 @@ public class TaskListModel extends AbstractListModel{
 		
 	}
 	
-	static public synchronized TaskListModel getTaskListModel() {
+	static public synchronized TaskListModel getInstance() {
 		if (instance == null)
 			instance = new TaskListModel();
 		return instance;
 	}
 	
 	public void addTask(Task newTask){
+		idCount++;
+		newTask.setID(idCount);
 		taskList.add(newTask);
 	}
 	

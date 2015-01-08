@@ -27,7 +27,7 @@ public class VideoController {
 	 * Returns the instance of the only existing VideoController instance.
 	 * @return The instance of the only existing VideoController instance.
 	 */
-	public static VideoController getInstance(){
+	public static synchronized VideoController getInstance(){
 		if (instance == null){
 			instance = new VideoController();
 		}

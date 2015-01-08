@@ -13,26 +13,40 @@ import java.util.List;
 
 public class Task {
 
+	private int id;
 	private String name;
+	private List<TaskParam<?>> paramList;
 	private List<RobotModel> owners;
 	private String status;
 	
 	public Task(){
 		name = "Idle";
+		paramList = new ArrayList<TaskParam<?>>();
 		owners = new ArrayList<RobotModel>();
 		status = "---";
 	}
 	
-	public Task(String name){
+	public Task(String name, List<TaskParam<?>> paramList){
 		this.name = name;
+		this.paramList = paramList;
 		owners = new ArrayList<RobotModel>();
 		status = "Not claimed";
 	}
 	
-	public Task(String name, List<RobotModel> owners, String status){
-		this.name = name;
+	public Task(String name, List<TaskParam<?>> paramList,
+			List<RobotModel> owners, String status){
+		this(name, paramList);
+		
 		this.owners = owners;
 		this.status = status;
+	}
+	
+	public int getID(){
+		return id;
+	}
+	
+	public void setID(int newID){
+		this.id = newID;
 	}
 	
 	public String getName() {

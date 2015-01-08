@@ -29,6 +29,7 @@ import src.main.java.com.github.hsmrs_gui.project.model.RobotModel;
 import src.main.java.com.github.hsmrs_gui.project.model.RobotListModel;
 import src.main.java.com.github.hsmrs_gui.project.model.Task;
 import src.main.java.com.github.hsmrs_gui.project.model.TaskListModel;
+import src.main.java.com.github.hsmrs_gui.project.model.TaskSpecificationListModel;
 import src.main.java.com.github.hsmrs_gui.project.ros.ImageListener;
 import src.main.java.com.github.hsmrs_gui.project.ros.RobotRegistrationListener;
 import src.main.java.com.github.hsmrs_gui.project.ros.SystemLogListener;
@@ -80,10 +81,12 @@ public class GuiNode extends AbstractNodeMain {
             	rlm.addRobot(sampleRobots.get(2));
             	rlm.addRobot(sampleRobots.get(3));
             	
-            	TaskListModel tlm = TaskListModel.getTaskListModel();
+            	TaskSpecificationListModel tslm = TaskSpecificationListModel.getInstance();
+            	
+            	TaskListModel tlm = TaskListModel.getInstance();
             	tlm.addTask(new Task());
-            	tlm.addTask(new Task("Go to (x, y)"));
-            	tlm.addTask(new Task("Search for sample", sampleRobots, "In progress"));
+            	tlm.addTask(new Task("Go to (x, y)", null));
+            	tlm.addTask(new Task("Search for sample", null, sampleRobots, "In progress"));
             	
             	ConsoleController.getInstance().createConsole(rlm.getRobotNames());
             	

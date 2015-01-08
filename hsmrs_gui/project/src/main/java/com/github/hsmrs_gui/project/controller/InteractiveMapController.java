@@ -19,18 +19,31 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+
+import src.main.java.com.github.hsmrs_gui.project.model.NavigationMapModel;
+import src.main.java.com.github.hsmrs_gui.project.util.Colors;
+import src.main.java.com.github.hsmrs_gui.project.view.situational_awareness.InteractiveMapViewLayered;
 
 
 public class InteractiveMapController implements MouseListener, MouseMotionListener{
 
 	private static InteractiveMapController instance;
+	private NavigationMapModel navMapModel;
+	private InteractiveMapViewLayered navMapView;
 	private ArrayList<JLabel> highlightedCells;
 	private ConsoleController consoleController;
 	private boolean isDragging = false;
+	
+	private String INSTITUTE_PARK_MAP_PATH = "";
+	private final double INSTITUTE_PARK_MAP_SCALE = 6.3876889849; //pixels per meter
+	private BufferedImage mapImage;
 	
 	/**
 	 * Constructor for the InteractiveMapController class
@@ -38,6 +51,19 @@ public class InteractiveMapController implements MouseListener, MouseMotionListe
 	private InteractiveMapController(){
 		consoleController = ConsoleController.getInstance();
 		highlightedCells = new ArrayList<JLabel>();
+		
+		INSTITUTE_PARK_MAP_PATH = String.format("%s/project/%s", System.getProperty("user.dir"), this.getClass().getPackage().getName().replace(".", "/"));
+		INSTITUTE_PARK_MAP_PATH += "/images/institute_park_edited.jpg";
+		
+		mapImage = null;
+		try{
+			mapImage = ImageIO.read(new File(INSTITUTE_PARK_MAP_PATH));
+			navMapModel = new NavigationMapModel(mapImage, INSTITUTE_PARK_MAP_SCALE);
+		}
+		catch(Exception e){
+			System.out.println("Error reading image for interactive map image");
+			navMapModel = new NavigationMapModel(100, 100);
+		}
 	}
 
 	
@@ -46,12 +72,22 @@ public class InteractiveMapController implements MouseListener, MouseMotionListe
 	 * InteractiveMapController instance.
 	 * @return An instance of InteractiveMapController
 	 */
-	public static InteractiveMapController getInstance(){
+	public static synchronized InteractiveMapController getInstance(){
 		if (instance == null){
 			instance = new InteractiveMapController();
 		}
 		
 		return instance;
+	}
+	
+	public void setNavMapView(InteractiveMapViewLayered navMapView){
+		this.navMapView = navMapView;
+		navMapView.createGrid(navMapModel.getHeight(), navMapModel.getWidth(), (int)navMapModel.getCellSize());
+		navMapView.setBackgroundImage(mapImage);
+	}
+	
+	public NavigationMapModel getMapModel(){
+		return navMapModel;
 	}
 	
 	/**
@@ -63,6 +99,7 @@ public class InteractiveMapController implements MouseListener, MouseMotionListe
 			cell.setOpaque(false);
 		}
 		highlightedCells.clear();
+		navMapModel.clearAllCells();
 	}
 	
 	/**
@@ -72,6 +109,7 @@ public class InteractiveMapController implements MouseListener, MouseMotionListe
 	 * @param clearSelection If set true, all previously highlighted cells
 	 * 							will be un-highlighted.
 	 */
+	//TODO Adapt for navMapModel
 	public void highlightCell(JLabel target, boolean clearSelection){
 		//Clear previously highlighted cells?
 		if (clearSelection) {
@@ -83,7 +121,7 @@ public class InteractiveMapController implements MouseListener, MouseMotionListe
 			//Was the target cell not highlighted previously?
 			if (!highlightedCells.contains(target)){
 				//If not: Highlight it
-				target.setBackground(Color.yellow);
+				target.setBackground(Colors.lblSelectColor);
 				target.setOpaque(true);
 				highlightedCells.clear();
 				highlightedCells.add(target);
@@ -93,14 +131,17 @@ public class InteractiveMapController implements MouseListener, MouseMotionListe
 			}		
 		}else{
 			//Do not clear previously highlighted cells
-			target.setBackground(Color.yellow);
+			target.setBackground(Colors.lblSelectColor);
 			highlightedCells.add(target);
 			target.setOpaque(true);
 		}
 	}
+	
+	public void getNewMapData(int[] data){
+		navMapModel.getNewMapData(data);
+	}
 
 	//Mouse listeners
-
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		//If this is the first mouseDragged call since

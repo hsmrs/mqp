@@ -21,31 +21,25 @@ public class ImageView extends JPanel{
 	private JLabel lblImage;
 	
 	public ImageView() {
-		System.out.println("----------------IMAGE VIEW---------------");
 		String path = String.format("%s/project/%s", System.getProperty("user.dir"), this.getClass().getPackage().getName().replace(".", "/"));
 	    path += "/images/wall_e.jpg";
-		System.out.println(path);
 		VideoController.getInstance().setImageView(this);
 		setBackground(Color.black);
-		//String paths = "/hsmrs_gui/project/src/main/resources/wall_e.jpg";//"/home/nick/mqp_ws/src/mqp/hsmrs_gui/project/src/main/java/com/github/hsmrs_gui/project/view/situational_awareness/images/wall_e.jpg";
-		//java.net.URL imgURL = getClass().getResource(path);
 		BufferedImage img = null;
 		try{
 		img = ImageIO.read(new File(path));
 		}
 		catch(Exception e){
-			System.out.println("Meow");
+			System.out.println("Error reading image in ImageView");
 		}
 		ImageIcon ic;
 	    if (img != null) {
 	        ic = new ImageIcon(img);
 	        lblImage = new JLabel(ic);
-	        System.out.println("SUCCESS IMAGE ICON");
 	    } else {
 	        System.out.println("Couldn't find file: " + path);
 	        lblImage = new JLabel();
 	    }		
-		//add(lblImage);
 	    currentImg = img;
 	}
 	

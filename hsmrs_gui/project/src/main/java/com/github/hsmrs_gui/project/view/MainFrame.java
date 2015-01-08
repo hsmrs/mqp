@@ -63,7 +63,7 @@ public class MainFrame extends JFrame {
   		this.robotListModel = roboListModel;
   		this.taskListModel = taskListModel;
   		this.log = GuiNode.getLog();
-  		log.info("Hello World!");
+  		log.info("Initializing HSMRS GUI. Please wait.");
   		
        setTitle("HSMRS GUI");
        setExtendedState(getExtendedState()|JFrame.MAXIMIZED_BOTH );

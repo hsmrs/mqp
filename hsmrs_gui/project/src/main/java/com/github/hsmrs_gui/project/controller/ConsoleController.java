@@ -30,7 +30,7 @@ public class ConsoleController {
 	 * object.
 	 * @return The instance of the unique ConsoleController.
 	 */
-	public static ConsoleController getInstance(){
+	public static synchronized ConsoleController getInstance(){
 		if (instance == null){
 			instance = new ConsoleController();
 		}
