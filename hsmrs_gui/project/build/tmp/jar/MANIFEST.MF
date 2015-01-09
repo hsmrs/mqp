@@ -6,23 +6,26 @@ Export-Package: com.github.hsmrs_gui.project;version="0.1.0";uses:="or
  a.com.github.hsmrs_gui.project.view.feedback,src.main.java.com.github
  .hsmrs_gui.project.view.situational_awareness",src.main.java.com.gith
  ub.hsmrs_gui.project.model;version="0.1.0";uses:="javax.swing,src.mai
- n.java.com.github.hsmrs_gui.project.ros",src.main.java.com.github.hsm
- rs_gui.project.ros;version="0.1.0";uses:="nav_msgs,org.ros.message,or
- g.ros.node,sensor_msgs,std_msgs",src.main.java.com.github.hsmrs_gui.p
- roject.util;version="0.1.0",src.main.java.com.github.hsmrs_gui.projec
- t.view;version="0.1.0";uses:="javax.swing",src.main.java.com.github.h
- smrs_gui.project.view.buttons;version="0.1.0";uses:="javax.swing",src
- .main.java.com.github.hsmrs_gui.project.view.feedback;version="0.1.0"
- ;uses:="javax.swing,javax.swing.event",src.main.java.com.github.hsmrs
- _gui.project.view.list;version="0.1.0";uses:="javax.swing,javax.swing
- .event",src.main.java.com.github.hsmrs_gui.project.view.robot;version
- ="0.1.0";uses:="javax.swing,src.main.java.com.github.hsmrs_gui.projec
- t.model,src.main.java.com.github.hsmrs_gui.project.view.list",src.mai
- n.java.com.github.hsmrs_gui.project.view.situational_awareness;versio
- n="0.1.0";uses:="javax.swing",src.main.java.com.github.hsmrs_gui.proj
- ect.view.task;version="0.1.0";uses:="javax.swing,src.main.java.com.gi
- thub.hsmrs_gui.project.model,src.main.java.com.github.hsmrs_gui.proje
- ct.view.list"
+ n.java.com.github.hsmrs_gui.project.model.task,src.main.java.com.gith
+ ub.hsmrs_gui.project.ros",src.main.java.com.github.hsmrs_gui.project.
+ model.task;version="0.1.0";uses:="javax.swing,src.main.java.com.githu
+ b.hsmrs_gui.project.model",src.main.java.com.github.hsmrs_gui.project
+ .ros;version="0.1.0";uses:="nav_msgs,org.ros.message,org.ros.node,sen
+ sor_msgs,std_msgs",src.main.java.com.github.hsmrs_gui.project.util;ve
+ rsion="0.1.0",src.main.java.com.github.hsmrs_gui.project.view;version
+ ="0.1.0";uses:="javax.swing",src.main.java.com.github.hsmrs_gui.proje
+ ct.view.buttons;version="0.1.0";uses:="javax.swing",src.main.java.com
+ .github.hsmrs_gui.project.view.feedback;version="0.1.0";uses:="javax.
+ swing,javax.swing.event",src.main.java.com.github.hsmrs_gui.project.v
+ iew.list;version="0.1.0";uses:="javax.swing,javax.swing.event",src.ma
+ in.java.com.github.hsmrs_gui.project.view.robot;version="0.1.0";uses:
+ ="javax.swing,src.main.java.com.github.hsmrs_gui.project.model,src.ma
+ in.java.com.github.hsmrs_gui.project.view.list",src.main.java.com.git
+ hub.hsmrs_gui.project.view.situational_awareness;version="0.1.0";uses
+ :="javax.swing",src.main.java.com.github.hsmrs_gui.project.view.task;
+ version="0.1.0";uses:="javax.swing,src.main.java.com.github.hsmrs_gui
+ .project.model.task,src.main.java.com.github.hsmrs_gui.project.view.l
+ ist"
 Bundle-Version: 0.1.0
 Tool: Bnd-2.1.0.20130426-122213
 Bundle-Name: project

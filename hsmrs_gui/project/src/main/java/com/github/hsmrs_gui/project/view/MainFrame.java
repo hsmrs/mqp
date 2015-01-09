@@ -33,9 +33,11 @@ import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
 import javax.swing.ListModel;
 
+import src.main.java.com.github.hsmrs_gui.project.model.task.TaskParam;
 import src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListView;
 import src.main.java.com.github.hsmrs_gui.project.view.situational_awareness.SAPanel;
 import src.main.java.com.github.hsmrs_gui.project.view.task.TaskListPanel;
+import src.main.java.com.github.hsmrs_gui.project.view.task.TaskPanel;
 import src.main.java.com.github.hsmrs_gui.project.view.feedback.FeedbackPane;
 import net.miginfocom.swing.MigLayout;
 
@@ -44,7 +46,8 @@ import org.apache.commons.logging.Log;
 import com.github.hsmrs_gui.project.GuiNode;
 
 public class MainFrame extends JFrame {
-	private TaskListPanel taskPane;
+	//private TaskListPanel taskPane;
+	private TaskPanel taskPane;
 	private RobotListView robotPane;
 	private FeedbackPane feedbackPane;
 	private JTabbedPane bottomPane;
@@ -80,7 +83,8 @@ public class MainFrame extends JFrame {
       cp.setBackground(Color.white);
 
       //Task List
-      taskPane = new TaskListPanel(taskListModel);
+      //taskPane = new TaskListPanel(taskListModel);
+      taskPane = TaskPanel.getInstance();
       //taskPane.setMaximumSize(new Dimension(500, 200));
       
       //Situational Awareness View
@@ -92,18 +96,6 @@ public class MainFrame extends JFrame {
       
       //Console
       feedbackPane = new FeedbackPane();
-      
-//      bottomPane = new JTabbedPane();
-//      JPanel panel3 = new JPanel(false);
-//      JLabel filler3 = new JLabel("Console Filler");
-//      filler3.setHorizontalAlignment(JLabel.CENTER);
-//      panel3.add(filler3);
-//      bottomPane.addTab("Console Output", panel3);
-
-      //Image label
-      //imageDisplay = new JLabel();
-      //defaultImage = new ImageIcon(getClass().getResource("/com/github/hsmrs_gui/project/resources/wall_e.jpg"));
-
       
       cp.add(taskPane, "left, grow");
       cp.add(situAwareView, "left, push, grow");

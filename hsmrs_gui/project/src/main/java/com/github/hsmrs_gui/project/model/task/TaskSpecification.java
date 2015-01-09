@@ -1,4 +1,4 @@
-package src.main.java.com.github.hsmrs_gui.project.model;
+package src.main.java.com.github.hsmrs_gui.project.model.task;
 
 import java.util.List;
 

@@ -9,6 +9,7 @@
 
 package src.main.java.com.github.hsmrs_gui.project.model;
 
+import src.main.java.com.github.hsmrs_gui.project.model.task.Task;
 import src.main.java.com.github.hsmrs_gui.project.ros.ImageListener;
 
 public class RobotModel {

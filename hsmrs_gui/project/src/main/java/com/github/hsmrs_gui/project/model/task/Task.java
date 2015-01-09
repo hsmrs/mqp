@@ -6,16 +6,19 @@
 ***		owners, a list of subtasks, and a status. 					***
 **********************************************************************/
 
-package src.main.java.com.github.hsmrs_gui.project.model;
+package src.main.java.com.github.hsmrs_gui.project.model.task;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import src.main.java.com.github.hsmrs_gui.project.model.RobotModel;
 
 public class Task {
 
 	private int id;
 	private String name;
 	private List<TaskParam<?>> paramList;
+	private List<Task> subTasks;
 	private List<RobotModel> owners;
 	private String status;
 	

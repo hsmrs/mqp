@@ -9,8 +9,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.ListModel;
 
+import src.main.java.com.github.hsmrs_gui.project.controller.TaskController;
 import src.main.java.com.github.hsmrs_gui.project.model.RobotModel;
-import src.main.java.com.github.hsmrs_gui.project.model.Task;
+import src.main.java.com.github.hsmrs_gui.project.model.task.Task;
 import src.main.java.com.github.hsmrs_gui.project.view.list.SRList;
 import net.miginfocom.swing.MigLayout;
 
@@ -29,10 +30,13 @@ public class TaskListPanel extends JPanel{
 		
 		taskListView = new SRList<Task>(listModel, new TaskListItemRenderer());
 		btnAddTask = new JButton("New task");
+		btnAddTask.addActionListener(TaskController.getInstance());
+		btnAddTask.setActionCommand("New task");
 		btnRemoveTask = new JButton("Remove task");
+		btnRemoveTask.addActionListener(TaskController.getInstance());
+		btnRemoveTask.setActionCommand("Remove task");
 		
 		this.setBackground(Color.white);
-		this.setBorder(BorderFactory.createMatteBorder(1, 1, 3, 3, Color.black));
 		this.setLayout(new MigLayout("insets 0", "[left, fill]0[]", "[]0[]0[fill]"));
 		
 		this.add(lblTitle, "span, wrap");

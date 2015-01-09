@@ -6,7 +6,7 @@
 ***		of the AbstractListModel class.								***
 **********************************************************************/
 
-package src.main.java.com.github.hsmrs_gui.project.model;
+package src.main.java.com.github.hsmrs_gui.project.model.task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,16 +34,19 @@ public class TaskListModel extends AbstractListModel{
 		idCount++;
 		newTask.setID(idCount);
 		taskList.add(newTask);
+		this.fireIntervalAdded(this, 0, 0);
 	}
 	
 	public Task removeTask(Task targetTask){
 		taskList.remove(targetTask);
+		this.fireIntervalRemoved(this, 0, 0);
 		return targetTask;
 	}
 	
 	public Task removeTask(int index){
 		Task targetTask = getElementAt(index);
 		taskList.remove(index);
+		this.fireIntervalRemoved(this, 0, 0);
 		return targetTask;
 	}
 	

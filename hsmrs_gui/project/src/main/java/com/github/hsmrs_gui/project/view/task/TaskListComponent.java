@@ -9,11 +9,11 @@ import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
 
 import src.main.java.com.github.hsmrs_gui.project.model.RobotModel;
-import src.main.java.com.github.hsmrs_gui.project.model.Task;
 import src.main.java.com.github.hsmrs_gui.project.util.Colors;
 import src.main.java.com.github.hsmrs_gui.project.view.list.ListItem;
 import src.main.java.com.github.hsmrs_gui.project.view.list.RenderableComponent;
 import src.main.java.com.github.hsmrs_gui.project.model.RobotModel;
+import src.main.java.com.github.hsmrs_gui.project.model.task.Task;
 import src.main.java.com.github.hsmrs_gui.project.view.buttons.TransparentButton;
 import src.main.java.com.github.hsmrs_gui.project.view.list.*;
 import net.miginfocom.swing.MigLayout;
