@@ -3,6 +3,7 @@ package src.main.java.com.github.hsmrs_gui.project.view.task;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -11,6 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 
 import src.main.java.com.github.hsmrs_gui.project.controller.TaskController;
 import src.main.java.com.github.hsmrs_gui.project.model.task.Task;
@@ -31,6 +34,8 @@ public class NewTaskPanel extends JPanel{
 	private JPanel paramPane;
 	private JButton btnCreate;
 	private JButton btnCancel;
+	private JLabel[] paramlbls;
+	private JTextField[] paramtxts;
 	
 	public NewTaskPanel(){
 		System.out.println("New Task Panel");
@@ -44,7 +49,7 @@ public class NewTaskPanel extends JPanel{
 		
 		TaskSpecificationListModel tslm = TaskSpecificationListModel.getInstance();
 		List<String> specNames = tslm.getSpecNames();
-		specNames.add(tslm.getElementAt(0).getName());
+		//specNames.add(tslm.getElementAt(0).getName());
 		String[] specNameArray = new String[specNames.size()];
 		specNames.toArray(specNameArray);
 		typeListView = new JList(specNameArray);
@@ -59,6 +64,7 @@ public class NewTaskPanel extends JPanel{
 		TaskSpecification defaultSpec = tslm.getElementAt(0);
 		paramPane = generateParamPanel(defaultSpec);
 		paramScrollView = new JScrollPane(paramPane);
+		paramScrollView.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		
 		btnCreate = new JButton("Create");
 		btnCreate.addActionListener(TaskController.getInstance());
@@ -69,9 +75,10 @@ public class NewTaskPanel extends JPanel{
 		btnCancel.setActionCommand("Cancel new task");
 		
 		//this.setBackground(Color.white);
-		this.setLayout(new MigLayout("insets 0, fill, debug", "[left, fill, 45%]10%[right, fill, 45%]", "[]20[][][]20[][]20[]"));
+		this.setLayout(new MigLayout("insets 0", "[left, 45%]10%[right, 45%]", "[]20[][][]20[][]20[]"));
+		//this.setLayout(new MigLayout("fill, debug", "[][]", "[][]"));
 		
-		this.add(lblTitle, "center, span, growx, wrap");
+		this.add(lblTitle, "center, span, growx, top, wrap");
 		this.add(lblType, "gapleft 10, span, wrap");
 		this.add(typeScrollView, "gapleft 10, gapright 10, grow, span, wrap");
 		this.add(btnNewType, "gapleft 10, wrap");
@@ -82,7 +89,34 @@ public class NewTaskPanel extends JPanel{
 	}
 	
 	private JPanel generateParamPanel(TaskSpecification spec){
+		JPanel returnPanel = new JPanel();
+		returnPanel.setLayout(new MigLayout("", "[]30[]", "[]"));
 		
-		return new JPanel();
+		List<String> paramTypePairs = spec.getParameterTypePairs();
+		paramlbls = new JLabel[paramTypePairs.size()];
+		paramtxts = new JTextField[paramTypePairs.size()];
+		for (int i = 0; i < paramTypePairs.size(); i++){
+			String param = paramTypePairs.get(i).split(":")[0];
+			paramlbls[i] = new JLabel(param);
+			paramtxts[i] = new JTextField();
+			
+			returnPanel.add(paramlbls[i], "left");
+			returnPanel.add(paramtxts[i], "width 120:120:120, wrap");
+		}
+		
+		return returnPanel;
+	}
+	
+	public TaskSpecification getNewTaskSpec(){
+		int selIndex = typeListView.getSelectedIndex();
+		return TaskSpecificationListModel.getInstance().getElementAt(selIndex);
+	}
+	
+	public List<String> getNewTaskParamValues(){
+		ArrayList<String> paramValues = new ArrayList<String>();
+		for (JTextField txt : paramtxts){
+			paramValues.add(txt.getText());
+		}
+		return paramValues;
 	}
 }

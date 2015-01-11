@@ -11,6 +11,12 @@ public class TaskSpecificationListModel extends AbstractListModel{
 	
 	private TaskSpecificationListModel(){
 		taskSpecList = new ArrayList<TaskSpecification>();
+		
+		ArrayList<String> testParams = new ArrayList<String>();
+		testParams.add("Location(x):Integer");
+		testParams.add("Location(y):Integer");
+		TaskSpecification testSpec = new TaskSpecification("Go to", testParams);
+		taskSpecList.add(testSpec);
 	}
 	
 	public static TaskSpecificationListModel getInstance(){
@@ -27,6 +33,12 @@ public class TaskSpecificationListModel extends AbstractListModel{
 	}
 	
 	public List<String> getSpecNames(){
+		if (taskSpecList.size() == 0){
+			ArrayList<String> defaultName = new ArrayList<String>();
+			defaultName.add("None");
+			return defaultName;
+		}
+		
 		ArrayList<String> returnList = new ArrayList<String>();
 		for (TaskSpecification item : taskSpecList){
 			returnList.add(item.getName());

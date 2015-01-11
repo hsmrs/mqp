@@ -31,6 +31,7 @@ import src.main.java.com.github.hsmrs_gui.project.model.task.Task;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskListModel;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskSpecificationListModel;
 import src.main.java.com.github.hsmrs_gui.project.ros.ImageListener;
+import src.main.java.com.github.hsmrs_gui.project.ros.NewTaskPublisher;
 import src.main.java.com.github.hsmrs_gui.project.ros.RobotRegistrationListener;
 import src.main.java.com.github.hsmrs_gui.project.ros.SystemLogListener;
 import src.main.java.com.github.hsmrs_gui.project.view.MainFrame;
@@ -46,6 +47,7 @@ public class GuiNode extends AbstractNodeMain {
 	private MessageListener<std_msgs.String> robotRegistrationListener;
 	private MessageListener<std_msgs.String> systemLogListener;
 	private MessageListener<sensor_msgs.Image> imageListener;
+	private NewTaskPublisher taskPublisher;
 	
 	
   @Override
@@ -94,6 +96,8 @@ public class GuiNode extends AbstractNodeMain {
             	robotRegistrationListener = new RobotRegistrationListener(connectedNode);
             	systemLogListener = new SystemLogListener(connectedNode);
             	imageListener = new ImageListener(connectedNode);
+            	
+            	taskPublisher = new NewTaskPublisher(connectedNode);
             	
             	MainFrame gui = new MainFrame(rlm, tlm);
             	gui.setVisible(true);	

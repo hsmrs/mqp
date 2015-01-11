@@ -17,6 +17,21 @@ public class TaskParam <T>{
 		return value;
 	}
 	
+	public String getType(){
+		if (value instanceof Integer){
+			return "Integer";
+		}
+		else if (value instanceof Double){
+			return "Double";
+		}
+		else if (value instanceof String){
+			return "String";
+		}
+		else {
+			return "Unknown";
+		}
+	}
+	
 	public void setValue(T value){
 		this.value = value;
 	}

@@ -27,6 +27,7 @@ public class Task {
 		paramList = new ArrayList<TaskParam<?>>();
 		owners = new ArrayList<RobotModel>();
 		status = "---";
+		subTasks = new ArrayList<Task>();
 	}
 	
 	public Task(String name, List<TaskParam<?>> paramList){
@@ -34,6 +35,7 @@ public class Task {
 		this.paramList = paramList;
 		owners = new ArrayList<RobotModel>();
 		status = "Not claimed";
+		subTasks = new ArrayList<Task>();
 	}
 	
 	public Task(String name, List<TaskParam<?>> paramList,
@@ -81,6 +83,31 @@ public class Task {
 	}
 
 	public String toString(){
-		return name;
+		/*
+		 * ID;Name;[ParamName:ParamType=ParamValue, ...];[SubTask1, SubTask2, ...]
+		 */
+		StringBuilder sb = new StringBuilder();
+		sb.append("[");
+		for (TaskParam<?> tp : paramList){
+			sb.append(tp.getLabel() + ":" + tp.getType() + "=" + 
+		tp.getValue().toString() + ",");
+		}
+		if (paramList.size() > 0) sb.deleteCharAt(sb.length() - 1);
+		sb.append("];");
+		String paramString = sb.toString();
+		
+		sb = new StringBuilder();
+		sb.append("[");
+		for (Task tk : subTasks){
+			sb.append(tk.toString() + ",");
+		}
+		if (subTasks.size() > 0) sb.deleteCharAt(sb.length() - 1);
+		sb.append("]");
+		String subTaskString = sb.toString();
+		
+		return String.valueOf(id) + ";" +
+				name + ";" +
+				paramString +
+				subTaskString;			
 	}
 }

@@ -36,7 +36,7 @@ public class RobotListComponent extends RenderableComponent<RobotModel>{
 		lblName = new JLabel(robot.getName(), JLabel.CENTER);
 		lblName.setOpaque(false);
 		
-		lblTask = new JLabel(robot.getAssignedTask().toString(), JLabel.CENTER);
+		lblTask = new JLabel(robot.getAssignedTask().getName(), JLabel.CENTER);
 		lblTask.setOpaque(false);
 
 
