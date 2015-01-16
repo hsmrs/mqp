@@ -27,7 +27,7 @@ import org.ros.node.topic.Subscriber;
 import src.main.java.com.github.hsmrs_gui.project.controller.ConsoleController;
 import src.main.java.com.github.hsmrs_gui.project.model.RobotModel;
 import src.main.java.com.github.hsmrs_gui.project.model.RobotListModel;
-import src.main.java.com.github.hsmrs_gui.project.model.task.Task;
+import src.main.java.com.github.hsmrs_gui.project.model.task.TaskModel;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskListModel;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskSpecificationListModel;
 import src.main.java.com.github.hsmrs_gui.project.ros.ImageListener;
@@ -71,12 +71,12 @@ public class GuiNode extends AbstractNodeMain {
     EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-            	RobotListModel rlm = RobotListModel.getRobotListModel();
+            	RobotListModel rlm = RobotListModel.getInstance();
             	List<RobotModel> sampleRobots = new ArrayList<RobotModel>();
-            	sampleRobots.add(new RobotModel("Hermes", new Task()));
-            	sampleRobots.add(new RobotModel("Oryx", new Task()));
-            	sampleRobots.add(new RobotModel("Husky", new Task()));
-            	sampleRobots.add(new RobotModel("Aero", new Task()));
+            	sampleRobots.add(new RobotModel("Hermes", new TaskModel()));
+            	sampleRobots.add(new RobotModel("Oryx", new TaskModel()));
+            	sampleRobots.add(new RobotModel("Husky", new TaskModel()));
+            	sampleRobots.add(new RobotModel("Aero", new TaskModel()));
             	
             	rlm.addRobot(sampleRobots.get(0));
             	rlm.addRobot(sampleRobots.get(1));
@@ -86,9 +86,9 @@ public class GuiNode extends AbstractNodeMain {
             	TaskSpecificationListModel tslm = TaskSpecificationListModel.getInstance();
             	
             	TaskListModel tlm = TaskListModel.getInstance();
-            	tlm.addTask(new Task());
-            	tlm.addTask(new Task("Go to (x, y)", null));
-            	tlm.addTask(new Task("Search for sample", null, sampleRobots, "In progress"));
+            	tlm.addTask(new TaskModel());
+            	tlm.addTask(new TaskModel("Go to (x, y)", null));
+            	tlm.addTask(new TaskModel("Search for sample", null, sampleRobots, "In progress"));
             	
             	ConsoleController.getInstance().createConsole(rlm.getRobotNames());
             	

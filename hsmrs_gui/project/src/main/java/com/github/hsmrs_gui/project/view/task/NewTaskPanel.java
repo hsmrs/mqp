@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -20,7 +21,8 @@ import javax.swing.event.ListSelectionListener;
 
 import src.main.java.com.github.hsmrs_gui.project.Globals;
 import src.main.java.com.github.hsmrs_gui.project.controller.TaskController;
-import src.main.java.com.github.hsmrs_gui.project.model.task.Task;
+import src.main.java.com.github.hsmrs_gui.project.model.RobotListModel;
+import src.main.java.com.github.hsmrs_gui.project.model.task.TaskModel;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskSpecification;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskSpecificationListModel;
 import src.main.java.com.github.hsmrs_gui.project.view.list.SRList;
@@ -36,6 +38,8 @@ public class NewTaskPanel extends JPanel implements ListSelectionListener {
 	private JLabel lblParam;
 	private JScrollPane paramScrollView;
 	private JPanel paramPane;
+	private JLabel lblOwner;
+	private JComboBox ownerSelBox;
 	private JButton btnCreate;
 	private JButton btnCancel;
 	private JLabel[] paramlbls;
@@ -77,6 +81,13 @@ public class NewTaskPanel extends JPanel implements ListSelectionListener {
 		paramScrollView
 				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
+		lblOwner = new JLabel("Owner:");
+		
+		List<String> robotList = RobotListModel.getInstance().getRobotNames();
+		robotList.add(0, "None");
+		String[] robotArray = robotList.toArray(new String[0]);
+		ownerSelBox = new JComboBox(robotArray);
+		
 		btnCreate = new JButton("Create");
 		btnCreate.addActionListener(TaskController.getInstance());
 		btnCreate.setActionCommand("Create task");
@@ -87,7 +98,7 @@ public class NewTaskPanel extends JPanel implements ListSelectionListener {
 
 		// this.setBackground(Color.white);
 		this.setLayout(new MigLayout("insets 0", "[left, 45%]10%[right, 45%]",
-				"[]20[][][]20[][]20[]"));
+				"[]20[][][]20[][]20[]20[]"));
 		// this.setLayout(new MigLayout("fill, debug", "[][]", "[][]"));
 
 		this.add(lblTitle, "center, span, growx, top, wrap");
@@ -96,6 +107,8 @@ public class NewTaskPanel extends JPanel implements ListSelectionListener {
 		this.add(btnNewType, "gapleft 10, wrap");
 		this.add(lblParam, "gapleft 10, span, wrap");
 		this.add(paramScrollView, "gapleft 10, gapright 10, grow, span, wrap");
+		this.add(lblOwner, "gapleft 10");
+		this.add(ownerSelBox, "gapright 10, growx, wrap");
 		this.add(btnCreate, "gapleft 10, center");
 		this.add(btnCancel, "gapright 10, center");
 	}
@@ -152,6 +165,10 @@ public class NewTaskPanel extends JPanel implements ListSelectionListener {
 			}
 		}
 		return paramValues;
+	}
+	
+	public String getNewTaskOwner(){
+		return (String)ownerSelBox.getSelectedItem();
 	}
 
 	public void valueChanged(ListSelectionEvent e) {

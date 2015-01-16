@@ -73,7 +73,7 @@ ListDataListener{
 			sourceTabbedPane.addTab(channelName, new JScrollPane(temp));
 		}
 
-		RobotListModel.getRobotListModel().addListDataListener(this);
+		RobotListModel.getInstance().addListDataListener(this);
 		add(sourceTabbedPane, "grow");
 	}
 

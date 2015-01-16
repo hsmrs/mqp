@@ -15,12 +15,12 @@ import javax.swing.AbstractListModel;
 
 public class TaskListModel extends AbstractListModel{
 	private static TaskListModel instance;
-	private List<Task> taskList;
+	private List<TaskModel> taskList;
 	private int idCount = 0;
 	
 	private TaskListModel()
 	{
-		taskList = new ArrayList<Task>();
+		taskList = new ArrayList<TaskModel>();
 		
 	}
 	
@@ -30,27 +30,27 @@ public class TaskListModel extends AbstractListModel{
 		return instance;
 	}
 	
-	public void addTask(Task newTask){
+	public void addTask(TaskModel newTask){
 		idCount++;
 		newTask.setID(idCount);
 		taskList.add(newTask);
 		this.fireIntervalAdded(this, 0, 0);
 	}
 	
-	public Task removeTask(Task targetTask){
+	public TaskModel removeTask(TaskModel targetTask){
 		taskList.remove(targetTask);
 		this.fireIntervalRemoved(this, 0, 0);
 		return targetTask;
 	}
 	
-	public Task removeTask(int index){
-		Task targetTask = getElementAt(index);
+	public TaskModel removeTask(int index){
+		TaskModel targetTask = getElementAt(index);
 		taskList.remove(index);
 		this.fireIntervalRemoved(this, 0, 0);
 		return targetTask;
 	}
 	
-	public Task getElementAt(int index) {
+	public TaskModel getElementAt(int index) {
 		return taskList.get(index);
 	}
 

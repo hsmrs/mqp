@@ -13,32 +13,32 @@ import java.util.List;
 
 import src.main.java.com.github.hsmrs_gui.project.model.RobotModel;
 
-public class Task {
+public class TaskModel {
 
 	private int id;
 	private String name;
 	private List<TaskParam<?>> paramList;
-	private List<Task> subTasks;
+	private List<TaskModel> subTasks;
 	private List<RobotModel> owners;
 	private String status;
 	
-	public Task(){
+	public TaskModel(){
 		name = "Idle";
 		paramList = new ArrayList<TaskParam<?>>();
 		owners = new ArrayList<RobotModel>();
 		status = "---";
-		subTasks = new ArrayList<Task>();
+		subTasks = new ArrayList<TaskModel>();
 	}
 	
-	public Task(String name, List<TaskParam<?>> paramList){
+	public TaskModel(String name, List<TaskParam<?>> paramList){
 		this.name = name;
 		this.paramList = paramList;
 		owners = new ArrayList<RobotModel>();
 		status = "Not claimed";
-		subTasks = new ArrayList<Task>();
+		subTasks = new ArrayList<TaskModel>();
 	}
 	
-	public Task(String name, List<TaskParam<?>> paramList,
+	public TaskModel(String name, List<TaskParam<?>> paramList,
 			List<RobotModel> owners, String status){
 		this(name, paramList);
 		
@@ -98,11 +98,19 @@ public class Task {
 		
 		sb = new StringBuilder();
 		sb.append("[");
-		for (Task tk : subTasks){
+		for (TaskModel tk : subTasks){
 			sb.append(tk.toString() + ",");
 		}
 		if (subTasks.size() > 0) sb.deleteCharAt(sb.length() - 1);
+		sb.append("];");
+		
+		sb.append("[");
+		for (RobotModel owner : owners){
+			sb.append(owner.getName() + ",");
+		}
+		if (owners.size() > 0) sb.deleteCharAt(sb.length() - 1);
 		sb.append("]");
+		
 		String subTaskString = sb.toString();
 		
 		return String.valueOf(id) + ";" +

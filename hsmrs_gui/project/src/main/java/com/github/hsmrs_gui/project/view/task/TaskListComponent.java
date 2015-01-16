@@ -13,12 +13,12 @@ import src.main.java.com.github.hsmrs_gui.project.util.Colors;
 import src.main.java.com.github.hsmrs_gui.project.view.list.ListItem;
 import src.main.java.com.github.hsmrs_gui.project.view.list.RenderableComponent;
 import src.main.java.com.github.hsmrs_gui.project.model.RobotModel;
-import src.main.java.com.github.hsmrs_gui.project.model.task.Task;
+import src.main.java.com.github.hsmrs_gui.project.model.task.TaskModel;
 import src.main.java.com.github.hsmrs_gui.project.view.buttons.TransparentButton;
 import src.main.java.com.github.hsmrs_gui.project.view.list.*;
 import net.miginfocom.swing.MigLayout;
 
-public class TaskListComponent extends RenderableComponent<Task>{
+public class TaskListComponent extends RenderableComponent<TaskModel>{
 
 	JPanel panel;
 	JLabel lblName;
@@ -29,8 +29,8 @@ public class TaskListComponent extends RenderableComponent<Task>{
 	}
 
 	@Override
-	public JComponent create(ListItem<Task> listItem) {
-		Task task = listItem.getListObject();
+	public JComponent create(ListItem<TaskModel> listItem) {
+		TaskModel task = listItem.getListObject();
 
 		panel = new JPanel(new MigLayout("fill", "[]", "[]10[]10[]"));
 		panel.setBackground(listItem.isSelected() ? Colors.selectionColor : Color.WHITE);
@@ -70,7 +70,7 @@ public class TaskListComponent extends RenderableComponent<Task>{
 	}
 
 	@Override
-	public void update(ListItem<Task> listItem) {
+	public void update(ListItem<TaskModel> listItem) {
 		panel.setBackground(listItem.isSelected() ? Colors.selectionColor : Color.WHITE);
 
 		if(listItem.isDirty()) {

@@ -24,7 +24,7 @@ public class RobotListModel extends AbstractListModel{
 		
 	}
 	
-	static public synchronized RobotListModel getRobotListModel() {
+	static public synchronized RobotListModel getInstance() {
 		if (instance == null)
 			instance = new RobotListModel();
 		return instance;
@@ -64,6 +64,15 @@ public class RobotListModel extends AbstractListModel{
 			robotNames.add(robot.getName());
 		}
 		return robotNames;
+	}
+	
+	public RobotModel getRobotModelByName(String name){
+		for (RobotModel rm : robotList){
+			if (rm.getName().equals(name)){
+				return rm;
+			}
+		}
+		return null;
 	}
 	
 }

@@ -81,7 +81,6 @@ public class NavigationMapModel {
 		
 		try{
 		if(cells[row][column].getIsSelected() == true){
-			System.out.println("Setting!");
 			Globals.gui_vars.put("mapx", column);
 			Globals.gui_vars.put("mapy", row);
 			selectedCells.add(cells[row][column]);

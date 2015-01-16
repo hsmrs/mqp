@@ -63,7 +63,7 @@ public class RobotRegistrationListener implements
 		log.info("Confirm registration: " + messageData[0]);
 		
 		//Create Robot model
-		RobotListModel rlm = RobotListModel.getRobotListModel();
+		RobotListModel rlm = RobotListModel.getInstance();
 		RobotModel newRobot = new RobotModel(messageData[0]);
 		newRobot.setImageTopic(messageData[1]);
 		newRobot.setImageListener(new ImageListener(messageData[1]));

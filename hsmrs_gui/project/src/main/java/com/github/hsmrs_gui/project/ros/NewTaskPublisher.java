@@ -1,6 +1,6 @@
 package src.main.java.com.github.hsmrs_gui.project.ros;
 
-import src.main.java.com.github.hsmrs_gui.project.model.task.Task;
+import src.main.java.com.github.hsmrs_gui.project.model.task.TaskModel;
 import org.ros.node.ConnectedNode;
 import org.ros.node.topic.Publisher;
 
@@ -19,7 +19,7 @@ public class NewTaskPublisher {
 		return instance;
 	}
 	
-	public void publishNewTask(Task newTask){
+	public void publishNewTask(TaskModel newTask){
 		std_msgs.String str = publisher.newMessage();
         str.setData(newTask.toString());
         publisher.publish(str);

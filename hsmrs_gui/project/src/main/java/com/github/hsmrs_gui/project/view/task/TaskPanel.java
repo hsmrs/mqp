@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskListModel;
+import src.main.java.com.github.hsmrs_gui.project.model.task.TaskModel;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskSpecification;
 import net.miginfocom.swing.MigLayout;
 
@@ -84,12 +85,20 @@ public class TaskPanel extends JPanel{
 		add(taskListView, "push, grow, top");
 	}
 	
+	public List<TaskModel> getSelectedTask(){
+		return taskListView.getSelectedTask();
+	}
+	
 	public TaskSpecification getNewTaskSpec(){
 		return newTaskView.getNewTaskSpec();
 	}
 	
 	public List<String> getNewTaskParamValues(){
 		return newTaskView.getNewTaskParamValues();
+	}
+	
+	public String getNewTaskOwner(){
+		return newTaskView.getNewTaskOwner();
 	}
 
 	public void createNewSubtask() {

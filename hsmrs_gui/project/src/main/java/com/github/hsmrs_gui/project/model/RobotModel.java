@@ -9,33 +9,33 @@
 
 package src.main.java.com.github.hsmrs_gui.project.model;
 
-import src.main.java.com.github.hsmrs_gui.project.model.task.Task;
+import src.main.java.com.github.hsmrs_gui.project.model.task.TaskModel;
 import src.main.java.com.github.hsmrs_gui.project.ros.ImageListener;
 
 public class RobotModel {
 
 	private String name;
-	private Task assignedTask;
+	private TaskModel assignedTask;
 	private String status;
 	private String imageTopic;
 	private ImageListener mImageListener;
 		
 	public RobotModel(){
 		name = "No name given";
-		assignedTask = new Task();
+		assignedTask = new TaskModel();
 	}
 	
 	public RobotModel (String name){
 		this.name = name;
-		assignedTask = new Task();
+		assignedTask = new TaskModel();
 	}
 	
-	public RobotModel (String name, Task task){
+	public RobotModel (String name, TaskModel task){
 		this.name = name;
 		assignedTask = task;
 	}
 	
-	public RobotModel (String name, Task task, String imageTopic){
+	public RobotModel (String name, TaskModel task, String imageTopic){
 		this.name = name;
 		assignedTask = task;
 		this.imageTopic = imageTopic;
@@ -50,7 +50,7 @@ public class RobotModel {
 		this.name = name;
 	}
 
-	public Task getAssignedTask() {
+	public TaskModel getAssignedTask() {
 		return assignedTask;
 	}
 	
@@ -62,7 +62,7 @@ public class RobotModel {
 		this.imageTopic = imageTopic;
 	}
 	
-	public void setAssignedTask(Task assignedTask) {
+	public void setAssignedTask(TaskModel assignedTask) {
 		this.assignedTask = assignedTask;
 	}
 	
