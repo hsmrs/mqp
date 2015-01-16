@@ -37,7 +37,6 @@ public class TaskPanel extends JPanel{
 	}
 	
 	public void setView(int viewCode){
-		System.out.println("Set Task view");
 		removeAll();
 		validate();
 		
@@ -54,9 +53,28 @@ public class TaskPanel extends JPanel{
 			add(newTaskTypeView, "push, grow, top");
 			break;
 		}
+		
+		validate();
+		repaint();
+	}
+	
+	public void switchView(int viewCode) {
+		removeAll();
 		validate();
 		
-		System.out.println("Repaint");
+		switch (viewCode){
+		case TASK_LIST_VIEW:
+			add(taskListView, "push, grow, top");
+			break;
+		case NEW_TASK_VIEW:
+			add(newTaskView, "push, grow, top");
+			break;
+		case NEW_TASK_TYPE_VIEW:
+			add(newTaskTypeView, "push, grow, top");
+			break;
+		}
+		validate();
+		
 		repaint();
 	}
 	
@@ -72,5 +90,9 @@ public class TaskPanel extends JPanel{
 	
 	public List<String> getNewTaskParamValues(){
 		return newTaskView.getNewTaskParamValues();
+	}
+
+	public void createNewSubtask() {
+		newTaskTypeView.addNewSubtask();
 	}
 }

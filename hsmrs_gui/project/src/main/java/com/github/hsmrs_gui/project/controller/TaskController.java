@@ -27,18 +27,16 @@ public class TaskController implements ActionListener{
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("Task action!");
 		String cmd = e.getActionCommand();
 		
 		if (cmd.equals("New task")){
-			System.out.println("New Task");
 			TaskPanel.getInstance().setView(TaskPanel.NEW_TASK_VIEW);
 		}
 		else if (cmd.equals("Remove task")){
 			
 		}
 		else if (cmd.equals("New task type")){
-			
+			TaskPanel.getInstance().setView(TaskPanel.NEW_TASK_TYPE_VIEW);
 		}
 		else if (cmd.equals("Create task")){
 			TaskSpecification spec = TaskPanel.getInstance().getNewTaskSpec();
@@ -83,6 +81,15 @@ public class TaskController implements ActionListener{
 		}
 		else if (cmd.equals("Cancel new task")){
 			TaskPanel.getInstance().setView(TaskPanel.TASK_LIST_VIEW);
+		}
+		else if (cmd.equals("New subtask")){
+			TaskPanel.getInstance().createNewSubtask();
+		}
+		else if (cmd.equals("Create task type")){
+			
+		}
+		else if (cmd.equals("Cancel new task type")){
+			TaskPanel.getInstance().switchView(TaskPanel.NEW_TASK_VIEW);
 		}
 	}
 

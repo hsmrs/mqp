@@ -51,6 +51,7 @@ public class InteractiveMapViewLayered extends JPanel{
 				lbl.setBackground(Color.white);
 				//lbl.setBorder(new LineBorder(Color.black));
 				lbl.setOpaque(false);
+				lbl.setText(x + "," + y);
 				lbl.setMinimumSize(new Dimension(gridCellDim, gridCellDim));
 				lbl.setPreferredSize(new Dimension(gridCellDim, gridCellDim));
 				lbl.setMaximumSize(new Dimension(gridCellDim, gridCellDim));

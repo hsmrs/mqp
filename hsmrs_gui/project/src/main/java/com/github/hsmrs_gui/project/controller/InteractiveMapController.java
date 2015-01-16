@@ -118,6 +118,7 @@ public class InteractiveMapController implements MouseListener, MouseMotionListe
 				cell.setBackground(Color.white);
 				cell.setOpaque(false);
 			}
+			navMapModel.clearAllCells();
 			//Was the target cell not highlighted previously?
 			if (!highlightedCells.contains(target)){
 				//If not: Highlight it
@@ -125,6 +126,9 @@ public class InteractiveMapController implements MouseListener, MouseMotionListe
 				target.setOpaque(true);
 				highlightedCells.clear();
 				highlightedCells.add(target);
+				String cellTxt = target.getText();
+				navMapModel.toggleSelectCell(Integer.parseInt(cellTxt.split(",")[0]), 
+						Integer.parseInt(cellTxt.split(",")[1]));
 			} else{
 				//If it was highlighted, clear it.
 				highlightedCells.clear();

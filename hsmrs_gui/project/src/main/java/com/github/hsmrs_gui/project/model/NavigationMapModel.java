@@ -4,6 +4,8 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
+import src.main.java.com.github.hsmrs_gui.project.Globals;
+
 public class NavigationMapModel {
 
 	private int height;
@@ -76,6 +78,28 @@ public class NavigationMapModel {
 	
 	public void toggleSelectCell(int row, int column){
 		cells[row][column].toggleSelected();
+		
+		try{
+		if(cells[row][column].getIsSelected() == true){
+			System.out.println("Setting!");
+			Globals.gui_vars.put("mapx", column);
+			Globals.gui_vars.put("mapy", row);
+			selectedCells.add(cells[row][column]);
+			refreshSelectedVar();
+			return;
+		}
+		else if ((Integer)Globals.gui_vars.get("mapx") == column
+				&&
+				(Integer)Globals.gui_vars.get("mapy") == row){
+			Globals.gui_vars.put("mapx", null);
+			Globals.gui_vars.put("mapy", null);
+		}
+		}
+		catch (NullPointerException e){
+			System.out.println("ERROR: mapx or mapy does not have a value!");
+		}
+		//only called if first if's return is not called.
+		selectedCells.remove(cells[row][column]);
 	}
 	
 	public List<MapGridCellModel> getSelectedCells(){
@@ -99,5 +123,20 @@ public class NavigationMapModel {
 				i++;
 			}
 		}
+	}
+	
+	public void refreshSelectedVar(){
+		StringBuilder strBld = new StringBuilder();
+		
+		for (MapGridCellModel cell : selectedCells){
+			strBld.append("(");
+			strBld.append(cell.getColumn());
+			strBld.append(",");
+			strBld.append(cell.getRow());
+			strBld.append(");");
+		}
+		
+		String result = strBld.toString();
+		Globals.gui_vars.put("map_selected", result);
 	}
 }

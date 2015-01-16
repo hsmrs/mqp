@@ -31,4 +31,12 @@ public class MapGridCellModel {
 	public boolean getIsSelected(){
 		return isSelected;
 	}
+	
+	public int getRow(){
+		return row;
+	}
+	
+	public int getColumn(){
+		return column;
+	}
 }
