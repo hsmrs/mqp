@@ -92,8 +92,9 @@ public class SRList<T> extends JScrollPane implements MouseListener, ListDataLis
 		this.repaint();
 	}
 
-	protected void updateComponents() {
+	public void updateComponents() {
 		listItemRenderer.updateRenderedListComponents(this, listItems);
+		System.out.println("Update!");
 		this.revalidate();
 		this.repaint();
 	}

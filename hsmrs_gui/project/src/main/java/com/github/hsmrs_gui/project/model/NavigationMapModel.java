@@ -2,9 +2,12 @@ package src.main.java.com.github.hsmrs_gui.project.model;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import src.main.java.com.github.hsmrs_gui.project.Globals;
+import src.main.java.com.github.hsmrs_gui.project.util.Pair;
 
 public class NavigationMapModel {
 
@@ -14,6 +17,7 @@ public class NavigationMapModel {
 	private double mapImagePixelMeterResolution;
 	private MapGridCellModel[][] cells;
 	private ArrayList<MapGridCellModel> selectedCells;
+	private Map<String, MapGridCellModel> objectLocations;
 	
 	public NavigationMapModel(){
 		this(1, 1);
@@ -30,12 +34,13 @@ public class NavigationMapModel {
 			}
 		}
 		selectedCells = new ArrayList<MapGridCellModel>();
+		objectLocations = new HashMap<String, MapGridCellModel>();
 	}
 	
 	public NavigationMapModel(BufferedImage mapImage, double pixelMeterResolution){
 		height = ((int)(((double)mapImage.getHeight()) / pixelMeterResolution));
 		width = ((int)(((double)mapImage.getWidth()) / pixelMeterResolution));
-		
+				
 		cells = new MapGridCellModel[height][width];
 		for (int i = 0; i < height; i++){
 			for (int j = 0; j < width; j++){
@@ -122,6 +127,18 @@ public class NavigationMapModel {
 				i++;
 			}
 		}
+	}
+	
+	public Pair<Integer, Integer> getLocation(String targetObject){
+		MapGridCellModel location = objectLocations.get(targetObject);
+		int x = location.getColumn();
+		int y = location.getRow();
+		return new Pair<Integer, Integer>(x, y);
+	}
+	
+	public void setLocation(String targetObject, int x, int y){
+		MapGridCellModel gridCell = cells[y][x];
+		objectLocations.put(targetObject, gridCell);		
 	}
 	
 	public void refreshSelectedVar(){

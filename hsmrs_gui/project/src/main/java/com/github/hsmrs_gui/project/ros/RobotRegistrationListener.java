@@ -20,8 +20,11 @@ import org.ros.message.MessageListener;
 import org.apache.commons.logging.Log;
 
 import src.main.java.com.github.hsmrs_gui.project.controller.ConsoleController;
+import src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController;
 import src.main.java.com.github.hsmrs_gui.project.model.RobotModel;
 import src.main.java.com.github.hsmrs_gui.project.model.RobotListModel;
+import src.main.java.com.github.hsmrs_gui.project.util.Pair;
+import src.main.java.com.github.hsmrs_gui.project.view.situational_awareness.InteractiveMapViewLayered;
 
 import com.github.hsmrs_gui.project.GuiNode;
 
@@ -68,6 +71,9 @@ public class RobotRegistrationListener implements
 		newRobot.setImageTopic(messageData[1]);
 		newRobot.setImageListener(new ImageListener(messageData[1]));
 		rlm.addRobot(newRobot);
+		InteractiveMapController.getInstance()
+		.updateRobotLocation(newRobot.getName(), 
+				new Pair<Integer, Integer>(0, 0));
 		
 		//End registration process
 		log.info("Successful registration: " + messageData[0]);

@@ -19,6 +19,7 @@ import net.miginfocom.swing.MigLayout;
 public class RobotListComponent extends RenderableComponent<RobotModel>{
 
 	JPanel panel;
+	JLabel lblColor;
 	JLabel lblName;
 	JLabel lblTask;
 	
@@ -33,6 +34,10 @@ public class RobotListComponent extends RenderableComponent<RobotModel>{
 		panel.setBackground(listItem.isSelected() ? Colors.selectionColor : Color.WHITE);
 		panel.setBorder(new MatteBorder(0, 0, 1, 0, Color.GRAY));
 
+		lblColor = new JLabel();
+		lblColor.setBackground(robot.getColor());
+		lblColor.setOpaque(true);
+		
 		lblName = new JLabel(robot.getName(), JLabel.CENTER);
 		lblName.setOpaque(false);
 		
@@ -50,6 +55,7 @@ public class RobotListComponent extends RenderableComponent<RobotModel>{
 		//expandButton.setActionCommand("expand");
 		//expandButton.addActionListener(new ListItemExpandListener<Event>(listItem));
 		
+		panel.add(lblColor, "split, width 10:10:10, height 10:10:10");
 		panel.add(lblName, "growx, span 2, wrap");
 		panel.add(lblTask);
 		//panel.add(expandButton, "alignx right");

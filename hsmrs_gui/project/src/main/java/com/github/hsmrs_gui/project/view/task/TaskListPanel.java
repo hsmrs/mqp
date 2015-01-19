@@ -54,4 +54,7 @@ public class TaskListPanel extends JPanel{
 		return taskListView.getSelectedItems();
 	}
 
+	public void update(){
+		taskListView.updateComponents();
+	}
 }

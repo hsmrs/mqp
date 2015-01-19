@@ -34,6 +34,7 @@ import src.main.java.com.github.hsmrs_gui.project.ros.ImageListener;
 import src.main.java.com.github.hsmrs_gui.project.ros.NewTaskPublisher;
 import src.main.java.com.github.hsmrs_gui.project.ros.RobotRegistrationListener;
 import src.main.java.com.github.hsmrs_gui.project.ros.SystemLogListener;
+import src.main.java.com.github.hsmrs_gui.project.util.Pair;
 import src.main.java.com.github.hsmrs_gui.project.view.MainFrame;
 
 import java.awt.EventQueue;
@@ -77,6 +78,12 @@ public class GuiNode extends AbstractNodeMain {
             	sampleRobots.add(new RobotModel("Oryx", new TaskModel()));
             	sampleRobots.add(new RobotModel("Husky", new TaskModel()));
             	sampleRobots.add(new RobotModel("Aero", new TaskModel()));
+            	
+            	sampleRobots.get(0).setLocation(new Pair<Integer, Integer>(1, 1));
+            	sampleRobots.get(1).setLocation(new Pair<Integer, Integer>(2, 2));
+            	sampleRobots.get(2).setLocation(new Pair<Integer, Integer>(3, 3));
+            	sampleRobots.get(3).setLocation(new Pair<Integer, Integer>(4, 4));
+
             	
             	rlm.addRobot(sampleRobots.get(0));
             	rlm.addRobot(sampleRobots.get(1));

@@ -1,4 +1,4 @@
-package src.main.java.com.github.hsmrs_gui.project.util;
+package src.main.java.com.github.hsmrs_gui.project.view;
 
 /* *
  * The contents of this file are subject to the Sapient Public License

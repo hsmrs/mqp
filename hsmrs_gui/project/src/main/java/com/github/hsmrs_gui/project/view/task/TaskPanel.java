@@ -59,6 +59,10 @@ public class TaskPanel extends JPanel{
 		repaint();
 	}
 	
+	public void updateTaskList(){
+		taskListView.update();
+	}
+	
 	public void switchView(int viewCode) {
 		removeAll();
 		validate();

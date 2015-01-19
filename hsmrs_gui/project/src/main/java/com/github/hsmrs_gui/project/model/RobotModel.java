@@ -9,8 +9,12 @@
 
 package src.main.java.com.github.hsmrs_gui.project.model;
 
+import java.awt.Color;
+
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskModel;
 import src.main.java.com.github.hsmrs_gui.project.ros.ImageListener;
+import src.main.java.com.github.hsmrs_gui.project.util.Colors;
+import src.main.java.com.github.hsmrs_gui.project.util.Pair;
 
 public class RobotModel {
 
@@ -19,20 +23,28 @@ public class RobotModel {
 	private String status;
 	private String imageTopic;
 	private ImageListener mImageListener;
+	private Color color;
+	private Pair<Integer, Integer> location;
 		
 	public RobotModel(){
 		name = "No name given";
 		assignedTask = new TaskModel();
+		color = Colors.chooseRobotColor();
+		location = new Pair<Integer, Integer>(5, 5);
 	}
 	
 	public RobotModel (String name){
 		this.name = name;
 		assignedTask = new TaskModel();
+		color = Colors.chooseRobotColor();
+		location = new Pair<Integer, Integer>(5, 5);
 	}
 	
 	public RobotModel (String name, TaskModel task){
 		this.name = name;
 		assignedTask = task;
+		color = Colors.chooseRobotColor();
+		location = new Pair<Integer, Integer>(5, 5);
 	}
 	
 	public RobotModel (String name, TaskModel task, String imageTopic){
@@ -40,6 +52,8 @@ public class RobotModel {
 		assignedTask = task;
 		this.imageTopic = imageTopic;
 		mImageListener = new ImageListener(imageTopic);
+		color = Colors.chooseRobotColor();
+		location = new Pair<Integer, Integer>(5, 5);
 	}
 
 	public String getName() {
@@ -57,6 +71,14 @@ public class RobotModel {
 	public String getImageTopic(){
 		return imageTopic;
 	}
+	
+	public Color getColor(){
+		return color;
+	}
+	
+	public Pair<Integer, Integer> getLocation(){
+		return location;
+	}
 
 	public void setImageTopic(String imageTopic){
 		this.imageTopic = imageTopic;
@@ -70,5 +92,7 @@ public class RobotModel {
 		mImageListener = il;
 	}
 	
-	
+	public void setLocation(Pair<Integer, Integer> location){
+		this.location = location;
+	}
 }

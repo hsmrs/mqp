@@ -29,6 +29,7 @@ import javax.swing.JLabel;
 
 import src.main.java.com.github.hsmrs_gui.project.model.NavigationMapModel;
 import src.main.java.com.github.hsmrs_gui.project.util.Colors;
+import src.main.java.com.github.hsmrs_gui.project.util.Pair;
 import src.main.java.com.github.hsmrs_gui.project.view.situational_awareness.InteractiveMapViewLayered;
 
 
@@ -109,7 +110,6 @@ public class InteractiveMapController implements MouseListener, MouseMotionListe
 	 * @param clearSelection If set true, all previously highlighted cells
 	 * 							will be un-highlighted.
 	 */
-	//TODO Adapt for navMapModel
 	public void highlightCell(JLabel target, boolean clearSelection){
 		//Clear previously highlighted cells?
 		if (clearSelection) {
@@ -127,8 +127,8 @@ public class InteractiveMapController implements MouseListener, MouseMotionListe
 				highlightedCells.clear();
 				highlightedCells.add(target);
 				String cellTxt = target.getText();
-				navMapModel.toggleSelectCell(Integer.parseInt(cellTxt.split(",")[0]), 
-						Integer.parseInt(cellTxt.split(",")[1]));
+				navMapModel.toggleSelectCell(Integer.parseInt(cellTxt.split(",")[1]), 
+						Integer.parseInt(cellTxt.split(",")[0]));
 			} else{
 				//If it was highlighted, clear it.
 				highlightedCells.clear();
@@ -144,7 +144,10 @@ public class InteractiveMapController implements MouseListener, MouseMotionListe
 	public void getNewMapData(int[] data){
 		navMapModel.getNewMapData(data);
 	}
-
+	
+	public void updateRobotLocation(String robotName, Pair<Integer, Integer> location){
+		navMapView.updateRobotLocation(robotName, location);
+	}
 	//Mouse listeners
 	@Override
 	public void mouseDragged(MouseEvent e) {

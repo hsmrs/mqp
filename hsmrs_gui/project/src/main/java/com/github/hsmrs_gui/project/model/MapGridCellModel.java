@@ -1,5 +1,7 @@
 package src.main.java.com.github.hsmrs_gui.project.model;
 
+import src.main.java.com.github.hsmrs_gui.project.util.Colors;
+
 public class MapGridCellModel {
 	private int row;
 	private int column;
