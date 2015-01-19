@@ -13,6 +13,7 @@ import java.awt.Color;
 
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskModel;
 import src.main.java.com.github.hsmrs_gui.project.ros.ImageListener;
+import src.main.java.com.github.hsmrs_gui.project.ros.PoseListener;
 import src.main.java.com.github.hsmrs_gui.project.util.Colors;
 import src.main.java.com.github.hsmrs_gui.project.util.Pair;
 
@@ -22,7 +23,8 @@ public class RobotModel {
 	private TaskModel assignedTask;
 	private String status;
 	private String imageTopic;
-	private ImageListener mImageListener;
+	private ImageListener imageListener;
+	private PoseListener poseListener;
 	private Color color;
 	private Pair<Integer, Integer> location;
 		
@@ -51,7 +53,7 @@ public class RobotModel {
 		this.name = name;
 		assignedTask = task;
 		this.imageTopic = imageTopic;
-		mImageListener = new ImageListener(imageTopic);
+		imageListener = new ImageListener(imageTopic);
 		color = Colors.chooseRobotColor();
 		location = new Pair<Integer, Integer>(5, 5);
 	}
@@ -89,7 +91,11 @@ public class RobotModel {
 	}
 	
 	public void setImageListener(ImageListener il){
-		mImageListener = il;
+		imageListener = il;
+	}
+	
+	public void setPoseListener(PoseListener poseListener) {
+		this.poseListener = poseListener;
 	}
 	
 	public void setLocation(Pair<Integer, Integer> location){

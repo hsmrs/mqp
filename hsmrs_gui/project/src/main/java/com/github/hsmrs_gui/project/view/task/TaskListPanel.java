@@ -2,6 +2,7 @@ package src.main.java.com.github.hsmrs_gui.project.view.task;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Point;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -14,10 +15,11 @@ import javax.swing.border.EmptyBorder;
 import src.main.java.com.github.hsmrs_gui.project.controller.TaskController;
 import src.main.java.com.github.hsmrs_gui.project.model.RobotModel;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskModel;
+import src.main.java.com.github.hsmrs_gui.project.view.list.ListItemListener;
 import src.main.java.com.github.hsmrs_gui.project.view.list.SRList;
 import net.miginfocom.swing.MigLayout;
 
-public class TaskListPanel extends JPanel{
+public class TaskListPanel extends JPanel implements ListItemListener<TaskModel>{
 	
 	private JLabel lblTitle;
 	private SRList<TaskModel> taskListView;
@@ -32,6 +34,7 @@ public class TaskListPanel extends JPanel{
 		
 		taskListView = new SRList<TaskModel>(listModel, new TaskListItemRenderer());
 		taskListView.setBorder(BorderFactory.createEmptyBorder());
+		taskListView.addListItemListener(this);
 		btnAddTask = new JButton("New task");
 		btnAddTask.addActionListener(TaskController.getInstance());
 		btnAddTask.setActionCommand("New task");
@@ -56,5 +59,25 @@ public class TaskListPanel extends JPanel{
 
 	public void update(){
 		taskListView.updateComponents();
+	}
+
+	public void itemsSelected(List<TaskModel> listObjects) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void itemDoubleClicked(TaskModel listObject) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void itemRightClicked(TaskModel listObject, Point p) {
+		TaskListComponentPopup popup = new TaskListComponentPopup(listObject, this);
+		popup.show(this, p.x, p.y);
+	}
+
+	public void itemFocused(TaskModel listObject) {
+		// TODO Auto-generated method stub
+		
 	}
 }

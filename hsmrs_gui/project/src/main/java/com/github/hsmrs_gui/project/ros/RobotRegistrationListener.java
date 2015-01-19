@@ -59,6 +59,9 @@ public class RobotRegistrationListener implements
 	 */
 	@Override
 	public void onNewMessage(std_msgs.String message) {
+		
+		//name;imageTopic;poseTopic
+		
 		//Split the message along the delimiter
 		String[] messageData = message.getData().split(DELIMITER);
 
@@ -70,6 +73,7 @@ public class RobotRegistrationListener implements
 		RobotModel newRobot = new RobotModel(messageData[0]);
 		newRobot.setImageTopic(messageData[1]);
 		newRobot.setImageListener(new ImageListener(messageData[1]));
+		newRobot.setPoseListener(new PoseListener(newRobot, messageData[2]));
 		rlm.addRobot(newRobot);
 		InteractiveMapController.getInstance()
 		.updateRobotLocation(newRobot.getName(), 

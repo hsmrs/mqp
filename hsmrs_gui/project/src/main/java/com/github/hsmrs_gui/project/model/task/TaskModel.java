@@ -34,7 +34,7 @@ public class TaskModel {
 		this.name = name;
 		this.paramList = paramList;
 		owners = new ArrayList<RobotModel>();
-		status = "Not claimed";
+		status = "Not started";
 		subTasks = new ArrayList<TaskModel>();
 	}
 	

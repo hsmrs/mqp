@@ -114,7 +114,6 @@ public class NewTaskPanel extends JPanel implements ListSelectionListener {
 	}
 
 	private JPanel generateParamPanel(TaskSpecification spec) {
-		System.out.println("Generate!");
 		JPanel returnPanel = new JPanel();
 		returnPanel.setLayout(new MigLayout("", "[]30[]", "[]"));
 

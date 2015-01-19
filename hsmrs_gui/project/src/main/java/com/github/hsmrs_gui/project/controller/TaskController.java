@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import src.main.java.com.github.hsmrs_gui.project.model.RobotListModel;
+import src.main.java.com.github.hsmrs_gui.project.model.RobotModel;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskModel;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskListModel;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskParam;
@@ -25,6 +26,18 @@ public class TaskController implements ActionListener{
 		}
 		
 		return instance;
+	}
+	
+	public void addOwnerToTask(TaskModel task, String ownerName){
+		RobotModel robot = RobotListModel.getInstance().getRobotModelByName(ownerName);
+		task.addOwner(robot);
+		TaskPanel.getInstance().updateTaskList();
+	}
+	
+	public void removeOwnerFromTask(TaskModel task, String ownerName){
+		RobotModel robot = RobotListModel.getInstance().getRobotModelByName(ownerName);
+		task.removeOwner(robot);
+		TaskPanel.getInstance().updateTaskList();
 	}
 
 	public void actionPerformed(ActionEvent e) {

@@ -94,7 +94,6 @@ public class SRList<T> extends JScrollPane implements MouseListener, ListDataLis
 
 	public void updateComponents() {
 		listItemRenderer.updateRenderedListComponents(this, listItems);
-		System.out.println("Update!");
 		this.revalidate();
 		this.repaint();
 	}
@@ -117,6 +116,14 @@ public class SRList<T> extends JScrollPane implements MouseListener, ListDataLis
 	@Override
 	public void mousePressed(MouseEvent e) {
 		int indexOfMousePress = listPanel.getIndexOfComponent(listPanel.getComponentAt(e.getPoint()));
+		
+		if (e.isPopupTrigger()) {
+			if(indexOfMousePress >= 0) {
+				this.fireItemRightClicked(listItems.get(indexOfMousePress).getListObject(), e.getPoint());
+			}
+			return;
+		}
+		
 		if(indexOfMousePress >= 0) {
 			if(!SwingUtilities.isRightMouseButton(e)) {
 				if(e.getClickCount() == 2) {

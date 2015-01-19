@@ -54,10 +54,10 @@ public class NewTaskTypePanel extends JPanel {
 		txtName = new JTextField();
 
 		subtaskTabPane = new JTabbedPane(JTabbedPane.LEFT);
-		subtaskTabPane.add("a", generateSubtaskPane(numSubTasks));
-		//JLabel lblVert = new JLabel("Subtask " + numSubTasks);
-		//lblVert.setUI(new VerticalLabelUI(false)); // true/false to make it upwards/downwards
-		//subtaskTabPane.setTabComponentAt(maxTabIndex, lblVert); // For component1
+		subtaskTabPane.add("", generateSubtaskPane(numSubTasks));
+		JLabel lblVert = new JLabel("Subtask " + numSubTasks);
+		lblVert.setUI(new VerticalLabelUI(false)); // true/false to make it upwards/downwards
+		subtaskTabPane.setTabComponentAt(maxTabIndex, lblVert);
 		
 		btnNewSubtask = new JButton("New Subtask");
 		btnNewSubtask.addActionListener(TaskController.getInstance());
@@ -154,7 +154,6 @@ public class NewTaskTypePanel extends JPanel {
 		paramlbls = new JLabel[paramTypePairs.size()];
 		paramtxts = new JTextField[paramTypePairs.size()];
 		
-		System.out.println(tabLblArrays);
 		for (int i = 0; i < paramTypePairs.size(); i++){
 			String param = paramTypePairs.get(i).split(":")[0];
 			paramlbls[i] = new JLabel(param);

@@ -78,9 +78,7 @@ public class InteractiveMapViewLayered extends JPanel{
 		}
 	}
 	
-	public void updateRobotLocation(String robotName, Pair<Integer, Integer> location){
-		System.out.println("Update Robot Location for: " + robotName + " at: " + location.toString());
-		
+	public void updateRobotLocation(String robotName, Pair<Integer, Integer> location){		
 		RobotModel robot = RobotListModel.getInstance().getRobotModelByName(robotName);
 		JLabel target = labelMatrix[location.Y][location.X];
 		target.setOpaque(true);
