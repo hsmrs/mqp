@@ -74,7 +74,7 @@ public class RobotListComponent extends RenderableComponent<RobotModel> {
 	@Override
 	public void update(ListItem<RobotModel> listItem) {
 		panel.setBackground(listItem.isSelected() ? Colors.selectionColor
-				: Color.WHITE);
+				: (robot.getNeedsHelp() ? Color.orange : Color.WHITE));
 
 		lblStatus = new JLabel("Status: " + robot.getStatus());
 		lblStatus.setOpaque(false);
