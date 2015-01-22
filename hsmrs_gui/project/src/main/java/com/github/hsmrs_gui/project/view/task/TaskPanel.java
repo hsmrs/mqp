@@ -1,6 +1,8 @@
 package src.main.java.com.github.hsmrs_gui.project.view.task;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.GridLayout;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -26,7 +28,8 @@ public class TaskPanel extends JPanel{
 	private TaskPanel(){
 		setTaskListModel(TaskListModel.getInstance());
 		this.setBorder(BorderFactory.createMatteBorder(1, 1, 3, 3, Color.black));
-		this.setLayout(new MigLayout("insets 0, top", "[]", "[]"));
+		//this.setLayout(new MigLayout("insets 0, top, fill, debug", "[]", "[]"));
+		this.setLayout(new GridLayout());
 	}
 	
 	public static TaskPanel getInstance(){
@@ -43,7 +46,8 @@ public class TaskPanel extends JPanel{
 		
 		switch (viewCode){
 		case TASK_LIST_VIEW:
-			add(taskListView, "push, grow, top");
+			add(taskListView);//, BorderLayout.CENTER);
+			//add(taskListView, "push, grow, top");
 			break;
 		case NEW_TASK_VIEW:
 			newTaskView = new NewTaskPanel();
@@ -55,6 +59,8 @@ public class TaskPanel extends JPanel{
 			break;
 		}
 		
+		//add(new JLabel("I HATE THIS"));
+		
 		validate();
 		repaint();
 	}
@@ -65,7 +71,6 @@ public class TaskPanel extends JPanel{
 	
 	public void switchView(int viewCode) {
 		removeAll();
-		validate();
 		
 		switch (viewCode){
 		case TASK_LIST_VIEW:
@@ -78,15 +83,16 @@ public class TaskPanel extends JPanel{
 			add(newTaskTypeView, "push, grow, top");
 			break;
 		}
-		validate();
+		revalidate();
 		
 		repaint();
 	}
 	
 	public void setTaskListModel(TaskListModel tlm){
 		taskListView = new TaskListPanel(tlm);
-		removeAll();
-		add(taskListView, "push, grow, top");
+		setView(TASK_LIST_VIEW);
+		revalidate();
+		repaint();
 	}
 	
 	public List<TaskModel> getSelectedTask(){

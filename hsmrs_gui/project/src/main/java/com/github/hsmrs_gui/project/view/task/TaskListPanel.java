@@ -42,13 +42,13 @@ public class TaskListPanel extends JPanel implements ListItemListener<TaskModel>
 		btnRemoveTask.addActionListener(TaskController.getInstance());
 		btnRemoveTask.setActionCommand("Remove task");
 		
-		this.setBackground(Color.white);
+		//this.setBackground(Color.white);
 		this.setBorder(BorderFactory.createEmptyBorder());
-		this.setLayout(new MigLayout("insets 0", "[left, fill]0[]", "[]0[]0[fill]"));
+		this.setLayout(new MigLayout("insets 0, fill", "[left, fill]0[]", "[]0[]0[fill]push"));
 		
-		this.add(lblTitle, "span, wrap");
-		this.add(btnAddTask, "gapleft 0%, gapright 0%");
-		this.add(btnRemoveTask, "gapleft 0%, gapright 0%, wrap");
+		this.add(lblTitle, "span, pushx, growx, wrap");
+		this.add(btnAddTask, "gapleft 0%, gapright 0%, pushx, growx");
+		this.add(btnRemoveTask, "gapleft 0%, gapright 0%, pushx, growx, wrap");
 		this.add(taskListView, "span, push, grow, wrap");
 		
 	}

@@ -78,6 +78,8 @@ public class ConsoleModel {
 		ccmAll.addLogEntry("<b>[" + String.valueOf(timestamp) + "] "
 				+ sender + ": </b>" + text);
 		
+		System.out.println(String.valueOf(timestamp));
+		System.out.println(text);
 		ccmSender.addLogEntry("<b>[" + String.valueOf(timestamp) + "] </b>"
 				+ text);
 	}

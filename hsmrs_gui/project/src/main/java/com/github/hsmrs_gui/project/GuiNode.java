@@ -73,7 +73,7 @@ public class GuiNode extends AbstractNodeMain {
             @Override
             public void run() {
             	RobotListModel rlm = RobotListModel.getInstance();
-            	List<RobotModel> sampleRobots = new ArrayList<RobotModel>();
+            	/*List<RobotModel> sampleRobots = new ArrayList<RobotModel>();
             	sampleRobots.add(new RobotModel("Hermes", new TaskModel()));
             	sampleRobots.add(new RobotModel("Oryx", new TaskModel()));
             	sampleRobots.add(new RobotModel("Husky", new TaskModel()));
@@ -97,6 +97,9 @@ public class GuiNode extends AbstractNodeMain {
             	tlm.addTask(new TaskModel("Go to (x, y)", null));
             	tlm.addTask(new TaskModel("Search for sample", null, sampleRobots, "In progress"));
             	
+            	*/
+            	TaskListModel tlm = TaskListModel.getInstance();
+            	TaskSpecificationListModel tslm = TaskSpecificationListModel.getInstance();
             	ConsoleController.getInstance().createConsole(rlm.getRobotNames());
             	
             	

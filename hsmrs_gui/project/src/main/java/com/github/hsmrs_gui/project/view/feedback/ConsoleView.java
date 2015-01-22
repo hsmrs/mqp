@@ -82,6 +82,7 @@ ListDataListener{
 	 * @param name The name of the Channel.
 	 */
 	public void addChannel(String name) {
+		System.out.println("Add Console Channel in Console View");
 		JTextPane textPane = new JTextPane();
 		textPane.setContentType("text/html");
 		textPane.setEditable(false); 
@@ -178,15 +179,19 @@ ListDataListener{
 	
 	@Override
 	public void intervalAdded(ListDataEvent e) {
-		String newRobotName = ((RobotModel)
+		/*String newRobotName = ((RobotModel)
 				((RobotListModel)
 						e.getSource()).getElementAt(e.getIndex0())).getName();
-		addChannel(newRobotName);
+		ConsoleController.getInstance().addConsoleChannel(newRobotName);
+		*/
 	}
 
 	@Override
 	public void intervalRemoved(ListDataEvent e) {
+		/*ConsoleController.getInstance().removeConsoleChannel(name);
+		e.
 		removeChannel(e.getIndex0());
+		*/
 	}
 
 }

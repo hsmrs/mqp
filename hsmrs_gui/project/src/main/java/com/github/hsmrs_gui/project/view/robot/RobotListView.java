@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.ListModel;
 
+import src.main.java.com.github.hsmrs_gui.project.controller.RobotController;
 import src.main.java.com.github.hsmrs_gui.project.model.RobotModel;
 import src.main.java.com.github.hsmrs_gui.project.util.Colors;
 import src.main.java.com.github.hsmrs_gui.project.view.list.SRList;
@@ -21,7 +22,9 @@ public class RobotListView extends JPanel{
 	private JLabel lblTitle;
 	private SRList<RobotModel> robotListView;
 	
-	private RobotListView (){}
+	private RobotListView (){
+		RobotController.getInstance().setRobotListView(this);
+	}
 	
 	public static RobotListView getInstance(){
 		if (instance == null) {
@@ -52,6 +55,10 @@ public class RobotListView extends JPanel{
 		}else {
 			return null;
 		}
+	}
+	
+	public void update(){
+		robotListView.updateComponents();
 	}
 
 }

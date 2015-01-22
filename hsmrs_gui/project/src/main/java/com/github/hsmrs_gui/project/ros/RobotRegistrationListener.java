@@ -48,7 +48,7 @@ public class RobotRegistrationListener implements
 
 		//Create the subscriber
 		Subscriber<std_msgs.String> subscriber = connectedNode.newSubscriber(
-				"hsmrs/robot_configuration", std_msgs.String._TYPE);
+				"hsmrs/robot_registration", std_msgs.String._TYPE);
 		subscriber.addMessageListener(this);
 	}
 
@@ -60,7 +60,7 @@ public class RobotRegistrationListener implements
 	@Override
 	public void onNewMessage(std_msgs.String message) {
 		
-		//name;imageTopic;poseTopic
+		//name;logTopic;imageTopic;poseTopic;statusTopic;helpTopic
 		
 		//Split the message along the delimiter
 		String[] messageData = message.getData().split(DELIMITER);
@@ -71,10 +71,14 @@ public class RobotRegistrationListener implements
 		//Create Robot model
 		RobotListModel rlm = RobotListModel.getInstance();
 		RobotModel newRobot = new RobotModel(messageData[0]);
-		newRobot.setImageTopic(messageData[1]);
-		newRobot.setImageListener(new ImageListener(messageData[1]));
-		newRobot.setPoseListener(new PoseListener(newRobot, messageData[2]));
+		newRobot.setLogListener(new LogListener(newRobot, messageData[1]));
+		newRobot.setImageTopic(messageData[2]);
+		newRobot.setImageListener(new ImageListener(messageData[2]));
+		newRobot.setPoseListener(new PoseListener(newRobot, messageData[3]));
+		newRobot.setStatusListener(new StatusListener(newRobot, messageData[4]));
+		newRobot.setHelpListener(new HelpListener(newRobot, messageData[5]));
 		rlm.addRobot(newRobot);
+		//consoleController.addConsoleChannel(newRobot.getName());
 		InteractiveMapController.getInstance()
 		.updateRobotLocation(newRobot.getName(), 
 				new Pair<Integer, Integer>(0, 0));

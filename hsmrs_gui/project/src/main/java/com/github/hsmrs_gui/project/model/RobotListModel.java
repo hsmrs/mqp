@@ -13,6 +13,8 @@ import java.util.List;
 
 import javax.swing.AbstractListModel;
 
+import src.main.java.com.github.hsmrs_gui.project.controller.ConsoleController;
+
 public class RobotListModel extends AbstractListModel{
 
 	private static RobotListModel instance;
@@ -34,12 +36,14 @@ public class RobotListModel extends AbstractListModel{
 		robotList.add(newRobot);
 		int index = robotList.size() - 1;
 		this.fireIntervalAdded(this, index, index);
+		ConsoleController.getInstance().addConsoleChannel(newRobot.getName());
 	}
 	
 	public RobotModel removeRobot(RobotModel targetRobot){
 		int index = robotList.indexOf(targetRobot);
 		robotList.remove(targetRobot);
 		this.fireIntervalRemoved(this, index, index);
+		ConsoleController.getInstance().removeConsoleChannel(targetRobot.getName());
 		return targetRobot;
 	}
 	
@@ -47,6 +51,7 @@ public class RobotListModel extends AbstractListModel{
 		RobotModel targetRobot = getElementAt(index);
 		robotList.remove(index);
 		this.fireIntervalRemoved(this, 0, 0);
+		ConsoleController.getInstance().removeConsoleChannel(targetRobot.getName());
 		return targetRobot;
 	}
 	

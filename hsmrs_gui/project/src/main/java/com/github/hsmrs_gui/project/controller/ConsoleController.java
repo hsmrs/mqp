@@ -71,6 +71,7 @@ public class ConsoleController {
 	 * @param name The name of the channel to add.
 	 */
 	public void addConsoleChannel(String name){
+		System.out.println("Add Console Channel in Console Controller");
 		consoleModel.addChannel(name);
 		consoleView.addChannel(name);
 	}

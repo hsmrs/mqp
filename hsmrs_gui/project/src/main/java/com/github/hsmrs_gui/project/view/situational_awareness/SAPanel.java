@@ -18,7 +18,7 @@ public class SAPanel extends JPanel{
 	private MuxPanel muxPanel;
 	
 	public SAPanel(){
-		setLayout(new MigLayout("insets 0", "[fill]", "[fill]0[fill]"));
+		setLayout(new MigLayout("insets 0, fill", "[fill]", "[fill]0[fill]"));
 		imgView = new ImageView();
 		mapView = new InteractiveMapViewLayered();
 		muxPanel = new MuxPanel(this);
