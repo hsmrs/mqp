@@ -1,15 +1,28 @@
 package src.main.java.com.github.hsmrs_gui.project.controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JOptionPane;
 
 import src.main.java.com.github.hsmrs_gui.project.model.RobotListModel;
 import src.main.java.com.github.hsmrs_gui.project.model.RobotModel;
+import src.main.java.com.github.hsmrs_gui.project.model.RoleModel;
+import src.main.java.com.github.hsmrs_gui.project.model.task.TaskListModel;
+import src.main.java.com.github.hsmrs_gui.project.model.task.TaskModel;
+import src.main.java.com.github.hsmrs_gui.project.model.task.TaskParam;
+import src.main.java.com.github.hsmrs_gui.project.model.task.TaskSpecification;
+import src.main.java.com.github.hsmrs_gui.project.ros.NewTaskPublisher;
 import src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListView;
+import src.main.java.com.github.hsmrs_gui.project.view.robot.RobotPanel;
+import src.main.java.com.github.hsmrs_gui.project.view.task.TaskPanel;
 
-public class RobotController {
+public class RobotController implements ActionListener{
 
 	private static RobotController instance;
-	private RobotListView robotListView;
+	private RobotPanel robotView;
 
 	private RobotController() {
 	}
@@ -22,26 +35,64 @@ public class RobotController {
 		return instance;
 	}
 
-	public void setRobotListView(RobotListView view) {
-		robotListView = view;
+	public void setRobotView(RobotPanel view) {
+		robotView = view;
 	}
 
 	public void setRobotStatus(String robotName, String robotStatus) {
 		RobotModel robot = RobotListModel.getInstance().getRobotModelByName(
 				robotName);
 		robot.setStatus(robotStatus);
-		robotListView.update();
+		robotView.updateRobotList();;
 	}
 
 	public void setRobotNeedsHelp(String robotName, boolean needsHelp) {
 		RobotModel robot = RobotListModel.getInstance().getRobotModelByName(
 				robotName);
 		robot.setNeedsHelp(needsHelp);
-		robotListView.update();
+		robotView.updateRobotList();
 
 		if (needsHelp) {
-			JOptionPane.showMessageDialog(robotListView, robot.getName() + " has requested assistance!",
+			JOptionPane.showMessageDialog(robotView, robot.getName() + " has requested assistance!",
 					"Attention Required", JOptionPane.WARNING_MESSAGE);
+		}
+	}
+
+	public void setRole(String robotName, RoleModel role){
+		RobotModel robot = RobotListModel.getInstance().getRobotModelByName(
+				robotName);
+		robot.setRole(role);
+		robotView.updateRobotList();
+	}
+	
+	public void removeRole(String robotName) {
+		RobotModel robot = RobotListModel.getInstance().getRobotModelByName(
+				robotName);
+		robot.setRole(null);
+		robotView.updateRobotList();		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String cmd = e.getActionCommand();
+		RobotPanel rp = RobotPanel.getInstance();
+		
+		if (cmd.equals("New Role")){
+			RobotPanel.getInstance().setView(RobotPanel.NEW_ROLE_VIEW);
+		}
+		else if (cmd.equals("Assign Role")){
+			RoleModel assignedRole = rp.getSelectedRole();
+			RobotModel robot = RobotPanel.getInstance().getTargetRobot();			
+			robot.setRole(assignedRole);
+		}
+		else if (cmd.equals("Cancel Role")){
+			RobotPanel.getInstance().setView(RobotPanel.ROBOT_LIST_VIEW);
+		}
+		else if (cmd.equals("Create New Role")){
+			
+		}
+		else if (cmd.equals("Cancel New Role")){
+			RobotPanel.getInstance().switchView(RobotPanel.ROLE_LIST_VIEW);
 		}
 	}
 }
