@@ -18,8 +18,8 @@ import javax.swing.border.LineBorder;
 
 import src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController;
 import src.main.java.com.github.hsmrs_gui.project.model.NavigationMapModel;
-import src.main.java.com.github.hsmrs_gui.project.model.RobotListModel;
-import src.main.java.com.github.hsmrs_gui.project.model.RobotModel;
+import src.main.java.com.github.hsmrs_gui.project.model.robot.RobotListModel;
+import src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel;
 import src.main.java.com.github.hsmrs_gui.project.util.Pair;
 import net.miginfocom.swing.MigLayout;
 

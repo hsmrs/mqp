@@ -35,6 +35,7 @@ import javax.swing.ListModel;
 
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskParam;
 import src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListView;
+import src.main.java.com.github.hsmrs_gui.project.view.robot.RobotPanel;
 import src.main.java.com.github.hsmrs_gui.project.view.situational_awareness.SAPanel;
 import src.main.java.com.github.hsmrs_gui.project.view.task.TaskListPanel;
 import src.main.java.com.github.hsmrs_gui.project.view.task.TaskPanel;
@@ -48,7 +49,7 @@ import com.github.hsmrs_gui.project.GuiNode;
 public class MainFrame extends JFrame {
 	//private TaskListPanel taskPane;
 	private TaskPanel taskPane;
-	private RobotListView robotPane;
+	private RobotPanel robotPane;
 	private FeedbackPane feedbackPane;
 	private JTabbedPane bottomPane;
 	private JTabbedPane centerPane;
@@ -91,7 +92,7 @@ public class MainFrame extends JFrame {
       situAwareView = new SAPanel();
 
       //Robot List
-      robotPane = RobotListView.getInstance();
+      robotPane = RobotPanel.getInstance();
       robotPane.setListModel(robotListModel);
       
       //Console

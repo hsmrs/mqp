@@ -9,8 +9,8 @@ import org.apache.commons.logging.Log;
 
 import src.main.java.com.github.hsmrs_gui.project.controller.ConsoleController;
 import src.main.java.com.github.hsmrs_gui.project.controller.RobotController;
-import src.main.java.com.github.hsmrs_gui.project.model.RobotListModel;
-import src.main.java.com.github.hsmrs_gui.project.model.RobotModel;
+import src.main.java.com.github.hsmrs_gui.project.model.robot.RobotListModel;
+import src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel;
 
 public class StatusListener implements MessageListener<std_msgs.String>{
 

@@ -6,7 +6,7 @@
 ***		implementation of the AbstractListModel.					***
 **********************************************************************/
 
-package src.main.java.com.github.hsmrs_gui.project.model;
+package src.main.java.com.github.hsmrs_gui.project.model.robot;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -19,12 +19,11 @@ import javax.swing.JPopupMenu;
 import javax.swing.border.MatteBorder;
 
 import src.main.java.com.github.hsmrs_gui.project.controller.TaskController;
-import src.main.java.com.github.hsmrs_gui.project.model.RobotListModel;
-import src.main.java.com.github.hsmrs_gui.project.model.RobotModel;
 import src.main.java.com.github.hsmrs_gui.project.util.Colors;
 import src.main.java.com.github.hsmrs_gui.project.view.list.ListItem;
 import src.main.java.com.github.hsmrs_gui.project.view.list.RenderableComponent;
-import src.main.java.com.github.hsmrs_gui.project.model.RobotModel;
+import src.main.java.com.github.hsmrs_gui.project.model.robot.RobotListModel;
+import src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskListModel;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskModel;
 import src.main.java.com.github.hsmrs_gui.project.view.buttons.TransparentButton;

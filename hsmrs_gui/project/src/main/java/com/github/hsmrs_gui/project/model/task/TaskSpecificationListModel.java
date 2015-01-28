@@ -58,4 +58,13 @@ public class TaskSpecificationListModel extends AbstractListModel{
 	public int getSize() {
 		return taskSpecList.size();
 	}
+
+	public TaskSpecification getSpecByName(String taskType) {
+		for (TaskSpecification ts : taskSpecList){
+			if (ts.getName().equals(taskType)){
+				return ts;
+			}
+		}
+		return null;
+	}
 }

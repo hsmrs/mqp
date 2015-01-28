@@ -14,7 +14,7 @@ import javax.swing.event.ListDataListener;
 
 import org.apache.commons.logging.Log;
 
-import src.main.java.com.github.hsmrs_gui.project.model.RobotModel;
+import src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel;
 
 import com.github.hsmrs_gui.project.GuiNode;
 

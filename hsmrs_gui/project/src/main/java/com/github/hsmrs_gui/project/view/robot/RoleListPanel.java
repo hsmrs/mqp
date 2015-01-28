@@ -19,8 +19,9 @@ import javax.swing.event.ListSelectionListener;
 
 import src.main.java.com.github.hsmrs_gui.project.controller.RobotController;
 import src.main.java.com.github.hsmrs_gui.project.controller.TaskController;
-import src.main.java.com.github.hsmrs_gui.project.model.RobotListModel;
-import src.main.java.com.github.hsmrs_gui.project.model.RoleModel;
+import src.main.java.com.github.hsmrs_gui.project.model.robot.RobotListModel;
+import src.main.java.com.github.hsmrs_gui.project.model.robot.RoleListModel;
+import src.main.java.com.github.hsmrs_gui.project.model.robot.RoleModel;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskSpecification;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskSpecificationListModel;
 import net.miginfocom.swing.MigLayout;

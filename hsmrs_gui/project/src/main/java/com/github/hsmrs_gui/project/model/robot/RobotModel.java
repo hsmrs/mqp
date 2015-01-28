@@ -7,7 +7,7 @@
 ***		are received.												***
 **********************************************************************/
 
-package src.main.java.com.github.hsmrs_gui.project.model;
+package src.main.java.com.github.hsmrs_gui.project.model.robot;
 
 import java.awt.Color;
 
@@ -25,6 +25,7 @@ public class RobotModel {
 	private String name;
 	private TaskModel assignedTask;
 	private String status;
+	private RoleModel role;
 	private LogListener logListener;
 	private String imageTopic;
 	private ImageListener imageListener;
@@ -85,6 +86,10 @@ public class RobotModel {
 		return status;
 	}
 	
+	public RoleModel getRole(){
+		return role;
+	}
+	
 	public LogListener getLogListener(){
 		return logListener;
 	}
@@ -131,6 +136,10 @@ public class RobotModel {
 	
 	public void setStatus(String newStatus){
 		this.status = newStatus;
+	}
+	
+	public void setRole(RoleModel role){
+		this.role = role;
 	}
 	
 	public void setImageListener(ImageListener il){

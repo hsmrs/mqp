@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import src.main.java.com.github.hsmrs_gui.project.model.RobotListModel;
-import src.main.java.com.github.hsmrs_gui.project.model.RobotModel;
+import src.main.java.com.github.hsmrs_gui.project.model.robot.RobotListModel;
+import src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskModel;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskListModel;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskParam;

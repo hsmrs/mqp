@@ -13,7 +13,7 @@ import javax.swing.ListModel;
 import javax.swing.border.EmptyBorder;
 
 import src.main.java.com.github.hsmrs_gui.project.controller.TaskController;
-import src.main.java.com.github.hsmrs_gui.project.model.RobotModel;
+import src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskModel;
 import src.main.java.com.github.hsmrs_gui.project.view.list.ListItemListener;
 import src.main.java.com.github.hsmrs_gui.project.view.list.SRList;

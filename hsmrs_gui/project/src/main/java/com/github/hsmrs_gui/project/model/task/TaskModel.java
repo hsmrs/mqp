@@ -11,7 +11,7 @@ package src.main.java.com.github.hsmrs_gui.project.model.task;
 import java.util.ArrayList;
 import java.util.List;
 
-import src.main.java.com.github.hsmrs_gui.project.model.RobotModel;
+import src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel;
 
 public class TaskModel {
 

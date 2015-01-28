@@ -1,11 +1,7 @@
-package src.main.java.com.github.hsmrs_gui.project.view.robot;
+package src.main.java.com.github.hsmrs_gui.project.model.robot;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import src.main.java.com.github.hsmrs_gui.project.model.RobotListModel;
-import src.main.java.com.github.hsmrs_gui.project.model.RobotModel;
-import src.main.java.com.github.hsmrs_gui.project.model.RoleModel;
 
 public class RoleListModel {
 

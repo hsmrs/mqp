@@ -2,6 +2,7 @@ package src.main.java.com.github.hsmrs_gui.project.view.robot;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -15,7 +16,10 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import src.main.java.com.github.hsmrs_gui.project.controller.RobotController;
+import src.main.java.com.github.hsmrs_gui.project.model.robot.RoleModel;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskListModel;
+import src.main.java.com.github.hsmrs_gui.project.model.task.TaskModel;
+import src.main.java.com.github.hsmrs_gui.project.model.task.TaskSpecification;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskSpecificationListModel;
 import net.miginfocom.swing.MigLayout;
 
@@ -80,5 +84,21 @@ public class NewRolePanel extends JPanel implements ListSelectionListener{
 	public void valueChanged(ListSelectionEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public RoleModel getNewRole() {
+		String name = txtName.getText();
+		Object[] taskTypesObjs = typeListView.getSelectedValues();
+		List<String> taskTypes = new ArrayList<String>();
+		for (Object obj : taskTypesObjs){
+			taskTypes.add(String.valueOf(obj));
+		}
+		List<TaskSpecification> tasks = new ArrayList<TaskSpecification>();
+		for (String taskType : taskTypes){
+			TaskSpecification taskSpec = TaskSpecificationListModel.getInstance().getSpecByName(taskType);
+			tasks.add(taskSpec);
+		}
+		RoleModel newRole = new RoleModel(name, tasks);
+		return newRole;
 	}
 }

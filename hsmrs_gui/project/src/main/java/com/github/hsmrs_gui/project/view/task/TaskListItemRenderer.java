@@ -5,7 +5,7 @@ import java.util.List;
 import src.main.java.com.github.hsmrs_gui.project.view.list.ListItem;
 import src.main.java.com.github.hsmrs_gui.project.view.list.ListItemRenderer;
 import src.main.java.com.github.hsmrs_gui.project.view.list.SRList;
-import src.main.java.com.github.hsmrs_gui.project.model.RobotModel;
+import src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskModel;
 
 public class TaskListItemRenderer implements ListItemRenderer<TaskModel> {

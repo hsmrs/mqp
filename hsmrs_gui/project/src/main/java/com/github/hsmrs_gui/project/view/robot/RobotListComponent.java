@@ -7,11 +7,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
 
-import src.main.java.com.github.hsmrs_gui.project.model.RobotModel;
 import src.main.java.com.github.hsmrs_gui.project.util.Colors;
 import src.main.java.com.github.hsmrs_gui.project.view.list.ListItem;
 import src.main.java.com.github.hsmrs_gui.project.view.list.RenderableComponent;
-import src.main.java.com.github.hsmrs_gui.project.model.RobotModel;
+import src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel;
 import src.main.java.com.github.hsmrs_gui.project.view.buttons.TransparentButton;
 import src.main.java.com.github.hsmrs_gui.project.view.list.*;
 import net.miginfocom.swing.MigLayout;
@@ -41,7 +40,11 @@ public class RobotListComponent extends RenderableComponent<RobotModel> {
 		lblColor.setBackground(robot.getColor());
 		lblColor.setOpaque(true);
 
-		lblName = new JLabel(robot.getName(), JLabel.CENTER);
+		String nameString = robot.getName();
+		if (robot.getRole() != null){
+			nameString += " - " + robot.getRole().getName();
+		}
+		lblName = new JLabel(nameString, JLabel.CENTER);
 		lblName.setOpaque(false);
 		
 		lblStatus = new JLabel("Status: " + robot.getStatus());
@@ -76,6 +79,13 @@ public class RobotListComponent extends RenderableComponent<RobotModel> {
 		panel.setBackground(listItem.isSelected() ? Colors.selectionColor
 				: (robot.getNeedsHelp() ? Color.orange : Color.WHITE));
 
+		String nameString = robot.getName();
+		if (robot.getRole() != null){
+			nameString += " - " + robot.getRole().getName();
+		}
+		lblName = new JLabel(nameString, JLabel.CENTER);
+		lblName.setOpaque(false);
+		
 		lblStatus = new JLabel("Status: " + robot.getStatus());
 		lblStatus.setOpaque(false);
 

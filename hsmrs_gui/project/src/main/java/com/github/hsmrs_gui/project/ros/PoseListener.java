@@ -9,8 +9,8 @@ import com.github.hsmrs_gui.project.GuiNode;
 
 import src.main.java.com.github.hsmrs_gui.project.controller.ConsoleController;
 import src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController;
-import src.main.java.com.github.hsmrs_gui.project.model.RobotListModel;
-import src.main.java.com.github.hsmrs_gui.project.model.RobotModel;
+import src.main.java.com.github.hsmrs_gui.project.model.robot.RobotListModel;
+import src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel;
 import src.main.java.com.github.hsmrs_gui.project.util.Pair;
 
 public class PoseListener implements MessageListener<geometry_msgs.PoseStamped> {

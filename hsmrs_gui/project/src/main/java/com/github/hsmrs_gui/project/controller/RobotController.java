@@ -7,9 +7,10 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import src.main.java.com.github.hsmrs_gui.project.model.RobotListModel;
-import src.main.java.com.github.hsmrs_gui.project.model.RobotModel;
-import src.main.java.com.github.hsmrs_gui.project.model.RoleModel;
+import src.main.java.com.github.hsmrs_gui.project.model.robot.RobotListModel;
+import src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel;
+import src.main.java.com.github.hsmrs_gui.project.model.robot.RoleListModel;
+import src.main.java.com.github.hsmrs_gui.project.model.robot.RoleModel;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskListModel;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskModel;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskParam;
@@ -84,15 +85,20 @@ public class RobotController implements ActionListener{
 			RoleModel assignedRole = rp.getSelectedRole();
 			RobotModel robot = RobotPanel.getInstance().getTargetRobot();			
 			robot.setRole(assignedRole);
+			System.out.println("Setting role to " + robot.getName());
+			rp.setView(RobotPanel.ROBOT_LIST_VIEW);
+			rp.updateRobotList();
 		}
 		else if (cmd.equals("Cancel Role")){
-			RobotPanel.getInstance().setView(RobotPanel.ROBOT_LIST_VIEW);
+			rp.setView(RobotPanel.ROBOT_LIST_VIEW);
 		}
 		else if (cmd.equals("Create New Role")){
-			
+			RoleModel newRole = rp.getNewRole();
+			RoleListModel.getInstance().addRole(newRole);
+			rp.setView(RobotPanel.ROLE_LIST_VIEW);
 		}
 		else if (cmd.equals("Cancel New Role")){
-			RobotPanel.getInstance().switchView(RobotPanel.ROLE_LIST_VIEW);
+			rp.switchView(RobotPanel.ROLE_LIST_VIEW);
 		}
 	}
 }

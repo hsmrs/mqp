@@ -21,8 +21,8 @@ import org.apache.commons.logging.Log;
 
 import src.main.java.com.github.hsmrs_gui.project.controller.ConsoleController;
 import src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController;
-import src.main.java.com.github.hsmrs_gui.project.model.RobotModel;
-import src.main.java.com.github.hsmrs_gui.project.model.RobotListModel;
+import src.main.java.com.github.hsmrs_gui.project.model.robot.RobotListModel;
+import src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel;
 import src.main.java.com.github.hsmrs_gui.project.util.Pair;
 import src.main.java.com.github.hsmrs_gui.project.view.situational_awareness.InteractiveMapViewLayered;
 

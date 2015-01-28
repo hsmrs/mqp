@@ -11,8 +11,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 
 import src.main.java.com.github.hsmrs_gui.project.controller.TaskController;
-import src.main.java.com.github.hsmrs_gui.project.model.RobotListModel;
-import src.main.java.com.github.hsmrs_gui.project.model.RobotModel;
+import src.main.java.com.github.hsmrs_gui.project.model.robot.RobotListModel;
+import src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskListModel;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskModel;
 
