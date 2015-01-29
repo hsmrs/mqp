@@ -16,7 +16,9 @@ import src.main.java.com.github.hsmrs_gui.project.ros.HelpListener;
 import src.main.java.com.github.hsmrs_gui.project.ros.ImageListener;
 import src.main.java.com.github.hsmrs_gui.project.ros.LogListener;
 import src.main.java.com.github.hsmrs_gui.project.ros.PoseListener;
+import src.main.java.com.github.hsmrs_gui.project.ros.RequestPublisher;
 import src.main.java.com.github.hsmrs_gui.project.ros.StatusListener;
+import src.main.java.com.github.hsmrs_gui.project.ros.TeleOpPublisher;
 import src.main.java.com.github.hsmrs_gui.project.util.Colors;
 import src.main.java.com.github.hsmrs_gui.project.util.Pair;
 
@@ -32,9 +34,12 @@ public class RobotModel {
 	private PoseListener poseListener;
 	private StatusListener statusListener;
 	private HelpListener helpListener;
+	private TeleOpPublisher teleOpPublisher;
+	private RequestPublisher requestPublisher;
 	private boolean needsHelp;
 	private Color color;
 	private Pair<Integer, Integer> location;
+	
 		
 	public RobotModel(){
 		name = "No name given";
@@ -122,6 +127,10 @@ public class RobotModel {
 		return location;
 	}
 	
+	public TeleOpPublisher getTeleOpPublisher(){
+		return teleOpPublisher;
+	}
+	
 	public void setLogListener(LogListener logListener) {
 		this.logListener = logListener;
 	}
@@ -164,5 +173,21 @@ public class RobotModel {
 	
 	public void setLocation(Pair<Integer, Integer> location){
 		this.location = location;
+	}
+	
+	public void setTeleOpPublisher(TeleOpPublisher publisher){
+		teleOpPublisher = publisher;
+	}
+
+	public void sendTeleOpCommand(String direction) {
+		teleOpPublisher.publishMessage(direction);
+	}
+
+	public RequestPublisher getRequestPublisher() {
+		return requestPublisher;
+	}
+	
+	public void setRequestPublisher(RequestPublisher requestPublisher) {
+		this.requestPublisher = requestPublisher;
 	}
 }

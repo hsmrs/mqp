@@ -30,10 +30,13 @@ public class RobotListComponentPopup extends JPopupMenu implements ActionListene
 		itemAddOwner.addActionListener(this);
 		JMenuItem itemRemoveOwner = new JMenuItem("Remove Role");
 		itemRemoveOwner.addActionListener(this);
+		JMenuItem itemTeleOp = new JMenuItem((robot.getStatus().equals("Tele-Op") ? "Stop Tele-Op" : "Tele-Op"));
+		itemTeleOp.addActionListener(this);
 //		JMenuItem itemRemove = new JMenuItem("Remove");
 //		itemRemove.addActionListener(this);
 		add(itemAddOwner);
 		add(itemRemoveOwner);
+		add(itemTeleOp);
 		//add(itemRemove);
 	}
 	
@@ -45,7 +48,11 @@ public class RobotListComponentPopup extends JPopupMenu implements ActionListene
 			RobotPanel.getInstance().setTargetRobot(robot);
 		} else if (item.getText().equals("Remove Role")) {
 			RobotController.getInstance().removeRole(robot.getName());
-		} /*else if (item.getText().equals("Remove")) {
+		} else if (item.getText().equals("Tele-Op")) {
+			robot.getRequestPublisher().publishTeleOpRequest();
+		}else if (item.getText().equals("Stop Tele-Op")) {
+			robot.getRequestPublisher().publishStopTeleOpRequest();
+		}/*else if (item.getText().equals("Remove")) {
 			TaskListModel.getInstance().removeTask(task);
 			return;
 		}*/

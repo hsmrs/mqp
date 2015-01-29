@@ -32,6 +32,7 @@ public class RobotRegistrationListener implements
 		MessageListener<std_msgs.String> {
 	
 	private final String DELIMITER = ";";
+	private final String REGISTRATION_TOPIC = "hsmrs/robot_registration";
 	
 	private Log log;
 	private ConsoleController consoleController;
@@ -48,7 +49,7 @@ public class RobotRegistrationListener implements
 
 		//Create the subscriber
 		Subscriber<std_msgs.String> subscriber = connectedNode.newSubscriber(
-				"hsmrs/robot_registration", std_msgs.String._TYPE);
+				REGISTRATION_TOPIC, std_msgs.String._TYPE);
 		subscriber.addMessageListener(this);
 	}
 
@@ -60,7 +61,7 @@ public class RobotRegistrationListener implements
 	@Override
 	public void onNewMessage(std_msgs.String message) {
 		
-		//name;logTopic;imageTopic;poseTopic;statusTopic;helpTopic
+		//name;requestTopic;logTopic;imageTopic;poseTopic;statusTopic;helpTopic;teleOpTopic
 		
 		//Split the message along the delimiter
 		String[] messageData = message.getData().split(DELIMITER);
@@ -70,13 +71,16 @@ public class RobotRegistrationListener implements
 		
 		//Create Robot model
 		RobotListModel rlm = RobotListModel.getInstance();
-		RobotModel newRobot = new RobotModel(messageData[0]);
-		newRobot.setLogListener(new LogListener(newRobot, messageData[1]));
-		newRobot.setImageTopic(messageData[2]);
-		newRobot.setImageListener(new ImageListener(messageData[2]));
-		newRobot.setPoseListener(new PoseListener(newRobot, messageData[3]));
-		newRobot.setStatusListener(new StatusListener(newRobot, messageData[4]));
-		newRobot.setHelpListener(new HelpListener(newRobot, messageData[5]));
+		int index = -1;
+		RobotModel newRobot = new RobotModel(messageData[++index]);
+		newRobot.setRequestPublisher(new RequestPublisher(messageData[++index]));
+		newRobot.setLogListener(new LogListener(newRobot, messageData[++index]));
+		newRobot.setImageTopic(messageData[++index]);
+		newRobot.setImageListener(new ImageListener(messageData[index]));
+		newRobot.setPoseListener(new PoseListener(newRobot, messageData[++index]));
+		newRobot.setStatusListener(new StatusListener(newRobot, messageData[++index]));
+		newRobot.setHelpListener(new HelpListener(newRobot, messageData[++index]));
+		newRobot.setTeleOpPublisher(new TeleOpPublisher(messageData[++index]));
 		rlm.addRobot(newRobot);
 		//consoleController.addConsoleChannel(newRobot.getName());
 		InteractiveMapController.getInstance()

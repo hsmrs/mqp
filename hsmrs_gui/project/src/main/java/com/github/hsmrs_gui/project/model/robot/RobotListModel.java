@@ -63,6 +63,10 @@ public class RobotListModel extends AbstractListModel{
 		return robotList.size();
 	}
 	
+	public List<RobotModel> getRobots(){
+		return robotList;
+	}
+	
 	public List<String> getRobotNames(){
 		ArrayList<String> robotNames = new ArrayList<String>(robotList.size());
 		for (RobotModel robot : robotList){

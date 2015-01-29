@@ -26,14 +26,19 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.InputMap;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import javax.swing.ListModel;
 
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskParam;
+import src.main.java.com.github.hsmrs_gui.project.ros.TeleOpPublisher;
+import src.main.java.com.github.hsmrs_gui.project.util.TeleOpAction;
 import src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListView;
 import src.main.java.com.github.hsmrs_gui.project.view.robot.RobotPanel;
 import src.main.java.com.github.hsmrs_gui.project.view.situational_awareness.SAPanel;
@@ -48,6 +53,7 @@ import com.github.hsmrs_gui.project.GuiNode;
 
 public class MainFrame extends JFrame {
 	//private TaskListPanel taskPane;
+	private JPanel rootPane;
 	private TaskPanel taskPane;
 	private RobotPanel robotPane;
 	private FeedbackPane feedbackPane;
@@ -79,9 +85,13 @@ public class MainFrame extends JFrame {
 
     public void setup(){
       Container cp = this.getContentPane(); 
-      cp.setLayout(new MigLayout("insets 0", "[20%]0[60%]0[20%]", "[75%]0[25%]"));
+      //cp.setLayout(new MigLayout("insets 0", "[20%]0[60%]0[20%]", "[75%]0[25%]"));
       //cp.setLayout(new BorderLayout());
-      cp.setBackground(Color.white);
+      //cp.setBackground(Color.white);
+      
+      rootPane = new JPanel();
+      rootPane.setLayout(new MigLayout("insets 0", "[20%]0[60%]0[20%]", "[75%]0[25%]"));
+      rootPane.setBackground(Color.white);
 
       //Task List
       //taskPane = new TaskListPanel(taskListModel);
@@ -98,14 +108,38 @@ public class MainFrame extends JFrame {
       //Console
       feedbackPane = new FeedbackPane();
       
-      cp.add(taskPane, "left, grow");
-      cp.add(situAwareView, "left, push, grow");
-      cp.add(robotPane, "right, push, grow, wrap");
-      cp.add(feedbackPane, "push, grow, span 3"); 
+//      cp.add(taskPane, "left, grow");
+//      cp.add(situAwareView, "left, push, grow");
+//      cp.add(robotPane, "right, push, grow, wrap");
+//      cp.add(feedbackPane, "push, grow, span 3"); 
+      
+      rootPane.add(taskPane, "left, grow");
+      rootPane.add(situAwareView, "left, push, grow");
+      rootPane.add(robotPane, "right, push, grow, wrap");
+      rootPane.add(feedbackPane, "push, grow, span 3"); 
+      
+      addAction("UP", TeleOpPublisher.UP);
+      addAction("DOWN", TeleOpPublisher.DOWN);
+      addAction("LEFT", TeleOpPublisher.LEFT);
+      addAction("RIGHT", TeleOpPublisher.RIGHT);
+      
+      cp.add(rootPane);
       
       pack();
     }
 
+    public TeleOpAction addAction(String name, String direction)
+	{
+    	TeleOpAction action = new TeleOpAction(name, direction);
+
+		KeyStroke pressedKeyStroke = KeyStroke.getKeyStroke(name);
+		InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		inputMap.put(pressedKeyStroke, name);
+		rootPane.getActionMap().put(name, action);
+
+		return action;
+	}
+    
     public void receiveText(String text){
 
     }
