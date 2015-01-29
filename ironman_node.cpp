@@ -6,6 +6,7 @@
 #include "hsmrs_framework/TaskMsg.h"
 #include <move_base_msgs/MoveBaseAction.h>
 #include <actionlib/client/simple_action_client.h>
+#include "kobuki_msgs/BumperEvent.h"
 
 #include <sstream>
 
@@ -13,7 +14,7 @@
 
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 
-class Thor: public Robot {
+class Ironman: public Robot {
 
 private:
 	ros::Publisher registration_pub;
@@ -26,6 +27,7 @@ private:
 	ros::Subscriber teleOp_sub;
 
 	ros::Publisher vel_pub;
+	ros::Subscriber bumper_sub;
 
 
 	const std::string NAME;
@@ -39,6 +41,7 @@ private:
 	const std::string TELE_OP_TOPIC;
 
 	const std::string VEL_TOPIC;
+	const std::string BUMPER_TOPIC
 
 	Task* currentTask;
 	std::string status;
@@ -166,10 +169,40 @@ private:
 		vel_pub.publish(velMsg);
 	}
 
+	void bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg){
+		int bumper = msg->bumper;
+		int state = msg->state;
+
+		std::string bumperStr;
+		std::string stateStr
+		if (bumper == msg->LEFT){
+			bumperStr = "left";
+		}
+		else if (bumper == msg->RIGHT){
+			bumperStr = "right";
+		}
+		else if (bumper == msg->CENTER){
+			bumperStr = "center";
+		}
+
+		if (state == msg->RELEASED){
+			stateStr = "released";
+			callForHelp();
+		}
+		else if (state == msg->RELEASED){
+			stateStr = "pressed";
+		}
+
+		std::string message = "My " + bumperStr + " bumper was " + stateStr + "!";
+		sendLog(message);
+
+	}
+
 public:
-	Thor() : NAME("Thor"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMAGE_TOPIC("thor/camera/rgb/image_mono"), 
-			LOG_TOPIC("thor/log_messages"), STATUS_TOPIC("thor/status"), HELP_TOPIC("thor/help"), POSE_TOPIC("thor/pose"),
-			REQUEST_TOPIC("thor/requests"), TELE_OP_TOPIC("thor/tele_op"), VEL_TOPIC("thor/cmd_vel_mux/input/teleop")
+	Ironman() : NAME("ironman"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMAGE_TOPIC("ironman/camera/rgb/image_mono"), 
+			LOG_TOPIC("ironman/log_messages"), STATUS_TOPIC("ironman/status"), HELP_TOPIC("ironman/help"), POSE_TOPIC("ironman/pose"),
+			REQUEST_TOPIC("ironman/requests"), TELE_OP_TOPIC("ironman/tele_op"), VEL_TOPIC("ironman/cmd_vel_mux/input/teleop"),
+			BUMPER_TOPIC("/ironman/mobile_base/events/bumper")
 			{
 		
 		linearSpeed = 0.3;
@@ -187,11 +220,12 @@ public:
 		help_pub = n.advertise<std_msgs::String>(HELP_TOPIC, 100);
 		pose_pub = n.advertise<geometry_msgs::PoseStamped>(POSE_TOPIC, 100);
 
-		request_sub = n.subscribe(REQUEST_TOPIC, 1000, &Thor::requestCallback, this);
-		teleOp_sub = n.subscribe(TELE_OP_TOPIC, 1000, &Thor::teleOpCallback, this);
+		request_sub = n.subscribe(REQUEST_TOPIC, 1000, &ironman::requestCallback, this);
+		teleOp_sub = n.subscribe(TELE_OP_TOPIC, 1000, &ironman::teleOpCallback, this);
 
 		//Turtlebot publishers and subscribers
 		vel_pub = n.advertise<geometry_msgs::Twist>(VEL_TOPIC, 100);
+		bumper_sub = n.subscribe(BUMPER_TOPIC, 1000, &ironman::bumperCallback, this);
 
 		//ros::spinOnce();
 		ros::Rate loop_rate(1);
@@ -291,8 +325,8 @@ public:
 };
 
 int main(int argc, char **argv) {
-	ros::init(argc, argv, "thor");
+	ros::init(argc, argv, "ironman");
 
-	Thor* robot = new Thor();
+	Ironman* robot = new Ironman();
 	return 0;
 }

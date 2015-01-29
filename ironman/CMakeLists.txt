@@ -9,6 +9,7 @@ find_package(catkin REQUIRED COMPONENTS
   nav_msgs
   roscpp
   std_msgs
+  hsmrs_framework
 )
 
 ## System dependencies are found with CMake's conventions
@@ -83,7 +84,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES ironman
-  CATKIN_DEPENDS geometry_msgs nav_msgs roscpp std_msgs
+  CATKIN_DEPENDS geometry_msgs nav_msgs roscpp std_msgs hsmrs_framework
 #  DEPENDS system_lib
 )
 
@@ -105,7 +106,6 @@ include_directories(
 
 ## Declare a cpp executable
  add_executable(ironman_node src/ironman_node.cpp)
- add_executable(task_list src/task_list.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
