@@ -1,6 +1,7 @@
 #include "ros/ros.h"
 #include "std_msgs/String.h"
 #include "geometry_msgs/PoseStamped.h"
+#include "geometry_msgs/Twist.h"
 #include "hsmrs_framework/BidMsg.h"
 #include "hsmrs_framework/TaskMsg.h"
 #include <move_base_msgs/MoveBaseAction.h>
@@ -21,6 +22,12 @@ private:
 	ros::Publisher help_pub;
 	ros::Publisher pose_pub;
 
+	ros::Subscriber request_sub;
+	ros::Subscriber teleOp_sub;
+
+	ros::Publisher vel_pub;
+
+
 	const std::string NAME;
 	const std::string REGISTRATION_TOPIC;
 	const std::string IMAGE_TOPIC;
@@ -28,8 +35,15 @@ private:
 	const std::string STATUS_TOPIC;
 	const std::string HELP_TOPIC;
 	const std::string POSE_TOPIC;
+	const std::string REQUEST_TOPIC;
+	const std::string TELE_OP_TOPIC;
+
+	const std::string VEL_TOPIC;
 
 	Task* currentTask;
+	std::string status;
+	double linearSpeed;
+	double angularSpeed;
 
 	/**
 	 * Makes this Robot bid on the given task
@@ -50,8 +64,16 @@ private:
 		}
 	}
 
+	virtual void pauseTask(){
+
+	}
+
+	virtual void resumeTask(){
+		
+	}
+
 	void doGoToTask(double x, double y){
-		MoveBaseClient ac("move_base", true);
+		/*MoveBaseClient ac("move_base", true);
 
   		//wait for the action server to come up
   		while(!ac.waitForServer(ros::Duration(5.0))){
@@ -73,14 +95,14 @@ private:
 
   		if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){
     		ROS_INFO("Go To task completed");
-    		sendLog("Go To task completed");
+    		//sendLog("Go To task completed");
     	}
   		else
   		{
     		ROS_INFO("Go To task failed, asking for helps");
-    		sendLog("Go To task failed, asking for helps");
+    		//sendLog("Go To task failed, asking for helps");
     		callForHelp();
-    	}
+    	} */
 	}
 
 	/**
@@ -101,50 +123,86 @@ private:
 	}
 
 	void registerWithGUI() {
-		//name;logTopic;imageTopic;poseTopic;statusTopic;helpTopic
+		//name;requestTopic;logTopic;imageTopic;poseTopic;statusTopic;helpTopic;teleOpTopic
 
 		std_msgs::String msg;
 		std::stringstream ss;
 
-		ss << NAME << ";" << LOG_TOPIC << ";" << IMAGE_TOPIC << ";"
-				<< POSE_TOPIC << ";" << STATUS_TOPIC << ";" << HELP_TOPIC;
+		ss << NAME << ";" << REQUEST_TOPIC << ";" << LOG_TOPIC << ";" << IMAGE_TOPIC << ";"
+				<< POSE_TOPIC << ";" << STATUS_TOPIC << ";" << HELP_TOPIC << ";" 
+				<< TELE_OP_TOPIC;
 		msg.data = ss.str();
-
-		ROS_INFO("%s", msg.data.c_str());
+		registration_pub.publish(msg);
 	}
 
 	void sendLog(std::string logMessage){
 		std_msgs::String msg;
 		msg.data = logMessage;
-		log_pub.publish(logMessage);
+		log_pub.publish(msg);
+	}
+
+	void requestCallback(const std_msgs::String::ConstPtr& msg)
+	{
+		std::string request = msg->data;
+
+		if (request == "tele-op"){
+			pauseTask();
+			setStatus("Tele-Op");
+		}
+		else if (request == "stop tele-op"){
+			setStatus("Idle");
+			resumeTask();
+		}
+	}
+
+	void teleOpCallback(const geometry_msgs::Twist::ConstPtr& msg){
+		double linearVel = msg->linear.x * linearSpeed;
+		double angularVel = msg->linear.y * angularSpeed;
+
+		geometry_msgs::Twist velMsg;
+		velMsg.linear.x = linearVel;
+		velMsg.angular.z = angularVel;
+
+		vel_pub.publish(velMsg);
 	}
 
 public:
 	Thor() : NAME("Thor"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMAGE_TOPIC("thor/camera"), 
-			LOG_TOPIC("thor/log_messages"), STATUS_TOPIC("thor/status"), HELP_TOPIC("thor/help"), POSE_TOPIC("thor/pose")
+			LOG_TOPIC("thor/log_messages"), STATUS_TOPIC("thor/status"), HELP_TOPIC("thor/help"), POSE_TOPIC("thor/pose"),
+			REQUEST_TOPIC("thor/requests"), TELE_OP_TOPIC("thor/tele_op"), VEL_TOPIC("thor/cmd_vel")
 			{
+		
+		linearSpeed = 1.0;
+		angularSpeed = 0.5;
+
 		ros::NodeHandle n;
 
-		registration_pub = n.advertise<std_msgs::String>(REGISTRATION_TOPIC,
-				100);
+		ros::AsyncSpinner spinner(1);
+		spinner.start();
+
+		//GUI Publishers and subscribers
+		registration_pub = n.advertise<std_msgs::String>(REGISTRATION_TOPIC, 100);
 		log_pub = n.advertise<std_msgs::String>(LOG_TOPIC, 100);
 		status_pub = n.advertise<std_msgs::String>(STATUS_TOPIC, 100);
 		help_pub = n.advertise<std_msgs::String>(HELP_TOPIC, 100);
-
 		pose_pub = n.advertise<geometry_msgs::PoseStamped>(POSE_TOPIC, 100);
 
-		ros::spinOnce();
+		request_sub = n.subscribe(REQUEST_TOPIC, 1000, &Thor::requestCallback, this);
+		teleOp_sub = n.subscribe(TELE_OP_TOPIC, 1000, &Thor::teleOpCallback, this);
+
+		//Turtlebot publishers and subscribers
+		vel_pub = n.advertise<geometry_msgs::Twist>(VEL_TOPIC, 100);
+
+		//ros::spinOnce();
 		ros::Rate loop_rate(1);
 		loop_rate.sleep();
 
 		registerWithGUI();
-
-		int i = 0;
-
-		std_msgs::String msg;
-		while (ros::ok()) {
-			loop_rate.sleep();
-		}
+		ros::waitForShutdown();
+		//ros::spin();
+		//while (ros::ok()) {
+		//	loop_rate.sleep();
+		//}
 	}
 	/**
 	 * Returns the value of the specified attribute from this Robot's AgentState.
@@ -217,6 +275,17 @@ public:
 	 */
 	virtual void claimTask(Task* task) {
 		currentTask = task;
+	}
+
+	virtual std::string getStatus(){
+		return status;
+	}
+
+	virtual void setStatus(std::string newStatus){
+		status = newStatus;
+		std_msgs::String msg;
+		msg.data = status;
+		status_pub.publish(msg);
 	}
 
 };
