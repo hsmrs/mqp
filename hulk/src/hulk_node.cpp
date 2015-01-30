@@ -14,7 +14,7 @@
 
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 
-class Thor: public Robot {
+class Hulk: public Robot {
 
 private:
 	ros::Publisher registration_pub;
@@ -199,10 +199,10 @@ private:
 	}
 
 public:
-	Thor() : NAME("Thor"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMAGE_TOPIC("thor/camera/rgb/image_mono"), 
-			LOG_TOPIC("thor/log_messages"), STATUS_TOPIC("thor/status"), HELP_TOPIC("thor/help"), POSE_TOPIC("thor/pose"),
-			REQUEST_TOPIC("thor/requests"), TELE_OP_TOPIC("thor/tele_op"), VEL_TOPIC("thor/cmd_vel_mux/input/teleop"),
-			BUMPER_TOPIC("/thor/mobile_base/events/bumper")
+	Hulk() : NAME("Hulk"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMAGE_TOPIC("hulk/camera/rgb/image_mono"), 
+			LOG_TOPIC("hulk/log_messages"), STATUS_TOPIC("hulk/status"), HELP_TOPIC("hulk/help"), POSE_TOPIC("hulk/pose"),
+			REQUEST_TOPIC("hulk/requests"), TELE_OP_TOPIC("hulk/tele_op"), VEL_TOPIC("hulk/cmd_vel_mux/input/teleop"),
+			BUMPER_TOPIC("/hulk/mobile_base/events/bumper")
 			{
 		
 		linearSpeed = 0.3;
@@ -220,12 +220,12 @@ public:
 		help_pub = n.advertise<std_msgs::String>(HELP_TOPIC, 100);
 		pose_pub = n.advertise<geometry_msgs::PoseStamped>(POSE_TOPIC, 100);
 
-		request_sub = n.subscribe(REQUEST_TOPIC, 1000, &Thor::requestCallback, this);
-		teleOp_sub = n.subscribe(TELE_OP_TOPIC, 1000, &Thor::teleOpCallback, this);
+		request_sub = n.subscribe(REQUEST_TOPIC, 1000, &Hulk::requestCallback, this);
+		teleOp_sub = n.subscribe(TELE_OP_TOPIC, 1000, &Hulk::teleOpCallback, this);
 
 		//Turtlebot publishers and subscribers
 		vel_pub = n.advertise<geometry_msgs::Twist>(VEL_TOPIC, 100);
-		bumper_sub = n.subscribe(BUMPER_TOPIC, 1000, &Thor::bumperCallback, this);
+		bumper_sub = n.subscribe(BUMPER_TOPIC, 1000, &Hulk::bumperCallback, this);
 
 		//ros::spinOnce();
 		ros::Rate loop_rate(1);
@@ -325,8 +325,8 @@ public:
 };
 
 int main(int argc, char **argv) {
-	ros::init(argc, argv, "thor");
+	ros::init(argc, argv, "hulk");
 
-	Thor* robot = new Thor();
+	Hulk* robot = new Hulk();
 	return 0;
 }

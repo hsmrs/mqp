@@ -68,7 +68,7 @@ public class NewRolePanel extends JPanel implements ListSelectionListener{
 		btnCancel.setActionCommand("Cancel New Role");
 
 		// this.setBackground(Color.white);
-		this.setLayout(new MigLayout("insets 0, debug", "[left, 45%]10%[right, 45%]",
+		this.setLayout(new MigLayout("insets 0", "[left, 45%]10%[right, 45%]",
 				"[]20[][]20[]"));
 		// this.setLayout(new MigLayout("fill, debug", "[][]", "[][]"));
 
