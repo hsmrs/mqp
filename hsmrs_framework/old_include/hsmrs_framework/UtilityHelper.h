@@ -16,12 +16,12 @@ public:
 	/**
 	 * This is the constructor for the UtilityHelper class
 	 */
-	UtilityHelper(void){}
+	UtilityHelper(void);
 
 	/**
 	 * This is the destructor for the UtilityHelper class
 	 */
-	~UtilityHelper(void){}
+	~UtilityHelper(void);
 
 	/**
 	 * Calculates the utility of the given Agent for the given
@@ -31,3 +31,4 @@ public:
 	 */
 	virtual double calculate(Agent* agent, Task* task) = 0;
 };
+

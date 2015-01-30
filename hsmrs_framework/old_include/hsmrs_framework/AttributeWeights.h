@@ -4,7 +4,7 @@
  * 	This class represents an AttributeWeights is a container that		***
  * 	tracks the importance of each attribute (in a set of attributes) to	***
  * 	completing a certain Task. These weights are used in conjunction	***
- * 	with an AgentState to calculate an Agent’s utility for a Task.		***											***
+ * 	with an AgentState to calculate an Agentâ€™s utility for a Task.		***											***
  *************************************************************************/
 
 #pragma once
@@ -17,12 +17,12 @@ public:
 	/**
 	 * The constructor for the AttributeWeights object.
 	 */
-	AttributeWeights(void){}
+	AttributeWeights(void);
 
 	/**
 	 * The destructor for the AttributeWeights object.
 	 */
-	~AttributeWeights(void){}
+	~AttributeWeights(void);
 
 	/**
 	 * Returns the weight of the attribute with the given name.
@@ -36,5 +36,6 @@ public:
 	 * @return A map, with keys being attribute names and values
 	 * 			being their respective weights.
 	 */
-	virtual std::map<std::string, double>* getWeights() = 0;
+	virtual std::map<std::string, double> getWeights() = 0;
 };
+

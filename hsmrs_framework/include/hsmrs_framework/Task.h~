@@ -18,12 +18,12 @@ public:
 	/**
 	 * The constructor for the Task class
 	 */
-	Task(void){}
+	Task(void);
 
 	/**
 	 * The destructor for the Task class
 	 */
-	~Task(void){}
+	~Task(void);
 
 	/**
 	 * Retrieves a vector of Agents who have claimed this Task

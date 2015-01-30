@@ -16,12 +16,12 @@ public:
 	/**
 	 * The constructor for the AgentState object.
 	 */
-	AgentState(void){}
+	AgentState(void);
 
 	/**
 	 * The destructor for the AgentState object.
 	 */
-	~AgentState(void){}
+	~AgentState(void);
 
 	/**
 	 * Returns the value of the given attribute.

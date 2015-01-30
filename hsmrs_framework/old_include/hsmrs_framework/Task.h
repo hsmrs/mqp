@@ -18,18 +18,24 @@ public:
 	/**
 	 * The constructor for the Task class
 	 */
-	Task(void){}
+	Task(void);
 
 	/**
 	 * The destructor for the Task class
 	 */
-	~Task(void){}
+	~Task(void);
+
+	/**
+	 * Retrieves the type of this Task.
+	 * @return A string containing the type of this Task.
+	 */
+	virtual std::string getType() = 0;
 
 	/**
 	 * Retrieves a vector of Agents who have claimed this Task
 	 * @return A vector of Agents who have claimed this Task
 	 */
-	virtual std::vector<Agent*>* getOwners() = 0;
+	virtual std::vector<Agent*> getOwners() = 0;
 
 	/**
 	 * Determines the minimum number of Agents that need to claim this
@@ -49,14 +55,14 @@ public:
 	 * Retrieves a mapping between Attributes and their weights.
 	 * @return A map of strings and doubles
 	 */
-	virtual std::map<std::string, double>* getAttributeWeights() = 0;
+	virtual std::map<std::string, double> getAttirbuteWeights() = 0;
 
 	/**
 	 * Retrieves a vector of subtasks which need to be completed as part of
 	 * this task
 	 * @return A vector of Tasks which are a part of this Task.
 	 */
-	virtual std::vector<Task*>* getSubtasks() = 0;
+	virtual std::vector<Task*> getSubtasks() = 0;
 
 	/**
 	 * Adds an Agent as an owner to this task, if another owner can be added
@@ -66,18 +72,8 @@ public:
 
 	/**
 	 * Removes the given Agent as an owner.
-	 * @param agent The name of the Agent to be removed as an owner.
+	 * @param agent The Agent to be added as an owner.
 	 */
-	virtual void removeOwner(std::string name) = 0;
-
-	virtual double getPriority() = 0;
-
-	virtual void setPriority(double p) = 0;
-
-	virtual bool isReady() = 0;
-
-	virtual int getID() = 0;
-
-	virtual void setProgress(double val) = 0;
+	virtual void removeOwner(Agent* agent) = 0;
 };
 

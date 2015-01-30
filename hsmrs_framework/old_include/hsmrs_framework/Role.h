@@ -17,26 +17,18 @@ public:
 	/**
 	 * The constructor for the Role class
 	 */
-	Role(void){}
+	Role(void);
 
 	/**
 	 * The destructor for the Role class
 	 */
-	~Role(void){}
+	~Role(void);
 
 	/**
 	 * Adds a Task to the Role
 	 */
-	virtual void addTask(Task* task) = 0;
-
-	/**
-	* Removes a Task from the Role
-	*/
+	virtual void addTask(Task* task, Role* role) = 0;
 	virtual void removeTask(Task* task) = 0;
-
-	/**
-	* Returns all Tasks associated with this Role
-	*/
 	virtual std::vector<Task*> getTasks() = 0;
 };
 

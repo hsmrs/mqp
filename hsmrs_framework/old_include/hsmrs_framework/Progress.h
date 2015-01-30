@@ -12,12 +12,12 @@ public:
 	/**
 	 * The constructor for the Progress class
 	 */
-	Progress(void){}
+	Progress(void);
 
 	/**
 	 * The destructor for the Progress class
 	 */
-	~Progress(void){}
+	~Progress(void);
 
 	/**
 	 * Determines the state of the Progress and returns it as

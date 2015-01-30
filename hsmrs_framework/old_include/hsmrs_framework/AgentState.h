@@ -16,12 +16,12 @@ public:
 	/**
 	 * The constructor for the AgentState object.
 	 */
-	AgentState(void){}
+	AgentState(void);
 
 	/**
 	 * The destructor for the AgentState object.
 	 */
-	~AgentState(void){}
+	~AgentState(void);
 
 	/**
 	 * Returns the value of the given attribute.
@@ -36,3 +36,4 @@ public:
 	 */
 	virtual std::map<std::string, double> getAttributes() = 0;
 };
+

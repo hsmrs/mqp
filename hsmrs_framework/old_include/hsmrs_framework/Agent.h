@@ -6,10 +6,7 @@
  *************************************************************************/
 #pragma once
 
-#include <string>
-
 class Task;
-
 class Agent
 {
 public:
@@ -35,6 +32,5 @@ public:
 	 * @param task A pointer to the task object to be claimed.
 	 */
 	virtual void claimTask(Task* task) = 0;
-
-	virtual std::string getName() = 0;
 };
+

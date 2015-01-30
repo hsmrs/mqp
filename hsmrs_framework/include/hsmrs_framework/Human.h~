@@ -20,12 +20,12 @@ public:
 	/**
 	 * The constructor for the Human object.
 	 */
-	Human(void){}
+	Human(void);
 
 	/**
 	 * The destructor for the Human object.
 	 */
-	~Human(void){}
+	~Human(void);
 
 	/*
 	 * Handles a request from a Robot to have a task added to the

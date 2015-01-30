@@ -17,12 +17,12 @@ public:
 	/**
 	 * The constructor for the TaskList class
 	 */
-	TaskList(void){}
+	TaskList(void);
 
 	/**
 	 * The destructor for the TaskList class
 	 */
-	~TaskList(void){}
+	~TaskList(void);
 
 	/**
 	 * Adds a Task to the TaskList
@@ -49,8 +49,6 @@ public:
 	 * @return The next Task
 	 */
 	virtual Task* pullNextTask() = 0;
-
-	virtual Task* getTask(int id) = 0;
 
 /**
 	 * Removes the given task from the TaskList.

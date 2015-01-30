@@ -12,12 +12,12 @@ public:
 	/**
 	 * The constructor for the Prerequisite class
 	 */
-	Prerequisite(void){}
+	Prerequisite(void);
 
 	/**
 	 * The destructor for the Prerequisite class
 	 */
-	~Prerequisite(void){}
+	~Prerequisite(void);
 
 	/**
 	 * Determines if this Prerequisite has been fulfilled.
@@ -25,3 +25,4 @@ public:
 	 */
 	virtual bool isFulfilled() = 0;
 };
+

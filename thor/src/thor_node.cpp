@@ -59,12 +59,12 @@ private:
 	 * Begins the Robot's execution of its current Task.
 	 */
 	virtual void executeTask() {
-		std::string taskType = currentTask->getType();
+		//std::string taskType = currentTask->getType();
 
-		if (taskType == "Go to"){
+		//if (taskType == "Go to"){
 			//This needs to be changed once tasks have been parameterized
-			doGoToTask(10, 10);
-		}
+		//	doGoToTask(10, 10);
+		//}
 	}
 
 	virtual void pauseTask(){
@@ -123,6 +123,10 @@ private:
 		std_msgs::String msg;
 		msg.data = "true";
 		help_pub.publish(msg);
+	}
+
+	virtual void handleTeleop(){
+
 	}
 
 	void registerWithGUI() {
@@ -238,6 +242,11 @@ public:
 		//	loop_rate.sleep();
 		//}
 	}
+
+	virtual std::string getName(){
+		return NAME;
+	}
+
 	/**
 	 * Returns the value of the specified attribute from this Robot's AgentState.
 	 * @param attr The name of the attribute to get

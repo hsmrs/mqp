@@ -28,30 +28,37 @@ public:
 
 	/**
 	* Returns the value of the specified attribute from this Robot's AgentState.
+	* @param attr The name of the attribute to get
+	* @return The value of the attribute
 	*/
-	virtual double getAttribute(std::string) = 0;
+	virtual double getAttribute(std::string attr) = 0;
 
 	/**
 	* Returns this Robot's utility for the specified Task.
+	* @param task A pointer to the task for which to get a utility.
+	* @return This Robot's utility for the given Task.
 	*/
 	virtual double getUtility(Task *task) = 0;
 
 	/**
 	* Returns this Robot's AgentState.
+	* @return The AgentState representing the state of this Robot.
 	*/
 	virtual AgentState* getState() = 0;
 
 	/**
 	* Checks if this Robot has the given attribute.
+	* @param attr The name of the target attribute
+	* @return True if the robot has the named attribute.
 	*/
 	virtual bool hasAttribute(std::string attr) = 0;
 
 	/**
-	* Sets this Robot's currently acctive Task.
+	* Sets this Robot's currently active Task.
+	* @param A pointer to the Task to be set
 	*/
 	virtual void setTask(Task* task) = 0;
 
-	//callbacks
 	/**
 	* Handles the auctioning of Tasks by sending and receiving bids.
 	*/
@@ -62,13 +69,25 @@ public:
 	*/
 	virtual void verifyTaskClaim() = 0;
 private:
+	/**
+	 * Makes this Robot bid on the given task
+	 */
 	virtual void bid(Task* task) = 0;
 
+	/**
+	 * Begins the Robot's execution of its current Task.
+	 */
 	virtual void executeTask() = 0;
 
-	virtual void handleTeleop() = 0;
-
+	/**
+	 * Request for the given Task to be sent to the TaskList
+	 * @param task The task to be queued
+	 */
 	virtual void requestTaskForQueue(Task* task) = 0;
+
+	/**
+	 * Send a help request to the Human supervisor.
+	 */
 	virtual void callForHelp() = 0;
 };
 

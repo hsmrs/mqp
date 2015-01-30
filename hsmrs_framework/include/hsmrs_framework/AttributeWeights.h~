@@ -17,12 +17,12 @@ public:
 	/**
 	 * The constructor for the AttributeWeights object.
 	 */
-	AttributeWeights(void){}
+	AttributeWeights(void);
 
 	/**
 	 * The destructor for the AttributeWeights object.
 	 */
-	~AttributeWeights(void){}
+	~AttributeWeights(void);
 
 	/**
 	 * Returns the weight of the attribute with the given name.
