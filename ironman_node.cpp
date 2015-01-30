@@ -41,7 +41,7 @@ private:
 	const std::string TELE_OP_TOPIC;
 
 	const std::string VEL_TOPIC;
-	const std::string BUMPER_TOPIC
+	const std::string BUMPER_TOPIC;
 
 	Task* currentTask;
 	std::string status;
@@ -174,7 +174,7 @@ private:
 		int state = msg->state;
 
 		std::string bumperStr;
-		std::string stateStr
+		std::string stateStr;
 		if (bumper == msg->LEFT){
 			bumperStr = "left";
 		}
@@ -220,12 +220,12 @@ public:
 		help_pub = n.advertise<std_msgs::String>(HELP_TOPIC, 100);
 		pose_pub = n.advertise<geometry_msgs::PoseStamped>(POSE_TOPIC, 100);
 
-		request_sub = n.subscribe(REQUEST_TOPIC, 1000, &ironman::requestCallback, this);
-		teleOp_sub = n.subscribe(TELE_OP_TOPIC, 1000, &ironman::teleOpCallback, this);
+		request_sub = n.subscribe(REQUEST_TOPIC, 1000, &Ironman::requestCallback, this);
+		teleOp_sub = n.subscribe(TELE_OP_TOPIC, 1000, &Ironman::teleOpCallback, this);
 
 		//Turtlebot publishers and subscribers
 		vel_pub = n.advertise<geometry_msgs::Twist>(VEL_TOPIC, 100);
-		bumper_sub = n.subscribe(BUMPER_TOPIC, 1000, &ironman::bumperCallback, this);
+		bumper_sub = n.subscribe(BUMPER_TOPIC, 1000, &Ironman::bumperCallback, this);
 
 		//ros::spinOnce();
 		ros::Rate loop_rate(1);
