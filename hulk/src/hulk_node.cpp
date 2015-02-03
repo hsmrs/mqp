@@ -9,12 +9,17 @@
 #include <sstream>
 
 #include "hsmrs_framework/Robot.h"
+#include "hulk/Behavior.h"
+#include "hulk/FollowTagBehavior.h"
 
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 
 class Hulk: public Robot {
 
 private:
+	friend class FollowTagBehavior;
+
+	ros::NodeHandle n;
 	ros::Publisher registration_pub;
 	ros::Publisher log_pub;
 	ros::Publisher status_pub;
@@ -41,8 +46,9 @@ private:
 	const std::string VEL_TOPIC;
 	const std::string BUMPER_TOPIC;
 
-	Task* currentTask;
+	Task* p_currentTask;
 	std::string status;
+	Behavior* p_currentBehavior;
 	double linearSpeed;
 	double angularSpeed;
 
@@ -63,6 +69,10 @@ private:
 			//This needs to be changed once tasks have been parameterized
 		//	doGoToTask(10, 10);
 		//}
+		FollowTagBehavior behavior(this, 0.3, 0.5, 0, n, VEL_TOPIC, "fake_topic");
+		p_currentBehavior = &behavior;
+
+		behavior.execute();
 	}
 
 	virtual void pauseTask(){
@@ -158,6 +168,9 @@ private:
 			setStatus("Idle");
 			resumeTask();
 		}
+		else if (request == "stop help"){
+
+		}
 	}
 
 	void teleOpCallback(const geometry_msgs::Twist::ConstPtr& msg){
@@ -209,8 +222,6 @@ public:
 		
 		linearSpeed = 0.3;
 		angularSpeed = 0.8;
-
-		ros::NodeHandle n;
 
 		ros::AsyncSpinner spinner(1);
 		spinner.start();
@@ -286,7 +297,7 @@ public:
 	 * @param A pointer to the Task to be set
 	 */
 	virtual void setTask(Task* task) {
-		currentTask = task;
+		p_currentTask = task;
 	}
 
 	/**
@@ -316,7 +327,7 @@ public:
 	 * @param task A pointer to the task object to be claimed.
 	 */
 	virtual void claimTask(Task* task) {
-		currentTask = task;
+		p_currentTask = task;
 	}
 
 	virtual std::string getStatus(){

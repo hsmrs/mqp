@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
   ar_track_alvar
+  sensor_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -84,9 +85,9 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
+  INCLUDE_DIRS include
 #  LIBRARIES hulk
-  CATKIN_DEPENDS geometry_msgs hsmrs_framework kobuki_msgs nav_msgs roscpp std_msgs ar_track_alvar
+  CATKIN_DEPENDS geometry_msgs hsmrs_framework kobuki_msgs nav_msgs roscpp std_msgs ar_track_alvar sensor_msgs
 #  DEPENDS system_lib
 )
 
@@ -96,7 +97,7 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-# include_directories(include)
+include_directories(include)
 include_directories(
   ${catkin_INCLUDE_DIRS}
 )
@@ -107,7 +108,7 @@ include_directories(
 # )
 
 ## Declare a cpp executable
- add_executable(hulk_node src/hulk_node.cpp)
+ add_executable(hulk_node src/hulk_node.cpp src/FollowTagBehavior.cpp src/GoToBehavior.cpp)
 add_executable(follow_tag src/follow_tag.cpp)
 
 ## Add cmake target dependencies of the executable/library
