@@ -2,14 +2,14 @@
 #ifndef _FOLLOW_TAG_BEHAVIOR_H_
 #define _FOLLOW_TAG_BEHAVIOR_H_
 
-#include "hulk/Behavior.h"
+#include "ironman/Behavior.h"
 #include "ros/ros.h"
 #include "geometry_msgs/Twist.h"
 #include "sensor_msgs/LaserScan.h"
 #include "ar_track_alvar/AlvarMarkers.h"
-#include "hulk/hulk_node.h"
+#include "ironman/ironman_node.h"
 
-class Hulk;
+class IronMan;
 
 class FollowTagBehavior : public Behavior{
 
@@ -29,7 +29,7 @@ private:
 
 public:
 
-	FollowTagBehavior(Hulk* parent, double maxLinearVelocity, double maxAngularVelocity, int tagID, ros::NodeHandle n, 
+	FollowTagBehavior(IronMan* parent, double maxLinearVelocity, double maxAngularVelocity, int tagID, ros::NodeHandle n, 
 		std::string cmdVelTopic, std::string laserTopic);
 
 	virtual void execute();

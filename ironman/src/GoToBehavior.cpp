@@ -1,6 +1,6 @@
-#include "hulk/GoToBehavior.h"
+#include "ironman/GoToBehavior.h"
 
-GoToBehavior::GoToBehavior(Hulk* parent, geometry_msgs::Pose goal, ros::NodeHandle n){
+GoToBehavior::GoToBehavior(IronMan* parent, geometry_msgs::Pose goal, ros::NodeHandle n){
 	this->parent = parent;
 	ac = new MoveBaseClient("move_base", true);
 

@@ -5,11 +5,14 @@ project(thor)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  geometry_msgs
-  hsmrs_framework
-  nav_msgs
-  roscpp
-  std_msgs
+  geometry_msgs 
+  hsmrs_framework 
+  kobuki_msgs 
+  nav_msgs 
+  roscpp 
+  std_msgs 
+  ar_track_alvar 
+  sensor_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -84,7 +87,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
   INCLUDE_DIRS include
 #  LIBRARIES thor
-  CATKIN_DEPENDS geometry_msgs hsmrs_framework nav_msgs roscpp std_msgs
+  CATKIN_DEPENDS geometry_msgs hsmrs_framework kobuki_msgs nav_msgs roscpp std_msgs ar_track_alvar sensor_msgs
 #  DEPENDS system_lib
 )
 
@@ -94,7 +97,7 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-# include_directories(include)
+include_directories(include)
 include_directories(
   ${catkin_INCLUDE_DIRS}
 )
@@ -105,7 +108,9 @@ include_directories(
 # )
 
 ## Declare a cpp executable
- add_executable(thor_node src/thor_node.cpp)
+ add_executable(thor_node src/thor_node.cpp
+ 						  src/FollowTagBehavior.cpp
+ 						  src/GoToBehavior.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes

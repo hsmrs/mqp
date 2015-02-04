@@ -2,12 +2,12 @@
 #ifndef _GO_TO_BEHAVIOR_H_
 #define _GO_TO_BEHAVIOR_H_
 
-#include "hulk/Behavior.h"
+#include "thor/Behavior.h"
 #include "ros/ros.h"
 #include <move_base_msgs/MoveBaseAction.h>
 #include <actionlib/client/simple_action_client.h>
 #include "geometry_msgs/Pose.h"
-#include "hulk/hulk_node.h"
+#include "thor/thor_node.h"
 
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 
@@ -15,7 +15,7 @@ class GoToBehavior : public Behavior{
 
 private:
 	
-	Hulk* parent;
+	Thor* parent;
 	MoveBaseClient* ac;
 	bool isExecuting;
 	move_base_msgs::MoveBaseGoal goalMsg;
@@ -27,7 +27,7 @@ private:
 
 public:
 
-	GoToBehavior(Hulk* parent, geometry_msgs::Pose goal, ros::NodeHandle n);
+	GoToBehavior(Thor* parent, geometry_msgs::Pose goal, ros::NodeHandle n);
 
 	virtual void execute();
 

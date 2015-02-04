@@ -1,80 +1,37 @@
-#include "ros/ros.h"
-#include "std_msgs/String.h"
-#include "geometry_msgs/PoseStamped.h"
-#include "geometry_msgs/Twist.h"
-
-#include <move_base_msgs/MoveBaseAction.h>
-#include <actionlib/client/simple_action_client.h>
-#include "kobuki_msgs/BumperEvent.h"
-
-#include <sstream>
-
-#include "hsmrs_framework/Robot.h"
-
-typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
-
-class Thor: public Robot {
-
-private:
-	ros::Publisher registration_pub;
-	ros::Publisher log_pub;
-	ros::Publisher status_pub;
-	ros::Publisher help_pub;
-	ros::Publisher pose_pub;
-
-	ros::Subscriber request_sub;
-	ros::Subscriber teleOp_sub;
-
-	ros::Publisher vel_pub;
-	ros::Subscriber bumper_sub;
-
-
-	const std::string NAME;
-	const std::string REGISTRATION_TOPIC;
-	const std::string IMAGE_TOPIC;
-	const std::string LOG_TOPIC;
-	const std::string STATUS_TOPIC;
-	const std::string HELP_TOPIC;
-	const std::string POSE_TOPIC;
-	const std::string REQUEST_TOPIC;
-	const std::string TELE_OP_TOPIC;
-
-	const std::string VEL_TOPIC;
-	const std::string BUMPER_TOPIC;
-
-	Task* currentTask;
-	std::string status;
-	double linearSpeed;
-	double angularSpeed;
+#include "thor/thor_node.h"
 
 	/**
 	 * Makes this Robot bid on the given task
 	 */
-	void bid(Task* task) {
+	void Thor::bid(Task* task) {
 
 	}
 
 	/**
 	 * Begins the Robot's execution of its current Task.
 	 */
-	virtual void executeTask() {
+	void Thor::executeTask() {
 		//std::string taskType = currentTask->getType();
 
 		//if (taskType == "Go to"){
 			//This needs to be changed once tasks have been parameterized
 		//	doGoToTask(10, 10);
 		//}
+		FollowTagBehavior behavior(this, 0.3, 0.5, 0, n, VEL_TOPIC, "fake_topic");
+		p_currentBehavior = &behavior;
+
+		behavior.execute();
 	}
 
-	virtual void pauseTask(){
+	void Thor::pauseTask(){
 
 	}
 
-	virtual void resumeTask(){
+	void Thor::resumeTask(){
 		
 	}
 
-	void doGoToTask(double x, double y){
+	void Thor::doGoToTask(double x, double y){
 		/*MoveBaseClient ac("move_base", true);
 
   		//wait for the action server to come up
@@ -111,24 +68,24 @@ private:
 	 * Request for the given Task to be sent to the TaskList
 	 * @param task The task to be queued
 	 */
-	virtual void requestTaskForQueue(Task* task) {
+	void Thor::requestTaskForQueue(Task* task) {
 
 	}
 
 	/**
 	 * Send a help request to the Human supervisor.
 	 */
-	virtual void callForHelp() {
+	void Thor::callForHelp() {
 		std_msgs::String msg;
 		msg.data = "true";
 		help_pub.publish(msg);
 	}
 
-	virtual void handleTeleop(){
+	void Thor::handleTeleop(){
 
 	}
 
-	void registerWithGUI() {
+	void Thor::registerWithGUI() {
 		//name;requestTopic;logTopic;imageTopic;poseTopic;statusTopic;helpTopic;teleOpTopic
 
 		std_msgs::String msg;
@@ -141,13 +98,13 @@ private:
 		registration_pub.publish(msg);
 	}
 
-	void sendLog(std::string logMessage){
+	void Thor::sendLog(std::string logMessage){
 		std_msgs::String msg;
 		msg.data = logMessage;
 		log_pub.publish(msg);
 	}
 
-	void requestCallback(const std_msgs::String::ConstPtr& msg)
+	void Thor::requestCallback(const std_msgs::String::ConstPtr& msg)
 	{
 		std::string request = msg->data;
 
@@ -159,9 +116,12 @@ private:
 			setStatus("Idle");
 			resumeTask();
 		}
+		else if (request == "stop help"){
+
+		}
 	}
 
-	void teleOpCallback(const geometry_msgs::Twist::ConstPtr& msg){
+	void Thor::teleOpCallback(const geometry_msgs::Twist::ConstPtr& msg){
 		double linearVel = msg->linear.x * linearSpeed;
 		double angularVel = msg->linear.y * angularSpeed;
 
@@ -172,7 +132,7 @@ private:
 		vel_pub.publish(velMsg);
 	}
 
-	void bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg){
+	void Thor::bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg){
 		int bumper = msg->bumper;
 		int state = msg->state;
 
@@ -201,8 +161,7 @@ private:
 
 	}
 
-public:
-	Thor() : NAME("Thor"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMAGE_TOPIC("thor/camera/rgb/image_mono"), 
+	Thor::Thor() : NAME("Thor"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMAGE_TOPIC("thor/camera/rgb/image_mono"), 
 			LOG_TOPIC("thor/log_messages"), STATUS_TOPIC("thor/status"), HELP_TOPIC("thor/help"), POSE_TOPIC("thor/pose"),
 			REQUEST_TOPIC("thor/requests"), TELE_OP_TOPIC("thor/tele_op"), VEL_TOPIC("thor/cmd_vel_mux/input/teleop"),
 			BUMPER_TOPIC("/thor/mobile_base/events/bumper")
@@ -210,8 +169,6 @@ public:
 		
 		linearSpeed = 0.3;
 		angularSpeed = 0.8;
-
-		ros::NodeHandle n;
 
 		ros::AsyncSpinner spinner(1);
 		spinner.start();
@@ -242,16 +199,17 @@ public:
 		//}
 	}
 
-	virtual std::string getName(){
+	std::string Thor::getName(){
 		return NAME;
 	}
+
 
 	/**
 	 * Returns the value of the specified attribute from this Robot's AgentState.
 	 * @param attr The name of the attribute to get
 	 * @return The value of the attribute
 	 */
-	virtual double getAttribute(std::string attr) {
+	double Thor::getAttribute(std::string attr) {
 
 	}
 
@@ -260,7 +218,7 @@ public:
 	 * @param task A pointer to the task for which to get a utility.
 	 * @return This Robot's utility for the given Task.
 	 */
-	virtual double getUtility(Task *task) {
+	double Thor::getUtility(Task *task) {
 
 	}
 
@@ -268,7 +226,7 @@ public:
 	 * Returns this Robot's AgentState.
 	 * @return The AgentState representing the state of this Robot.
 	 */
-	virtual AgentState* getState() {
+	AgentState* Thor::getState() {
 
 	}
 
@@ -277,7 +235,7 @@ public:
 	 * @param attr The name of the target attribute
 	 * @return True if the robot has the named attribute.
 	 */
-	virtual bool hasAttribute(std::string attr) {
+	bool Thor::hasAttribute(std::string attr) {
 
 	}
 
@@ -285,21 +243,21 @@ public:
 	 * Sets this Robot's currently active Task.
 	 * @param A pointer to the Task to be set
 	 */
-	virtual void setTask(Task* task) {
-		currentTask = task;
+	void Thor::setTask(Task* task) {
+		p_currentTask = task;
 	}
 
 	/**
 	 * Handles the auctioning of Tasks by sending and receiving bids.
 	 */
-	virtual void handleBids() {
+	void Thor::handleBids() {
 
 	}
 
 	/**
 	 * Verifies that an Agent claiming a Task has the highest utility for it. If not, informs the Agent of the Task's proper owner.
 	 */
-	virtual void verifyTaskClaim() {
+	void Thor::verifyTaskClaim() {
 
 	}
 
@@ -307,7 +265,7 @@ public:
 	 * Stops execution of the current Task and requests that
 	 * the Task be returned to the TaskList.
 	 */
-	virtual void cancelTask() {
+	void Thor::cancelTask() {
 
 	}
 
@@ -315,22 +273,20 @@ public:
 	 * Asks the Agent to claim a task pointed to by \p task.
 	 * @param task A pointer to the task object to be claimed.
 	 */
-	virtual void claimTask(Task* task) {
-		currentTask = task;
+	void Thor::claimTask(Task* task) {
+		p_currentTask = task;
 	}
 
-	virtual std::string getStatus(){
+	std::string Thor::getStatus(){
 		return status;
 	}
 
-	virtual void setStatus(std::string newStatus){
+	void Thor::setStatus(std::string newStatus){
 		status = newStatus;
 		std_msgs::String msg;
 		msg.data = status;
 		status_pub.publish(msg);
 	}
-
-};
 
 int main(int argc, char **argv) {
 	ros::init(argc, argv, "thor");
