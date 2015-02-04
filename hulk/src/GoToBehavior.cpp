@@ -1,7 +1,7 @@
 #include "hulk/GoToBehavior.h"
 
 GoToBehavior::GoToBehavior(Hulk* parent, geometry_msgs::Pose goal, ros::NodeHandle n){
-
+	this->parent = parent;
 	ac = new MoveBaseClient("move_base", true);
 
 	//wait for the action server to come up
@@ -16,14 +16,14 @@ GoToBehavior::GoToBehavior(Hulk* parent, geometry_msgs::Pose goal, ros::NodeHand
 }
 
 void GoToBehavior::goalCallback(const actionlib::SimpleClientGoalState& state,
-          			const move_base_msgs::MoveBaseActionResult::ConstPtr& result) const {
+          			const move_base_msgs::MoveBaseResult::ConstPtr& result) {
 	if(state == actionlib::SimpleClientGoalState::SUCCEEDED)
 		ROS_INFO("Goal reached!");
 	else
 		ROS_INFO("Goal failed");
 }
 
-void GoToBehavior::feebackCallback(const move_base_msgs::MoveBaseActionFeedback::ConstPtr& feedback)const{
+void GoToBehavior::feebackCallback(const move_base_msgs::MoveBaseFeedback::ConstPtr& feedback){
 
 }
 

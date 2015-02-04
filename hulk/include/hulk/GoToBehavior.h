@@ -15,14 +15,15 @@ class GoToBehavior : public Behavior{
 
 private:
 	
+	Hulk* parent;
 	MoveBaseClient* ac;
 	bool isExecuting;
 	move_base_msgs::MoveBaseGoal goalMsg;
 
 	void goalCallback(const actionlib::SimpleClientGoalState& state,
-              			const move_base_msgs::MoveBaseActionResult::ConstPtr& result);
+              			const move_base_msgs::MoveBaseResult::ConstPtr& result);
 
-	void feebackCallback(const move_base_msgs::MoveBaseActionFeedback::ConstPtr &feedback);
+	void feebackCallback(const move_base_msgs::MoveBaseFeedback::ConstPtr &feedback);
 
 public:
 

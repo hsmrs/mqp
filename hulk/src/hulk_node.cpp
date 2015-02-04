@@ -18,6 +18,7 @@ class Hulk: public Robot {
 
 private:
 	friend class FollowTagBehavior;
+	friend class GoToBehavior;
 
 	ros::NodeHandle n;
 	ros::Publisher registration_pub;
