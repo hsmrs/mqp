@@ -1,6 +1,6 @@
 #include "thor/GoToBehavior.h"
 
-GoToBehavior::GoToBehavior(Thor* parent, geometry_msgs::Pose goal, ros::NodeHandle n){
+GoToBehavior::GoToBehavior(Robot* parent, geometry_msgs::Pose goal, ros::NodeHandle n){
 	this->parent = parent;
 	ac = new MoveBaseClient("move_base", true);
 
@@ -22,8 +22,8 @@ void GoToBehavior::goalCallback(const actionlib::SimpleClientGoalState& state,
 	}
 	else{
 		ROS_INFO("Goal failed");
-		parent->sendLog("I was not able to go to my goal!");
-		parent->callForHelp();
+		//parent->sendMessage("I was not able to go to my goal!");
+		//parent->callForHelp();
 	}
 }
 

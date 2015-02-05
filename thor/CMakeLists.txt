@@ -110,7 +110,8 @@ include_directories(
 ## Declare a cpp executable
  add_executable(thor_node src/thor_node.cpp
  						  src/FollowTagBehavior.cpp
- 						  src/GoToBehavior.cpp)
+ 						  src/GoToBehavior.cpp
+ 						  src/StdTaskList.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
@@ -118,7 +119,7 @@ include_directories(
 
 ## Specify libraries to link a library or executable target against
  target_link_libraries(thor_node
-   ${catkin_LIBRARIES}
+   ${catkin_LIBRARIES} ${hsmrs_framework_LIBRARIES}
  )
 
 #############

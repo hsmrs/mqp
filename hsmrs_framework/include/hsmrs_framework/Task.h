@@ -29,7 +29,7 @@ public:
 	 * Retrieves a vector of Agents who have claimed this Task
 	 * @return A vector of Agents who have claimed this Task
 	 */
-	virtual std::vector<Agent*>* getOwners() = 0;
+	virtual std::vector<std::string> getOwners() = 0;
 
 	/**
 	 * Determines the minimum number of Agents that need to claim this
@@ -62,7 +62,7 @@ public:
 	 * Adds an Agent as an owner to this task, if another owner can be added
 	 * @param agent The Agent to be added as an owner.
 	 */
-	virtual void addOwner(Agent* agent) = 0;
+	virtual void addOwner(std::string agent) = 0;
 
 	/**
 	 * Removes the given Agent as an owner.

@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(hsmrs_framework)
 
+set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS}")
+
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
@@ -82,7 +84,7 @@ generate_messages(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-#  LIBRARIES hsmrs_framework
+  LIBRARIES MyAttributeWeights MyPrerequisite MyProgress MyTask MyTaskList MyUtilityHelper GoToTask
   CATKIN_DEPENDS geometry_msgs nav_msgs roscpp std_msgs message_runtime
 #  DEPENDS system_lib
 )
@@ -93,15 +95,36 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-# include_directories(include)
+include_directories(include)
 include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a cpp library
-# add_library(hsmrs_framework
-#   src/${PROJECT_NAME}/hsmrs_framework.cpp
-# )
+
+add_library(MyAttributeWeights src/${PROJECT_NAME}/MyAttributeWeights.cpp)
+#target_link_libraries(MyAttributeWeights.cpp ${catkin_LIBRARIES})
+
+add_library(MyPrerequisite src/${PROJECT_NAME}/MyPrerequisite.cpp)
+#target_link_libraries(MyPrerequisite.cpp ${catkin_LIBRARIES})
+
+add_library(MyProgress src/${PROJECT_NAME}/MyProgress.cpp)
+#target_link_libraries(MyProgress.cpp ${catkin_LIBRARIES})
+
+add_library(MyTask src/${PROJECT_NAME}/MyTask.cpp)
+#target_link_libraries(MyTask.cpp ${catkin_LIBRARIES})
+
+add_library(MyTaskList src/${PROJECT_NAME}/MyTaskList.cpp)
+#target_link_libraries(MyTaskList.cpp ${catkin_LIBRARIES})
+
+add_library(MyUtilityHelper src/${PROJECT_NAME}/MyUtilityHelper.cpp)
+#target_link_libraries(MyUtilityHelper.cpp ${catkin_LIBRARIES})
+
+add_library(GoToTask src/tasks/GoToTask.cpp)
+#target_link_libraries(GoToTask.cpp ${catkin_LIBRARIES})
+
+#add_library(FollowTagTask src/tasks/FollowTagTask.cpp)
+#target_link_libraries(FollowTagTask.cpp ${catkin_LIBRARIES})
 
 ## Declare a cpp executable
 # add_executable(hsmrs_framework_node src/hsmrs_framework_node.cpp)

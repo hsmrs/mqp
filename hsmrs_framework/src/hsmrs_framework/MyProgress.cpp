@@ -1,12 +1,6 @@
-#include "hsmrs_framework/Progress.h"
+#include "hsmrs_implementations/MyProgress.h"
 
-class MyProgress : public Progress
-{
-private:
-	double val;
-	
-public:
-	MyProgress::MyProgress()
+MyProgress::MyProgress()
 	{
 		val = 0;
 	}
@@ -16,7 +10,7 @@ public:
 		this->val = val;
 	}
 
-	double Progress::report()
+	double MyProgress::report()
 	{
 		return val;
 	}
@@ -25,4 +19,3 @@ public:
 	{
 		this->val = val;
 	}
-};

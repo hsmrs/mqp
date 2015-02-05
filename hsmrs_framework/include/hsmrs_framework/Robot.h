@@ -69,6 +69,9 @@ private:
 	virtual void handleTeleop() = 0;
 
 	virtual void requestTaskForQueue(Task* task) = 0;
+
 	virtual void callForHelp() = 0;
+
+	virtual void sendMessage(std::string message) = 0;
 };
 

@@ -10,10 +10,15 @@
 #include "kobuki_msgs/BumperEvent.h"
 
 #include <sstream>
+#include <typeinfo>
 
 #include "hsmrs_framework/Robot.h"
+#include "hsmrs_framework/TaskList.h"
+#include "hsmrs_implementations/GoToTask.h"
+#include "hsmrs_implementations/MyTaskList.h"
 #include "thor/Behavior.h"
 #include "thor/FollowTagBehavior.h"
+#include "thor/GoToBehavior.h"
 
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 
@@ -46,10 +51,14 @@ private:
 	const std::string POSE_TOPIC;
 	const std::string REQUEST_TOPIC;
 	const std::string TELE_OP_TOPIC;
+	const std::string NEW_TASK_TOPIC;
+	const std::string UPDATED_TASK_TOPIC;
 
 	const std::string VEL_TOPIC;
 	const std::string BUMPER_TOPIC;
+	const std::string LASER_TOPIC;
 
+	TaskList* taskList;
 	Task* p_currentTask;
 	std::string status;
 	Behavior* p_currentBehavior;
@@ -87,7 +96,7 @@ private:
 
 	void registerWithGUI();
 
-	void sendLog(std::string logMessage);
+	void sendMessage(std::string message);
 
 	void requestCallback(const std_msgs::String::ConstPtr& msg);
 

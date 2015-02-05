@@ -11,16 +11,22 @@
 	 * Begins the Robot's execution of its current Task.
 	 */
 	void Thor::executeTask() {
-		//std::string taskType = currentTask->getType();
+		std::string taskType = typeid(p_currentTask).name();
+		Behavior* behavior;
 
-		//if (taskType == "Go to"){
-			//This needs to be changed once tasks have been parameterized
-		//	doGoToTask(10, 10);
-		//}
-		FollowTagBehavior behavior(this, 0.3, 0.5, 0, n, VEL_TOPIC, "fake_topic");
-		p_currentBehavior = &behavior;
+		GoToTask task;
 
-		behavior.execute();
+		if (taskType == "GoToTask"){
+			GoToTask* task = dynamic_cast<GoToTask*>(p_currentTask);
+			behavior = new GoToBehavior(this, task->getGoal(), n);
+		}
+		else if(taskType == "FollowTagTask"){
+			//FollowTagTask* task = dynamic_cast<FollowTagTask*>(p_currentTask);
+			//behavior = new FollowTagTask(this, 0.3, 0.5, task->getMarkerID, n, VEL_TOPIC, LASER_TOPIC);
+		}
+		p_currentBehavior = behavior;
+
+		behavior->execute();
 	}
 
 	void Thor::pauseTask(){
@@ -98,9 +104,9 @@
 		registration_pub.publish(msg);
 	}
 
-	void Thor::sendLog(std::string logMessage){
+	void Thor::sendMessage(std::string message){
 		std_msgs::String msg;
-		msg.data = logMessage;
+		msg.data = message;
 		log_pub.publish(msg);
 	}
 
@@ -157,16 +163,19 @@
 		}
 
 		std::string message = "My " + bumperStr + " bumper was " + stateStr + "!";
-		sendLog(message);
+		sendMessage(message);
 
 	}
 
 	Thor::Thor() : NAME("Thor"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMAGE_TOPIC("thor/camera/rgb/image_mono"), 
 			LOG_TOPIC("thor/log_messages"), STATUS_TOPIC("thor/status"), HELP_TOPIC("thor/help"), POSE_TOPIC("thor/pose"),
 			REQUEST_TOPIC("thor/requests"), TELE_OP_TOPIC("thor/tele_op"), VEL_TOPIC("thor/cmd_vel_mux/input/teleop"),
-			BUMPER_TOPIC("/thor/mobile_base/events/bumper")
+			BUMPER_TOPIC("/thor/mobile_base/events/bumper"), NEW_TASK_TOPIC("/hsmrs/new_task"), 
+			UPDATED_TASK_TOPIC("/hsmrs/updated_task_topic"), LASER_TOPIC("thor/scan")
 			{
-		
+
+		taskList = new MyTaskList();
+
 		linearSpeed = 0.3;
 		angularSpeed = 0.8;
 
@@ -275,6 +284,7 @@
 	 */
 	void Thor::claimTask(Task* task) {
 		p_currentTask = task;
+		executeTask();
 	}
 
 	std::string Thor::getStatus(){

@@ -93,9 +93,9 @@
 		registration_pub.publish(msg);
 	}
 
-	void IronMan::sendLog(std::string logMessage){
+	void IronMan::sendMessage(std::string message){
 		std_msgs::String msg;
-		msg.data = logMessage;
+		msg.data = message;
 		log_pub.publish(msg);
 	}
 
@@ -149,7 +149,7 @@
 		}
 
 		std::string message = "My " + bumperStr + " bumper was " + stateStr + "!";
-		sendLog(message);
+		sendMessage(message);
 
 	}
 

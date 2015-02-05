@@ -87,7 +87,7 @@ private:
 
 	void registerWithGUI();
 
-	void sendLog(std::string logMessage);
+	void sendMessage(std::string message);
 
 	void requestCallback(const std_msgs::String::ConstPtr& msg);
 
