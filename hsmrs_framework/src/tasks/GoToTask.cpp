@@ -36,7 +36,8 @@ GoToTask::GoToTask(std::string strDelimitedTask){
 
     std::vector<std::string> items2;
     paramList.erase(0, 1);
-    paramList.pop_back();
+    paramList.erase(paramList.size() - 1);
+    //paramList.pop_back();
 
     delimiter = ",";
 	pos = 0;
@@ -73,7 +74,8 @@ GoToTask::GoToTask(std::string strDelimitedTask){
     ROS_INFO("Getting owner list");
     std::string ownerList = items[4];
     ownerList.erase(0, 1);
-    ownerList.pop_back();
+    ownerList.erase(ownerList.size() - 1);
+    //ownerList.pop_back();
 
     std::vector<std::string> items5;
     delimiter = ",";

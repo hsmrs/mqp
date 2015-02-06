@@ -21,12 +21,13 @@
 			behavior = new GoToBehavior(this, task->getGoal(), n);
 		}
 		else if(taskType == "FollowTagTask"){
-			//FollowTagTask* task = dynamic_cast<FollowTagTask*>(p_currentTask);
-			//behavior = new FollowTagTask(this, 0.3, 0.5, task->getMarkerID, n, VEL_TOPIC, LASER_TOPIC);
+			FollowTagTask* task = dynamic_cast<FollowTagTask*>(p_currentTask);
+			behavior = new FollowTagBehavior(this, 0.3, 0.5, task->getTagID(), n, VEL_TOPIC, LASER_TOPIC);
 		}
 		p_currentBehavior = behavior;
 
 		behavior->execute();
+		setStatus("Busy");
 	}
 
 	void Thor::pauseTask(){
@@ -190,8 +191,16 @@
 		else if (type == "FollowTag"){
 			task = new FollowTagTask(msg->data);
 		}
+		else{ //Task not recognized
+			return;
+		}
 
-		taskList->addTask(task);
+		std::vector<std::string> owners = task->getOwners();
+		if (std::find(owners.begin(), owners.end(), NAME)!=owners.end()){
+			claimTask(task);
+		} else{
+			taskList->addTask(task);
+		}
 	}
 
 	void Thor::updatedTaskCallback(const std_msgs::String::ConstPtr& msg){
