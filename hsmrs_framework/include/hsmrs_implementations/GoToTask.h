@@ -32,6 +32,8 @@ public:
 	GoToTask(hsmrs_framework::TaskMsg::ConstPtr& msgs);
 
 	GoToTask(std::string strDelimitedTask);
+	
+	virtual std::string getType();
 
 	geometry_msgs::Pose getGoal();
 

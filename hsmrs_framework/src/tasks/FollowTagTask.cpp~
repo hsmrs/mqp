@@ -81,7 +81,7 @@ FollowTagTask::FollowTagTask(std::string strDelimitedTask){
 }
 
 std::string FollowTagTask::getType(){
-	return "FollowTagTask";
+	return "FollowTagTask"
 }
 
 int FollowTagTask::getTagID(){

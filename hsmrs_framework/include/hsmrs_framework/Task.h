@@ -23,7 +23,9 @@ public:
 	 * The destructor for the Task class
 	 */
 	~Task(void){}
-
+	
+	virtual std::string getType() = 0;
+	
 	/**
 	 * Retrieves a vector of Agents who have claimed this Task
 	 * @return A vector of Agents who have claimed this Task

@@ -1,7 +1,9 @@
-#ifndef _FOLLOW_TAG_TASK_H_
-#define _FOLLOW_TAG_TASK_H_
+#ifndef _GO_TO_TASK_H_
+#define _GO_TO_TASK_H_
 
+#include <ros/console.h>
 #include "hsmrs_framework/Task.h"
+#include "hsmrs_framework/Agent.h"
 #include "hsmrs_framework/Prerequisite.h"
 #include "hsmrs_framework/Progress.h"
 #include "hsmrs_framework/TaskMsg.h"
@@ -9,9 +11,9 @@
 #include "hsmrs_implementations/MyPrerequisite.h"
 #include "hsmrs_implementations/MyProgress.h"
 
-class FollowTagTask : public Task {
+class GoToTask : public Task {
 private:
-	int tagID;
+	geometry_msgs::Pose goal;
 	std::vector<std::string> owners;
 	std::map<std::string, double> attributeWeights;
 	std::vector<Task*> subTasks;
@@ -25,15 +27,13 @@ private:
 	const static int MAX_OWNERS;
 
 public:
-	FollowTagTask();
+	GoToTask();
 
-	FollowTagTask(hsmrs_framework::TaskMsg::ConstPtr& msgs);
+	GoToTask(hsmrs_framework::TaskMsg::ConstPtr& msgs);
 
-	FollowTagTask(std::string strDelimitedTask);
-	
-	virtual std::string getType();
+	GoToTask(std::string strDelimitedTask);
 
-	int getTagID();
+	geometry_msgs::Pose getGoal();
 
 	/**
 	 * Retrieves a vector of Agents who have claimed this Task

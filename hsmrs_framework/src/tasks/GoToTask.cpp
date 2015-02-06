@@ -103,6 +103,10 @@ GoToTask::GoToTask(std::string strDelimitedTask){
 	ROS_INFO("Go to task created from colon delimited string!");
 }
 
+std::string GoToTask::getType(){
+	return "GoToTask";
+}
+
 geometry_msgs::Pose GoToTask::getGoal(){
 	return goal;
 }

@@ -11,21 +11,25 @@
 	 * Begins the Robot's execution of its current Task.
 	 */
 	void Thor::executeTask() {
-		std::string taskType = typeid(p_currentTask).name();
+		//std::string taskType = typeid(p_currentTask).name();
+		std::string taskType = p_currentTask->getType();
+		ROS_INFO(taskType.c_str());
 		Behavior* behavior;
 
 		GoToTask task;
 
-		if (taskType == "GoToTask"){
+		if (taskType == "GoToTask"){ 
+			ROS_INFO("GoToTask");
 			GoToTask* task = dynamic_cast<GoToTask*>(p_currentTask);
 			behavior = new GoToBehavior(this, task->getGoal(), n);
 		}
 		else if(taskType == "FollowTagTask"){
+			ROS_INFO("FollowTagTask");
 			FollowTagTask* task = dynamic_cast<FollowTagTask*>(p_currentTask);
 			behavior = new FollowTagBehavior(this, 0.3, 0.5, task->getTagID(), n, VEL_TOPIC, LASER_TOPIC);
 		}
 		p_currentBehavior = behavior;
-
+		ROS_INFO("Executing task");
 		behavior->execute();
 		setStatus("Busy");
 	}
@@ -194,9 +198,14 @@
 		else{ //Task not recognized
 			return;
 		}
-
+		ROS_INFO("Task created");
 		std::vector<std::string> owners = task->getOwners();
+		for (int i = 0; i < owners.size(); ++i){
+			ROS_INFO(owners[i].c_str());
+		}
+		
 		if (std::find(owners.begin(), owners.end(), NAME)!=owners.end()){
+			ROS_INFO("Claiming task!");
 			claimTask(task);
 		} else{
 			taskList->addTask(task);
@@ -337,6 +346,7 @@
 	 * @param task A pointer to the task object to be claimed.
 	 */
 	void Thor::claimTask(Task* task) {
+		ROS_INFO("Claiming task!");
 		p_currentTask = task;
 		executeTask();
 	}
