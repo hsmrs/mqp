@@ -2,6 +2,7 @@
 #define _THOR_NODE_H_
 
 #include "ros/ros.h"
+#include <ros/console.h>
 #include "std_msgs/String.h"
 #include "geometry_msgs/PoseStamped.h"
 #include "geometry_msgs/Twist.h"

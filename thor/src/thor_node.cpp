@@ -170,6 +170,7 @@
 
 	void Thor::newTaskCallback(const std_msgs::String::ConstPtr& msg){
 		std::string data = msg->data;
+		ROS_INFO("New task received");
 
 		std::vector<std::string> items;
 		std::string delimiter = ";";
@@ -182,7 +183,7 @@
 
 		std::string type = items[1];
 		Task* task;
-
+		ROS_INFO("Sorting new task");
 		if (type == "GoTo"){
 			task = new GoToTask(msg->data);
 		}

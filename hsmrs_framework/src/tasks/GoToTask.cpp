@@ -17,13 +17,14 @@ GoToTask::GoToTask(hsmrs_framework::TaskMsg::ConstPtr& msg){
 }
 
 GoToTask::GoToTask(std::string strDelimitedTask){
+	ROS_INFO("Creating go to task from colon delimited string");
 	// ID;Name;[ParamName:ParamType=ParamValue, ...];[SubTask1, SubTask2, ...];[Owner1, Owner2, ...]
 	priority = 0.0;
 	std::vector<std::string> items;
 
 	std::string delimiter = ";";
 	size_t pos = 0;
-
+	ROS_INFO("Splitting on colon");
 	while ((pos = strDelimitedTask.find(delimiter)) != std::string::npos) {
     	items.push_back(strDelimitedTask.substr(0, pos));
     	strDelimitedTask.erase(0, pos + delimiter.length());
@@ -38,7 +39,7 @@ GoToTask::GoToTask(std::string strDelimitedTask){
 
     delimiter = ",";
 	pos = 0;
-
+	ROS_INFO("Splitting on comma for parameters");
 	while ((pos = paramList.find(delimiter)) != std::string::npos) {
     	items2.push_back(paramList.substr(0, pos));
     	paramList.erase(0, pos + delimiter.length());
@@ -47,7 +48,7 @@ GoToTask::GoToTask(std::string strDelimitedTask){
 	std::vector<std::string> items3;
 	delimiter = "=";
 	pos = 0;
-
+	ROS_INFO("Splitting on equals for x parameter value");
 	while ((pos = items2[0].find(delimiter)) != std::string::npos) {
     	items3.push_back(items2[0].substr(0, pos));
     	items2[0].erase(0, pos + delimiter.length());
@@ -57,13 +58,14 @@ GoToTask::GoToTask(std::string strDelimitedTask){
 
     std::vector<std::string> items4;
     pos = 0;
-
+	ROS_INFO("Splitting on equals for y parameter value");
 	while ((pos = items2[1].find(delimiter)) != std::string::npos) {
     	items4.push_back(items2[1].substr(0, pos));
     	items2[1].erase(0, pos + delimiter.length());
 	}
     double y = std::stoi(items4[1]);
 
+    ROS_INFO("Getting owner list");
     std::string ownerList = items[4];
     ownerList.erase(0);
     ownerList.erase(paramList.end());
@@ -71,7 +73,7 @@ GoToTask::GoToTask(std::string strDelimitedTask){
     std::vector<std::string> items5;
     delimiter = ",";
 	pos = 0;
-
+	ROS_INFO("Splitting on commas for owners");
 	while ((pos = ownerList.find(delimiter)) != std::string::npos) {
     	items5.push_back(ownerList.substr(0, pos));
     	ownerList.erase(0, pos + delimiter.length());
@@ -89,6 +91,8 @@ GoToTask::GoToTask(std::string strDelimitedTask){
 
     prerequisite = new MyPrerequisite();
 	progress = new MyProgress();
+
+	ROS_INFO("Go to task created from colon delimited string!");
 }
 
 geometry_msgs::Pose GoToTask::getGoal(){

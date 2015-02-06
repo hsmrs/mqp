@@ -1,6 +1,7 @@
 #ifndef _GO_TO_TASK_H_
 #define _GO_TO_TASK_H_
 
+#include <ros/console.h>
 #include "hsmrs_framework/Task.h"
 #include "hsmrs_framework/Agent.h"
 #include "hsmrs_framework/Prerequisite.h"
