@@ -22,8 +22,8 @@ void GoToBehavior::goalCallback(const actionlib::SimpleClientGoalState& state,
 	}
 	else{
 		ROS_INFO("Goal failed");
-		//parent->sendMessage("I was not able to go to my goal!");
-		//parent->callForHelp();
+		parent->sendMessage("I was not able to go to my goal!");
+		parent->callForHelp();
 	}
 }
 

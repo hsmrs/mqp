@@ -92,16 +92,9 @@ private:
 	 */
 	virtual void requestTaskForQueue(Task* task);
 
-	/**
-	 * Send a help request to the Human supervisor.
-	 */
-	virtual void callForHelp();
-
 	virtual void handleTeleop();
 
 	void registerWithGUI();
-
-	void sendMessage(std::string message);
 
 	void requestCallback(const std_msgs::String::ConstPtr& msg);
 
@@ -179,6 +172,13 @@ public:
 	virtual std::string getStatus();
 
 	virtual void setStatus(std::string newStatus);
+
+	/**
+	 * Send a help request to the Human supervisor.
+	 */
+	virtual void callForHelp();
+	
+	void sendMessage(std::string message);
 
 };
 

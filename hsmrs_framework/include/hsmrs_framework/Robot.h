@@ -61,6 +61,10 @@ public:
 	* Verifies that an Agent claiming a Task has the highest utility for it. If not, informs the Agent of the Task's proper owner.
 	*/
 	virtual void verifyTaskClaim() = 0;
+
+	virtual void callForHelp() = 0;
+
+	virtual void sendMessage(std::string message) = 0;
 private:
 	virtual void bid(Task* task) = 0;
 
@@ -69,9 +73,5 @@ private:
 	virtual void handleTeleop() = 0;
 
 	virtual void requestTaskForQueue(Task* task) = 0;
-
-	virtual void callForHelp() = 0;
-
-	virtual void sendMessage(std::string message) = 0;
 };
 
