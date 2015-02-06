@@ -84,7 +84,7 @@ generate_messages(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES MyAttributeWeights MyPrerequisite MyProgress MyTask MyTaskList MyUtilityHelper GoToTask
+  LIBRARIES MyAttributeWeights MyPrerequisite MyProgress MyTask MyTaskList MyUtilityHelper GoToTask FollowTagTask
   CATKIN_DEPENDS geometry_msgs nav_msgs roscpp std_msgs message_runtime
 #  DEPENDS system_lib
 )
@@ -123,7 +123,7 @@ add_library(MyUtilityHelper src/${PROJECT_NAME}/MyUtilityHelper.cpp)
 add_library(GoToTask src/tasks/GoToTask.cpp)
 #target_link_libraries(GoToTask.cpp ${catkin_LIBRARIES})
 
-#add_library(FollowTagTask src/tasks/FollowTagTask.cpp)
+add_library(FollowTagTask src/tasks/FollowTagTask.cpp)
 #target_link_libraries(FollowTagTask.cpp ${catkin_LIBRARIES})
 
 ## Declare a cpp executable

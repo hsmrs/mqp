@@ -15,6 +15,7 @@
 #include "hsmrs_framework/Robot.h"
 #include "hsmrs_framework/TaskList.h"
 #include "hsmrs_implementations/GoToTask.h"
+#include "hsmrs_implementations/FollowTagTask.h"
 #include "hsmrs_implementations/MyTaskList.h"
 #include "thor/Behavior.h"
 #include "thor/FollowTagBehavior.h"

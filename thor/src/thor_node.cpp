@@ -187,10 +187,10 @@
 			task = new GoToTask(msg->data);
 		}
 		else if (type == "FollowTag"){
-			//task = new FollowTagTask(msg->data);
+			task = new FollowTagTask(msg->data);
 		}
 
-		//taskList.addTask(task);
+		taskList->addTask(task);
 	}
 
 	void Thor::updatedTaskCallback(const std_msgs::String::ConstPtr& msg){
