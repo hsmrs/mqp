@@ -29,13 +29,14 @@ FollowTagTask::FollowTagTask(std::string strDelimitedTask){
     	items.push_back(strDelimitedTask.substr(0, pos));
     	strDelimitedTask.erase(0, pos + delimiter.length());
 	}
+	items.push_back(strDelimitedTask);
 
     id = std::stoi(items[0]);
 	std::string paramList = items[2];
 
     std::vector<std::string> items2;
-    paramList.erase(0);
-    paramList.erase(paramList.end());
+	paramList.erase(0, 1);    
+	paramList.erase(paramList.size() - 1);
 
     delimiter = ",";
 	pos = 0;
@@ -44,6 +45,7 @@ FollowTagTask::FollowTagTask(std::string strDelimitedTask){
     	items2.push_back(paramList.substr(0, pos));
     	paramList.erase(0, pos + delimiter.length());
 	}
+	items2.push_back(paramList);
 
 	std::vector<std::string> items3;
 	delimiter = "=";
@@ -53,12 +55,13 @@ FollowTagTask::FollowTagTask(std::string strDelimitedTask){
     	items3.push_back(items2[0].substr(0, pos));
     	items2[0].erase(0, pos + delimiter.length());
 	}
+	items3.push_back(items2[0]);
 
     tagID = std::stoi(items3[1]);
 
     std::string ownerList = items[4];
-    ownerList.erase(0);
-    ownerList.erase(paramList.end());
+    ownerList.erase(0, 1);
+    ownerList.erase(ownerList.size() - 1);
 
     std::vector<std::string> items5;
     delimiter = ",";
@@ -68,6 +71,7 @@ FollowTagTask::FollowTagTask(std::string strDelimitedTask){
     	items5.push_back(ownerList.substr(0, pos));
     	ownerList.erase(0, pos + delimiter.length());
 	}
+	items5.push_back(ownerList);
 
     for (std::vector<std::string>::iterator it = items2.begin(); it != items2.end(); ++it){
      	std::string owner = *it;
