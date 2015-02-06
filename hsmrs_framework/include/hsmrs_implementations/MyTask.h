@@ -6,11 +6,11 @@
 #include "hsmrs_implementations/MyAttributeWeights.h"
 #include "hsmrs_implementations/MyProgress.h"
 
-class MyTask : public hsmrs_framework::Task {
+class MyTask : public Task {
 private:
 	int id;
 	double priority;
-	std::vector<hsmrs_framework::Task*>* subtasks;
+	std::vector<Task*>* subtasks;
 	std::vector<Agent*>* owners;
 	AttributeWeights* weights;
 	MyProgress* progress;
@@ -33,7 +33,7 @@ public:
 
 	double getPriority();
 
-	std::vector<hsmrs_framework::Task*>* getSubtasks();
+	std::vector<Task*>* getSubtasks();
 
 	bool isReady();
 
