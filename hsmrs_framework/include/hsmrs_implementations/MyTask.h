@@ -11,14 +11,14 @@ private:
 	int id;
 	double priority;
 	std::vector<Task*>* subtasks;
-	std::vector<Agent*>* owners;
+	std::vector<std::string>* owners;
 	AttributeWeights* weights;
 	MyProgress* progress;
 
 public:
 	MyTask(int id, double priority);
 
-	void addOwner(Agent* agent);
+	void addOwner(std::string agent);
 
 	std::map<std::string, double>* getAttributeWeights();
 
@@ -29,7 +29,7 @@ public:
 	int getMinOwners();
 
 	//TODO this implementation is memory leaky
-	std::vector<Agent*>* getOwners();
+	std::vector<std::string> getOwners();
 
 	double getPriority();
 

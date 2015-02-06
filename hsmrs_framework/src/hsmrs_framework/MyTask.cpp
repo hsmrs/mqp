@@ -4,13 +4,13 @@ MyTask::MyTask(int id, double priority)
 	{
 		this->id = id;
 		this->priority = priority;
-		subtasks = new std::vector<hsmrs_framework::Task*>();
-		owners = new std::vector<Agent*>();
+		subtasks = new std::vector<Task*>();
+		owners = new std::vector<std::string>();
 		weights = new MyAttributeWeights();
 		progress = new MyProgress();
 	}
 
-	void MyTask::addOwner(Agent* agent)
+	void MyTask::addOwner(std::string agent)
 	{
 		owners->push_back(agent);
 	}
@@ -36,9 +36,9 @@ MyTask::MyTask(int id, double priority)
 	}
 
 	//TODO this implementation is memory leaky
-	std::vector<Agent*>* MyTask::getOwners()
+	std::vector<std::string> MyTask::getOwners()
 	{
-		return new std::vector<Agent*>(*owners);
+		return *owners;
 	}
 
 	double MyTask::getPriority()
@@ -46,9 +46,9 @@ MyTask::MyTask(int id, double priority)
 		return priority;
 	}
 
-	std::vector<hsmrs_framework::Task*>* MyTask::getSubtasks()
+	std::vector<Task*>* MyTask::getSubtasks()
 	{
-		return new std::vector<hsmrs_framework::Task*>(*subtasks);
+		return new std::vector<Task*>(*subtasks);
 	}
 
 	bool MyTask::isReady()
@@ -60,7 +60,7 @@ MyTask::MyTask(int id, double priority)
 	{
 		for (int i = 0; i < owners->size(); i++)
 		{
-			if ((*owners)[i]->getName() == name)
+			if ((*owners)[i] == name)
 			{
 				owners->erase(owners->begin() + i);
 				return;
