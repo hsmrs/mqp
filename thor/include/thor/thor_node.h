@@ -37,9 +37,13 @@ private:
 
 	ros::Subscriber request_sub;
 	ros::Subscriber teleOp_sub;
+	ros::Subscriber new_task_sub;
+	ros::Subscriber updated_task_sub;
+
 
 	ros::Publisher vel_pub;
 	ros::Subscriber bumper_sub;
+	ros::Subscriber laser_sub;
 
 
 	const std::string NAME;
@@ -103,6 +107,12 @@ private:
 	void teleOpCallback(const geometry_msgs::Twist::ConstPtr& msg);
 
 	void bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg);
+
+	void newTaskCallback(const std_msgs::String::ConstPtr& msg);
+
+	void updatedTaskCallback(const std_msgs::String::ConstPtr& msg);
+
+	void laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg);
 
 public:
 	Thor();

@@ -5,15 +5,14 @@
  * it should perform.													***
  *************************************************************************/
 
-#pragma once
+#ifndef _TASK_H_
+ #define _TASK_H_
 
+#include <string>
 #include <vector>
 #include <map>
 
-#include "Agent.h"
-
-class Task
-{
+class Task{
 public:
 	/**
 	 * The constructor for the Task class
@@ -81,3 +80,4 @@ public:
 	virtual void setProgress(double val) = 0;
 };
 
+#endif

@@ -1,6 +1,9 @@
 #include "hsmrs_implementations/GoToTask.h"
 
-GoToTask::GoToTask() : MIN_OWNERS(1), MAX_OWNERS(1) {
+const int GoToTask::MIN_OWNERS = 1;
+const int GoToTask::MAX_OWNERS = 1;
+
+GoToTask::GoToTask(){
 	goal = *(new geometry_msgs::Pose());
 	//attributeWeights;
 	priority = 0.0;
@@ -9,11 +12,11 @@ GoToTask::GoToTask() : MIN_OWNERS(1), MAX_OWNERS(1) {
 	progress = new MyProgress();
 }
 
-GoToTask::GoToTask(hsmrs_framework::TaskMsg::ConstPtr& msg): MIN_OWNERS(1), MAX_OWNERS(1){
+GoToTask::GoToTask(hsmrs_framework::TaskMsg::ConstPtr& msg){
 
 }
 
-GoToTask::GoToTask(std::string strDelimitedTask): MIN_OWNERS(1), MAX_OWNERS(1){
+GoToTask::GoToTask(std::string strDelimitedTask){
 	// ID;Name;[ParamName:ParamType=ParamValue, ...];[SubTask1, SubTask2, ...];[Owner1, Owner2, ...]
 	priority = 0.0;
 	std::vector<std::string> items;

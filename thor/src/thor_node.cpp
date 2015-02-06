@@ -78,6 +78,7 @@
 
 	}
 
+
 	/**
 	 * Send a help request to the Human supervisor.
 	 */
@@ -167,6 +168,39 @@
 
 	}
 
+	void Thor::newTaskCallback(const std_msgs::String::ConstPtr& msg){
+		std::string data = msg->data;
+
+		std::vector<std::string> items;
+		std::string delimiter = ";";
+		size_t pos = 0;
+
+		while ((pos = data.find(delimiter)) != std::string::npos) {
+	    	items.push_back(data.substr(0, pos));
+    		data.erase(0, pos + delimiter.length());
+		}
+
+		std::string type = items[1];
+		Task* task;
+
+		if (type == "GoTo"){
+			task = new GoToTask(msg->data);
+		}
+		else if (type == "FollowTag"){
+			//task = new FollowTagTask(msg->data);
+		}
+
+		//taskList.addTask(task);
+	}
+
+	void Thor::updatedTaskCallback(const std_msgs::String::ConstPtr& msg){
+
+	}
+
+	void Thor::laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg){
+
+	}
+
 	Thor::Thor() : NAME("Thor"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMAGE_TOPIC("thor/camera/rgb/image_mono"), 
 			LOG_TOPIC("thor/log_messages"), STATUS_TOPIC("thor/status"), HELP_TOPIC("thor/help"), POSE_TOPIC("thor/pose"),
 			REQUEST_TOPIC("thor/requests"), TELE_OP_TOPIC("thor/tele_op"), VEL_TOPIC("thor/cmd_vel_mux/input/teleop"),
@@ -189,18 +223,28 @@
 		help_pub = n.advertise<std_msgs::String>(HELP_TOPIC, 100);
 		pose_pub = n.advertise<geometry_msgs::PoseStamped>(POSE_TOPIC, 100);
 
+		new_task_sub = n.subscribe(NEW_TASK_TOPIC, 1000, &Thor::newTaskCallback, this);
+		updated_task_sub = n.subscribe(UPDATED_TASK_TOPIC, 1000, &Thor::updatedTaskCallback, this);
 		request_sub = n.subscribe(REQUEST_TOPIC, 1000, &Thor::requestCallback, this);
 		teleOp_sub = n.subscribe(TELE_OP_TOPIC, 1000, &Thor::teleOpCallback, this);
 
 		//Turtlebot publishers and subscribers
 		vel_pub = n.advertise<geometry_msgs::Twist>(VEL_TOPIC, 100);
 		bumper_sub = n.subscribe(BUMPER_TOPIC, 1000, &Thor::bumperCallback, this);
+		laser_sub = n.subscribe(LASER_TOPIC, 1000, &Thor::laserCallback, this);
 
 		//ros::spinOnce();
 		ros::Rate loop_rate(1);
 		loop_rate.sleep();
 
 		registerWithGUI();
+
+		while (ros::ok()){
+			Task* nextTask = taskList->pullNextTask();
+			if (nextTask != NULL){
+				bid(nextTask);
+			}
+		}
 		ros::waitForShutdown();
 		//ros::spin();
 		//while (ros::ok()) {
