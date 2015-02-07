@@ -19,17 +19,16 @@
 		GoToTask task;
 
 		if (taskType == "GoToTask"){ 
-			ROS_INFO("GoToTask");
 			GoToTask* task = dynamic_cast<GoToTask*>(p_currentTask);
 			behavior = new GoToBehavior(this, task->getGoal(), n);
 		}
 		else if(taskType == "FollowTagTask"){
-			ROS_INFO("FollowTagTask");
 			FollowTagTask* task = dynamic_cast<FollowTagTask*>(p_currentTask);
+			//FollowTagBehavior ftb(this, 0.3, 0.5, task->getTagID(), n, VEL_TOPIC, LASER_TOPIC);
+			//behavior = &ftb;
 			behavior = new FollowTagBehavior(this, 0.3, 0.5, task->getTagID(), n, VEL_TOPIC, LASER_TOPIC);
 		}
 		p_currentBehavior = behavior;
-		ROS_INFO("Executing task");
 		behavior->execute();
 		setStatus("Busy");
 	}
@@ -175,7 +174,6 @@
 
 	void Thor::newTaskCallback(const std_msgs::String::ConstPtr& msg){
 		std::string data = msg->data;
-		ROS_INFO("New task received");
 
 		std::vector<std::string> items;
 		std::string delimiter = ";";
@@ -188,7 +186,6 @@
 
 		std::string type = items[1];
 		Task* task;
-		ROS_INFO("Sorting new task");
 		if (type == "GoTo"){
 			task = new GoToTask(msg->data);
 		}
@@ -198,14 +195,9 @@
 		else{ //Task not recognized
 			return;
 		}
-		ROS_INFO("Task created");
 		std::vector<std::string> owners = task->getOwners();
-		for (int i = 0; i < owners.size(); ++i){
-			ROS_INFO(owners[i].c_str());
-		}
 		
 		if (std::find(owners.begin(), owners.end(), NAME)!=owners.end()){
-			ROS_INFO("Claiming task!");
 			claimTask(task);
 		} else{
 			taskList->addTask(task);
@@ -250,7 +242,7 @@
 		//Turtlebot publishers and subscribers
 		vel_pub = n.advertise<geometry_msgs::Twist>(VEL_TOPIC, 100);
 		bumper_sub = n.subscribe(BUMPER_TOPIC, 1000, &Thor::bumperCallback, this);
-		laser_sub = n.subscribe(LASER_TOPIC, 1000, &Thor::laserCallback, this);
+		//laser_sub = n.subscribe(LASER_TOPIC, 1000, &Thor::laserCallback, this);
 
 		//ros::spinOnce();
 		ros::Rate loop_rate(1);
@@ -259,10 +251,10 @@
 		registerWithGUI();
 
 		while (ros::ok()){
-			Task* nextTask = taskList->pullNextTask();
-			if (nextTask != NULL){
-				bid(nextTask);
-			}
+			//Task* nextTask = taskList->pullNextTask();
+			//if (nextTask != NULL){
+				//bid(nextTask);
+			//}
 		}
 		ros::waitForShutdown();
 		//ros::spin();

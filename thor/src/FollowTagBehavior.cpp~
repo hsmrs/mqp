@@ -13,6 +13,7 @@ void FollowTagBehavior::laserCallback(const sensor_msgs::LaserScan::ConstPtr& ms
 }
 
 void FollowTagBehavior::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& msg){
+	ROS_INFO("Tag callback Before!");
 	if (!isExecuting || 
 		msg->markers.size() == 0) return;
 		
@@ -42,6 +43,7 @@ FollowTagBehavior::FollowTagBehavior(Thor* parent, double maxLinearVelocity, dou
 	ros::NodeHandle n, std::string cmdVelTopic, std::string laserTopic) : 
 MARKER_TOPIC("/thor/ar_pose_marker")
 {
+	ROS_INFO("Hello World!");
 	isExecuting = false;
 	isObstacle = false;
 
@@ -49,9 +51,12 @@ MARKER_TOPIC("/thor/ar_pose_marker")
 	this->maxAngularVelocity = maxAngularVelocity;
 	this->tagID = tagID;
 
-	ros::Publisher cmdVelPub = n.advertise<geometry_msgs::Twist>(cmdVelTopic, 1000);
-	ros::Subscriber laserSub = n.subscribe(laserTopic, 1000, &FollowTagBehavior::laserCallback, this);
-	ros::Subscriber markerSub = n.subscribe(MARKER_TOPIC, 1000, &FollowTagBehavior::tagCallback, this);
+	ROS_INFO("Are we there yet?");
+	
+	cmdVelPub = n.advertise<geometry_msgs::Twist>(cmdVelTopic, 1000);
+	laserSub = n.subscribe(laserTopic, 1000, &FollowTagBehavior::laserCallback, this);
+	markerSub = n.subscribe(MARKER_TOPIC, 1000, &FollowTagBehavior::tagCallback, this);
+	ROS_INFO("Finish constructor");
 }
 
 void FollowTagBehavior::execute(){

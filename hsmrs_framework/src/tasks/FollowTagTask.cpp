@@ -60,10 +60,8 @@ FollowTagTask::FollowTagTask(std::string strDelimitedTask){
     tagID = std::stoi(items3[1]);
 
     std::string ownerList = items[4];
-    ROS_INFO(ownerList.c_str());
     ownerList.erase(0, 1);
     ownerList.erase(ownerList.size() - 1);
-    ROS_INFO(ownerList.c_str());
 
     std::vector<std::string> items5;
     delimiter = ",";
@@ -73,7 +71,6 @@ FollowTagTask::FollowTagTask(std::string strDelimitedTask){
     	owners.push_back(ownerList.substr(0, pos));
     	ownerList.erase(0, pos + delimiter.length());
 	}
-	ROS_INFO(ownerList.c_str());
 	owners.push_back(ownerList);
 
     prerequisite = new MyPrerequisite();
