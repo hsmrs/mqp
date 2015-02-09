@@ -131,7 +131,8 @@ add_library(FollowTagTask src/tasks/FollowTagTask.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-# add_dependencies(hsmrs_framework_node hsmrs_framework_generate_messages_cpp)
+add_dependencies(GoToTask hsmrs_framework_generate_messages_cpp)
+add_dependencies(FollowTagTask hsmrs_framework_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(hsmrs_framework_node
