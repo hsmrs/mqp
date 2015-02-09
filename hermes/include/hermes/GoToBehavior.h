@@ -2,7 +2,7 @@
 #ifndef _GO_TO_BEHAVIOR_H_
 #define _GO_TO_BEHAVIOR_H_
 
-#include "hulk/Behavior.h"
+#include "hermes/Behavior.h"
 #include "ros/ros.h"
 #include <move_base_msgs/MoveBaseAction.h>
 #include <actionlib/client/simple_action_client.h>

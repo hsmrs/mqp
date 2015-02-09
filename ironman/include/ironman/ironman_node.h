@@ -2,6 +2,7 @@
 #define _IRONMAN_NODE_H_
 
 #include "ros/ros.h"
+#include <ros/console.h>
 #include "std_msgs/String.h"
 #include "geometry_msgs/PoseStamped.h"
 #include "geometry_msgs/Twist.h"
@@ -10,10 +11,16 @@
 #include "kobuki_msgs/BumperEvent.h"
 
 #include <sstream>
+#include <typeinfo>
 
 #include "hsmrs_framework/Robot.h"
+#include "hsmrs_framework/TaskList.h"
+#include "hsmrs_implementations/GoToTask.h"
+#include "hsmrs_implementations/FollowTagTask.h"
+#include "hsmrs_implementations/MyTaskList.h"
 #include "ironman/Behavior.h"
 #include "ironman/FollowTagBehavior.h"
+#include "ironman/GoToBehavior.h"
 
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 
@@ -32,9 +39,13 @@ private:
 
 	ros::Subscriber request_sub;
 	ros::Subscriber teleOp_sub;
+	ros::Subscriber new_task_sub;
+	ros::Subscriber updated_task_sub;
+
 
 	ros::Publisher vel_pub;
 	ros::Subscriber bumper_sub;
+	ros::Subscriber laser_sub;
 
 
 	const std::string NAME;
@@ -46,10 +57,14 @@ private:
 	const std::string POSE_TOPIC;
 	const std::string REQUEST_TOPIC;
 	const std::string TELE_OP_TOPIC;
+	const std::string NEW_TASK_TOPIC;
+	const std::string UPDATED_TASK_TOPIC;
 
 	const std::string VEL_TOPIC;
 	const std::string BUMPER_TOPIC;
+	const std::string LASER_TOPIC;
 
+	TaskList* taskList;
 	Task* p_currentTask;
 	std::string status;
 	Behavior* p_currentBehavior;
@@ -78,22 +93,21 @@ private:
 	 */
 	virtual void requestTaskForQueue(Task* task);
 
-	/**
-	 * Send a help request to the Human supervisor.
-	 */
-	virtual void callForHelp();
-
 	virtual void handleTeleop();
 
 	void registerWithGUI();
-
-	void sendMessage(std::string message);
 
 	void requestCallback(const std_msgs::String::ConstPtr& msg);
 
 	void teleOpCallback(const geometry_msgs::Twist::ConstPtr& msg);
 
 	void bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg);
+
+	void newTaskCallback(const std_msgs::String::ConstPtr& msg);
+
+	void updatedTaskCallback(const std_msgs::String::ConstPtr& msg);
+
+	void laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg);
 
 public:
 	IronMan();
@@ -159,6 +173,13 @@ public:
 	virtual std::string getStatus();
 
 	virtual void setStatus(std::string newStatus);
+
+	/**
+	 * Send a help request to the Human supervisor.
+	 */
+	virtual void callForHelp();
+	
+	void sendMessage(std::string message);
 
 };
 

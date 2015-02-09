@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(ironman)
+project(hermes)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -86,7 +86,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-#  LIBRARIES ironman
+#  LIBRARIES hermes
   CATKIN_DEPENDS geometry_msgs hsmrs_framework kobuki_msgs nav_msgs roscpp std_msgs ar_track_alvar sensor_msgs
 #  DEPENDS system_lib
 )
@@ -103,21 +103,21 @@ include_directories(
 )
 
 ## Declare a cpp library
-# add_library(ironman
-#   src/${PROJECT_NAME}/ironman.cpp
+# add_library(hermes
+#   src/${PROJECT_NAME}/hermes.cpp
 # )
 
 ## Declare a cpp executable
- add_executable(ironman_node src/ironman_node.cpp
+ add_executable(hermes_node src/hermes_node.cpp
  						  src/FollowTagBehavior.cpp
  						  src/GoToBehavior.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-# add_dependencies(ironman_node ironman_generate_messages_cpp)
+# add_dependencies(hermes_node hermes_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
- target_link_libraries(ironman_node
+ target_link_libraries(hermes_node
    ${catkin_LIBRARIES} ${hsmrs_framework_LIBRARIES}
  )
 
@@ -136,7 +136,7 @@ include_directories(
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS ironman ironman_node
+# install(TARGETS hermes hermes_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -161,7 +161,7 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_ironman.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_hermes.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

@@ -37,7 +37,7 @@ void FollowTagBehavior::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr
 
 FollowTagBehavior::FollowTagBehavior(IronMan* parent, double maxLinearVelocity, double maxAngularVelocity, int tagID, 
 	ros::NodeHandle n, std::string cmdVelTopic, std::string laserTopic) : 
-MARKER_TOPIC("/ar_pose_marker")
+MARKER_TOPIC("/ironman/ar_pose_marker")
 {
 	isExecuting = false;
 	isObstacle = false;
@@ -45,10 +45,10 @@ MARKER_TOPIC("/ar_pose_marker")
 	this->maxLinearVelocity = maxLinearVelocity;
 	this->maxAngularVelocity = maxAngularVelocity;
 	this->tagID = tagID;
-
-	ros::Publisher cmdVelPub = n.advertise<geometry_msgs::Twist>(cmdVelTopic, 1000);
-	ros::Subscriber laserSub = n.subscribe(laserTopic, 1000, &FollowTagBehavior::laserCallback, this);
-	ros::Subscriber markerSub = n.subscribe(MARKER_TOPIC, 1000, &FollowTagBehavior::tagCallback, this);
+	
+	cmdVelPub = n.advertise<geometry_msgs::Twist>(cmdVelTopic, 1000);
+	laserSub = n.subscribe(laserTopic, 1000, &FollowTagBehavior::laserCallback, this);
+	markerSub = n.subscribe(MARKER_TOPIC, 1000, &FollowTagBehavior::tagCallback, this);
 }
 
 void FollowTagBehavior::execute(){

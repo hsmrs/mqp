@@ -13,6 +13,7 @@
 	void Thor::executeTask() {
 		//std::string taskType = typeid(p_currentTask).name();
 		std::string taskType = p_currentTask->getType();
+		ROS_INFO(taskType.c_str());
 		Behavior* behavior;
 
 		GoToTask task;
@@ -33,11 +34,11 @@
 	}
 
 	void Thor::pauseTask(){
-		p_currentBehavior->pause();
+
 	}
 
 	void Thor::resumeTask(){
-		p_currentBehavior->resume();	
+		
 	}
 
 	void Thor::doGoToTask(double x, double y){
@@ -195,6 +196,9 @@
 			return;
 		}
 		std::vector<std::string> owners = task->getOwners();
+		for (int i = 0; i < owners.size(); ++i){
+			ROS_INFO(owners[i].c_str());
+		}
 		
 		if (std::find(owners.begin(), owners.end(), NAME)!=owners.end()){
 			claimTask(task);

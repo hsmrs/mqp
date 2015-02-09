@@ -2,14 +2,14 @@
 #ifndef _FOLLOW_TAG_BEHAVIOR_H_
 #define _FOLLOW_TAG_BEHAVIOR_H_
 
-#include "ironman/Behavior.h"
+#include "hermes/Behavior.h"
 #include "ros/ros.h"
 #include "geometry_msgs/Twist.h"
 #include "sensor_msgs/LaserScan.h"
 #include "ar_track_alvar/AlvarMarkers.h"
-#include "ironman/ironman_node.h"
+#include "hermes/hermes_node.h"
 
-class IronMan;
+class Hermes;
 
 class FollowTagBehavior : public Behavior{
 
@@ -31,7 +31,7 @@ private:
 
 public:
 
-	FollowTagBehavior(IronMan* parent, double maxLinearVelocity, double maxAngularVelocity, int tagID, ros::NodeHandle n, 
+	FollowTagBehavior(Hermes* parent, double maxLinearVelocity, double maxAngularVelocity, int tagID, ros::NodeHandle n, 
 		std::string cmdVelTopic, std::string laserTopic);
 
 	virtual void execute();

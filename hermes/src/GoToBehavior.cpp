@@ -1,4 +1,4 @@
-#include "hulk/GoToBehavior.h"
+#include "hermes/GoToBehavior.h"
 
 GoToBehavior::GoToBehavior(Robot* parent, geometry_msgs::Pose goal, ros::NodeHandle n){
 	this->parent = parent;

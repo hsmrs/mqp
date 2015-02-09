@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package>
-  <name>ironman</name>
+  <name>hermes</name>
   <version>0.0.0</version>
-  <description>The ironman package</description>
+  <description>The hermes package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 
   <!-- Example:  -->
@@ -19,13 +19,13 @@
   <!-- Url tags are optional, but mutiple are allowed, one per tag -->
   <!-- Optional attribute type can be: website, bugtracker, or repository -->
   <!-- Example: -->
-  <!-- <url type="website">http://wiki.ros.org/ironman</url> -->
+  <!-- <url type="website">http://wiki.ros.org/hermes</url> -->
 
 
-  <!-- Auironman tags are optional, mutiple are allowed, one per tag -->
-  <!-- Auironmans do not have to be maintianers, but could be -->
+  <!-- Auhermes tags are optional, mutiple are allowed, one per tag -->
+  <!-- Auhermess do not have to be maintianers, but could be -->
   <!-- Example: -->
-  <!-- <auironman email="jane.doe@example.com">Jane Doe</auironman> -->
+  <!-- <auhermes email="jane.doe@example.com">Jane Doe</auhermes> -->
 
 
   <!-- The *_depend tags are used to specify dependencies -->

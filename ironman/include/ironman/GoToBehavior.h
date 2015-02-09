@@ -7,15 +7,15 @@
 #include <move_base_msgs/MoveBaseAction.h>
 #include <actionlib/client/simple_action_client.h>
 #include "geometry_msgs/Pose.h"
-#include "ironman/ironman_node.h"
-//class Hulk;
+#include "hsmrs_framework/Robot.h"
+
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 
 class GoToBehavior : public Behavior{
 
 private:
 	
-	Hulk* parent;
+	Robot* parent;
 	MoveBaseClient* ac;
 	bool isExecuting;
 	move_base_msgs::MoveBaseGoal goalMsg;
@@ -27,7 +27,7 @@ private:
 
 public:
 
-	GoToBehavior(IronMan* parent, geometry_msgs::Pose goal, ros::NodeHandle n);
+	GoToBehavior(Robot* parent, geometry_msgs::Pose goal, ros::NodeHandle n);
 
 	virtual void execute();
 

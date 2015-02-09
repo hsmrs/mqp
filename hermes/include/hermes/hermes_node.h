@@ -1,5 +1,5 @@
-#ifndef _HULK_NODE_H_
-#define _HULK_NODE_H_
+#ifndef _HERMES_NODE_H_
+#define _HERMES_NODE_H_
 
 #include "ros/ros.h"
 #include <ros/console.h>
@@ -18,13 +18,13 @@
 #include "hsmrs_implementations/GoToTask.h"
 #include "hsmrs_implementations/FollowTagTask.h"
 #include "hsmrs_implementations/MyTaskList.h"
-#include "hulk/Behavior.h"
-#include "hulk/FollowTagBehavior.h"
-#include "hulk/GoToBehavior.h"
+#include "hermes/Behavior.h"
+#include "hermes/FollowTagBehavior.h"
+#include "hermes/GoToBehavior.h"
 
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 
-class Hulk: public Robot {
+class Hermes: public Robot {
 
 private:
 	friend class FollowTagBehavior;
@@ -110,7 +110,7 @@ private:
 	void laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg);
 
 public:
-	Hulk();
+	Hermes();
 
 	virtual std::string getName();
 

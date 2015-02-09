@@ -1,16 +1,16 @@
-#include "thor/thor_node.h"
+#include "hermes/hermes_node.h"
 
 	/**
 	 * Makes this Robot bid on the given task
 	 */
-	void Thor::bid(Task* task) {
+	void Hermes::bid(Task* task) {
 
 	}
 
 	/**
 	 * Begins the Robot's execution of its current Task.
 	 */
-	void Thor::executeTask() {
+	void Hermes::executeTask() {
 		//std::string taskType = typeid(p_currentTask).name();
 		std::string taskType = p_currentTask->getType();
 		Behavior* behavior;
@@ -32,15 +32,15 @@
 		setStatus("Busy");
 	}
 
-	void Thor::pauseTask(){
+	void Hermes::pauseTask(){
 		p_currentBehavior->pause();
 	}
 
-	void Thor::resumeTask(){
+	void Hermes::resumeTask(){
 		p_currentBehavior->resume();	
 	}
 
-	void Thor::doGoToTask(double x, double y){
+	void Hermes::doGoToTask(double x, double y){
 		/*MoveBaseClient ac("move_base", true);
 
   		//wait for the action server to come up
@@ -77,7 +77,7 @@
 	 * Request for the given Task to be sent to the TaskList
 	 * @param task The task to be queued
 	 */
-	void Thor::requestTaskForQueue(Task* task) {
+	void Hermes::requestTaskForQueue(Task* task) {
 
 	}
 
@@ -85,17 +85,17 @@
 	/**
 	 * Send a help request to the Human supervisor.
 	 */
-	void Thor::callForHelp() {
+	void Hermes::callForHelp() {
 		std_msgs::String msg;
 		msg.data = "true";
 		help_pub.publish(msg);
 	}
 
-	void Thor::handleTeleop(){
+	void Hermes::handleTeleop(){
 
 	}
 
-	void Thor::registerWithGUI() {
+	void Hermes::registerWithGUI() {
 		//name;requestTopic;logTopic;imageTopic;poseTopic;statusTopic;helpTopic;teleOpTopic
 
 		std_msgs::String msg;
@@ -108,13 +108,13 @@
 		registration_pub.publish(msg);
 	}
 
-	void Thor::sendMessage(std::string message){
+	void Hermes::sendMessage(std::string message){
 		std_msgs::String msg;
 		msg.data = message;
 		log_pub.publish(msg);
 	}
 
-	void Thor::requestCallback(const std_msgs::String::ConstPtr& msg)
+	void Hermes::requestCallback(const std_msgs::String::ConstPtr& msg)
 	{
 		std::string request = msg->data;
 
@@ -131,7 +131,7 @@
 		}
 	}
 
-	void Thor::teleOpCallback(const geometry_msgs::Twist::ConstPtr& msg){
+	void Hermes::teleOpCallback(const geometry_msgs::Twist::ConstPtr& msg){
 		double linearVel = msg->linear.x * linearSpeed;
 		double angularVel = msg->linear.y * angularSpeed;
 
@@ -142,7 +142,7 @@
 		vel_pub.publish(velMsg);
 	}
 
-	void Thor::bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg){
+	void Hermes::bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg){
 		int bumper = msg->bumper;
 		int state = msg->state;
 
@@ -171,7 +171,7 @@
 
 	}
 
-	void Thor::newTaskCallback(const std_msgs::String::ConstPtr& msg){
+	void Hermes::newTaskCallback(const std_msgs::String::ConstPtr& msg){
 		std::string data = msg->data;
 
 		std::vector<std::string> items;
@@ -203,19 +203,19 @@
 		}
 	}
 
-	void Thor::updatedTaskCallback(const std_msgs::String::ConstPtr& msg){
+	void Hermes::updatedTaskCallback(const std_msgs::String::ConstPtr& msg){
 
 	}
 
-	void Thor::laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg){
+	void Hermes::laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg){
 
 	}
 
-	Thor::Thor() : NAME("Thor"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMAGE_TOPIC("thor/camera/rgb/image_mono"), 
-			LOG_TOPIC("thor/log_messages"), STATUS_TOPIC("thor/status"), HELP_TOPIC("thor/help"), POSE_TOPIC("thor/pose"),
-			REQUEST_TOPIC("thor/requests"), TELE_OP_TOPIC("thor/tele_op"), VEL_TOPIC("thor/cmd_vel_mux/input/teleop"),
-			BUMPER_TOPIC("/thor/mobile_base/events/bumper"), NEW_TASK_TOPIC("/hsmrs/new_task"), 
-			UPDATED_TASK_TOPIC("/hsmrs/updated_task_topic"), LASER_TOPIC("thor/scan")
+	Hermes::Hermes() : NAME("Hermes"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMAGE_TOPIC("hermes/camera/rgb/image_mono"), 
+			LOG_TOPIC("hermes/log_messages"), STATUS_TOPIC("hermes/status"), HELP_TOPIC("hermes/help"), POSE_TOPIC("hermes/pose"),
+			REQUEST_TOPIC("hermes/requests"), TELE_OP_TOPIC("hermes/tele_op"), VEL_TOPIC("hermes/cmd_vel_mux/input/teleop"),
+			BUMPER_TOPIC("/hermes/mobile_base/events/bumper"), NEW_TASK_TOPIC("/hsmrs/new_task"), 
+			UPDATED_TASK_TOPIC("/hsmrs/updated_task_topic"), LASER_TOPIC("hermes/scan")
 			{
 
 		taskList = new MyTaskList();
@@ -233,15 +233,15 @@
 		help_pub = n.advertise<std_msgs::String>(HELP_TOPIC, 100);
 		pose_pub = n.advertise<geometry_msgs::PoseStamped>(POSE_TOPIC, 100);
 
-		new_task_sub = n.subscribe(NEW_TASK_TOPIC, 1000, &Thor::newTaskCallback, this);
-		updated_task_sub = n.subscribe(UPDATED_TASK_TOPIC, 1000, &Thor::updatedTaskCallback, this);
-		request_sub = n.subscribe(REQUEST_TOPIC, 1000, &Thor::requestCallback, this);
-		teleOp_sub = n.subscribe(TELE_OP_TOPIC, 1000, &Thor::teleOpCallback, this);
+		new_task_sub = n.subscribe(NEW_TASK_TOPIC, 1000, &Hermes::newTaskCallback, this);
+		updated_task_sub = n.subscribe(UPDATED_TASK_TOPIC, 1000, &Hermes::updatedTaskCallback, this);
+		request_sub = n.subscribe(REQUEST_TOPIC, 1000, &Hermes::requestCallback, this);
+		teleOp_sub = n.subscribe(TELE_OP_TOPIC, 1000, &Hermes::teleOpCallback, this);
 
 		//Turtlebot publishers and subscribers
 		vel_pub = n.advertise<geometry_msgs::Twist>(VEL_TOPIC, 100);
-		bumper_sub = n.subscribe(BUMPER_TOPIC, 1000, &Thor::bumperCallback, this);
-		//laser_sub = n.subscribe(LASER_TOPIC, 1000, &Thor::laserCallback, this);
+		bumper_sub = n.subscribe(BUMPER_TOPIC, 1000, &Hermes::bumperCallback, this);
+		//laser_sub = n.subscribe(LASER_TOPIC, 1000, &Hermes::laserCallback, this);
 
 		//ros::spinOnce();
 		ros::Rate loop_rate(1);
@@ -262,7 +262,7 @@
 		//}
 	}
 
-	std::string Thor::getName(){
+	std::string Hermes::getName(){
 		return NAME;
 	}
 
@@ -272,7 +272,7 @@
 	 * @param attr The name of the attribute to get
 	 * @return The value of the attribute
 	 */
-	double Thor::getAttribute(std::string attr) {
+	double Hermes::getAttribute(std::string attr) {
 
 	}
 
@@ -281,7 +281,7 @@
 	 * @param task A pointer to the task for which to get a utility.
 	 * @return This Robot's utility for the given Task.
 	 */
-	double Thor::getUtility(Task *task) {
+	double Hermes::getUtility(Task *task) {
 
 	}
 
@@ -289,7 +289,7 @@
 	 * Returns this Robot's AgentState.
 	 * @return The AgentState representing the state of this Robot.
 	 */
-	AgentState* Thor::getState() {
+	AgentState* Hermes::getState() {
 
 	}
 
@@ -298,7 +298,7 @@
 	 * @param attr The name of the target attribute
 	 * @return True if the robot has the named attribute.
 	 */
-	bool Thor::hasAttribute(std::string attr) {
+	bool Hermes::hasAttribute(std::string attr) {
 
 	}
 
@@ -306,21 +306,21 @@
 	 * Sets this Robot's currently active Task.
 	 * @param A pointer to the Task to be set
 	 */
-	void Thor::setTask(Task* task) {
+	void Hermes::setTask(Task* task) {
 		p_currentTask = task;
 	}
 
 	/**
 	 * Handles the auctioning of Tasks by sending and receiving bids.
 	 */
-	void Thor::handleBids() {
+	void Hermes::handleBids() {
 
 	}
 
 	/**
 	 * Verifies that an Agent claiming a Task has the highest utility for it. If not, informs the Agent of the Task's proper owner.
 	 */
-	void Thor::verifyTaskClaim() {
+	void Hermes::verifyTaskClaim() {
 
 	}
 
@@ -328,7 +328,7 @@
 	 * Stops execution of the current Task and requests that
 	 * the Task be returned to the TaskList.
 	 */
-	void Thor::cancelTask() {
+	void Hermes::cancelTask() {
 
 	}
 
@@ -336,17 +336,17 @@
 	 * Asks the Agent to claim a task pointed to by \p task.
 	 * @param task A pointer to the task object to be claimed.
 	 */
-	void Thor::claimTask(Task* task) {
+	void Hermes::claimTask(Task* task) {
 		ROS_INFO("Claiming task!");
 		p_currentTask = task;
 		executeTask();
 	}
 
-	std::string Thor::getStatus(){
+	std::string Hermes::getStatus(){
 		return status;
 	}
 
-	void Thor::setStatus(std::string newStatus){
+	void Hermes::setStatus(std::string newStatus){
 		status = newStatus;
 		std_msgs::String msg;
 		msg.data = status;
@@ -354,8 +354,8 @@
 	}
 
 int main(int argc, char **argv) {
-	ros::init(argc, argv, "thor");
+	ros::init(argc, argv, "hermes");
 
-	Thor* robot = new Thor();
+	Hermes* robot = new Hermes();
 	return 0;
 }

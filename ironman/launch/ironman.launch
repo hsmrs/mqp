@@ -1,7 +1,19 @@
 <launch>
 
-	<node name="ironman_node" pkg="ironman" type="ironman_node"/>
+	<node name="ironman_node" pkg="ironman" type="ironman_node" output="screen"/>
 	<include file="$(find turtlebot_bringup)/launch/minimal.launch" ns="ironman" />
 	<include file="$(find turtlebot_bringup)/launch/3dsensor.launch" ns="ironman" />
+	<include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml" ns="ironman"/>
+
+	<arg name="marker_size" default="20.3" />
+	<arg name="max_new_marker_error" default="0.08" />
+	<arg name="max_track_error" default="0.2" />
+	<arg name="cam_image_topic" default="/ironman/camera/rgb/image_color" />
+	<arg name="cam_info_topic" default="/ironman/camera/rgb/camera_info" />
+	<!--arg name="cam_image_topic" default="/ironman/camera/rgb/image_color" /-->
+	<!--arg name="cam_info_topic" default="/ironman/camera/rgb/camera_info" /-->	
+	<arg name="output_frame" default="/base_link" />
+
+	<node name="ar_track_alvar" pkg="ar_track_alvar" type="individualMarkersNoKinect" respawn="false" output="screen" args="$(arg marker_size) $(arg max_new_marker_error) $(arg max_track_error) $(arg cam_image_topic) $(arg cam_info_topic) $(arg output_frame)" ns="ironman"/>
 
 </launch>

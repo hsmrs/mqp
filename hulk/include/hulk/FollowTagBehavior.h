@@ -18,6 +18,8 @@ private:
 
 	double maxLinearVelocity, maxAngularVelocity;
 	ros::Publisher cmdVelPub;
+	ros::Subscriber laserSub;
+	ros::Subscriber markerSub;
 
 	int tagID;
 	bool isExecuting;
