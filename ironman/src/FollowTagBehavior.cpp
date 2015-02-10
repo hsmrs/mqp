@@ -16,22 +16,28 @@ void FollowTagBehavior::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr
 	if (!isExecuting || 
 		msg->markers.size() == 0) return;
 
-	double linK = 0.4;
-	double angK = 2;	
-	double x = msg->markers[0].pose.pose.position.x;
-	double y = msg->markers[0].pose.pose.position.y;
-	double linVel = std::max(std::min(maxLinearVelocity, linK * x), 0.0);
-	double angVel = std::max(std::min(maxAngularVelocity, angK * y), -1*maxAngularVelocity);
+	for (int i = 0; i < msg->markers.size(); ++i){
+		if (msg->markers[i].id == tagID){
+			double linK = 0.4;
+			double angK = 2;	
+			double x = msg->markers[0].pose.pose.position.x;
+			double y = msg->markers[0].pose.pose.position.y;
+			double linVel = std::max(std::min(maxLinearVelocity, linK * x), 0.0);
+			double angVel = std::max(std::min(maxAngularVelocity, angK * y), -1*maxAngularVelocity);
 
-	if (x <= 1.0){
-		linVel = 0;
+			if (x <= 1.0){
+				linVel = 0;
+			}
+
+			geometry_msgs::Twist velMsg;
+			velMsg.linear.x = linVel;
+			velMsg.angular.z = angVel;
+
+			cmdVelPub.publish(velMsg);
+
+			return;
+		}
 	}
-
-	geometry_msgs::Twist velMsg;
-	velMsg.linear.x = linVel;
-	velMsg.angular.z = angVel;
-
-	cmdVelPub.publish(velMsg);
 }
 
 

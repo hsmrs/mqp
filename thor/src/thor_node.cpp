@@ -33,11 +33,11 @@
 	}
 
 	void Thor::pauseTask(){
-		p_currentBehavior->pause();
+		if (p_currentBehavior != NULL) p_currentBehavior->pause();
 	}
 
 	void Thor::resumeTask(){
-		p_currentBehavior->resume();	
+		if (p_currentBehavior != NULL) p_currentBehavior->resume();	
 	}
 
 	void Thor::doGoToTask(double x, double y){

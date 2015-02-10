@@ -33,11 +33,11 @@
 	}
 
 	void IronMan::pauseTask(){
-		p_currentBehavior->pause();
+		if (p_currentBehavior != NULL) p_currentBehavior->pause();
 	}
 
 	void IronMan::resumeTask(){
-		p_currentBehavior->resume();	
+		if (p_currentBehavior != NULL) p_currentBehavior->resume();	
 	}
 
 	void IronMan::doGoToTask(double x, double y){

@@ -33,11 +33,11 @@
 	}
 
 	void Hulk::pauseTask(){
-		p_currentBehavior->pause();
+		if (p_currentBehavior != NULL) p_currentBehavior->pause();
 	}
 
 	void Hulk::resumeTask(){
-		p_currentBehavior->resume();	
+		if (p_currentBehavior != NULL) p_currentBehavior->resume();	
 	}
 
 	void Hulk::doGoToTask(double x, double y){
