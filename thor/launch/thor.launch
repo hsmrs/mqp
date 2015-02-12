@@ -1,9 +1,13 @@
 <launch>
 
 	<node name="thor_node" pkg="thor" type="thor_node" output="screen"/>
+
+	<param name="tf_prefix" value="thor" />
 	<include file="$(find turtlebot_bringup)/launch/minimal.launch" ns="thor" />
 	<include file="$(find turtlebot_bringup)/launch/3dsensor.launch" ns="thor" />
-	<include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml" ns="thor"/>
+	<include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml" ns="thor">
+		<remap from="map" to="/map" />
+		</include>
 
 	<arg name="marker_size" default="20.3" />
 	<arg name="max_new_marker_error" default="0.08" />
