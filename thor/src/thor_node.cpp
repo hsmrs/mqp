@@ -41,36 +41,6 @@
 	}
 
 	void Thor::doGoToTask(double x, double y){
-		/*MoveBaseClient ac("move_base", true);
-
-  		//wait for the action server to come up
-  		while(!ac.waitForServer(ros::Duration(5.0))){
-   			ROS_INFO("Waiting for the move_base action server to come up");
- 		}
-
-  		move_base_msgs::MoveBaseGoal goal;
-
-  		goal.target_pose.header.frame_id = "map";
-  		goal.target_pose.header.stamp = ros::Time::now();
-
-  		goal.target_pose.pose.position.x = x;
-  		goal.target_pose.pose.position.y = y;
-
- 		ROS_INFO("Sending goal");
-  		ac.sendGoal(goal);
-
-  		ac.waitForResult();
-
-  		if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){
-    		ROS_INFO("Go To task completed");
-    		//sendLog("Go To task completed");
-    	}
-  		else
-  		{
-    		ROS_INFO("Go To task failed, asking for helps");
-    		//sendLog("Go To task failed, asking for helps");
-    		callForHelp();
-    	} */
 	}
 
 	/**
@@ -211,6 +181,60 @@
 
 	}
 
+	void Thor::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& msg){
+		//Figure out which tag we are looking at.
+		int tagID = msg->markers[0].id;
+		std::stringstream ss;
+		ss << "hsmrs/marker_" << tagID;
+		std::string markerFrameID = ss.str();
+
+		//Manually create transform from robot to tag
+		tf::Transform transform;
+
+		double x, y;
+		x = msg->markers[0].pose.pose.position.x;
+		y = msg->markers[0].pose.pose.position.y;
+
+		tf::Quaternion q;
+		tf::quaternionMsgToTF(msg->markers[0].pose.pose.orientation, q);
+
+		transform.setOrigin( tf::Vector3(x, y, 0.0) );
+		transform.setRotation(q);
+
+		//Broadcast transform
+		tf::TransformBroadcaster br;
+		br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), markerFrameID, "thor"));
+		
+		//Listen for transform from map to robot
+		tf::TransformListener listener;
+		tf::StampedTransform mapTransform;
+		try{
+			listener.lookupTransform("map", "thor",
+				ros::Time(0), mapTransform);
+		}
+		catch (tf::TransformException &ex) {
+			ROS_ERROR("%s",ex.what());
+			ros::Duration(1.0).sleep();
+			return;
+		}
+
+		//Unpack position and orientation
+		double map_x, map_y;
+		map_x = mapTransform.getOrigin().x();
+		map_y = mapTransform.getOrigin().y();
+
+		geometry_msgs::Quaternion quat;
+		tf::quaternionTFToMsg(mapTransform.getRotation(), quat);
+
+		//Publish pose as geometry message
+		geometry_msgs::Pose pose;
+		pose.position.x = map_x;
+		pose.position.y = map_y;
+		pose.orientation = quat;
+
+		pose_pub.publish(pose);
+	}
+
 	Thor::Thor() : NAME("Thor"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMAGE_TOPIC("thor/camera/rgb/image_mono"), 
 			LOG_TOPIC("thor/log_messages"), STATUS_TOPIC("thor/status"), HELP_TOPIC("thor/help"), POSE_TOPIC("thor/pose"),
 			REQUEST_TOPIC("thor/requests"), TELE_OP_TOPIC("thor/tele_op"), VEL_TOPIC("thor/cmd_vel_mux/input/teleop"),
@@ -241,6 +265,7 @@
 		//Turtlebot publishers and subscribers
 		vel_pub = n.advertise<geometry_msgs::Twist>(VEL_TOPIC, 100);
 		bumper_sub = n.subscribe(BUMPER_TOPIC, 1000, &Thor::bumperCallback, this);
+		tag_sub = n.subscribe("thor/ar_pose_markers", 1000, &Thor::tagCallback, this);
 		//laser_sub = n.subscribe(LASER_TOPIC, 1000, &Thor::laserCallback, this);
 
 		//ros::spinOnce();

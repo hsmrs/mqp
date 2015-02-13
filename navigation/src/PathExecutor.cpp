@@ -28,7 +28,7 @@ void PlanExecutor::pathCallback(const nav_msgs::Path::ConstPtr& pathMsg){
 }
 
 void PlanExecutor::executePath(){
-	double x1, x2, y1, y2;
+	double x1, x2, y1, y2, theta;
 	double linearKp = 0.8, angularKp = 0.3;
 
 	for (auto pose : path){
@@ -40,11 +40,18 @@ void PlanExecutor::executePath(){
 			x1 = currentPose.position.x;
 			y1 = currentPose.position.y;
 
+			tf::Quaternion q;
+			tf::quaternionMsgToTF(currentPose.orientation, q);
+			tf::Matrix3x3 m(q);
+			double roll, pitch, yaw;
+			m.getRPY(roll, pitch, yaw);
+			theta = yaw;
+
 			double linearError, angularError;
 			double linearVelocity, angularVelocity;
 
 			linearError = distance(x1, y1, x2, y2);
-			angularError = atan2(y2-y1, x2-x1);
+			angularError = atan2(y2-y1, x2-x1) - theta;
 
 			if (abs(angularError) >= 45*M_PI/180){
 				linearVelocity = 0;

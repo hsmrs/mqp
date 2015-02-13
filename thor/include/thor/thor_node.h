@@ -9,6 +9,8 @@
 #include <move_base_msgs/MoveBaseAction.h>
 #include <actionlib/client/simple_action_client.h>
 #include "kobuki_msgs/BumperEvent.h"
+#include <tf/transform_broadcaster.h>
+#include <tf/transform_listener.h>
 
 #include <sstream>
 #include <typeinfo>
@@ -46,6 +48,7 @@ private:
 	ros::Publisher vel_pub;
 	ros::Subscriber bumper_sub;
 	ros::Subscriber laser_sub;
+	ros::Subscriber tag_sub;
 
 
 	const std::string NAME;
@@ -108,6 +111,8 @@ private:
 	void updatedTaskCallback(const std_msgs::String::ConstPtr& msg);
 
 	void laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg);
+
+	void tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& msg);
 
 public:
 	Thor();
