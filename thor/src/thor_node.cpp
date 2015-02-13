@@ -19,7 +19,7 @@
 
 		if (taskType == "GoToTask"){ 
 			GoToTask* task = dynamic_cast<GoToTask*>(p_currentTask);
-			behavior = new GoToBehavior(this, task->getGoal(), n);
+			behavior = new GoToBehavior(this, task->getGoal().position, n);
 		}
 		else if(taskType == "FollowTagTask"){
 			FollowTagTask* task = dynamic_cast<FollowTagTask*>(p_currentTask);

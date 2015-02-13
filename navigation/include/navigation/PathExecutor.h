@@ -5,6 +5,7 @@
 #include "nav_msgs/Path.h"
 #include "geometry_msgs/Twist.h"
 #include "geometry_msgs/Pose.h"
+#include "std_msgs/String.h"
 #include "tf/transform_datatypes.h"
 
 #include <cmath>
@@ -16,12 +17,15 @@ private:
 	ros::Publisher velPub;
 	ros::Subscriber poseSub;
 	ros::Subscriber pathSub;
+	ros::Subscriber cancelSub;
 
 	geometry_msgs::Pose currentPose;
 	std::deque<geometry_msgs::Pose> path;
 
 	double maxLinearVel;
 	double maxAngularVel;
+
+	bool isCanceled;
 
 public:
 
@@ -30,6 +34,8 @@ public:
 	void poseCallback(const geometry_msgs::Pose::ConstPtr& poseMsg);
 
 	void pathCallback(const nav_msgs::Path::ConstPtr& pathMsg);
+
+	void cancelCallback(const std_msgs::String::ConstPtr cancelMsg);
 
 	void executePath();
 

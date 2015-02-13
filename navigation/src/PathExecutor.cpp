@@ -15,6 +15,7 @@ PlanExecutor::PlanExecutor(){
 	velPub = nh.advertise<geometry_msgs::Twist>(velTopic, 1000);
 	poseSub = nh.subscribe(poseTopic, 1000, &PlanExecutor::poseCallback, this);
 	pathSub = nh.subscribe("navigation/path", 1000, &PlanExecutor::pathCallback, this);
+	cancelSub = nh.subscribe("navigation/cancel", 1000, &PlanExecutor::cancelCallback, this);
 }
 
 void PlanExecutor::poseCallback(const geometry_msgs::Pose::ConstPtr& poseMsg){
@@ -25,6 +26,13 @@ void PlanExecutor::pathCallback(const nav_msgs::Path::ConstPtr& pathMsg){
 	for (geometry_msgs::PoseStamped pose : pathMsg->poses){
 		path.push_back(pose.pose);
 	}
+
+	isCanceled = false;
+	executePath();
+}
+
+void PlanExecutor::cancelCallback(const std_msgs::String::ConstPtr cancelMsg){
+	isCanceled = true;
 }
 
 void PlanExecutor::executePath(){
@@ -36,7 +44,7 @@ void PlanExecutor::executePath(){
 		x2 = pose.position.x;
 		y1 = currentPose.position.y;
 		y2 = pose.position.y;
-		while (distance(x1, y1, x2, y2) < 0.5){
+		while (distance(x1, y1, x2, y2) < 0.5 && !isCanceled){
 			x1 = currentPose.position.x;
 			y1 = currentPose.position.y;
 
@@ -71,6 +79,8 @@ void PlanExecutor::executePath(){
 
 			velPub.publish(velMsg);
 		}
+
+		if (isCanceled) break;
 	}
 }
 
