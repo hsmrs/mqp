@@ -107,6 +107,7 @@ include_directories(
 
 ## Declare a cpp executable
 add_executable(astar src/AStar.cpp)
+add_executable(path_executor src/PathExecutor.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
@@ -114,6 +115,10 @@ add_executable(astar src/AStar.cpp)
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(astar
+   ${catkin_LIBRARIES}
+)
+
+target_link_libraries(path_executor
    ${catkin_LIBRARIES}
 )
 

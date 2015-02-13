@@ -41,7 +41,7 @@ public:
 
 	void createPath(geometry_msgs::Point startPoint, geometry_msgs::Point goalPoint);
 
-	void reconstructPath(AStarNode current, std::map<AStarNode, AStarNode> parents);
+	void reconstructPath(AStarNode *current, std::map<AStarNode, AStarNode> parents);
 
 };
 
