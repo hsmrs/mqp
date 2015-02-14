@@ -2,8 +2,7 @@
 #include "std_msgs/String.h"
 #include "geometry_msgs/PoseStamped.h"
 #include "geometry_msgs/Twist.h"
-#include "hsmrs_framework/BidMsg.h"
-#include "hsmrs_framework/TaskMsg.h"
+
 #include <move_base_msgs/MoveBaseAction.h>
 #include <actionlib/client/simple_action_client.h>
 #include "kobuki_msgs/BumperEvent.h"
@@ -330,6 +329,16 @@ public:
 		msg.data = status;
 		status_pub.publish(msg);
 	}
+	
+	void handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
+    {
+        ROS_INFO("got bid!\n");
+    }
+	
+    double bid(const hsmrs_framework::BidMsg::ConstPtr& msg)
+    {
+        return 0.0;
+    }
 
 };
 

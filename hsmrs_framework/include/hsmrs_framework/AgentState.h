@@ -29,10 +29,12 @@ public:
 	 * @return The value of the attribute with the name \a name
 	 */
 	virtual double getAttribute(std::string name) = 0;
+	
+	virtual void setAttribute(std::string attr, double) = 0;
 
 	/**
 	 * Returns the mapping of attributes to values.
 	 * @return The mapping of attributes to values.
 	 */
-	virtual std::map<std::string, double> getAttributes() = 0;
+	virtual std::map<std::string, double> getAttributes() const = 0;
 };

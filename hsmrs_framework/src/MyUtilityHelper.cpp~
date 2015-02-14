@@ -9,6 +9,7 @@ public:
 	{
 	}
 
+private:
 	double calculate(Robot* robot, Task* task)
 	{
 		double utility = 0;

@@ -6,22 +6,22 @@ private:
 	double val;
 	
 public:
-	MyProgress()
+	MyProgress::MyProgress()
 	{
 		val = 0;
 	}
 
-	MyProgress(double val)
+	MyProgress::MyProgress(double val)
 	{
 		this->val = val;
 	}
 
-	double report()
+	double Progress::report()
 	{
 		return val;
 	}
 
-	void set(double val)
+	void MyProgress::set(double val)
 	{
 		this->val = val;
 	}

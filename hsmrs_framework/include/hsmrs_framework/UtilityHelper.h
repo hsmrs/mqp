@@ -24,10 +24,10 @@ public:
 	~UtilityHelper(void){}
 
 	/**
-	 * Calculates the utility of the given Agent for the given
+	 * Calculates the utility of the given Robot for the given
 	 * task.
-	 * @param agent The Agent whose utility is being calculated
+	 * @param robot The Robot whose utility is being calculated
 	 * @param task The Task used to determine the utility.
 	 */
-	virtual double calculate(Agent* agent, Task* task) = 0;
+	virtual double calculate(Robot* robot, Task* task) = 0;
 };

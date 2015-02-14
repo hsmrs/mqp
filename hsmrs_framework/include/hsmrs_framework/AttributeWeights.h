@@ -36,5 +36,5 @@ public:
 	 * @return A map, with keys being attribute names and values
 	 * 			being their respective weights.
 	 */
-	virtual std::map<std::string, double>* getWeights() = 0;
+	virtual std::map<std::string, double> getWeights() = 0;
 };

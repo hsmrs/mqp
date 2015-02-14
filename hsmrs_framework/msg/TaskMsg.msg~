@@ -7,6 +7,7 @@ uint64 id
 int64 parent_id
 string type
 string[] param_values
+int64 parent_id
 float64 priority
 uint64[] subtask_ids
 string[] owners

@@ -48,13 +48,6 @@ private:
 	double angularSpeed;
 
 	/**
-	 * Makes this Robot bid on the given task
-	 */
-	void bid(Task* task) {
-
-	}
-
-	/**
 	 * Begins the Robot's execution of its current Task.
 	 */
 	virtual void executeTask() {
@@ -290,13 +283,6 @@ public:
 	}
 
 	/**
-	 * Handles the auctioning of Tasks by sending and receiving bids.
-	 */
-	virtual void handleBids() {
-
-	}
-
-	/**
 	 * Verifies that an Agent claiming a Task has the highest utility for it. If not, informs the Agent of the Task's proper owner.
 	 */
 	virtual void verifyTaskClaim() {
@@ -329,6 +315,22 @@ public:
 		msg.data = status;
 		status_pub.publish(msg);
 	}
+	
+	/**
+	 * Handles the auctioning of Tasks by sending and receiving bids.
+	 */
+	void handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
+    {
+        ROS_INFO("got bid!\n");
+    }
+	
+	/**
+	 * Makes this Robot bid on the given task
+	 */
+    double bid(const hsmrs_framework::BidMsg::ConstPtr& msg)
+    {
+        return 0.0;
+    }
 
 };
 

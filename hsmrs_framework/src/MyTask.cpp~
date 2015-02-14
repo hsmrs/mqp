@@ -90,9 +90,4 @@ public:
 	{
 		progress->set(val);
 	}
-	
-	std::string getType()
-	{
-	    return "MyTask";
-	}
 };

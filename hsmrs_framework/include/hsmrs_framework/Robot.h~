@@ -63,10 +63,14 @@ public:
 	*/
 	virtual void verifyTaskClaim() = 0;
 private:
+<<<<<<< refs/remotes/origin/dev
+	virtual void bid(Task* task) = 0;
+=======
 	/**
 	 * Makes this Robot bid on the given task
 	 */
-	virtual double bid(const hsmrs_framework::BidMsg::ConstPtr& msg) = 0;
+	virtual double bid(std::string task) = 0;
+>>>>>>> local
 
 	virtual void executeTask() = 0;
 

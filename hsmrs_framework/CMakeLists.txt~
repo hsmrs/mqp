@@ -119,9 +119,6 @@ target_link_libraries(auctionstarter_node
   ${catkin_LIBRARIES}
 )
 
-add_dependencies(bidderbot_node ${hsmrs_framework_EXPORTED_TARGETS})
-add_dependencies(auctionstarter_node ${hsmrs_framework_EXPORTED_TARGETS})
-
 #############
 ## Install ##
 #############

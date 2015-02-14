@@ -15,6 +15,7 @@ public:
 		return (*attrMap)[name];
 	}
 
+	//TODO this implementation is memory leaky
 	std::map<std::string, double> getWeights()
 	{
 		return std::map<std::string, double>(*attrMap);
