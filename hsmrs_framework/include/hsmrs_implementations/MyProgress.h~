@@ -8,7 +8,7 @@ private:
 	double val;
 	
 public:
-	MyProgress();
+	MyProgress(){}
 
 	MyProgress(double val);
 

@@ -1,5 +1,5 @@
-#ifndef _HERMES_NODE_H_
-#define _HERMES_NODE_H_
+#ifndef _IRONMAN_NODE_H_
+#define _IRONMAN_NODE_H_
 
 #include "ros/ros.h"
 #include <ros/console.h>
@@ -18,13 +18,13 @@
 #include "hsmrs_implementations/GoToTask.h"
 #include "hsmrs_implementations/FollowTagTask.h"
 #include "hsmrs_implementations/MyTaskList.h"
-#include "hermes/Behavior.h"
-#include "hermes/FollowTagBehavior.h"
-#include "hermes/GoToBehavior.h"
+#include "ironman/Behavior.h"
+#include "ironman/FollowTagBehavior.h"
+#include "ironman/GoToBehavior.h"
 
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 
-class Hermes: public Robot {
+class IronMan: public Robot {
 
 private:
 	friend class FollowTagBehavior;
@@ -74,7 +74,7 @@ private:
 	/**
 	 * Makes this Robot bid on the given task
 	 */
-	double bid(const hsmrs_framework::BidMsg::ConstPtr& msg);
+	void bid(Task* task);
 
 	/**
 	 * Begins the Robot's execution of its current Task.
@@ -101,6 +101,8 @@ private:
 
 	void teleOpCallback(const geometry_msgs::Twist::ConstPtr& msg);
 
+	void bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg);
+
 	void newTaskCallback(const std_msgs::String::ConstPtr& msg);
 
 	void updatedTaskCallback(const std_msgs::String::ConstPtr& msg);
@@ -108,7 +110,7 @@ private:
 	void laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg);
 
 public:
-	Hermes();
+	IronMan();
 
 	virtual std::string getName();
 
@@ -149,7 +151,7 @@ public:
 	/**
 	 * Handles the auctioning of Tasks by sending and receiving bids.
 	 */
-	virtual void handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg);
+	virtual void handleBids();
 
 	/**
 	 * Verifies that an Agent claiming a Task has the highest utility for it. If not, informs the Agent of the Task's proper owner.

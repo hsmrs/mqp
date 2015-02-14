@@ -24,8 +24,6 @@ public:
 	 */
 	~Task(void){}
 	
-	virtual std::string getType() = 0;
-	
 	/**
 	 * Retrieves the type of this Task.
 	 * @return A string containing the type of this Task.

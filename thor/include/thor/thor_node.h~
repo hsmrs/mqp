@@ -1,5 +1,5 @@
-#ifndef _HERMES_NODE_H_
-#define _HERMES_NODE_H_
+#ifndef _THOR_NODE_H_
+#define _THOR_NODE_H_
 
 #include "ros/ros.h"
 #include <ros/console.h>
@@ -9,6 +9,8 @@
 #include <move_base_msgs/MoveBaseAction.h>
 #include <actionlib/client/simple_action_client.h>
 #include "kobuki_msgs/BumperEvent.h"
+#include <tf/transform_broadcaster.h>
+#include <tf/transform_listener.h>
 
 #include <sstream>
 #include <typeinfo>
@@ -18,13 +20,13 @@
 #include "hsmrs_implementations/GoToTask.h"
 #include "hsmrs_implementations/FollowTagTask.h"
 #include "hsmrs_implementations/MyTaskList.h"
-#include "hermes/Behavior.h"
-#include "hermes/FollowTagBehavior.h"
-#include "hermes/GoToBehavior.h"
+#include "thor/Behavior.h"
+#include "thor/FollowTagBehavior.h"
+#include "thor/GoToBehavior.h"
 
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 
-class Hermes: public Robot {
+class Thor: public Robot {
 
 private:
 	friend class FollowTagBehavior;
@@ -46,6 +48,7 @@ private:
 	ros::Publisher vel_pub;
 	ros::Subscriber bumper_sub;
 	ros::Subscriber laser_sub;
+	ros::Subscriber tag_sub;
 
 
 	const std::string NAME;
@@ -74,7 +77,7 @@ private:
 	/**
 	 * Makes this Robot bid on the given task
 	 */
-	double bid(const hsmrs_framework::BidMsg::ConstPtr& msg);
+	void bid(Task* task);
 
 	/**
 	 * Begins the Robot's execution of its current Task.
@@ -101,14 +104,18 @@ private:
 
 	void teleOpCallback(const geometry_msgs::Twist::ConstPtr& msg);
 
+	void bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg);
+
 	void newTaskCallback(const std_msgs::String::ConstPtr& msg);
 
 	void updatedTaskCallback(const std_msgs::String::ConstPtr& msg);
 
 	void laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg);
 
+	void tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& msg);
+
 public:
-	Hermes();
+	Thor();
 
 	virtual std::string getName();
 
@@ -149,7 +156,7 @@ public:
 	/**
 	 * Handles the auctioning of Tasks by sending and receiving bids.
 	 */
-	virtual void handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg);
+	virtual void handleBids();
 
 	/**
 	 * Verifies that an Agent claiming a Task has the highest utility for it. If not, informs the Agent of the Task's proper owner.

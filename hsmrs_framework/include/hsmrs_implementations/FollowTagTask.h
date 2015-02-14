@@ -2,8 +2,6 @@
 #define _FOLLOW_TAG_TASK_H_
 
 #include "hsmrs_framework/Task.h"
-#include "hsmrs_framework/Prerequisite.h"
-#include "hsmrs_framework/Progress.h"
 #include "hsmrs_framework/TaskMsg.h"
 #include "geometry_msgs/Pose.h"
 #include "hsmrs_implementations/MyPrerequisite.h"
@@ -59,14 +57,14 @@ public:
 	 * Retrieves a mapping between Attributes and their weights.
 	 * @return A map of strings and doubles
 	 */
-	virtual std::map<std::string, double>* getAttributeWeights();
+	virtual std::map<std::string, double> getAttributeWeights();
 
 	/**
 	 * Retrieves a vector of subtasks which need to be completed as part of
 	 * this task
 	 * @return A vector of Tasks which are a part of this Task.
 	 */
-	virtual std::vector<Task*>* getSubtasks();
+	virtual std::vector<Task*> getSubtasks();
 
 	/**
 	 * Adds an Agent as an owner to this task, if another owner can be added

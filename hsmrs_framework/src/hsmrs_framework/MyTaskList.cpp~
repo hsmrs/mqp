@@ -1,5 +1,4 @@
 #include <hsmrs_implementations/MyTaskList.h>
-#include <algorithm>
 
 MyTaskList::MyTaskList()
 {

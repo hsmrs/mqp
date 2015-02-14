@@ -115,8 +115,8 @@ int FollowTagTask::getTagID(){
 	 * Retrieves a mapping between Attributes and their weights.
 	 * @return A map of strings and doubles
 	 */
- std::map<std::string, double>* FollowTagTask::getAttributeWeights(){
-	return &attributeWeights;
+ std::map<std::string, double> FollowTagTask::getAttributeWeights(){
+	return std::map<std::string, double>(attributeWeights);
 }
 
 	/**
@@ -124,8 +124,8 @@ int FollowTagTask::getTagID(){
 	 * this task
 	 * @return A vector of Tasks which are a part of this Task.
 	 */
- std::vector<Task*>* FollowTagTask::getSubtasks(){
-	return &subTasks;
+ std::vector<Task*> FollowTagTask::getSubtasks(){
+	return std::vector<Task*>(subTasks);
 }
 
 	/**

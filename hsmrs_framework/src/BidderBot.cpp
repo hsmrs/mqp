@@ -169,6 +169,11 @@ public:
     {
     
     }
+    
+    void sendMessage(std::string msg)
+    {
+    
+    }
 };
 
 int main(int argc, char **argv)

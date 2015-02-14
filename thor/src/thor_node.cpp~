@@ -367,7 +367,7 @@
 	/**
 	 * Handles the auctioning of Tasks by sending and receiving bids.
 	 */
-	void handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
+	void Thor::handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
     {
         ROS_INFO("got bid!\n");
     }
@@ -375,11 +375,10 @@
 	/**
 	 * Makes this Robot bid on the given task
 	 */
-    double bid(const hsmrs_framework::BidMsg::ConstPtr& msg)
+    double Thor::bid(const hsmrs_framework::BidMsg::ConstPtr& msg)
     {
         return 0.0;
     }
-};
 
 int main(int argc, char **argv) {
 	ros::init(argc, argv, "thor");

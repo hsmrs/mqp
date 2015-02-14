@@ -22,5 +22,5 @@ public:
 
 	Task* getTask(int id);
 
-	void sortByPriority();
+	virtual void sortByPriority();
 };

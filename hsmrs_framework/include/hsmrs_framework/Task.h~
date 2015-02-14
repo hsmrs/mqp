@@ -23,7 +23,9 @@ public:
 	 * The destructor for the Task class
 	 */
 	~Task(void){}
-
+	
+	virtual std::string getType() = 0;
+	
 	/**
 	 * Retrieves the type of this Task.
 	 * @return A string containing the type of this Task.
@@ -61,7 +63,7 @@ public:
 	 * this task
 	 * @return A vector of Tasks which are a part of this Task.
 	 */
-	virtual std::vector<Task*>* getSubtasks() = 0;
+	virtual std::vector<Task*> getSubtasks() = 0;
 
 	/**
 	 * Adds an Agent as an owner to this task, if another owner can be added

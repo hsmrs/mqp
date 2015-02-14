@@ -6,7 +6,7 @@
 class MyPrerequisite: public Prerequisite
 {
 public:
-	MyPrerequisite();
+	MyPrerequisite(){}
 
 	virtual bool isFulfilled();
 

@@ -74,7 +74,7 @@ private:
 	/**
 	 * Makes this Robot bid on the given task
 	 */
-	void bid(Task* task);
+	double bid(const hsmrs_framework::BidMsg::ConstPtr& msg);
 
 	/**
 	 * Begins the Robot's execution of its current Task.
@@ -151,7 +151,7 @@ public:
 	/**
 	 * Handles the auctioning of Tasks by sending and receiving bids.
 	 */
-	virtual void handleBids();
+	virtual void handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg);
 
 	/**
 	 * Verifies that an Agent claiming a Task has the highest utility for it. If not, informs the Agent of the Task's proper owner.

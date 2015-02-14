@@ -124,8 +124,8 @@ int FollowTagTask::getTagID(){
 	 * this task
 	 * @return A vector of Tasks which are a part of this Task.
 	 */
- std::vector<Task*>* FollowTagTask::getSubtasks(){
-	return &subTasks;
+ std::vector<Task*> FollowTagTask::getSubtasks(){
+	return std::vector<Task*>(subTasks);
 }
 
 	/**

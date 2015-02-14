@@ -1,9 +1,17 @@
-#include "ironman/ironman_node.h"
+#include "husky/husky_node.h"
+
+	/**
+	 * Makes this Robot bid on the given task
+	 */
+	double Husky::bid(const hsmrs_framework::BidMsg::ConstPtr& msg)
+	{
+        return 0.0;
+	}
 
 	/**
 	 * Begins the Robot's execution of its current Task.
 	 */
-	void IronMan::executeTask() {
+	void Husky::executeTask() {
 		//std::string taskType = typeid(p_currentTask).name();
 		std::string taskType = p_currentTask->getType();
 		Behavior* behavior;
@@ -25,15 +33,15 @@
 		setStatus("Busy");
 	}
 
-	void IronMan::pauseTask(){
-		if (p_currentBehavior != NULL) p_currentBehavior->pause();
+	void Husky::pauseTask(){
+		p_currentBehavior->pause();
 	}
 
-	void IronMan::resumeTask(){
-		if (p_currentBehavior != NULL) p_currentBehavior->resume();	
+	void Husky::resumeTask(){
+		p_currentBehavior->resume();	
 	}
 
-	void IronMan::doGoToTask(double x, double y){
+	void Husky::doGoToTask(double x, double y){
 		/*MoveBaseClient ac("move_base", true);
 
   		//wait for the action server to come up
@@ -70,7 +78,7 @@
 	 * Request for the given Task to be sent to the TaskList
 	 * @param task The task to be queued
 	 */
-	void IronMan::requestTaskForQueue(Task* task) {
+	void Husky::requestTaskForQueue(Task* task) {
 
 	}
 
@@ -78,17 +86,17 @@
 	/**
 	 * Send a help request to the Human supervisor.
 	 */
-	void IronMan::callForHelp() {
+	void Husky::callForHelp() {
 		std_msgs::String msg;
 		msg.data = "true";
 		help_pub.publish(msg);
 	}
 
-	void IronMan::handleTeleop(){
+	void Husky::handleTeleop(){
 
 	}
 
-	void IronMan::registerWithGUI() {
+	void Husky::registerWithGUI() {
 		//name;requestTopic;logTopic;imageTopic;poseTopic;statusTopic;helpTopic;teleOpTopic
 
 		std_msgs::String msg;
@@ -101,13 +109,13 @@
 		registration_pub.publish(msg);
 	}
 
-	void IronMan::sendMessage(std::string message){
+	void Husky::sendMessage(std::string message){
 		std_msgs::String msg;
 		msg.data = message;
 		log_pub.publish(msg);
 	}
 
-	void IronMan::requestCallback(const std_msgs::String::ConstPtr& msg)
+	void Husky::requestCallback(const std_msgs::String::ConstPtr& msg)
 	{
 		std::string request = msg->data;
 
@@ -124,7 +132,7 @@
 		}
 	}
 
-	void IronMan::teleOpCallback(const geometry_msgs::Twist::ConstPtr& msg){
+	void Husky::teleOpCallback(const geometry_msgs::Twist::ConstPtr& msg){
 		double linearVel = msg->linear.x * linearSpeed;
 		double angularVel = msg->linear.y * angularSpeed;
 
@@ -135,7 +143,7 @@
 		vel_pub.publish(velMsg);
 	}
 
-	void IronMan::bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg){
+	void Husky::bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg){
 		int bumper = msg->bumper;
 		int state = msg->state;
 
@@ -164,7 +172,7 @@
 
 	}
 
-	void IronMan::newTaskCallback(const std_msgs::String::ConstPtr& msg){
+	void Husky::newTaskCallback(const std_msgs::String::ConstPtr& msg){
 		std::string data = msg->data;
 
 		std::vector<std::string> items;
@@ -196,19 +204,19 @@
 		}
 	}
 
-	void IronMan::updatedTaskCallback(const std_msgs::String::ConstPtr& msg){
+	void Husky::updatedTaskCallback(const std_msgs::String::ConstPtr& msg){
 
 	}
 
-	void IronMan::laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg){
+	void Husky::laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg){
 
 	}
 
-	IronMan::IronMan() : NAME("IronMan"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMAGE_TOPIC("ironman/camera/rgb/image_mono"), 
-			LOG_TOPIC("ironman/log_messages"), STATUS_TOPIC("ironman/status"), HELP_TOPIC("ironman/help"), POSE_TOPIC("ironman/pose"),
-			REQUEST_TOPIC("ironman/requests"), TELE_OP_TOPIC("ironman/tele_op"), VEL_TOPIC("ironman/cmd_vel_mux/input/teleop"),
-			BUMPER_TOPIC("/ironman/mobile_base/events/bumper"), NEW_TASK_TOPIC("/hsmrs/new_task"), 
-			UPDATED_TASK_TOPIC("/hsmrs/updated_task_topic"), LASER_TOPIC("ironman/scan")
+	Husky::Husky() : NAME("Husky"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMAGE_TOPIC("husky/camera/rgb/image_mono"), 
+			LOG_TOPIC("husky/log_messages"), STATUS_TOPIC("husky/status"), HELP_TOPIC("husky/help"), POSE_TOPIC("husky/pose"),
+			REQUEST_TOPIC("husky/requests"), TELE_OP_TOPIC("husky/tele_op"), VEL_TOPIC("husky/cmd_vel_mux/input/teleop"),
+			BUMPER_TOPIC("/husky/mobile_base/events/bumper"), NEW_TASK_TOPIC("/hsmrs/new_task"), 
+			UPDATED_TASK_TOPIC("/hsmrs/updated_task_topic"), LASER_TOPIC("husky/scan")
 			{
 
 		taskList = new MyTaskList();
@@ -226,15 +234,15 @@
 		help_pub = n.advertise<std_msgs::String>(HELP_TOPIC, 100);
 		pose_pub = n.advertise<geometry_msgs::PoseStamped>(POSE_TOPIC, 100);
 
-		new_task_sub = n.subscribe(NEW_TASK_TOPIC, 1000, &IronMan::newTaskCallback, this);
-		updated_task_sub = n.subscribe(UPDATED_TASK_TOPIC, 1000, &IronMan::updatedTaskCallback, this);
-		request_sub = n.subscribe(REQUEST_TOPIC, 1000, &IronMan::requestCallback, this);
-		teleOp_sub = n.subscribe(TELE_OP_TOPIC, 1000, &IronMan::teleOpCallback, this);
+		new_task_sub = n.subscribe(NEW_TASK_TOPIC, 1000, &Husky::newTaskCallback, this);
+		updated_task_sub = n.subscribe(UPDATED_TASK_TOPIC, 1000, &Husky::updatedTaskCallback, this);
+		request_sub = n.subscribe(REQUEST_TOPIC, 1000, &Husky::requestCallback, this);
+		teleOp_sub = n.subscribe(TELE_OP_TOPIC, 1000, &Husky::teleOpCallback, this);
 
 		//Turtlebot publishers and subscribers
 		vel_pub = n.advertise<geometry_msgs::Twist>(VEL_TOPIC, 100);
-		bumper_sub = n.subscribe(BUMPER_TOPIC, 1000, &IronMan::bumperCallback, this);
-		//laser_sub = n.subscribe(LASER_TOPIC, 1000, &IronMan::laserCallback, this);
+		bumper_sub = n.subscribe(BUMPER_TOPIC, 1000, &Husky::bumperCallback, this);
+		//laser_sub = n.subscribe(LASER_TOPIC, 1000, &Husky::laserCallback, this);
 
 		//ros::spinOnce();
 		ros::Rate loop_rate(1);
@@ -255,7 +263,7 @@
 		//}
 	}
 
-	std::string IronMan::getName(){
+	std::string Husky::getName(){
 		return NAME;
 	}
 
@@ -265,7 +273,7 @@
 	 * @param attr The name of the attribute to get
 	 * @return The value of the attribute
 	 */
-	double IronMan::getAttribute(std::string attr) {
+	double Husky::getAttribute(std::string attr) {
 
 	}
 
@@ -274,7 +282,7 @@
 	 * @param task A pointer to the task for which to get a utility.
 	 * @return This Robot's utility for the given Task.
 	 */
-	double IronMan::getUtility(Task *task) {
+	double Husky::getUtility(Task *task) {
 
 	}
 
@@ -282,7 +290,7 @@
 	 * Returns this Robot's AgentState.
 	 * @return The AgentState representing the state of this Robot.
 	 */
-	AgentState* IronMan::getState() {
+	AgentState* Husky::getState() {
 
 	}
 
@@ -291,7 +299,7 @@
 	 * @param attr The name of the target attribute
 	 * @return True if the robot has the named attribute.
 	 */
-	bool IronMan::hasAttribute(std::string attr) {
+	bool Husky::hasAttribute(std::string attr) {
 
 	}
 
@@ -299,14 +307,22 @@
 	 * Sets this Robot's currently active Task.
 	 * @param A pointer to the Task to be set
 	 */
-	void IronMan::setTask(Task* task) {
+	void Husky::setTask(Task* task) {
 		p_currentTask = task;
+	}
+
+	/**
+	 * Handles the auctioning of Tasks by sending and receiving bids.
+	 */
+	void Husky::handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
+	{
+
 	}
 
 	/**
 	 * Verifies that an Agent claiming a Task has the highest utility for it. If not, informs the Agent of the Task's proper owner.
 	 */
-	void IronMan::verifyTaskClaim() {
+	void Husky::verifyTaskClaim() {
 
 	}
 
@@ -314,7 +330,7 @@
 	 * Stops execution of the current Task and requests that
 	 * the Task be returned to the TaskList.
 	 */
-	void IronMan::cancelTask() {
+	void Husky::cancelTask() {
 
 	}
 
@@ -322,42 +338,26 @@
 	 * Asks the Agent to claim a task pointed to by \p task.
 	 * @param task A pointer to the task object to be claimed.
 	 */
-	void IronMan::claimTask(Task* task) {
+	void Husky::claimTask(Task* task) {
 		ROS_INFO("Claiming task!");
 		p_currentTask = task;
 		executeTask();
 	}
 
-	std::string IronMan::getStatus(){
+	std::string Husky::getStatus(){
 		return status;
 	}
 
-	void IronMan::setStatus(std::string newStatus){
+	void Husky::setStatus(std::string newStatus){
 		status = newStatus;
 		std_msgs::String msg;
 		msg.data = status;
 		status_pub.publish(msg);
 	}
-	
-	/**
-	 * Handles the auctioning of Tasks by sending and receiving bids.
-	 */
-	void IronMan::handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
-    {
-        ROS_INFO("got bid!\n");
-    }
-	
-	/**
-	 * Makes this Robot bid on the given task
-	 */
-    double IronMan::bid(const hsmrs_framework::BidMsg::ConstPtr& msg)
-    {
-        return 0.0;
-    }
 
 int main(int argc, char **argv) {
-	ros::init(argc, argv, "ironman");
+	ros::init(argc, argv, "husky");
 
-	IronMan* robot = new IronMan();
+	Husky* robot = new Husky();
 	return 0;
 }

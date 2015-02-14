@@ -141,8 +141,8 @@ geometry_msgs::Pose GoToTask::getGoal(){
 	 * Retrieves a mapping between Attributes and their weights.
 	 * @return A map of strings and doubles
 	 */
- std::map<std::string, double>* GoToTask::getAttributeWeights(){
-	return &attributeWeights;
+ std::map<std::string, double> GoToTask::getAttributeWeights(){
+	return std::map<std::string, double>(attributeWeights);
 }
 
 	/**
@@ -150,8 +150,8 @@ geometry_msgs::Pose GoToTask::getGoal(){
 	 * this task
 	 * @return A vector of Tasks which are a part of this Task.
 	 */
- std::vector<Task*>* GoToTask::getSubtasks(){
-	return &subTasks;
+ std::vector<Task*> GoToTask::getSubtasks(){
+	return std::vector<Task*>(subTasks);
 }
 
 	/**

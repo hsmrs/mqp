@@ -1,13 +1,6 @@
 #include "hermes/hermes_node.h"
 
 	/**
-	 * Makes this Robot bid on the given task
-	 */
-	void Hermes::bid(Task* task) {
-
-	}
-
-	/**
 	 * Begins the Robot's execution of its current Task.
 	 */
 	void Hermes::executeTask() {
@@ -142,35 +135,6 @@
 		vel_pub.publish(velMsg);
 	}
 
-	void Hermes::bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg){
-		int bumper = msg->bumper;
-		int state = msg->state;
-
-		std::string bumperStr;
-		std::string stateStr;
-		if (bumper == msg->LEFT){
-			bumperStr = "left";
-		}
-		else if (bumper == msg->RIGHT){
-			bumperStr = "right";
-		}
-		else if (bumper == msg->CENTER){
-			bumperStr = "center";
-		}
-
-		if (state == msg->RELEASED){
-			stateStr = "released";
-			callForHelp();
-		}
-		else if (state == msg->RELEASED){
-			stateStr = "pressed";
-		}
-
-		std::string message = "My " + bumperStr + " bumper was " + stateStr + "!";
-		sendMessage(message);
-
-	}
-
 	void Hermes::newTaskCallback(const std_msgs::String::ConstPtr& msg){
 		std::string data = msg->data;
 
@@ -213,8 +177,7 @@
 
 	Hermes::Hermes() : NAME("Hermes"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMAGE_TOPIC("hermes/camera/rgb/image_mono"), 
 			LOG_TOPIC("hermes/log_messages"), STATUS_TOPIC("hermes/status"), HELP_TOPIC("hermes/help"), POSE_TOPIC("hermes/pose"),
-			REQUEST_TOPIC("hermes/requests"), TELE_OP_TOPIC("hermes/tele_op"), VEL_TOPIC("hermes/cmd_vel_mux/input/teleop"),
-			BUMPER_TOPIC("/hermes/mobile_base/events/bumper"), NEW_TASK_TOPIC("/hsmrs/new_task"), 
+			REQUEST_TOPIC("hermes/requests"), TELE_OP_TOPIC("hermes/tele_op"), VEL_TOPIC("hermes/cmd_vel_mux/input/teleop"), NEW_TASK_TOPIC("/hsmrs/new_task"), 
 			UPDATED_TASK_TOPIC("/hsmrs/updated_task_topic"), LASER_TOPIC("hermes/scan")
 			{
 
@@ -240,7 +203,6 @@
 
 		//Turtlebot publishers and subscribers
 		vel_pub = n.advertise<geometry_msgs::Twist>(VEL_TOPIC, 100);
-		bumper_sub = n.subscribe(BUMPER_TOPIC, 1000, &Hermes::bumperCallback, this);
 		//laser_sub = n.subscribe(LASER_TOPIC, 1000, &Hermes::laserCallback, this);
 
 		//ros::spinOnce();
@@ -313,9 +275,19 @@
 	/**
 	 * Handles the auctioning of Tasks by sending and receiving bids.
 	 */
-	void Hermes::handleBids() {
+	void Hermes::handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
+    {
+        ROS_INFO("got bid!\n");
+    }
+	
+	/**
+	 * Makes this Robot bid on the given task
+	 */
+    double Hermes::bid(const hsmrs_framework::BidMsg::ConstPtr& msg)
+    {
+        return 0.0;
+    }
 
-	}
 
 	/**
 	 * Verifies that an Agent claiming a Task has the highest utility for it. If not, informs the Agent of the Task's proper owner.

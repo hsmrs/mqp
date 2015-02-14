@@ -9,6 +9,6 @@ bool MyPrerequisite::isFulfilled()
 	return true;
 }
 
-MyPrerequisite::~MyPrerequisite()
+~MyPrerequisite::MyPrerequisite()
 {
 }
