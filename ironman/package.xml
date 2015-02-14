@@ -22,10 +22,10 @@
   <!-- <url type="website">http://wiki.ros.org/ironman</url> -->
 
 
-  <!-- Author tags are optional, mutiple are allowed, one per tag -->
-  <!-- Authors do not have to be maintianers, but could be -->
+  <!-- Auironman tags are optional, mutiple are allowed, one per tag -->
+  <!-- Auironmans do not have to be maintianers, but could be -->
   <!-- Example: -->
-  <!-- <author email="jane.doe@example.com">Jane Doe</author> -->
+  <!-- <auironman email="jane.doe@example.com">Jane Doe</auironman> -->
 
 
   <!-- The *_depend tags are used to specify dependencies -->
@@ -41,15 +41,21 @@
   <!--   <test_depend>gtest</test_depend> -->
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>geometry_msgs</build_depend>
+  <build_depend>hsmrs_framework</build_depend>
+  <build_depend>kobuki_msgs</build_depend>
   <build_depend>nav_msgs</build_depend>
   <build_depend>roscpp</build_depend>
   <build_depend>std_msgs</build_depend>
-  <build_depend>hsmrs_framework</build_depend>
+  <build_depend>ar_track_alvar</build_depend>
+  <build_depend>sensor_msgs</build_depend>
   <run_depend>geometry_msgs</run_depend>
+  <run_depend>hsmrs_framework</run_depend>
+  <run_depend>kobuki_msgs</run_depend>
   <run_depend>nav_msgs</run_depend>
   <run_depend>roscpp</run_depend>
   <run_depend>std_msgs</run_depend>
-  <run_depend>hsmrs_framework</run_depend>
+  <run_depend>ar_track_alvar</run_depend>
+  <run_depend>sensor_msgs</run_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->

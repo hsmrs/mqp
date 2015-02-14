@@ -84,7 +84,7 @@ generate_messages(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES
+  LIBRARIES MyAttributeWeights MyPrerequisite MyProgress MyTask MyTaskList MyUtilityHelper GoToTask FollowTagTask
   CATKIN_DEPENDS geometry_msgs nav_msgs roscpp std_msgs message_runtime
 #  DEPENDS system_lib
 )
@@ -102,13 +102,38 @@ include_directories(
 
 ## Declare a cpp library
 
+add_library(MyAttributeWeights src/${PROJECT_NAME}/MyAttributeWeights.cpp)
+#target_link_libraries(MyAttributeWeights.cpp ${catkin_LIBRARIES})
+
+add_library(MyPrerequisite src/${PROJECT_NAME}/MyPrerequisite.cpp)
+#target_link_libraries(MyPrerequisite.cpp ${catkin_LIBRARIES})
+
+add_library(MyProgress src/${PROJECT_NAME}/MyProgress.cpp)
+#target_link_libraries(MyProgress.cpp ${catkin_LIBRARIES})
+
+add_library(MyTask src/${PROJECT_NAME}/MyTask.cpp)
+#target_link_libraries(MyTask.cpp ${catkin_LIBRARIES})
+
+add_library(MyTaskList src/${PROJECT_NAME}/MyTaskList.cpp)
+#target_link_libraries(MyTaskList.cpp ${catkin_LIBRARIES})
+
+add_library(MyUtilityHelper src/${PROJECT_NAME}/MyUtilityHelper.cpp)
+#target_link_libraries(MyUtilityHelper.cpp ${catkin_LIBRARIES})
+
+add_library(GoToTask src/tasks/GoToTask.cpp)
+#target_link_libraries(GoToTask.cpp ${catkin_LIBRARIES})
+
+add_library(FollowTagTask src/tasks/FollowTagTask.cpp)
+#target_link_libraries(FollowTagTask.cpp ${catkin_LIBRARIES})
+
 ## Declare a cpp executable
 add_executable(bidderbot_node src/BidderBot.cpp)
 add_executable(auctionstarter_node src/AuctionStarter.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-# add_dependencies(hsmrs_framework_node hsmrs_framework_generate_messages_cpp)
+add_dependencies(GoToTask hsmrs_framework_generate_messages_cpp)
+add_dependencies(FollowTagTask hsmrs_framework_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(bidderbot_node
@@ -118,6 +143,9 @@ target_link_libraries(bidderbot_node
 target_link_libraries(auctionstarter_node
   ${catkin_LIBRARIES}
 )
+
+add_dependencies(bidderbot_node ${hsmrs_framework_EXPORTED_TARGETS})
+add_dependencies(auctionstarter_node ${hsmrs_framework_EXPORTED_TARGETS})
 
 #############
 ## Install ##

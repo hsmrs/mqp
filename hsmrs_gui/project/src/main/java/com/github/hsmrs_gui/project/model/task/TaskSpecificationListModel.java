@@ -11,12 +11,6 @@ public class TaskSpecificationListModel extends AbstractListModel{
 	
 	private TaskSpecificationListModel(){
 		taskSpecList = new ArrayList<TaskSpecification>();
-		
-		ArrayList<String> testParams = new ArrayList<String>();
-		testParams.add("Location(x):Integer");
-		testParams.add("Location(y):Integer");
-		TaskSpecification testSpec = new TaskSpecification("Go to", testParams);
-		taskSpecList.add(testSpec);
 	}
 	
 	public static TaskSpecificationListModel getInstance(){

@@ -29,6 +29,7 @@ import src.main.java.com.github.hsmrs_gui.project.model.robot.RobotListModel;
 import src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskModel;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskListModel;
+import src.main.java.com.github.hsmrs_gui.project.model.task.TaskSpecification;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskSpecificationListModel;
 import src.main.java.com.github.hsmrs_gui.project.ros.ImageListener;
 import src.main.java.com.github.hsmrs_gui.project.ros.NewTaskPublisher;
@@ -100,6 +101,19 @@ public class GuiNode extends AbstractNodeMain {
             	*/
             	TaskListModel tlm = TaskListModel.getInstance();
             	TaskSpecificationListModel tslm = TaskSpecificationListModel.getInstance();
+            	
+            	List<String> goToParams = new ArrayList<String>();
+            	goToParams.add("Location(x):Integer");
+            	goToParams.add("Location(y):Integer");
+            	TaskSpecification goToSpec = new TaskSpecification("GoTo", goToParams);
+            	
+            	List<String> followTagParams = new ArrayList<String>();
+            	followTagParams.add("Tag ID:Integer");
+            	TaskSpecification followTagSpec = new TaskSpecification("FollowTag", followTagParams);
+            	
+            	tslm.addTaskSpecification(goToSpec);
+            	tslm.addTaskSpecification(followTagSpec);
+            	
             	ConsoleController.getInstance().createConsole(rlm.getRobotNames());
             	
             	

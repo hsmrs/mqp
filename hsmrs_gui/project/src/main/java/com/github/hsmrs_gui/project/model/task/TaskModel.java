@@ -84,7 +84,7 @@ public class TaskModel {
 
 	public String toString(){
 		/*
-		 * ID;Name;[ParamName:ParamType=ParamValue, ...];[SubTask1, SubTask2, ...]
+		 * ID;Name;[ParamName:ParamType=ParamValue, ...];[SubTask1, SubTask2, ...];[Owner1, Owner2, ...]
 		 */
 		StringBuilder sb = new StringBuilder();
 		sb.append("[");

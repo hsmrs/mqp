@@ -114,6 +114,7 @@ public class NewTaskPanel extends JPanel implements ListSelectionListener {
 	}
 
 	private JPanel generateParamPanel(TaskSpecification spec) {
+		System.out.println("Generating parameter panel for " + spec.getName());
 		JPanel returnPanel = new JPanel();
 		returnPanel.setLayout(new MigLayout("", "[]30[]", "[]"));
 
@@ -128,7 +129,7 @@ public class NewTaskPanel extends JPanel implements ListSelectionListener {
 			returnPanel.add(paramlbls[i], "left");
 			returnPanel.add(paramtxts[i], "width 120:120:120, wrap");
 		}
-
+		
 		returnPanel.validate();
 		
 		return returnPanel;
@@ -175,15 +176,20 @@ public class NewTaskPanel extends JPanel implements ListSelectionListener {
 			ListSelectionModel lsm = (ListSelectionModel) e.getSource();
 
 			System.out.println("Value Changed");
-			int index = e.getFirstIndex();
+			//int index = e.getFirstIndex();
+			int index = typeListView.getSelectedIndex();
 
 			TaskSpecification ts = TaskSpecificationListModel.getInstance()
 					.getElementAt(index);
 			JPanel p = generateParamPanel(ts);
-			paramScrollView = new JScrollPane(p);
+			paramScrollView.setViewportView(p);
+			//paramScrollView = new JScrollPane(p);
 			paramScrollView
 					.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-			validate();
+			paramScrollView.revalidate();
+			paramScrollView.repaint();
+			revalidate();
+			repaint();
 		}
 	}
 }

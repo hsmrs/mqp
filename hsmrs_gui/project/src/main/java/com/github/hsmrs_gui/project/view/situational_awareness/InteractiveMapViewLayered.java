@@ -9,6 +9,7 @@ import java.io.File;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -26,8 +27,6 @@ import net.miginfocom.swing.MigLayout;
 public class InteractiveMapViewLayered extends JPanel{
 
 	private JLabel[][] labelMatrix;
-	private int defaultHeight = 20;
-	private int defaultWidth = 20;
 	private int x, y;
 	private int height;
 	private int width;
@@ -41,7 +40,7 @@ public class InteractiveMapViewLayered extends JPanel{
 		addMouseListener(InteractiveMapController.getInstance());
 		addMouseMotionListener(InteractiveMapController.getInstance());
 		
-		createGrid(10, 10, 10);
+		createGrid(60, 60, 10);
 		
 		for (String robotName : RobotListModel.getInstance().getRobotNames()){
 			RobotModel robot = RobotListModel.getInstance().getRobotModelByName(robotName);
@@ -53,14 +52,17 @@ public class InteractiveMapViewLayered extends JPanel{
 	
 	public void createGrid(int height, int width, int gridCellDimPixels){
 		removeAll();
+		setBackground(Color.white);
 		
 		labelMatrix = new JLabel[height][width];
 		for (int y = 0; y < height; y++){
 			for (int x = 0; x < width; x++){
 				JLabel lbl = new JLabel();
 				lbl.setBackground(Color.white);
-				lbl.setOpaque(false);
+				lbl.setOpaque(true);
+				lbl.setBorder(BorderFactory.createLineBorder(Color.black));
 				lbl.setText(x + "," + y);
+				lbl.setForeground(Color.white);
 				lbl.setMinimumSize(new Dimension(gridCellDimPixels, gridCellDimPixels));
 				lbl.setPreferredSize(new Dimension(gridCellDimPixels, gridCellDimPixels));
 				lbl.setMaximumSize(new Dimension(gridCellDimPixels, gridCellDimPixels));

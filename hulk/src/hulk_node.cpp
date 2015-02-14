@@ -1,72 +1,39 @@
-#include "ros/ros.h"
-#include "std_msgs/String.h"
-#include "geometry_msgs/PoseStamped.h"
-#include "geometry_msgs/Twist.h"
-#include <move_base_msgs/MoveBaseAction.h>
-#include <actionlib/client/simple_action_client.h>
-#include "kobuki_msgs/BumperEvent.h"
-
-#include <sstream>
-
-#include "hsmrs_framework/Robot.h"
-
-typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
-
-class Hulk: public Robot {
-
-private:
-	ros::Publisher registration_pub;
-	ros::Publisher log_pub;
-	ros::Publisher status_pub;
-	ros::Publisher help_pub;
-	ros::Publisher pose_pub;
-
-	ros::Subscriber request_sub;
-	ros::Subscriber teleOp_sub;
-
-	ros::Publisher vel_pub;
-	ros::Subscriber bumper_sub;
-
-
-	const std::string NAME;
-	const std::string REGISTRATION_TOPIC;
-	const std::string IMAGE_TOPIC;
-	const std::string LOG_TOPIC;
-	const std::string STATUS_TOPIC;
-	const std::string HELP_TOPIC;
-	const std::string POSE_TOPIC;
-	const std::string REQUEST_TOPIC;
-	const std::string TELE_OP_TOPIC;
-
-	const std::string VEL_TOPIC;
-	const std::string BUMPER_TOPIC;
-
-	Task* currentTask;
-	std::string status;
-	double linearSpeed;
-	double angularSpeed;
+#include "hulk/hulk_node.h"
 
 	/**
 	 * Begins the Robot's execution of its current Task.
 	 */
-	virtual void executeTask() {
-		//std::string taskType = currentTask->getType();
+	void Hulk::executeTask() {
+		//std::string taskType = typeid(p_currentTask).name();
+		std::string taskType = p_currentTask->getType();
+		Behavior* behavior;
 
-		//if (taskType == "Go to"){
-			//This needs to be changed once tasks have been parameterized
-		//	doGoToTask(10, 10);
-		//}
+		GoToTask task;
+
+		if (taskType == "GoToTask"){ 
+			GoToTask* task = dynamic_cast<GoToTask*>(p_currentTask);
+			behavior = new GoToBehavior(this, task->getGoal(), n);
+		}
+		else if(taskType == "FollowTagTask"){
+			FollowTagTask* task = dynamic_cast<FollowTagTask*>(p_currentTask);
+			//FollowTagBehavior ftb(this, 0.3, 0.5, task->getTagID(), n, VEL_TOPIC, LASER_TOPIC);
+			//behavior = &ftb;
+			behavior = new FollowTagBehavior(this, 0.3, 0.5, task->getTagID(), n, VEL_TOPIC, LASER_TOPIC);
+		}
+		p_currentBehavior = behavior;
+		behavior->execute();
+		setStatus("Busy");
 	}
 
-	virtual void pauseTask(){
-
+	void Hulk::pauseTask(){
+		if (p_currentBehavior != NULL) p_currentBehavior->pause();
 	}
 
-	virtual void resumeTask(){
-		
+	void Hulk::resumeTask(){
+		if (p_currentBehavior != NULL) p_currentBehavior->resume();	
 	}
 
-	void doGoToTask(double x, double y){
+	void Hulk::doGoToTask(double x, double y){
 		/*MoveBaseClient ac("move_base", true);
 
   		//wait for the action server to come up
@@ -103,24 +70,25 @@ private:
 	 * Request for the given Task to be sent to the TaskList
 	 * @param task The task to be queued
 	 */
-	virtual void requestTaskForQueue(Task* task) {
+	void Hulk::requestTaskForQueue(Task* task) {
 
 	}
+
 
 	/**
 	 * Send a help request to the Human supervisor.
 	 */
-	virtual void callForHelp() {
+	void Hulk::callForHelp() {
 		std_msgs::String msg;
 		msg.data = "true";
 		help_pub.publish(msg);
 	}
 
-	virtual void handleTeleop(){
+	void Hulk::handleTeleop(){
 
 	}
 
-	void registerWithGUI() {
+	void Hulk::registerWithGUI() {
 		//name;requestTopic;logTopic;imageTopic;poseTopic;statusTopic;helpTopic;teleOpTopic
 
 		std_msgs::String msg;
@@ -133,13 +101,13 @@ private:
 		registration_pub.publish(msg);
 	}
 
-	void sendLog(std::string logMessage){
+	void Hulk::sendMessage(std::string message){
 		std_msgs::String msg;
-		msg.data = logMessage;
+		msg.data = message;
 		log_pub.publish(msg);
 	}
 
-	void requestCallback(const std_msgs::String::ConstPtr& msg)
+	void Hulk::requestCallback(const std_msgs::String::ConstPtr& msg)
 	{
 		std::string request = msg->data;
 
@@ -151,9 +119,12 @@ private:
 			setStatus("Idle");
 			resumeTask();
 		}
+		else if (request == "stop help"){
+
+		}
 	}
 
-	void teleOpCallback(const geometry_msgs::Twist::ConstPtr& msg){
+	void Hulk::teleOpCallback(const geometry_msgs::Twist::ConstPtr& msg){
 		double linearVel = msg->linear.x * linearSpeed;
 		double angularVel = msg->linear.y * angularSpeed;
 
@@ -164,7 +135,7 @@ private:
 		vel_pub.publish(velMsg);
 	}
 
-	void bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg){
+	void Hulk::bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg){
 		int bumper = msg->bumper;
 		int state = msg->state;
 
@@ -189,21 +160,61 @@ private:
 		}
 
 		std::string message = "My " + bumperStr + " bumper was " + stateStr + "!";
-		sendLog(message);
+		sendMessage(message);
 
 	}
 
-public:
-	Hulk() : NAME("Hulk"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMAGE_TOPIC("hulk/camera/rgb/image_mono"), 
+	void Hulk::newTaskCallback(const std_msgs::String::ConstPtr& msg){
+		std::string data = msg->data;
+
+		std::vector<std::string> items;
+		std::string delimiter = ";";
+		size_t pos = 0;
+
+		while ((pos = data.find(delimiter)) != std::string::npos) {
+	    	items.push_back(data.substr(0, pos));
+    		data.erase(0, pos + delimiter.length());
+		}
+
+		std::string type = items[1];
+		Task* task;
+		if (type == "GoTo"){
+			task = new GoToTask(msg->data);
+		}
+		else if (type == "FollowTag"){
+			task = new FollowTagTask(msg->data);
+		}
+		else{ //Task not recognized
+			return;
+		}
+		std::vector<std::string> owners = task->getOwners();
+		
+		if (std::find(owners.begin(), owners.end(), NAME)!=owners.end()){
+			claimTask(task);
+		} else{
+			taskList->addTask(task);
+		}
+	}
+
+	void Hulk::updatedTaskCallback(const std_msgs::String::ConstPtr& msg){
+
+	}
+
+	void Hulk::laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg){
+
+	}
+
+	Hulk::Hulk() : NAME("Hulk"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMAGE_TOPIC("hulk/camera/rgb/image_mono"), 
 			LOG_TOPIC("hulk/log_messages"), STATUS_TOPIC("hulk/status"), HELP_TOPIC("hulk/help"), POSE_TOPIC("hulk/pose"),
 			REQUEST_TOPIC("hulk/requests"), TELE_OP_TOPIC("hulk/tele_op"), VEL_TOPIC("hulk/cmd_vel_mux/input/teleop"),
-			BUMPER_TOPIC("/hulk/mobile_base/events/bumper")
+			BUMPER_TOPIC("/hulk/mobile_base/events/bumper"), NEW_TASK_TOPIC("/hsmrs/new_task"), 
+			UPDATED_TASK_TOPIC("/hsmrs/updated_task_topic"), LASER_TOPIC("hulk/scan")
 			{
-		
+
+		taskList = new MyTaskList();
+
 		linearSpeed = 0.3;
 		angularSpeed = 0.8;
-
-		ros::NodeHandle n;
 
 		ros::AsyncSpinner spinner(1);
 		spinner.start();
@@ -215,18 +226,28 @@ public:
 		help_pub = n.advertise<std_msgs::String>(HELP_TOPIC, 100);
 		pose_pub = n.advertise<geometry_msgs::PoseStamped>(POSE_TOPIC, 100);
 
+		new_task_sub = n.subscribe(NEW_TASK_TOPIC, 1000, &Hulk::newTaskCallback, this);
+		updated_task_sub = n.subscribe(UPDATED_TASK_TOPIC, 1000, &Hulk::updatedTaskCallback, this);
 		request_sub = n.subscribe(REQUEST_TOPIC, 1000, &Hulk::requestCallback, this);
 		teleOp_sub = n.subscribe(TELE_OP_TOPIC, 1000, &Hulk::teleOpCallback, this);
 
 		//Turtlebot publishers and subscribers
 		vel_pub = n.advertise<geometry_msgs::Twist>(VEL_TOPIC, 100);
 		bumper_sub = n.subscribe(BUMPER_TOPIC, 1000, &Hulk::bumperCallback, this);
+		//laser_sub = n.subscribe(LASER_TOPIC, 1000, &Hulk::laserCallback, this);
 
 		//ros::spinOnce();
 		ros::Rate loop_rate(1);
 		loop_rate.sleep();
 
 		registerWithGUI();
+
+		while (ros::ok()){
+			//Task* nextTask = taskList->pullNextTask();
+			//if (nextTask != NULL){
+				//bid(nextTask);
+			//}
+		}
 		ros::waitForShutdown();
 		//ros::spin();
 		//while (ros::ok()) {
@@ -234,7 +255,7 @@ public:
 		//}
 	}
 
-	virtual std::string getName(){
+	std::string Hulk::getName(){
 		return NAME;
 	}
 
@@ -244,7 +265,7 @@ public:
 	 * @param attr The name of the attribute to get
 	 * @return The value of the attribute
 	 */
-	virtual double getAttribute(std::string attr) {
+	double Hulk::getAttribute(std::string attr) {
 
 	}
 
@@ -253,7 +274,7 @@ public:
 	 * @param task A pointer to the task for which to get a utility.
 	 * @return This Robot's utility for the given Task.
 	 */
-	virtual double getUtility(Task *task) {
+	double Hulk::getUtility(Task *task) {
 
 	}
 
@@ -261,7 +282,7 @@ public:
 	 * Returns this Robot's AgentState.
 	 * @return The AgentState representing the state of this Robot.
 	 */
-	virtual AgentState* getState() {
+	AgentState* Hulk::getState() {
 
 	}
 
@@ -270,7 +291,7 @@ public:
 	 * @param attr The name of the target attribute
 	 * @return True if the robot has the named attribute.
 	 */
-	virtual bool hasAttribute(std::string attr) {
+	bool Hulk::hasAttribute(std::string attr) {
 
 	}
 
@@ -278,14 +299,14 @@ public:
 	 * Sets this Robot's currently active Task.
 	 * @param A pointer to the Task to be set
 	 */
-	virtual void setTask(Task* task) {
-		currentTask = task;
+	void Hulk::setTask(Task* task) {
+		p_currentTask = task;
 	}
 
 	/**
 	 * Verifies that an Agent claiming a Task has the highest utility for it. If not, informs the Agent of the Task's proper owner.
 	 */
-	virtual void verifyTaskClaim() {
+	void Hulk::verifyTaskClaim() {
 
 	}
 
@@ -293,7 +314,7 @@ public:
 	 * Stops execution of the current Task and requests that
 	 * the Task be returned to the TaskList.
 	 */
-	virtual void cancelTask() {
+	void Hulk::cancelTask() {
 
 	}
 
@@ -301,15 +322,17 @@ public:
 	 * Asks the Agent to claim a task pointed to by \p task.
 	 * @param task A pointer to the task object to be claimed.
 	 */
-	virtual void claimTask(Task* task) {
-		currentTask = task;
+	void Hulk::claimTask(Task* task) {
+		ROS_INFO("Claiming task!");
+		p_currentTask = task;
+		executeTask();
 	}
 
-	virtual std::string getStatus(){
+	std::string Hulk::getStatus(){
 		return status;
 	}
 
-	virtual void setStatus(std::string newStatus){
+	void Hulk::setStatus(std::string newStatus){
 		status = newStatus;
 		std_msgs::String msg;
 		msg.data = status;
@@ -331,8 +354,6 @@ public:
     {
         return 0.0;
     }
-
-};
 
 int main(int argc, char **argv) {
 	ros::init(argc, argv, "hulk");

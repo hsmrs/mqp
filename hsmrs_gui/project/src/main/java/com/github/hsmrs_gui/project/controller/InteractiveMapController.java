@@ -28,6 +28,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import src.main.java.com.github.hsmrs_gui.project.model.NavigationMapModel;
+import src.main.java.com.github.hsmrs_gui.project.ros.MapPublisher;
 import src.main.java.com.github.hsmrs_gui.project.util.Colors;
 import src.main.java.com.github.hsmrs_gui.project.util.Pair;
 import src.main.java.com.github.hsmrs_gui.project.view.situational_awareness.InteractiveMapViewLayered;
@@ -46,6 +47,12 @@ public class InteractiveMapController implements MouseListener, MouseMotionListe
 	private final double INSTITUTE_PARK_MAP_SCALE = 6.3876889849; //pixels per meter
 	private BufferedImage mapImage;
 	
+	private int defaultHeight = 40;
+	private int defaultWidth = 40;
+	private double defaultResolution = 1.0;
+	
+	private MapPublisher mapPublisher;
+		
 	/**
 	 * Constructor for the InteractiveMapController class
 	 */
@@ -56,15 +63,21 @@ public class InteractiveMapController implements MouseListener, MouseMotionListe
 		INSTITUTE_PARK_MAP_PATH = String.format("%s/project/%s", System.getProperty("user.dir"), this.getClass().getPackage().getName().replace(".", "/"));
 		INSTITUTE_PARK_MAP_PATH += "/images/institute_park_edited.jpg";
 		
-		mapImage = null;
+		/*mapImage = null;
 		try{
 			mapImage = ImageIO.read(new File(INSTITUTE_PARK_MAP_PATH));
 			navMapModel = new NavigationMapModel(mapImage, INSTITUTE_PARK_MAP_SCALE);
+			resolution = 1;
 		}
 		catch(Exception e){
 			System.out.println("Error reading image for interactive map image");
-			navMapModel = new NavigationMapModel(100, 100);
-		}
+			navMapModel = new NavigationMapModel(defaultHeight, defaultWidth);
+			resolution = 0.5
+		}*/
+		mapPublisher = new MapPublisher("hsmrs/map");
+		navMapModel = new NavigationMapModel(defaultHeight, defaultWidth, defaultResolution);
+		mapImage = null;
+		mapPublisher.publishMap(defaultHeight, defaultWidth, (float)defaultResolution);
 	}
 
 	

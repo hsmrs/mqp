@@ -1,4 +1,4 @@
-#include "Prerequisite.h"
+#include "hsmrs_framework/Prerequisite.h"
 
 class MyPrerequisite: public Prerequisite
 {

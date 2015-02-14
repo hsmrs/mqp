@@ -13,19 +13,21 @@ public class NavigationMapModel {
 
 	private int height;
 	private int width;
+	private double resolution;
 	private BufferedImage mapImage;
-	private double mapImagePixelMeterResolution;
+	private double pixelMeterResolution;
 	private MapGridCellModel[][] cells;
 	private ArrayList<MapGridCellModel> selectedCells;
 	private Map<String, MapGridCellModel> objectLocations;
 	
 	public NavigationMapModel(){
-		this(1, 1);
+		this(1, 1, 1);
 	}
 	
-	public NavigationMapModel(int height, int width){
+	public NavigationMapModel(int height, int width, double resolution){
 		this.height = height;
 		this.width = width;
+		this.resolution = resolution;
 		
 		cells = new MapGridCellModel[height][width];
 		for (int i = 0; i < height; i++){
@@ -33,6 +35,7 @@ public class NavigationMapModel {
 				cells[i][j] = new MapGridCellModel(i, j, 0);
 			}
 		}
+		pixelMeterResolution = 13;
 		selectedCells = new ArrayList<MapGridCellModel>();
 		objectLocations = new HashMap<String, MapGridCellModel>();
 	}
@@ -50,7 +53,7 @@ public class NavigationMapModel {
 		selectedCells = new ArrayList<MapGridCellModel>();
 
 		this.mapImage = mapImage;
-		this.mapImagePixelMeterResolution = pixelMeterResolution;
+		this.pixelMeterResolution = pixelMeterResolution;
 	}
 	
 	public int getHeight(){
@@ -62,12 +65,12 @@ public class NavigationMapModel {
 	}
 	
 	public double getCellSize(){
-		return mapImagePixelMeterResolution;
+		return pixelMeterResolution / resolution;
 	}
 	
 	public void setMapImage(BufferedImage newMapImage, double pixelMeterResolution, boolean redrawGrid){
 		this.mapImage = newMapImage;
-		this.mapImagePixelMeterResolution = pixelMeterResolution;
+		this.pixelMeterResolution = pixelMeterResolution;
 		if (redrawGrid){
 			this.height = mapImage.getHeight();;
 			this.width = mapImage.getWidth();

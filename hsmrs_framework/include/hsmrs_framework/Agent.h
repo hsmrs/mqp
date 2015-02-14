@@ -7,8 +7,7 @@
 #pragma once
 
 #include <string>
-
-class Task;
+#include "Task.h"
 
 class Agent
 {
