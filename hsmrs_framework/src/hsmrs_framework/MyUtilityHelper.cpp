@@ -1,31 +1,26 @@
-#include <hsmrs_framework/UtilityHelper.h>
-#include <map>
-#include <exception>
+#include <hsmrs_implementations/MyUtilityHelper.h>
 
-class MyUtilityHelper: public UtilityHelper
+MyUtilityHelper::MyUtilityHelper()
 {
-public:
-	MyUtilityHelper()
-	{
-	}
+}
 
-	double calculate(Robot* robot, Task* task)
+double MyUtilityHelper::calculate(Robot* robot, Task* task)
+{
+	double utility = 0;
+	std::map<std::string, double> robotAttributes = robot->getState()->getAttributes();
+	std::map<std::string, double> taskAttributes = task->getAttributeWeights();
+	for(std::map<std::string, double>::iterator i = robotAttributes.begin(); i != robotAttributes.end(); ++i)
 	{
-		double utility = 0;
-		std::map<std::string, double> robotAttributes = robot->getState()->getAttributes();
-		std::map<std::string, double> taskAttributes = task->getAttributeWeights();
-		for(std::map<std::string, double>::iterator i = robotAttributes.begin(); i != robotAttributes.end(); ++i)
+		if(taskAttributes.count(i->first) == 1)
 		{
-			if(taskAttributes.count(i->first) == 1)
-			{
-				utility += taskAttributes[i->first]*i->second;
-			}
+			utility += taskAttributes[i->first]*i->second;
 		}
-
-		return utility;
 	}
 
-	~MyUtilityHelper()
-	{
-	}
-};
+	return utility;
+}
+
+MyUtilityHelper::~MyUtilityHelper()
+{
+}
+	

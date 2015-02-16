@@ -11,6 +11,8 @@ public:
 	void addTask(Task* task);
 
 	std::vector<Task*> getTasks();
+	
+	std::map<std::string, double> getAttributeWeights();
 
 	bool isEmpty();
 
@@ -22,5 +24,5 @@ public:
 
 	Task* getTask(int id);
 
-	virtual void sortByPriority();
+	void sortByPriority();
 };

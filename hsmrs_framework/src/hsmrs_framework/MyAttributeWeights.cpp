@@ -1,29 +1,23 @@
-#include <hsmrs_framework/AttributeWeights.h>
+#include <hsmrs_implementations/MyAttributeWeights.h>
 
-class MyAttributeWeights: public AttributeWeights
+MyAttributeWeights::MyAttributeWeights()
 {
-public:
-	MyAttributeWeights()
-	{
-		attrMap = new std::map<std::string, double>();
-		(*attrMap)["attr1"] = 1.0;
-		(*attrMap)["attr2"] = 0.5;
-	}
+	attrMap = new std::map<std::string, double>();
+	(*attrMap)["attr1"] = 1.0;
+	(*attrMap)["attr2"] = 0.5;
+}
 
-	double getWeight(std::string name)
-	{
-		return (*attrMap)[name];
-	}
+double MyAttributeWeights::getWeight(std::string name)
+{
+	return (*attrMap)[name];
+}
 
-	std::map<std::string, double> getWeights()
-	{
-		return std::map<std::string, double>(*attrMap);
-	}
+std::map<std::string, double> MyAttributeWeights::getWeights()
+{
+	return std::map<std::string, double>(*attrMap);
+}
 
-	~MyAttributeWeights()
-	{
-		delete attrMap;
-	}
-private:
-	std::map<std::string, double>* attrMap;
-};
+MyAttributeWeights::~MyAttributeWeights()
+{
+	delete attrMap;
+}

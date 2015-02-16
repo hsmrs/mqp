@@ -1,6 +1,19 @@
-#include "hsmrs_implementations/MyTask.h"
+#include <hsmrs_framework/Task.h>
+#include "MyAttributeWeights.cpp"
+#include "MyProgress.cpp"
 
-MyTask::MyTask(int id, double priority)
+class MyTask : public Task
+{
+private:
+	int id;
+	double priority;
+	std::vector<Task*>* subtasks;
+	std::vector<std::string>* owners;
+	AttributeWeights* weights;
+	MyProgress* progress;
+
+public:
+	MyTask(int id, double priority)
 	{
 		this->id = id;
 		this->priority = priority;
@@ -10,53 +23,53 @@ MyTask::MyTask(int id, double priority)
 		progress = new MyProgress();
 	}
 
-	void MyTask::addOwner(std::string agent)
+	void addOwner(std::string agent)
 	{
 		owners->push_back(agent);
 	}
 
-	std::map<std::string, double>* MyTask::getAttributeWeights()
+	std::map<std::string, double> getAttributeWeights()
 	{
 		return weights->getWeights();
 	}
 
-	int MyTask::getID()
+	int getID()
 	{
 		return id;
 	}
 
-	int MyTask::getMaxOwners()
+	int getMaxOwners()
 	{
 		return 1;
 	}
 
-	int MyTask::getMinOwners()
+	int getMinOwners()
 	{
 		return 1;
 	}
 
 	//TODO this implementation is memory leaky
-	std::vector<std::string> MyTask::getOwners()
+	std::vector<std::string> getOwners()
 	{
-		return *owners;
+		return std::vector<std::string>(*owners);
 	}
 
-	double MyTask::getPriority()
+	double getPriority()
 	{
 		return priority;
 	}
 
-	std::vector<Task*>* MyTask::getSubtasks()
+	std::vector<Task*> getSubtasks()
 	{
-		return new std::vector<Task*>(*subtasks);
+		return std::vector<Task*>(*subtasks);
 	}
 
-	bool MyTask::isReady()
+	bool isReady()
 	{
 		return true;
 	}
 
-	void MyTask::removeOwner(std::string name)
+	void removeOwner(std::string name)
 	{
 		for (int i = 0; i < owners->size(); i++)
 		{
@@ -68,13 +81,18 @@ MyTask::MyTask(int id, double priority)
 		}
 	}
 
-	void MyTask::setPriority(double val)
+	void setPriority(double val)
 	{
 		priority = val;
 	}
 
-	void MyTask::setProgress(double val)
+	void setProgress(double val)
 	{
 		progress->set(val);
 	}
-
+	
+	std::string getType()
+	{
+	    return "MyTask";
+	}
+};

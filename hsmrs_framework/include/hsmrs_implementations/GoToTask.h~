@@ -4,12 +4,10 @@
 #include <ros/console.h>
 #include "hsmrs_framework/Task.h"
 #include "hsmrs_framework/Agent.h"
-#include "hsmrs_framework/Prerequisite.h"
-#include "hsmrs_framework/Progress.h"
 #include "hsmrs_framework/TaskMsg.h"
 #include "geometry_msgs/Pose.h"
 #include "hsmrs_implementations/MyPrerequisite.h"
-#include "hsmrs_implementations/MyProgress.h"
+#include <hsmrs_implementations/MyProgress.h>
 
 class GoToTask : public Task {
 private:

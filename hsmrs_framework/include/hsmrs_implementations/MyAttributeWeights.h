@@ -7,8 +7,7 @@ public:
 
 	double getWeight(std::string name);
 
-	//TODO this implementation is memory leaky
-	std::map<std::string, double>* getWeights();
+	std::map<std::string, double> getWeights();
 
 	~MyAttributeWeights();
 private:

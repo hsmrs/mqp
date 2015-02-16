@@ -20,7 +20,7 @@ public:
 
 	void addOwner(std::string agent);
 
-	std::map<std::string, double>* getAttributeWeights();
+	std::map<std::string, double> getAttributeWeights();
 
 	int getID();
 
@@ -33,7 +33,7 @@ public:
 
 	double getPriority();
 
-	std::vector<Task*>* getSubtasks();
+	std::vector<Task*> getSubtasks();
 
 	bool isReady();
 
@@ -42,6 +42,8 @@ public:
 	void setPriority(double val);
 
 	void setProgress(double val);
+	
+	std::string getType();
 };
 
 #endif

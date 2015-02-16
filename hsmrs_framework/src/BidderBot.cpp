@@ -1,10 +1,11 @@
-#include "../include/hsmrs_framework/Robot.h"
+#include <hsmrs_framework/Robot.h>
 #include <hsmrs_framework/BidMsg.h>
 #include "ros/ros.h"
-#include "MyUtilityHelper.cpp"
+#include <hsmrs_implementations/MyUtilityHelper.h>
 #include <std_msgs/String.h>
-#include "MyTask.cpp"
-#include "MyAgentState.cpp"
+#include <hsmrs_implementations/MyTask.h>
+#include <hsmrs_implementations/MyAgentState.cpp>
+#include <hsmrs_implementations/MyTaskList.h>
 
 class AuctionTracker
 {
@@ -29,11 +30,13 @@ class BidderBot: public Robot
 {
 private:
 	std::map<int, AuctionTracker> auctionList;
+	MyTaskList taskList;
 	ros::Publisher bidPub;
 	ros::Subscriber bidSub;
 	MyUtilityHelper utiHelp;
 	MyAgentState state;
 	std::string AUCTION_TOPIC;
+	std::string NEW_TASK_TOPIC;
 public:
     BidderBot()
     {
