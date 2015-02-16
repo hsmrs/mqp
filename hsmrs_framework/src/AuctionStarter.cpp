@@ -1,5 +1,5 @@
 #include "ros/ros.h"
-#include <hsmrs_framework/BidMsg.h>
+#include <hsmrs_framework/TaskMsg.h>
 
 class AuctionStarter
 {
@@ -8,22 +8,20 @@ public:
     {
         ros::NodeHandle n;
         
-        ros::Publisher bidPub = n.advertise<hsmrs_framework::BidMsg>("/hsmrs/auction", 100);
+        ros::Publisher bidPub = n.advertise<hsmrs_framework::TaskMsg>("/hsmrs/new_task", 100);
         
-        hsmrs_framework::BidMsg bid = hsmrs_framework::BidMsg();
-        bid.name = "AuctionStarter";
-        bid.utility = 0;
-        bid.task.id = 0;
-        bid.task.parent_id = -1;
-        bid.task.priority = 10;
-        bid.task.type = "MyTask";
+        hsmrs_framework::TaskMsg task = hsmrs_framework::TaskMsg();
+        task.id = 0;
+        task.parent_id = -1;
+        task.priority = 10;
+        task.type = "MyTask";
         
         while(n.ok())
         {
             ros::spinOnce();
-            ROS_INFO("sending bid\n");
-            bidPub.publish(bid);
-            ROS_INFO("bid sent\n");
+            ROS_INFO("sending task\n");
+            bidPub.publish(task);
+            ROS_INFO("task sent\n");
             
             ros::Duration(5).sleep();
         }

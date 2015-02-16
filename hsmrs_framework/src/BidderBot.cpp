@@ -33,6 +33,7 @@ private:
 	MyTaskList taskList;
 	ros::Publisher bidPub;
 	ros::Subscriber bidSub;
+	ros::Subscriber newTaskSub;
 	MyUtilityHelper utiHelp;
 	MyAgentState state;
 	std::string AUCTION_TOPIC;
@@ -50,14 +51,44 @@ public:
 		spinner.start();
 
 		AUCTION_TOPIC = "/hsmrs/auction";
+		NEW_TASK_TOPIC = "/hsmrs/new_task";
 
 		bidPub = n.advertise<hsmrs_framework::BidMsg>(AUCTION_TOPIC, 100);
 		
 		bidSub = n.subscribe(AUCTION_TOPIC, 1000, &BidderBot::handleBids, this);
+		newTaskSub = n.subscribe(NEW_TASK_TOPIC, 100, &BidderBot::handleNewTask, this);
 		
 		state = MyAgentState();
 		
+		taskList = MyTaskList();
+		
 		ros::spin();
+    }
+
+    void handleNewTask(const hsmrs_framework::TaskMsg::ConstPtr& msg)
+    {
+        ROS_INFO("got new task!\n");
+        int id = msg->id;
+        if(taskList.getTask(id) == NULL)
+        {
+            std::string type = msg->type;
+            
+            AuctionTracker at = AuctionTracker();
+            double myBid = bid(msg);
+            at.topBidder = getName();
+            at.topUtility = myBid;
+            at.haveBidded = true;
+            auctionList[id] = at;
+            
+            if(type == "MyTask")
+            {
+                taskList.addTask(new MyTask(msg->id, msg->priority));
+            }
+        }
+        else
+        {
+            ROS_INFO("task with ID %d is not unique!\n", id);
+        }
     }
 
 	void handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
@@ -77,6 +108,11 @@ public:
             at.topUtility = (myBid > utility) ? myBid : utility;
             at.haveBidded = true;
             auctionList[id] = at;
+            
+            if(type == "MyTask")
+            {
+                taskList.addTask(new MyTask(msg->task.id, msg->task.priority));
+            }
         }
         else
         {
@@ -91,6 +127,29 @@ public:
         hsmrs_framework::BidMsg myBid = hsmrs_framework::BidMsg(*msg);
         myBid.name = getName();
         std::string type = msg->task.type;
+        
+        ROS_INFO("calculating utility...\n");
+        if(type == "MyTask")
+        {
+            myBid.utility = utiHelp.calculate(this, new MyTask(0, 1));
+        }
+        else
+        {
+            myBid.utility = 0;
+        }
+        
+        ROS_INFO("my utility is %f, publishing\n", myBid.utility);
+        
+        bidPub.publish(myBid);
+        return myBid.utility;
+    }
+    
+    double bid(const hsmrs_framework::TaskMsg::ConstPtr& msg)
+    {
+        hsmrs_framework::BidMsg myBid = hsmrs_framework::BidMsg();
+        myBid.task = *msg;
+        myBid.name = getName();
+        std::string type = msg->type;
         
         ROS_INFO("calculating utility...\n");
         if(type == "MyTask")

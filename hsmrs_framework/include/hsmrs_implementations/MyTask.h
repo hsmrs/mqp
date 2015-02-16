@@ -5,6 +5,7 @@
 #include "hsmrs_framework/Agent.h"
 #include "hsmrs_implementations/MyAttributeWeights.h"
 #include "hsmrs_implementations/MyProgress.h"
+#include "hsmrs_framework/TaskMsg.h"
 
 class MyTask : public Task {
 private:
@@ -17,6 +18,8 @@ private:
 
 public:
 	MyTask(int id, double priority);
+	
+	MyTask(const hsmrs_framework::TaskMsg::ConstPtr& msg);
 
 	void addOwner(std::string agent);
 
@@ -28,7 +31,6 @@ public:
 
 	int getMinOwners();
 
-	//TODO this implementation is memory leaky
 	std::vector<std::string> getOwners();
 
 	double getPriority();

@@ -1,98 +1,84 @@
-#include <hsmrs_framework/Task.h>
-#include "MyAttributeWeights.cpp"
-#include "MyProgress.cpp"
+#include <hsmrs_implementations/MyTask.h>
 
-class MyTask : public Task
+MyTask::MyTask(int id, double priority)
 {
-private:
-	int id;
-	double priority;
-	std::vector<Task*>* subtasks;
-	std::vector<std::string>* owners;
-	AttributeWeights* weights;
-	MyProgress* progress;
+	this->id = id;
+	this->priority = priority;
+	subtasks = new std::vector<Task*>();
+	owners = new std::vector<std::string>();
+	weights = new MyAttributeWeights();
+	progress = new MyProgress();
+}
 
-public:
-	MyTask(int id, double priority)
-	{
-		this->id = id;
-		this->priority = priority;
-		subtasks = new std::vector<Task*>();
-		owners = new std::vector<std::string>();
-		weights = new MyAttributeWeights();
-		progress = new MyProgress();
-	}
+void MyTask::addOwner(std::string agent)
+{
+	owners->push_back(agent);
+}
 
-	void addOwner(std::string agent)
-	{
-		owners->push_back(agent);
-	}
+std::map<std::string, double> MyTask::getAttributeWeights()
+{
+	return weights->getWeights();
+}
 
-	std::map<std::string, double> getAttributeWeights()
-	{
-		return weights->getWeights();
-	}
+int MyTask::getID()
+{
+	return id;
+}
 
-	int getID()
-	{
-		return id;
-	}
+int MyTask::getMaxOwners()
+{
+	return 1;
+}
 
-	int getMaxOwners()
-	{
-		return 1;
-	}
+int MyTask::getMinOwners()
+{
+	return 1;
+}
 
-	int getMinOwners()
-	{
-		return 1;
-	}
+std::vector<std::string> MyTask::getOwners()
+{
+	return std::vector<std::string>(*owners);
+}
 
-	//TODO this implementation is memory leaky
-	std::vector<std::string> getOwners()
-	{
-		return std::vector<std::string>(*owners);
-	}
+double MyTask::getPriority()
+{
+	return priority;
+}
 
-	double getPriority()
-	{
-		return priority;
-	}
+std::vector<Task*> MyTask::getSubtasks()
+{
+	return std::vector<Task*>(*subtasks);
+}
 
-	std::vector<Task*> getSubtasks()
-	{
-		return std::vector<Task*>(*subtasks);
-	}
+bool MyTask::isReady()
+{
+	return true;
+}
 
-	bool isReady()
+void MyTask::removeOwner(std::string name)
+{
+	for (int i = 0; i < owners->size(); i++)
 	{
-		return true;
-	}
-
-	void removeOwner(std::string name)
-	{
-		for (int i = 0; i < owners->size(); i++)
+		if ((*owners)[i] == name)
 		{
-			if ((*owners)[i] == name)
-			{
-				owners->erase(owners->begin() + i);
-				return;
-			}
+			owners->erase(owners->begin() + i);
+			return;
 		}
 	}
+}
 
-	void setPriority(double val)
-	{
-		priority = val;
-	}
+void MyTask::setPriority(double val)
+{
+	priority = val;
+}
 
-	void setProgress(double val)
-	{
-		progress->set(val);
-	}
-	
-	std::string getType()
-	{
-	    return "MyTask";
-	}
-};
+void MyTask::setProgress(double val)
+{
+	progress->set(val);
+}
+
+std::string MyTask::getType()
+{
+    return "MyTask";
+}
+
