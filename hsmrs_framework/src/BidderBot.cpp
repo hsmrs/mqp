@@ -37,18 +37,55 @@ class BidderBot: public Robot
 {
 private:
 	std::map<int, AuctionTracker> auctionList;
-	MyTaskList taskList;
+
 	ros::Publisher bidPub;
 	ros::Publisher claimPub;
+	
 	ros::Subscriber bidSub;
 	ros::Subscriber newTaskSub;
+	ros::Subscriber claimSub;
+	
+	MyTaskList taskList;
 	MyUtilityHelper utiHelp;
 	MyAgentState state;
+	
+	std::string name;
 	std::string AUCTION_TOPIC;
 	std::string NEW_TASK_TOPIC;
 	std::string CLAIM_TOPIC;
 public:
     BidderBot()
+    {
+        auctionList = std::map<int, AuctionTracker>();
+        
+        utiHelp = MyUtilityHelper();
+        
+        ros::NodeHandle n;
+
+		AUCTION_TOPIC = "/hsmrs/auction";
+		NEW_TASK_TOPIC = "/hsmrs/new_task";
+		CLAIM_TOPIC = "/hsmrs/claim";
+		name = "BidderBot";
+
+		bidPub = n.advertise<hsmrs_framework::BidMsg>(AUCTION_TOPIC, 100);
+		claimPub = n.advertise<hsmrs_framework::BidMsg>(CLAIM_TOPIC, 100);
+		
+		bidSub = n.subscribe(AUCTION_TOPIC, 1000, &BidderBot::handleBids, this);
+		newTaskSub = n.subscribe(NEW_TASK_TOPIC, 100, &BidderBot::handleNewTask, this);
+		claimSub = n.subscribe(CLAIM_TOPIC, 100, &BidderBot::handleClaims, this);
+		
+		state = MyAgentState();
+		
+		taskList = MyTaskList();
+		
+		ROS_INFO("starting up");
+		
+		ros::AsyncSpinner spinner(4);
+		spinner.start();
+		ros::waitForShutdown();
+    }
+    
+    BidderBot(int id)
     {
         auctionList = std::map<int, AuctionTracker>();
         
@@ -65,11 +102,18 @@ public:
 		
 		bidSub = n.subscribe(AUCTION_TOPIC, 1000, &BidderBot::handleBids, this);
 		newTaskSub = n.subscribe(NEW_TASK_TOPIC, 100, &BidderBot::handleNewTask, this);
+		claimSub = n.subscribe(CLAIM_TOPIC, 100, &BidderBot::handleClaims, this);
 		
 		state = MyAgentState();
+        state.setAttribute("attr1", (double)id);
 		
 		taskList = MyTaskList();
 		
+		ROS_INFO("starting up");
+		
+        name = "BidderBot " + std::to_string(id);
+        ROS_INFO("id %d, name %s", id, getName().c_str());
+        
 		ros::AsyncSpinner spinner(4);
 		spinner.start();
 		ros::waitForShutdown();
@@ -160,6 +204,15 @@ public:
 
     }
     
+    void handleClaims(const hsmrs_framework::BidMsg::ConstPtr& msg)
+    {
+        int id = msg->task.id;
+        std::string owner = msg->name;
+        if(owner == getName()) return;
+        boost::mutex::scoped_lock listLock(listMutex);
+        taskList.getTask(id)->addOwner(owner);
+    }
+    
     double bid(const hsmrs_framework::BidMsg::ConstPtr& msg)
     {
         hsmrs_framework::BidMsg myBid = hsmrs_framework::BidMsg(*msg);
@@ -234,7 +287,7 @@ public:
     
     std::string getName()
     {
-        return std::string("BidderBot");
+        return name;
     }
     
     void cancelTask()
@@ -305,9 +358,15 @@ public:
 
 int main(int argc, char **argv)
 {
-	ros::init(argc, argv, "BidderBot");
+    int id = 0;
+    ROS_INFO("%d", argc);
+    if(argc == 2)
+    {
+        id = std::stoi(std::string(argv[1]));
+    }
+	ros::init(argc, argv, "BidderBot" + std::to_string(id));
 
-	BidderBot* robot = new BidderBot();
+	BidderBot* robot = new BidderBot(id);
 	return 0;
 }
 
