@@ -163,7 +163,7 @@ void Hulk::bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg){
 	sendMessage(message);
 
 }
-
+/* //TODO do something about GUI task assignment (i.e. this callback)
 void Hulk::newTaskCallback(const std_msgs::String::ConstPtr& msg){
 	std::string data = msg->data;
 
@@ -195,6 +195,7 @@ void Hulk::newTaskCallback(const std_msgs::String::ConstPtr& msg){
 		taskList->addTask(task);
 	}
 }
+*/
 
 //TODO this needs to be toggleable
 void Hulk::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& msg)
@@ -248,7 +249,7 @@ Hulk::Hulk() : NAME("Hulk"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMA
 	help_pub = n.advertise<std_msgs::String>(HELP_TOPIC, 100);
 	pose_pub = n.advertise<geometry_msgs::PoseStamped>(POSE_TOPIC, 100);
 
-	new_task_sub = n.subscribe(NEW_TASK_TOPIC, 1000, &Hulk::newTaskCallback, this);
+	//new_task_sub = n.subscribe(NEW_TASK_TOPIC, 1000, &Hulk::newTaskCallback, this);
 	updated_task_sub = n.subscribe(UPDATED_TASK_TOPIC, 1000, &Hulk::updatedTaskCallback, this);
 	request_sub = n.subscribe(REQUEST_TOPIC, 1000, &Hulk::requestCallback, this);
 	teleOp_sub = n.subscribe(TELE_OP_TOPIC, 1000, &Hulk::teleOpCallback, this);
