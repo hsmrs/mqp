@@ -3,7 +3,7 @@
 /**
  * Begins the Robot's execution of its current Task.
  */
-void Ironman::executeTask() {
+void IronMan::executeTask() {
 	//std::string taskType = typeid(p_currentTask).name();
 	std::string taskType = p_currentTask->getType();
 	Behavior* behavior;
@@ -25,15 +25,15 @@ void Ironman::executeTask() {
 	setStatus("Busy");
 }
 
-void Ironman::pauseTask(){
+void IronMan::pauseTask(){
 	if (p_currentBehavior != NULL) p_currentBehavior->pause();
 }
 
-void Ironman::resumeTask(){
+void IronMan::resumeTask(){
 	if (p_currentBehavior != NULL) p_currentBehavior->resume();	
 }
 
-void Ironman::doGoToTask(double x, double y){
+void IronMan::doGoToTask(double x, double y){
 	/*MoveBaseClient ac("move_base", true);
 
 	//wait for the action server to come up
@@ -70,7 +70,7 @@ void Ironman::doGoToTask(double x, double y){
  * Request for the given Task to be sent to the TaskList
  * @param task The task to be queued
  */
-void Ironman::requestTaskForQueue(Task* task) {
+void IronMan::requestTaskForQueue(Task* task) {
 
 }
 
@@ -78,17 +78,17 @@ void Ironman::requestTaskForQueue(Task* task) {
 /**
  * Send a help request to the Human supervisor.
  */
-void Ironman::callForHelp() {
+void IronMan::callForHelp() {
 	std_msgs::String msg;
 	msg.data = "true";
 	help_pub.publish(msg);
 }
 
-void Ironman::handleTeleop(){
+void IronMan::handleTeleop(){
 
 }
 
-void Ironman::registerWithGUI() {
+void IronMan::registerWithGUI() {
 	//name;requestTopic;logTopic;imageTopic;poseTopic;statusTopic;helpTopic;teleOpTopic
 
 	std_msgs::String msg;
@@ -101,13 +101,13 @@ void Ironman::registerWithGUI() {
 	registration_pub.publish(msg);
 }
 
-void Ironman::sendMessage(std::string message){
+void IronMan::sendMessage(std::string message){
 	std_msgs::String msg;
 	msg.data = message;
 	log_pub.publish(msg);
 }
 
-void Ironman::requestCallback(const std_msgs::String::ConstPtr& msg)
+void IronMan::requestCallback(const std_msgs::String::ConstPtr& msg)
 {
 	std::string request = msg->data;
 
@@ -124,7 +124,7 @@ void Ironman::requestCallback(const std_msgs::String::ConstPtr& msg)
 	}
 }
 
-void Ironman::teleOpCallback(const geometry_msgs::Twist::ConstPtr& msg){
+void IronMan::teleOpCallback(const geometry_msgs::Twist::ConstPtr& msg){
 	double linearVel = msg->linear.x * linearSpeed;
 	double angularVel = msg->linear.y * angularSpeed;
 
@@ -135,7 +135,7 @@ void Ironman::teleOpCallback(const geometry_msgs::Twist::ConstPtr& msg){
 	vel_pub.publish(velMsg);
 }
 
-void Ironman::bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg){
+void IronMan::bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg){
 	int bumper = msg->bumper;
 	int state = msg->state;
 
@@ -164,7 +164,7 @@ void Ironman::bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg){
 
 }
 /* //TODO do something about GUI task assignment (i.e. this callback)
-void Ironman::newTaskCallback(const std_msgs::String::ConstPtr& msg){
+void IronMan::newTaskCallback(const std_msgs::String::ConstPtr& msg){
 	std::string data = msg->data;
 
 	std::vector<std::string> items;
@@ -198,7 +198,7 @@ void Ironman::newTaskCallback(const std_msgs::String::ConstPtr& msg){
 */
 
 //TODO this needs to be toggleable
-void Ironman::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& msg)
+void IronMan::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& msg)
 {
 	if (msg->markers.size() == 0) return;
 
@@ -212,22 +212,22 @@ void Ironman::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& msg)
 	}
 }
 
-void Ironman::updatedTaskCallback(const std_msgs::String::ConstPtr& msg){
+void IronMan::updatedTaskCallback(const std_msgs::String::ConstPtr& msg){
 
 }
 
-void Ironman::laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg){
+void IronMan::laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg){
 
 }
 
-Ironman::Ironman() : NAME("Ironman"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMAGE_TOPIC("ironman/camera/rgb/image_mono"), 
+IronMan::IronMan() : NAME("IronMan"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMAGE_TOPIC("ironman/camera/rgb/image_mono"), 
 		LOG_TOPIC("ironman/log_messages"), STATUS_TOPIC("ironman/status"), HELP_TOPIC("ironman/help"), POSE_TOPIC("ironman/pose"),
 		REQUEST_TOPIC("ironman/requests"), TELE_OP_TOPIC("ironman/tele_op"), VEL_TOPIC("ironman/cmd_vel_mux/input/teleop"),
 		BUMPER_TOPIC("/ironman/mobile_base/events/bumper"), NEW_TASK_TOPIC("/hsmrs/new_task"), 
 		UPDATED_TASK_TOPIC("/hsmrs/updated_task_topic"), LASER_TOPIC("ironman/scan"), MARKER_TOPIC("/ironman/ar_pose_marker"),
 		AUCTION_TOPIC("/hsmrs/auction"), CLAIM_TOPIC("/hsmrs/claim")
 		{
-	ROS_INFO("Ironman initializing");
+	ROS_INFO("IronMan initializing");
 	taskList = new MyTaskList();
 	utiHelp = new MyUtilityHelper();
 	state = new MyAgentState();
@@ -246,29 +246,29 @@ Ironman::Ironman() : NAME("Ironman"), REGISTRATION_TOPIC("hsmrs/robot_registrati
 	help_pub = n.advertise<std_msgs::String>(HELP_TOPIC, 100);
 	pose_pub = n.advertise<geometry_msgs::PoseStamped>(POSE_TOPIC, 100);
 
-	//new_task_sub = n.subscribe(NEW_TASK_TOPIC, 1000, &Ironman::newTaskCallback, this);
-	updated_task_sub = n.subscribe(UPDATED_TASK_TOPIC, 1000, &Ironman::updatedTaskCallback, this);
-	request_sub = n.subscribe(REQUEST_TOPIC, 1000, &Ironman::requestCallback, this);
-	teleOp_sub = n.subscribe(TELE_OP_TOPIC, 1000, &Ironman::teleOpCallback, this);
+	//new_task_sub = n.subscribe(NEW_TASK_TOPIC, 1000, &IronMan::newTaskCallback, this);
+	updated_task_sub = n.subscribe(UPDATED_TASK_TOPIC, 1000, &IronMan::updatedTaskCallback, this);
+	request_sub = n.subscribe(REQUEST_TOPIC, 1000, &IronMan::requestCallback, this);
+	teleOp_sub = n.subscribe(TELE_OP_TOPIC, 1000, &IronMan::teleOpCallback, this);
 
 	//Turtlebot publishers and subscribers
 	vel_pub = n.advertise<geometry_msgs::Twist>(VEL_TOPIC, 100);
-	bumper_sub = n.subscribe(BUMPER_TOPIC, 1000, &Ironman::bumperCallback, this);
-	//laser_sub = n.subscribe(LASER_TOPIC, 1000, &Ironman::laserCallback, this);
-	tag_sub = n.subscribe(MARKER_TOPIC, 1000, &Ironman::tagCallback, this);
+	bumper_sub = n.subscribe(BUMPER_TOPIC, 1000, &IronMan::bumperCallback, this);
+	//laser_sub = n.subscribe(LASER_TOPIC, 1000, &IronMan::laserCallback, this);
+	tag_sub = n.subscribe(MARKER_TOPIC, 1000, &IronMan::tagCallback, this);
 
 	bidPub = n.advertise<hsmrs_framework::BidMsg>(AUCTION_TOPIC, 100);
 	claimPub = n.advertise<hsmrs_framework::BidMsg>(CLAIM_TOPIC, 100);
 	
-	bidSub = n.subscribe(AUCTION_TOPIC, 1000, &Ironman::handleBids, this);
-	newTaskSub = n.subscribe(NEW_TASK_TOPIC, 100, &Ironman::handleNewTask, this);
-	claimSub = n.subscribe(CLAIM_TOPIC, 100, &Ironman::handleClaims, this);
+	bidSub = n.subscribe(AUCTION_TOPIC, 1000, &IronMan::handleBids, this);
+	newTaskSub = n.subscribe(NEW_TASK_TOPIC, 100, &IronMan::handleNewTask, this);
+	claimSub = n.subscribe(CLAIM_TOPIC, 100, &IronMan::handleClaims, this);
 
 
 	//ros::spinOnce();
 	ros::AsyncSpinner spinner(0);
 	spinner.start();
-	ROS_INFO("Ironman running");
+	ROS_INFO("IronMan running");
 
 /*
 	ros::Rate loop_rate(1);
@@ -289,7 +289,7 @@ Ironman::Ironman() : NAME("Ironman"), REGISTRATION_TOPIC("hsmrs/robot_registrati
 	//}
 }
 
-std::string Ironman::getName(){
+std::string IronMan::getName(){
 	return NAME;
 }
 
@@ -298,7 +298,7 @@ std::string Ironman::getName(){
  * @param attr The name of the attribute to get
  * @return The value of the attribute
  */
-double Ironman::getAttribute(std::string name)
+double IronMan::getAttribute(std::string name)
 {
     return state->getAttribute(name);
 }
@@ -308,7 +308,7 @@ double Ironman::getAttribute(std::string name)
  * @param task A pointer to the task for which to get a utility.
  * @return This Robot's utility for the given Task.
  */
-double Ironman::getUtility(Task* task)
+double IronMan::getUtility(Task* task)
 {
     return utiHelp->calculate(this, task);
 }
@@ -317,7 +317,7 @@ double Ironman::getUtility(Task* task)
  * Returns this Robot's AgentState.
  * @return The AgentState representing the state of this Robot.
  */
-AgentState* Ironman::getState()
+AgentState* IronMan::getState()
 {
     return new MyAgentState(*state);
 }
@@ -327,7 +327,7 @@ AgentState* Ironman::getState()
  * @param attr The name of the target attribute
  * @return True if the robot has the named attribute.
  */
-bool Ironman::hasAttribute(std::string attr)
+bool IronMan::hasAttribute(std::string attr)
 {
     return state->getAttribute(attr) != NULL;
 }
@@ -336,14 +336,14 @@ bool Ironman::hasAttribute(std::string attr)
  * Sets this Robot's currently active Task.
  * @param A pointer to the Task to be set
  */
-void Ironman::setTask(Task* task) {
+void IronMan::setTask(Task* task) {
 	p_currentTask = task;
 }
 
 /**
  * Verifies that an Agent claiming a Task has the highest utility for it. If not, informs the Agent of the Task's proper owner.
  */
-void Ironman::verifyTaskClaim() {
+void IronMan::verifyTaskClaim() {
 
 }
 
@@ -351,7 +351,7 @@ void Ironman::verifyTaskClaim() {
  * Stops execution of the current Task and requests that
  * the Task be returned to the TaskList.
  */
-void Ironman::cancelTask() {
+void IronMan::cancelTask() {
 
 }
 
@@ -359,17 +359,17 @@ void Ironman::cancelTask() {
  * Asks the Agent to claim a task pointed to by \p task.
  * @param task A pointer to the task object to be claimed.
  */
-void Ironman::claimTask(Task* task) {
+void IronMan::claimTask(Task* task) {
 	ROS_INFO("Claiming task!");
 	p_currentTask = task;
 	executeTask();
 }
 
-std::string Ironman::getStatus(){
+std::string IronMan::getStatus(){
 	return status;
 }
 
-void Ironman::setStatus(std::string newStatus){
+void IronMan::setStatus(std::string newStatus){
 	status = newStatus;
 	std_msgs::String msg;
 	msg.data = status;
@@ -377,7 +377,7 @@ void Ironman::setStatus(std::string newStatus){
 }
 
 
-void Ironman::handleNewTask(const hsmrs_framework::TaskMsg::ConstPtr& msg)
+void IronMan::handleNewTask(const hsmrs_framework::TaskMsg::ConstPtr& msg)
 {
     ROS_INFO("got new task!\n");
     boost::mutex::scoped_lock atLock(atMutex);
@@ -421,7 +421,7 @@ void Ironman::handleNewTask(const hsmrs_framework::TaskMsg::ConstPtr& msg)
         }
         
         //spawn claimer thread
-        boost::thread claimer = boost::thread(&Ironman::claimWorker, this, *msg, id, myBid);
+        boost::thread claimer = boost::thread(&IronMan::claimWorker, this, *msg, id, myBid);
         claimer.detach();
     }
     else
@@ -430,7 +430,7 @@ void Ironman::handleNewTask(const hsmrs_framework::TaskMsg::ConstPtr& msg)
     }
 }
 
-void Ironman::handleClaims(const hsmrs_framework::BidMsg::ConstPtr& msg)
+void IronMan::handleClaims(const hsmrs_framework::BidMsg::ConstPtr& msg)
 {
     int id = msg->task.id;
     std::string owner = msg->name;
@@ -439,7 +439,7 @@ void Ironman::handleClaims(const hsmrs_framework::BidMsg::ConstPtr& msg)
     taskList->getTask(id)->addOwner(owner);
 }
 
-void Ironman::claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid)
+void IronMan::claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid)
 {
     //sleep on it and decide whether to claim
     ROS_INFO("sleepytime");
@@ -470,7 +470,7 @@ void Ironman::claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid
 /**
  * Handles the auctioning of Tasks by sending and receiving bids.
  */
-void Ironman::handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
+void IronMan::handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
 {    
     int id = msg->task.id;
     std::string type = msg->task.type;
@@ -518,7 +518,7 @@ void Ironman::handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
             ROS_ERROR("unrecognized task type %s", type.c_str());
         }
         //spawn claimer thread
-        boost::thread claimer = boost::thread(&Ironman::claimWorker, this, msg->task, id, myBid);
+        boost::thread claimer = boost::thread(&IronMan::claimWorker, this, msg->task, id, myBid);
         claimer.detach();
     }
     else
@@ -533,7 +533,7 @@ void Ironman::handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
 /**
  * Makes this Robot bid on the given task
  */
-double Ironman::bid(const hsmrs_framework::BidMsg::ConstPtr& msg)
+double IronMan::bid(const hsmrs_framework::BidMsg::ConstPtr& msg)
 {
     hsmrs_framework::BidMsg myBid = hsmrs_framework::BidMsg(*msg);
     myBid.name = getName();
@@ -555,7 +555,7 @@ double Ironman::bid(const hsmrs_framework::BidMsg::ConstPtr& msg)
     return myBid.utility;
 }
 
-double Ironman::bid(const hsmrs_framework::TaskMsg::ConstPtr& msg)
+double IronMan::bid(const hsmrs_framework::TaskMsg::ConstPtr& msg)
 {
     hsmrs_framework::BidMsg myBid = hsmrs_framework::BidMsg();
     myBid.task = *msg;
@@ -581,6 +581,6 @@ double Ironman::bid(const hsmrs_framework::TaskMsg::ConstPtr& msg)
 int main(int argc, char **argv) {
 	ros::init(argc, argv, "ironman");
 
-	Ironman* robot = new Ironman();
+	IronMan* robot = new IronMan();
 	return 0;
 }
