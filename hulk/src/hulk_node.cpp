@@ -227,7 +227,7 @@ Hulk::Hulk() : NAME("Hulk"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMA
 		UPDATED_TASK_TOPIC("/hsmrs/updated_task_topic"), LASER_TOPIC("hulk/scan"), MARKER_TOPIC("/hulk/ar_pose_marker"),
 		AUCTION_TOPIC("/hsmrs/auction"), CLAIM_TOPIC("/hsmrs/claim")
 		{
-
+	ROS_INFO("Hulk initializing");
 	taskList = new MyTaskList();
 	utiHelp = new MyUtilityHelper();
 	state = new MyAgentState();
@@ -238,9 +238,6 @@ Hulk::Hulk() : NAME("Hulk"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMA
 
 	linearSpeed = 0.3;
 	angularSpeed = 0.8;
-
-	ros::AsyncSpinner spinner(1);
-	spinner.start();
 
 	//GUI Publishers and subscribers
 	registration_pub = n.advertise<std_msgs::String>(REGISTRATION_TOPIC, 100);
@@ -260,10 +257,23 @@ Hulk::Hulk() : NAME("Hulk"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMA
 	//laser_sub = n.subscribe(LASER_TOPIC, 1000, &Hulk::laserCallback, this);
 	tag_sub = n.subscribe(MARKER_TOPIC, 1000, &Hulk::tagCallback, this);
 
+	bidPub = n.advertise<hsmrs_framework::BidMsg>(AUCTION_TOPIC, 100);
+	claimPub = n.advertise<hsmrs_framework::BidMsg>(CLAIM_TOPIC, 100);
+	
+	bidSub = n.subscribe(AUCTION_TOPIC, 1000, &Hulk::handleBids, this);
+	newTaskSub = n.subscribe(NEW_TASK_TOPIC, 100, &Hulk::handleNewTask, this);
+	claimSub = n.subscribe(CLAIM_TOPIC, 100, &Hulk::handleClaims, this);
+
+
 	//ros::spinOnce();
+	ros::AsyncSpinner spinner(0);
+	spinner.start();
+	ROS_INFO("Hulk running");
+
+/*
 	ros::Rate loop_rate(1);
 	loop_rate.sleep();
-
+*/
 	registerWithGUI();
 
 	while (ros::ok()){
