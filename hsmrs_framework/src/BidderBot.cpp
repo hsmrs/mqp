@@ -6,6 +6,13 @@
 #include <hsmrs_implementations/MyTask.h>
 #include <hsmrs_implementations/MyAgentState.cpp>
 #include <hsmrs_implementations/MyTaskList.h>
+#include <boost/thread/mutex.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/thread/thread.hpp>
+#include <boost/thread.hpp>
+
+boost::mutex atMutex;
+boost::mutex listMutex;
 
 class AuctionTracker
 {
@@ -32,12 +39,14 @@ private:
 	std::map<int, AuctionTracker> auctionList;
 	MyTaskList taskList;
 	ros::Publisher bidPub;
+	ros::Publisher claimPub;
 	ros::Subscriber bidSub;
 	ros::Subscriber newTaskSub;
 	MyUtilityHelper utiHelp;
 	MyAgentState state;
 	std::string AUCTION_TOPIC;
 	std::string NEW_TASK_TOPIC;
+	std::string CLAIM_TOPIC;
 public:
     BidderBot()
     {
@@ -47,13 +56,12 @@ public:
         
         ros::NodeHandle n;
 
-		ros::AsyncSpinner spinner(1);
-		spinner.start();
-
 		AUCTION_TOPIC = "/hsmrs/auction";
 		NEW_TASK_TOPIC = "/hsmrs/new_task";
+		CLAIM_TOPIC = "/hsmrs/claim";
 
 		bidPub = n.advertise<hsmrs_framework::BidMsg>(AUCTION_TOPIC, 100);
+		claimPub = n.advertise<hsmrs_framework::BidMsg>(CLAIM_TOPIC, 100);
 		
 		bidSub = n.subscribe(AUCTION_TOPIC, 1000, &BidderBot::handleBids, this);
 		newTaskSub = n.subscribe(NEW_TASK_TOPIC, 100, &BidderBot::handleNewTask, this);
@@ -62,12 +70,16 @@ public:
 		
 		taskList = MyTaskList();
 		
-		ros::spin();
+		ros::AsyncSpinner spinner(4);
+		spinner.start();
+		ros::waitForShutdown();
     }
 
     void handleNewTask(const hsmrs_framework::TaskMsg::ConstPtr& msg)
     {
         ROS_INFO("got new task!\n");
+        boost::mutex::scoped_lock atLock(atMutex);
+        boost::mutex::scoped_lock listLock(listMutex);
         int id = msg->id;
         if(taskList.getTask(id) == NULL)
         {
@@ -79,40 +91,65 @@ public:
             at.topUtility = myBid;
             at.haveBidded = true;
             auctionList[id] = at;
+            atLock.unlock();
             
             if(type == "MyTask")
             {
                 taskList.addTask(new MyTask(msg->id, msg->priority));
+                listLock.unlock();
             }
+            else
+            {
+                ROS_ERROR("unrecognized task type %s", type.c_str());
+            }
+            
+            //spawn claimer thread
+            boost::thread claimer = boost::thread(&BidderBot::claim, this, *msg, id, myBid);
+            claimer.detach();
         }
         else
         {
             ROS_INFO("task with ID %d is not unique!\n", id);
         }
+        //atLock.unlock();
+        //listLock.unlock();
     }
 
 	void handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
-    {
-        ROS_INFO("got bid!\n");
-    
+    {    
         int id = msg->task.id;
         std::string type = msg->task.type;
         std::string bidder = msg->name;
         double utility = msg->utility;
         
+        ROS_INFO("got bid from %s\n", bidder.c_str());
+        
+        boost::mutex::scoped_lock atLock(atMutex);
+        boost::mutex::scoped_lock listLock(listMutex);
         if(auctionList.count(id) == 0)
         {
+            //track the auctioning of this task
             AuctionTracker at = AuctionTracker();
             double myBid = bid(msg);
             at.topBidder = (myBid > utility) ? getName() : bidder;
             at.topUtility = (myBid > utility) ? myBid : utility;
             at.haveBidded = true;
             auctionList[id] = at;
+            atLock.unlock();
             
+            //add to task list
             if(type == "MyTask")
             {
                 taskList.addTask(new MyTask(msg->task.id, msg->task.priority));
+                listLock.unlock();
             }
+            else
+            {
+                ROS_ERROR("unrecognized task type %s", type.c_str());
+            }
+            //spawn claimer thread
+            boost::thread claimer = boost::thread(&BidderBot::claim, this, msg->task, id, myBid);
+            claimer.detach();
         }
         else
         {
@@ -120,6 +157,7 @@ public:
             at->topBidder = (at->topUtility > utility) ? at->topBidder : bidder;
             at->topUtility = (at->topUtility > utility) ? at->topUtility : utility;
         }
+
     }
     
     double bid(const hsmrs_framework::BidMsg::ConstPtr& msg)
@@ -165,6 +203,33 @@ public:
         
         bidPub.publish(myBid);
         return myBid.utility;
+    }
+    
+    void claim(hsmrs_framework::TaskMsg taskMsg, int id, double myBid)
+    {
+        //sleep on it and decide whether to claim
+        ROS_INFO("sleepytime");
+        boost::this_thread::sleep(boost::posix_time::milliseconds(3000));
+        boost::mutex::scoped_lock atLock(atMutex);
+        boost::mutex::scoped_lock listLock(listMutex);
+        
+        AuctionTracker at = auctionList[id];
+        if(at.topBidder == getName())
+        {
+            ROS_INFO("claiming task %d", id);
+            hsmrs_framework::BidMsg claimMsg = hsmrs_framework::BidMsg();
+            claimMsg.name = getName();
+            claimMsg.utility = myBid;
+            claimMsg.task = taskMsg;
+            claimPub.publish(claimMsg);
+            
+            at.taskClaimed = true;
+            auctionList[id] = at;
+            taskList.getTask(id)->addOwner(getName());
+        }
+        
+        //atLock.unlock();
+        //listLock.unlock();
     }
     
     std::string getName()
