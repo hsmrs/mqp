@@ -13,6 +13,26 @@ FollowTagTask::FollowTagTask(){
 	progress = new MyProgress();
 }
 
+FollowTagTask::FollowTagTask(int id, double priority)
+{
+	tagID = 0;
+	//attributeWeights;
+	this->priority = priority;
+	this->id = id;
+	prerequisite = new MyPrerequisite();
+	progress = new MyProgress();
+}
+
+FollowTagTask::FollowTagTask(int id, double priority, int tag)
+{
+	tagID = tag;
+	//attributeWeights;
+	this->priority = priority;
+	this->id = id;
+	prerequisite = new MyPrerequisite();
+	progress = new MyProgress();
+}
+
 FollowTagTask::FollowTagTask(hsmrs_framework::TaskMsg::ConstPtr& msg){
 
 }

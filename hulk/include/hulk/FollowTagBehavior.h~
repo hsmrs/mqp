@@ -2,22 +2,24 @@
 #ifndef _FOLLOW_TAG_BEHAVIOR_H_
 #define _FOLLOW_TAG_BEHAVIOR_H_
 
-#include "thor/Behavior.h"
+#include "hulk/Behavior.h"
 #include "ros/ros.h"
 #include "geometry_msgs/Twist.h"
 #include "sensor_msgs/LaserScan.h"
 #include "ar_track_alvar/AlvarMarkers.h"
-#include "thor/thor_node.h"
+#include "hulk/hulk_node.h"
 
-class Thor;
+class Hulk;
 
 class FollowTagBehavior : public Behavior{
 
 private:
 	const std::string MARKER_TOPIC;
+	const std::string DIST_TOPIC;
 
 	double maxLinearVelocity, maxAngularVelocity;
 	ros::Publisher cmdVelPub;
+	ros::Publisher distPub;
 	ros::Subscriber laserSub;
 	ros::Subscriber markerSub;
 
@@ -31,7 +33,7 @@ private:
 
 public:
 
-	FollowTagBehavior(Thor* parent, double maxLinearVelocity, double maxAngularVelocity, int tagID, ros::NodeHandle n, 
+	FollowTagBehavior(Hulk* parent, double maxLinearVelocity, double maxAngularVelocity, int tagID, ros::NodeHandle n, 
 		std::string cmdVelTopic, std::string laserTopic);
 
 	virtual void execute();

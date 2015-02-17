@@ -9,7 +9,6 @@
 #include <boost/thread/mutex.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/thread/thread.hpp>
-#include <boost/thread.hpp>
 
 boost::mutex atMutex;
 boost::mutex listMutex;
@@ -155,8 +154,6 @@ public:
         {
             ROS_INFO("task with ID %d is not unique!\n", id);
         }
-        //atLock.unlock();
-        //listLock.unlock();
     }
 
 	void handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
@@ -280,9 +277,6 @@ public:
             auctionList[id] = at;
             taskList.getTask(id)->addOwner(getName());
         }
-        
-        //atLock.unlock();
-        //listLock.unlock();
     }
     
     std::string getName()
@@ -317,7 +311,7 @@ public:
     
     bool hasAttribute(std::string attr)
     {
-        return false;
+        state.getAttribute(attr) != NULL;
     }
     
     void setTask(Task* task)

@@ -87,10 +87,36 @@ public:
     
     BidderBot(int id)
     {
-        BidderBot();
-        name = "BidderBot " + std::to_string(id);
+        auctionList = std::map<int, AuctionTracker>();
+        
+        utiHelp = MyUtilityHelper();
+        
+        ros::NodeHandle n;
+
+		AUCTION_TOPIC = "/hsmrs/auction";
+		NEW_TASK_TOPIC = "/hsmrs/new_task";
+		CLAIM_TOPIC = "/hsmrs/claim";
+
+		bidPub = n.advertise<hsmrs_framework::BidMsg>(AUCTION_TOPIC, 100);
+		claimPub = n.advertise<hsmrs_framework::BidMsg>(CLAIM_TOPIC, 100);
+		
+		bidSub = n.subscribe(AUCTION_TOPIC, 1000, &BidderBot::handleBids, this);
+		newTaskSub = n.subscribe(NEW_TASK_TOPIC, 100, &BidderBot::handleNewTask, this);
+		claimSub = n.subscribe(CLAIM_TOPIC, 100, &BidderBot::handleClaims, this);
+		
+		state = MyAgentState();
         state.setAttribute("attr1", (double)id);
+		
+		taskList = MyTaskList();
+		
+		ROS_INFO("starting up");
+		
+        name = "BidderBot " + std::to_string(id);
         ROS_INFO("id %d, name %s", id, getName().c_str());
+        
+		ros::AsyncSpinner spinner(4);
+		spinner.start();
+		ros::waitForShutdown();
     }
 
     void handleNewTask(const hsmrs_framework::TaskMsg::ConstPtr& msg)
@@ -129,8 +155,6 @@ public:
         {
             ROS_INFO("task with ID %d is not unique!\n", id);
         }
-        //atLock.unlock();
-        //listLock.unlock();
     }
 
 	void handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
@@ -254,9 +278,6 @@ public:
             auctionList[id] = at;
             taskList.getTask(id)->addOwner(getName());
         }
-        
-        //atLock.unlock();
-        //listLock.unlock();
     }
     
     std::string getName()
@@ -291,7 +312,7 @@ public:
     
     bool hasAttribute(std::string attr)
     {
-        return false;
+        state.getAttribute(attr) != NULL;
     }
     
     void setTask(Task* task)

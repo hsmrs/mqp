@@ -24,6 +24,10 @@ private:
 
 public:
 	FollowTagTask();
+	
+	FollowTagTask(int id, double priority);
+	
+	FollowTagTask(int id, double priority, int tag);
 
 	FollowTagTask(hsmrs_framework::TaskMsg::ConstPtr& msgs);
 

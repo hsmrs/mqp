@@ -2,8 +2,6 @@
 #define _FOLLOW_TAG_TASK_H_
 
 #include "hsmrs_framework/Task.h"
-#include "hsmrs_framework/Prerequisite.h"
-#include "hsmrs_framework/Progress.h"
 #include "hsmrs_framework/TaskMsg.h"
 #include "geometry_msgs/Pose.h"
 #include "hsmrs_implementations/MyPrerequisite.h"

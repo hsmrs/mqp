@@ -196,6 +196,21 @@ void Hulk::newTaskCallback(const std_msgs::String::ConstPtr& msg){
 	}
 }
 
+//TODO this needs to be toggleable
+void Hulk::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& msg)
+{
+	if (msg->markers.size() == 0) return;
+
+	for (int i = 0; i < msg->markers.size(); ++i)
+	{
+		if (msg->markers[i].id == 0)
+		{
+		    //TODO filter this
+		    state->setAttribute("distance", msg->markers[0].pose.pose.position.x);
+		}
+	}
+}
+
 void Hulk::updatedTaskCallback(const std_msgs::String::ConstPtr& msg){
 
 }
@@ -208,10 +223,17 @@ Hulk::Hulk() : NAME("Hulk"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMA
 		LOG_TOPIC("hulk/log_messages"), STATUS_TOPIC("hulk/status"), HELP_TOPIC("hulk/help"), POSE_TOPIC("hulk/pose"),
 		REQUEST_TOPIC("hulk/requests"), TELE_OP_TOPIC("hulk/tele_op"), VEL_TOPIC("hulk/cmd_vel_mux/input/teleop"),
 		BUMPER_TOPIC("/hulk/mobile_base/events/bumper"), NEW_TASK_TOPIC("/hsmrs/new_task"), 
-		UPDATED_TASK_TOPIC("/hsmrs/updated_task_topic"), LASER_TOPIC("hulk/scan")
+		UPDATED_TASK_TOPIC("/hsmrs/updated_task_topic"), LASER_TOPIC("hulk/scan"), MARKER_TOPIC("/hulk/ar_pose_marker"),
+		AUCTION_TOPIC("/hsmrs/auction"), CLAIM_TOPIC("/hsmrs/claim")
 		{
 
 	taskList = new MyTaskList();
+	utiHelp = new MyUtilityHelper();
+	state = new MyAgentState();
+	state->setAttribute("speed", 1);
+	state->setAttribute("distance", 1000);
+	
+    auctionList = std::map<int, AuctionTracker>();
 
 	linearSpeed = 0.3;
 	angularSpeed = 0.8;
@@ -235,6 +257,7 @@ Hulk::Hulk() : NAME("Hulk"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMA
 	vel_pub = n.advertise<geometry_msgs::Twist>(VEL_TOPIC, 100);
 	bumper_sub = n.subscribe(BUMPER_TOPIC, 1000, &Hulk::bumperCallback, this);
 	//laser_sub = n.subscribe(LASER_TOPIC, 1000, &Hulk::laserCallback, this);
+	tag_sub = n.subscribe(MARKER_TOPIC, 1000, &Hulk::tagCallback, this);
 
 	//ros::spinOnce();
 	ros::Rate loop_rate(1);
@@ -259,14 +282,14 @@ std::string Hulk::getName(){
 	return NAME;
 }
 
-
 /**
  * Returns the value of the specified attribute from this Robot's AgentState.
  * @param attr The name of the attribute to get
  * @return The value of the attribute
  */
-double Hulk::getAttribute(std::string attr) {
-
+double Hulk::getAttribute(std::string name)
+{
+    return state->getAttribute(name);
 }
 
 /**
@@ -274,16 +297,18 @@ double Hulk::getAttribute(std::string attr) {
  * @param task A pointer to the task for which to get a utility.
  * @return This Robot's utility for the given Task.
  */
-double Hulk::getUtility(Task *task) {
-
+double Hulk::getUtility(Task* task)
+{
+    return utiHelp->calculate(this, task);
 }
 
 /**
  * Returns this Robot's AgentState.
  * @return The AgentState representing the state of this Robot.
  */
-AgentState* Hulk::getState() {
-
+AgentState* Hulk::getState()
+{
+    return new MyAgentState(*state);
 }
 
 /**
@@ -291,8 +316,9 @@ AgentState* Hulk::getState() {
  * @param attr The name of the target attribute
  * @return True if the robot has the named attribute.
  */
-bool Hulk::hasAttribute(std::string attr) {
-
+bool Hulk::hasAttribute(std::string attr)
+{
+    return state->getAttribute(attr) != NULL;
 }
 
 /**
@@ -339,12 +365,158 @@ void Hulk::setStatus(std::string newStatus){
 	status_pub.publish(msg);
 }
 
+
+void Hulk::handleNewTask(const hsmrs_framework::TaskMsg::ConstPtr& msg)
+{
+    ROS_INFO("got new task!\n");
+    boost::mutex::scoped_lock atLock(atMutex);
+    boost::mutex::scoped_lock listLock(listMutex);
+    int id = msg->id;
+    if(taskList->getTask(id) == NULL)
+    {
+        std::string type = msg->type;
+        
+        AuctionTracker at = AuctionTracker();
+        double myBid = bid(msg);
+        at.topBidder = getName();
+        at.topUtility = myBid;
+        at.haveBidded = true;
+        auctionList[id] = at;
+        atLock.unlock();
+        
+        if(type == "MyTask")
+        {
+            taskList->addTask(new MyTask(msg->id, msg->priority));
+            listLock.unlock();
+        }
+        else if(type == "FollowTagTask")
+        {
+            if(msg->param_values.size() > 0)
+            {
+                taskList->addTask(new FollowTagTask(msg->id, msg->priority, std::stoi(msg->param_values[0])));
+            }
+            else
+            {
+                taskList->addTask(new FollowTagTask(msg->id, msg->priority));
+            }
+        }
+        else if(type == "GoToTask")
+        {
+            //TODO fill in
+        }
+        else
+        {
+            ROS_ERROR("unrecognized task type %s", type.c_str());
+        }
+        
+        //spawn claimer thread
+        boost::thread claimer = boost::thread(&Hulk::claimWorker, this, *msg, id, myBid);
+        claimer.detach();
+    }
+    else
+    {
+        ROS_INFO("task with ID %d is not unique!\n", id);
+    }
+}
+
+void Hulk::handleClaims(const hsmrs_framework::BidMsg::ConstPtr& msg)
+{
+    int id = msg->task.id;
+    std::string owner = msg->name;
+    if(owner == getName()) return;
+    boost::mutex::scoped_lock listLock(listMutex);
+    taskList->getTask(id)->addOwner(owner);
+}
+
+void Hulk::claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid)
+{
+    //sleep on it and decide whether to claim
+    ROS_INFO("sleepytime");
+    boost::this_thread::sleep(boost::posix_time::milliseconds(3000));
+    boost::mutex::scoped_lock atLock(atMutex);
+    boost::mutex::scoped_lock listLock(listMutex);
+    
+    AuctionTracker at = auctionList[id];
+    if(at.topBidder == getName())
+    {
+        ROS_INFO("claiming task %d", id);
+        hsmrs_framework::BidMsg claimMsg = hsmrs_framework::BidMsg();
+        claimMsg.name = getName();
+        claimMsg.utility = myBid;
+        claimMsg.task = taskMsg;
+        claimPub.publish(claimMsg);
+        
+        at.taskClaimed = true;
+        auctionList[id] = at;
+        taskList->getTask(id)->addOwner(getName());
+    }
+    
+	p_currentTask = taskList->getTask(id);
+	executeTask();
+}
+
+
 /**
  * Handles the auctioning of Tasks by sending and receiving bids.
  */
 void Hulk::handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
-{
-    ROS_INFO("got bid!\n");
+{    
+    int id = msg->task.id;
+    std::string type = msg->task.type;
+    std::string bidder = msg->name;
+    double utility = msg->utility;
+    
+    ROS_INFO("got bid from %s\n", bidder.c_str());
+    
+    boost::mutex::scoped_lock atLock(atMutex);
+    boost::mutex::scoped_lock listLock(listMutex);
+    if(auctionList.count(id) == 0)
+    {
+        //track the auctioning of this task
+        AuctionTracker at = AuctionTracker();
+        double myBid = bid(msg);
+        at.topBidder = (myBid > utility) ? getName() : bidder;
+        at.topUtility = (myBid > utility) ? myBid : utility;
+        at.haveBidded = true;
+        auctionList[id] = at;
+        atLock.unlock();
+        
+        //add to task list
+        if(type == "MyTask")
+        {
+            taskList->addTask(new MyTask(msg->task.id, msg->task.priority));
+            listLock.unlock();
+        }
+        else if(type == "FollowTagTask")
+        {
+            if(msg->task.param_values.size() > 0)
+            {
+                taskList->addTask(new FollowTagTask(msg->task.id, msg->task.priority, std::stoi(msg->task.param_values[0])));
+            }
+            else
+            {
+                taskList->addTask(new FollowTagTask(msg->task.id, msg->task.priority));
+            }
+        }
+        else if(type == "GoToTask")
+        {
+            //TODO fill in
+        }
+        else
+        {
+            ROS_ERROR("unrecognized task type %s", type.c_str());
+        }
+        //spawn claimer thread
+        boost::thread claimer = boost::thread(&Hulk::claimWorker, this, msg->task, id, myBid);
+        claimer.detach();
+    }
+    else
+    {
+        AuctionTracker* at = &(auctionList[id]);
+        at->topBidder = (at->topUtility > utility) ? at->topBidder : bidder;
+        at->topUtility = (at->topUtility > utility) ? at->topUtility : utility;
+    }
+
 }
 
 /**
@@ -352,7 +524,47 @@ void Hulk::handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
  */
 double Hulk::bid(const hsmrs_framework::BidMsg::ConstPtr& msg)
 {
-    return 0.0;
+    hsmrs_framework::BidMsg myBid = hsmrs_framework::BidMsg(*msg);
+    myBid.name = getName();
+    std::string type = msg->task.type;
+    
+    ROS_INFO("calculating utility...\n");
+    if(type == "MyTask")
+    {
+        myBid.utility = utiHelp->calculate(this, new MyTask(0, 1));
+    }
+    else
+    {
+        myBid.utility = 0;
+    }
+    
+    ROS_INFO("my utility is %f, publishing\n", myBid.utility);
+    
+    bidPub.publish(myBid);
+    return myBid.utility;
+}
+
+double Hulk::bid(const hsmrs_framework::TaskMsg::ConstPtr& msg)
+{
+    hsmrs_framework::BidMsg myBid = hsmrs_framework::BidMsg();
+    myBid.task = *msg;
+    myBid.name = getName();
+    std::string type = msg->type;
+    
+    ROS_INFO("calculating utility...\n");
+    if(type == "MyTask")
+    {
+        myBid.utility = utiHelp->calculate(this, new MyTask(0, 1));
+    }
+    else
+    {
+        myBid.utility = 0;
+    }
+    
+    ROS_INFO("my utility is %f, publishing\n", myBid.utility);
+    
+    bidPub.publish(myBid);
+    return myBid.utility;
 }
 
 int main(int argc, char **argv) {

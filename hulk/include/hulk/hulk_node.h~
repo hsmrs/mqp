@@ -6,6 +6,8 @@
 #include "std_msgs/String.h"
 #include "geometry_msgs/PoseStamped.h"
 #include "geometry_msgs/Twist.h"
+#include "ar_track_alvar/AlvarMarkers.h"
+#include <hsmrs_framework/BidMsg.h>
 #include <move_base_msgs/MoveBaseAction.h>
 #include <actionlib/client/simple_action_client.h>
 #include "kobuki_msgs/BumperEvent.h"
@@ -18,17 +20,45 @@
 #include "hsmrs_implementations/GoToTask.h"
 #include "hsmrs_implementations/FollowTagTask.h"
 #include "hsmrs_implementations/MyTaskList.h"
+#include "hsmrs_implementations/MyUtilityHelper.h"
+#include "hsmrs_implementations/MyAgentState.cpp"
 #include "hulk/Behavior.h"
 #include "hulk/FollowTagBehavior.h"
 #include "hulk/GoToBehavior.h"
 
+#include <boost/thread/mutex.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/thread/thread.hpp>
+
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
+
+class AuctionTracker
+{
+private:
+
+public:
+    std::string topBidder;
+    double topUtility;
+    bool haveBidded;
+    bool taskClaimed;
+    
+    AuctionTracker()
+    {
+        topBidder = "";
+        topUtility = -1;
+        haveBidded = false;
+        taskClaimed = false;
+    }
+};
 
 class Hulk: public Robot {
 
 private:
 	friend class FollowTagBehavior;
 	friend class GoToBehavior;
+
+    boost::mutex atMutex;
+    boost::mutex listMutex;
 
 	ros::NodeHandle n;
 	ros::Publisher registration_pub;
@@ -42,11 +72,17 @@ private:
 	ros::Subscriber new_task_sub;
 	ros::Subscriber updated_task_sub;
 
-
 	ros::Publisher vel_pub;
 	ros::Subscriber bumper_sub;
 	ros::Subscriber laser_sub;
-
+    ros::Subscriber tag_sub;
+    
+	ros::Publisher bidPub;
+	ros::Publisher claimPub;
+	
+	ros::Subscriber bidSub;
+	ros::Subscriber newTaskSub;
+	ros::Subscriber claimSub;
 
 	const std::string NAME;
 	const std::string REGISTRATION_TOPIC;
@@ -59,13 +95,21 @@ private:
 	const std::string TELE_OP_TOPIC;
 	const std::string NEW_TASK_TOPIC;
 	const std::string UPDATED_TASK_TOPIC;
+	const std::string AUCTION_TOPIC;
+	const std::string CLAIM_TOPIC;
 
 	const std::string VEL_TOPIC;
 	const std::string BUMPER_TOPIC;
 	const std::string LASER_TOPIC;
+	const std::string MARKER_TOPIC;
 
 	TaskList* taskList;
 	Task* p_currentTask;
+	UtilityHelper* utiHelp;
+	AgentState* state;
+	
+	std::map<int, AuctionTracker> auctionList;
+	
 	std::string status;
 	Behavior* p_currentBehavior;
 	double linearSpeed;
@@ -74,7 +118,9 @@ private:
 	/**
 	 * Makes this Robot bid on the given task
 	 */
-	void bid(Task* task);
+	double bid(const hsmrs_framework::BidMsg::ConstPtr& msg);
+	
+	double bid(const hsmrs_framework::TaskMsg::ConstPtr& msg);
 
 	/**
 	 * Begins the Robot's execution of its current Task.
@@ -108,6 +154,16 @@ private:
 	void updatedTaskCallback(const std_msgs::String::ConstPtr& msg);
 
 	void laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg);
+	
+	void tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& msg);
+	
+	void handleNewTask(const hsmrs_framework::TaskMsg::ConstPtr& msg);
+	
+	void handleClaims(const hsmrs_framework::BidMsg::ConstPtr& msg);
+	
+	void claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid);
+	
+	
 
 public:
 	Hulk();
@@ -151,7 +207,7 @@ public:
 	/**
 	 * Handles the auctioning of Tasks by sending and receiving bids.
 	 */
-	virtual void handleBids();
+	virtual void handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg);
 
 	/**
 	 * Verifies that an Agent claiming a Task has the highest utility for it. If not, informs the Agent of the Task's proper owner.

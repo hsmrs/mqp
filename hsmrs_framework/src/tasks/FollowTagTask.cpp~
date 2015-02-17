@@ -13,6 +13,16 @@ FollowTagTask::FollowTagTask(){
 	progress = new MyProgress();
 }
 
+FollowTagTask::FollowTagTask(int id, double priority)
+{
+	tagID = 0;
+	//attributeWeights;
+	this->priority = priority;
+	this->id = id;
+	prerequisite = new MyPrerequisite();
+	progress = new MyProgress();
+}
+
 FollowTagTask::FollowTagTask(hsmrs_framework::TaskMsg::ConstPtr& msg){
 
 }
@@ -115,8 +125,8 @@ int FollowTagTask::getTagID(){
 	 * Retrieves a mapping between Attributes and their weights.
 	 * @return A map of strings and doubles
 	 */
- std::map<std::string, double>* FollowTagTask::getAttributeWeights(){
-	return &attributeWeights;
+ std::map<std::string, double> FollowTagTask::getAttributeWeights(){
+	return std::map<std::string, double>(attributeWeights);
 }
 
 	/**
