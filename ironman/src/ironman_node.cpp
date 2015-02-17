@@ -163,7 +163,7 @@ void IronMan::bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg){
 	sendMessage(message);
 
 }
-
+/* //TODO do something about GUI task assignment (i.e. this callback)
 void IronMan::newTaskCallback(const std_msgs::String::ConstPtr& msg){
 	std::string data = msg->data;
 
@@ -195,6 +195,22 @@ void IronMan::newTaskCallback(const std_msgs::String::ConstPtr& msg){
 		taskList->addTask(task);
 	}
 }
+*/
+
+//TODO this needs to be toggleable
+void IronMan::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& msg)
+{
+	if (msg->markers.size() == 0) return;
+
+	for (int i = 0; i < msg->markers.size(); ++i)
+	{
+		if (msg->markers[i].id == 0)
+		{
+		    //TODO filter this
+		    state->setAttribute("distance", msg->markers[0].pose.pose.position.x);
+		}
+	}
+}
 
 void IronMan::updatedTaskCallback(const std_msgs::String::ConstPtr& msg){
 
@@ -208,16 +224,20 @@ IronMan::IronMan() : NAME("IronMan"), REGISTRATION_TOPIC("hsmrs/robot_registrati
 		LOG_TOPIC("ironman/log_messages"), STATUS_TOPIC("ironman/status"), HELP_TOPIC("ironman/help"), POSE_TOPIC("ironman/pose"),
 		REQUEST_TOPIC("ironman/requests"), TELE_OP_TOPIC("ironman/tele_op"), VEL_TOPIC("ironman/cmd_vel_mux/input/teleop"),
 		BUMPER_TOPIC("/ironman/mobile_base/events/bumper"), NEW_TASK_TOPIC("/hsmrs/new_task"), 
-		UPDATED_TASK_TOPIC("/hsmrs/updated_task_topic"), LASER_TOPIC("ironman/scan")
+		UPDATED_TASK_TOPIC("/hsmrs/updated_task_topic"), LASER_TOPIC("ironman/scan"), MARKER_TOPIC("/ironman/ar_pose_marker"),
+		AUCTION_TOPIC("/hsmrs/auction"), CLAIM_TOPIC("/hsmrs/claim")
 		{
-
+	ROS_INFO("IronMan initializing");
 	taskList = new MyTaskList();
+	utiHelp = new MyUtilityHelper();
+	state = new MyAgentState();
+	state->setAttribute("speed", 1);
+	state->setAttribute("distance", 1000);
+	
+    auctionList = std::map<int, AuctionTracker>();
 
 	linearSpeed = 0.3;
 	angularSpeed = 0.8;
-
-	ros::AsyncSpinner spinner(1);
-	spinner.start();
 
 	//GUI Publishers and subscribers
 	registration_pub = n.advertise<std_msgs::String>(REGISTRATION_TOPIC, 100);
@@ -226,7 +246,7 @@ IronMan::IronMan() : NAME("IronMan"), REGISTRATION_TOPIC("hsmrs/robot_registrati
 	help_pub = n.advertise<std_msgs::String>(HELP_TOPIC, 100);
 	pose_pub = n.advertise<geometry_msgs::PoseStamped>(POSE_TOPIC, 100);
 
-	new_task_sub = n.subscribe(NEW_TASK_TOPIC, 1000, &IronMan::newTaskCallback, this);
+	//new_task_sub = n.subscribe(NEW_TASK_TOPIC, 1000, &IronMan::newTaskCallback, this);
 	updated_task_sub = n.subscribe(UPDATED_TASK_TOPIC, 1000, &IronMan::updatedTaskCallback, this);
 	request_sub = n.subscribe(REQUEST_TOPIC, 1000, &IronMan::requestCallback, this);
 	teleOp_sub = n.subscribe(TELE_OP_TOPIC, 1000, &IronMan::teleOpCallback, this);
@@ -235,11 +255,25 @@ IronMan::IronMan() : NAME("IronMan"), REGISTRATION_TOPIC("hsmrs/robot_registrati
 	vel_pub = n.advertise<geometry_msgs::Twist>(VEL_TOPIC, 100);
 	bumper_sub = n.subscribe(BUMPER_TOPIC, 1000, &IronMan::bumperCallback, this);
 	//laser_sub = n.subscribe(LASER_TOPIC, 1000, &IronMan::laserCallback, this);
+	tag_sub = n.subscribe(MARKER_TOPIC, 1000, &IronMan::tagCallback, this);
+
+	bidPub = n.advertise<hsmrs_framework::BidMsg>(AUCTION_TOPIC, 100);
+	claimPub = n.advertise<hsmrs_framework::BidMsg>(CLAIM_TOPIC, 100);
+	
+	bidSub = n.subscribe(AUCTION_TOPIC, 1000, &IronMan::handleBids, this);
+	newTaskSub = n.subscribe(NEW_TASK_TOPIC, 100, &IronMan::handleNewTask, this);
+	claimSub = n.subscribe(CLAIM_TOPIC, 100, &IronMan::handleClaims, this);
+
 
 	//ros::spinOnce();
+	ros::AsyncSpinner spinner(0);
+	spinner.start();
+	ROS_INFO("IronMan running");
+
+/*
 	ros::Rate loop_rate(1);
 	loop_rate.sleep();
-
+*/
 	registerWithGUI();
 
 	while (ros::ok()){
@@ -259,14 +293,14 @@ std::string IronMan::getName(){
 	return NAME;
 }
 
-
 /**
  * Returns the value of the specified attribute from this Robot's AgentState.
  * @param attr The name of the attribute to get
  * @return The value of the attribute
  */
-double IronMan::getAttribute(std::string attr) {
-
+double IronMan::getAttribute(std::string name)
+{
+    return state->getAttribute(name);
 }
 
 /**
@@ -274,16 +308,18 @@ double IronMan::getAttribute(std::string attr) {
  * @param task A pointer to the task for which to get a utility.
  * @return This Robot's utility for the given Task.
  */
-double IronMan::getUtility(Task *task) {
-
+double IronMan::getUtility(Task* task)
+{
+    return utiHelp->calculate(this, task);
 }
 
 /**
  * Returns this Robot's AgentState.
  * @return The AgentState representing the state of this Robot.
  */
-AgentState* IronMan::getState() {
-
+AgentState* IronMan::getState()
+{
+    return new MyAgentState(*state);
 }
 
 /**
@@ -291,8 +327,9 @@ AgentState* IronMan::getState() {
  * @param attr The name of the target attribute
  * @return True if the robot has the named attribute.
  */
-bool IronMan::hasAttribute(std::string attr) {
-
+bool IronMan::hasAttribute(std::string attr)
+{
+    return state->getAttribute(attr) != NULL;
 }
 
 /**
@@ -339,12 +376,158 @@ void IronMan::setStatus(std::string newStatus){
 	status_pub.publish(msg);
 }
 
+
+void IronMan::handleNewTask(const hsmrs_framework::TaskMsg::ConstPtr& msg)
+{
+    ROS_INFO("got new task!\n");
+    boost::mutex::scoped_lock atLock(atMutex);
+    boost::mutex::scoped_lock listLock(listMutex);
+    int id = msg->id;
+    if(taskList->getTask(id) == NULL)
+    {
+        std::string type = msg->type;
+        
+        AuctionTracker at = AuctionTracker();
+        double myBid = bid(msg);
+        at.topBidder = getName();
+        at.topUtility = myBid;
+        at.haveBidded = true;
+        auctionList[id] = at;
+        atLock.unlock();
+        
+        if(type == "MyTask")
+        {
+            taskList->addTask(new MyTask(msg->id, msg->priority));
+            listLock.unlock();
+        }
+        else if(type == "FollowTagTask")
+        {
+            if(msg->param_values.size() > 0)
+            {
+                taskList->addTask(new FollowTagTask(msg->id, msg->priority, std::stoi(msg->param_values[0])));
+            }
+            else
+            {
+                taskList->addTask(new FollowTagTask(msg->id, msg->priority));
+            }
+        }
+        else if(type == "GoToTask")
+        {
+            //TODO fill in
+        }
+        else
+        {
+            ROS_ERROR("unrecognized task type %s", type.c_str());
+        }
+        
+        //spawn claimer thread
+        boost::thread claimer = boost::thread(&IronMan::claimWorker, this, *msg, id, myBid);
+        claimer.detach();
+    }
+    else
+    {
+        ROS_INFO("task with ID %d is not unique!\n", id);
+    }
+}
+
+void IronMan::handleClaims(const hsmrs_framework::BidMsg::ConstPtr& msg)
+{
+    int id = msg->task.id;
+    std::string owner = msg->name;
+    if(owner == getName()) return;
+    boost::mutex::scoped_lock listLock(listMutex);
+    taskList->getTask(id)->addOwner(owner);
+}
+
+void IronMan::claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid)
+{
+    //sleep on it and decide whether to claim
+    ROS_INFO("sleepytime");
+    boost::this_thread::sleep(boost::posix_time::milliseconds(3000));
+    boost::mutex::scoped_lock atLock(atMutex);
+    boost::mutex::scoped_lock listLock(listMutex);
+    
+    AuctionTracker at = auctionList[id];
+    if(at.topBidder == getName())
+    {
+        ROS_INFO("claiming task %d", id);
+        hsmrs_framework::BidMsg claimMsg = hsmrs_framework::BidMsg();
+        claimMsg.name = getName();
+        claimMsg.utility = myBid;
+        claimMsg.task = taskMsg;
+        claimPub.publish(claimMsg);
+        
+        at.taskClaimed = true;
+        auctionList[id] = at;
+        taskList->getTask(id)->addOwner(getName());
+    }
+    
+	p_currentTask = taskList->getTask(id);
+	executeTask();
+}
+
+
 /**
  * Handles the auctioning of Tasks by sending and receiving bids.
  */
 void IronMan::handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
-{
-    ROS_INFO("got bid!\n");
+{    
+    int id = msg->task.id;
+    std::string type = msg->task.type;
+    std::string bidder = msg->name;
+    double utility = msg->utility;
+    
+    ROS_INFO("got bid from %s\n", bidder.c_str());
+    
+    boost::mutex::scoped_lock atLock(atMutex);
+    boost::mutex::scoped_lock listLock(listMutex);
+    if(auctionList.count(id) == 0)
+    {
+        //track the auctioning of this task
+        AuctionTracker at = AuctionTracker();
+        double myBid = bid(msg);
+        at.topBidder = (myBid > utility) ? getName() : bidder;
+        at.topUtility = (myBid > utility) ? myBid : utility;
+        at.haveBidded = true;
+        auctionList[id] = at;
+        atLock.unlock();
+        
+        //add to task list
+        if(type == "MyTask")
+        {
+            taskList->addTask(new MyTask(msg->task.id, msg->task.priority));
+            listLock.unlock();
+        }
+        else if(type == "FollowTagTask")
+        {
+            if(msg->task.param_values.size() > 0)
+            {
+                taskList->addTask(new FollowTagTask(msg->task.id, msg->task.priority, std::stoi(msg->task.param_values[0])));
+            }
+            else
+            {
+                taskList->addTask(new FollowTagTask(msg->task.id, msg->task.priority));
+            }
+        }
+        else if(type == "GoToTask")
+        {
+            //TODO fill in
+        }
+        else
+        {
+            ROS_ERROR("unrecognized task type %s", type.c_str());
+        }
+        //spawn claimer thread
+        boost::thread claimer = boost::thread(&IronMan::claimWorker, this, msg->task, id, myBid);
+        claimer.detach();
+    }
+    else
+    {
+        AuctionTracker* at = &(auctionList[id]);
+        at->topBidder = (at->topUtility > utility) ? at->topBidder : bidder;
+        at->topUtility = (at->topUtility > utility) ? at->topUtility : utility;
+    }
+
 }
 
 /**
@@ -352,7 +535,47 @@ void IronMan::handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
  */
 double IronMan::bid(const hsmrs_framework::BidMsg::ConstPtr& msg)
 {
-    return 0.0;
+    hsmrs_framework::BidMsg myBid = hsmrs_framework::BidMsg(*msg);
+    myBid.name = getName();
+    std::string type = msg->task.type;
+    
+    ROS_INFO("calculating utility...\n");
+    if(type == "MyTask")
+    {
+        myBid.utility = utiHelp->calculate(this, new MyTask(0, 1));
+    }
+    else
+    {
+        myBid.utility = 0;
+    }
+    
+    ROS_INFO("my utility is %f, publishing\n", myBid.utility);
+    
+    bidPub.publish(myBid);
+    return myBid.utility;
+}
+
+double IronMan::bid(const hsmrs_framework::TaskMsg::ConstPtr& msg)
+{
+    hsmrs_framework::BidMsg myBid = hsmrs_framework::BidMsg();
+    myBid.task = *msg;
+    myBid.name = getName();
+    std::string type = msg->type;
+    
+    ROS_INFO("calculating utility...\n");
+    if(type == "MyTask")
+    {
+        myBid.utility = utiHelp->calculate(this, new MyTask(0, 1));
+    }
+    else
+    {
+        myBid.utility = 0;
+    }
+    
+    ROS_INFO("my utility is %f, publishing\n", myBid.utility);
+    
+    bidPub.publish(myBid);
+    return myBid.utility;
 }
 
 int main(int argc, char **argv) {
