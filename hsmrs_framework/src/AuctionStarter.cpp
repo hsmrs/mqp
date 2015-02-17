@@ -14,7 +14,8 @@ public:
         task.id = 0;
         task.parent_id = -1;
         task.priority = 10;
-        task.type = "MyTask";
+        task.type = "FollowTagTask";
+        task.param_values = {"0"};
         
         while(n.ok())
         {

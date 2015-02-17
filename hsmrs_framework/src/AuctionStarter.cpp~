@@ -14,12 +14,13 @@ public:
         task.id = 0;
         task.parent_id = -1;
         task.priority = 10;
-        task.type = "MyTask";
+        task.type = "FollowTagTask";
+        task.param_values[0] = "0";
         
         while(n.ok())
         {
             ros::spinOnce();
-            ROS_INFO("sending yask\n");
+            ROS_INFO("sending task\n");
             bidPub.publish(task);
             ROS_INFO("task sent\n");
             
