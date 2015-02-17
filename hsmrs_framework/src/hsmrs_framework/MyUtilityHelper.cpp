@@ -26,7 +26,7 @@ double MyUtilityHelper::calculate(Robot* robot, Task* task)
             time = distance/speed;
         }
         
-        return time == 0 ? 0 : 1/time;
+        return time == 0 ? 0 : 1./time;
 	}
 	else
 	{

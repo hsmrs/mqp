@@ -202,14 +202,14 @@ void Hulk::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& msg)
 {
 	if (msg->markers.size() == 0) return;
 
-	for (int i = 0; i < msg->markers.size(); ++i)
-	{
-		if (msg->markers[i].id == 0)
-		{
+	//for (int i = 0; i < msg->markers.size(); ++i)
+	//{
+		//if (msg->markers[i].id == 0)
+		//{
 		    //TODO filter this
 		    state->setAttribute("distance", msg->markers[0].pose.pose.position.x);
-		}
-	}
+		//}
+	//}
 }
 
 void Hulk::updatedTaskCallback(const std_msgs::String::ConstPtr& msg){
@@ -231,8 +231,8 @@ Hulk::Hulk() : NAME("Hulk"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMA
 	taskList = new MyTaskList();
 	utiHelp = new MyUtilityHelper();
 	state = new MyAgentState();
-	state->setAttribute("speed", 1);
-	state->setAttribute("distance", 1000);
+	state->setAttribute("speed", 1.0);
+	state->setAttribute("distance", 1000.0);
 	
     auctionList = std::map<int, AuctionTracker>();
 
@@ -544,8 +544,24 @@ double Hulk::bid(const hsmrs_framework::BidMsg::ConstPtr& msg)
     {
         myBid.utility = utiHelp->calculate(this, new MyTask(0, 1));
     }
+	else if(type == "FollowTagTask")
+	{
+	    if(msg->task.param_values.size() > 0)
+	    {
+		myBid.utility = utiHelp->calculate(this, new FollowTagTask(msg->task.id, msg->task.priority, std::stoi(msg->task.param_values[0])));
+	    }
+	    else
+	    {
+		myBid.utility = utiHelp->calculate(this, new FollowTagTask(msg->task.id, msg->task.priority));
+	    }
+	}
+	else if(type == "GoToTask")
+	{
+	    //TODO fill in
+	}
     else
     {
+	ROS_ERROR("unrecognized task type %s", type.c_str());
         myBid.utility = 0;
     }
     
@@ -567,8 +583,24 @@ double Hulk::bid(const hsmrs_framework::TaskMsg::ConstPtr& msg)
     {
         myBid.utility = utiHelp->calculate(this, new MyTask(0, 1));
     }
+    else if(type == "FollowTagTask")
+	{
+	    if(msg->param_values.size() > 0)
+	    {
+		myBid.utility = utiHelp->calculate(this, new FollowTagTask(msg->id, msg->priority, std::stoi(msg->param_values[0])));
+	    }
+	    else
+	    {
+		myBid.utility = utiHelp->calculate(this, new FollowTagTask(msg->id, msg->priority));
+	    }
+	}
+	else if(type == "GoToTask")
+	{
+	    //TODO fill in
+	}
     else
     {
+	ROS_ERROR("unrecognized task type %s", type.c_str());
         myBid.utility = 0;
     }
     
