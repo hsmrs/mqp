@@ -38,7 +38,7 @@ public class RobotRegistrationListener implements
 	private ConsoleController consoleController;
 
 	/**
-	 * COnstructor for the RobotRegistrationListener class.
+	 * Constructor for the RobotRegistrationListener class.
 	 * @param connectedNode The ROS node handle 
 	 */
 	public RobotRegistrationListener(ConnectedNode connectedNode) {

@@ -43,5 +43,6 @@ dependencies{
   compile 'com.miglayout:miglayout-swing:4.2'
   compile 'org.ros.rosjava_messages:nav_msgs:1.10.+'
   compile 'org.ros.rosjava_messages:sensor_msgs:1.10.+'
+  compile 'com.github.rosjava.hsmrs_rosjava_bindings:hsmrs_framework:0.0.+'
 }
 

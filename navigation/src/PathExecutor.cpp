@@ -110,6 +110,10 @@ void PlanExecutor::executePath(){
 		std_msgs::String progressMsg;
 		progressMsg.data = "complete";
 		progressPub.publish(progressMsg);
+	} else {
+		std_msgs::String progressMsg;
+		progressMsg.data = "canceled";
+		progressPub.publish(progressMsg);
 	}
 }
 

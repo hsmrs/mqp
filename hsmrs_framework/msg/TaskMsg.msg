@@ -10,4 +10,5 @@ string[] param_values
 float64 priority
 uint64[] subtask_ids
 string[] owners
+string status
 

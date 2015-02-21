@@ -50,6 +50,15 @@ public class TaskListModel extends AbstractListModel{
 		return targetTask;
 	}
 	
+	public TaskModel getTaskByID(int taskID){
+		for (TaskModel task : taskList){
+			if (task.getID() == taskID){
+				return task;
+			}
+		}
+		return null;
+	}
+	
 	public TaskModel getElementAt(int index) {
 		return taskList.get(index);
 	}

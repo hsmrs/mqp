@@ -17,6 +17,10 @@ private:
 	tf::TransformBroadcaster br;
 	tf::TransformListener listener;
 
+	int lastMarkerTime;
+	int lastMarkerX;
+	int lastMarkerY;
+
 	void tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& msg);
 
 public:
