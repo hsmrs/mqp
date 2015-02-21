@@ -11,6 +11,8 @@ find_package(catkin REQUIRED COMPONENTS
   nav_msgs
   roscpp
   std_msgs
+  tf
+  ar_track_alvar
 )
 
 ## System dependencies are found with CMake's conventions
@@ -108,6 +110,7 @@ include_directories(
 ## Declare a cpp executable
 add_executable(astar src/AStar.cpp)
 add_executable(path_executor src/PathExecutor.cpp)
+add_executable(ar_tag_localization src/ArTagLocalization.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
@@ -120,6 +123,10 @@ target_link_libraries(astar
 
 target_link_libraries(path_executor
    ${catkin_LIBRARIES}
+)
+
+target_link_libraries(ar_tag_localization
+	${catkin_LIBRARIES}
 )
 
 #############

@@ -11,6 +11,7 @@ void Thor::executeTask() {
 	GoToTask task;
 
 	if (taskType == "GoToTask"){ 
+		ROS_INFO("Executing Go To task");
 		GoToTask* task = dynamic_cast<GoToTask*>(p_currentTask);
 		behavior = new GoToBehavior(this, task->getGoal().position, n);
 	}
@@ -160,8 +161,10 @@ void Thor::newTaskCallback(const std_msgs::String::ConstPtr& msg){
 	std::vector<std::string> owners = task->getOwners();
 	
 	if (std::find(owners.begin(), owners.end(), NAME)!=owners.end()){
+		ROS_INFO("Direct assign!");
 		claimTask(task);
 	} else{
+		ROS_INFO("Placing task on queue!");
 		taskList->addTask(task);
 	}
 }
@@ -174,19 +177,80 @@ void Thor::laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg){
 
 }
 
-void Thor::odomCallback(const nav_msgs::Odometry::ConstPtr& msg){
-	geometry_msgs::PoseStamped poseMsg;
+void Thor::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& msg){
+	if (msg->markers.size() == 0) return;
 
-	poseMsg.pose = msg->pose.pose;
+	//Figure out which tag we are looking at.
+	int tagID = msg->markers[0].id;
+	std::stringstream ss;
+	ss << "hsmrs/marker_" << tagID;
+	std::string markerFrameID = ss.str();
 
-	pose_pub.publish(poseMsg);
+	//Manually create transform from robot to tag
+	//ROS_INFO("Creating transform!");
+
+	tf::Transform transform;
+
+	double x, y, z;
+	x = msg->markers[0].pose.pose.position.x;
+	y = msg->markers[0].pose.pose.position.y;
+	z = msg->markers[0].pose.pose.position.z;
+
+
+	tf::Quaternion q;
+	tf::quaternionMsgToTF(msg->markers[0].pose.pose.orientation, q);
+
+	transform.setOrigin( tf::Vector3(x, y, z) );
+	transform.setRotation(q);
+
+	//Broadcast transform
+	//ROS_INFO("Broadcasting transform!");
+	br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), markerFrameID, "thor/vision"));
+	//ROS_INFO("Transform broadcasted!");
+	
+	//ros::Duration(0.1).sleep();
+	
+	//Listen for transform from map to robot
+	//ROS_INFO("Listening for transform!");
+	tf::StampedTransform mapTransform;
+	try{
+		listener.waitForTransform("map", "thor/navigation",
+			ros::Time(0), ros::Duration(3));
+		listener.lookupTransform("map", "thor/navigation",
+			ros::Time(0), mapTransform);
+		//ROS_INFO("Transform heard");
+	}
+	catch (tf::TransformException &ex) {
+		ROS_ERROR("%s",ex.what());
+		//ros::Duration(1.0).sleep();
+		return;
+	}
+
+	//Unpack position and orientation
+	double map_x, map_y, map_z;
+	map_x = mapTransform.getOrigin().x();
+	map_y = mapTransform.getOrigin().y();
+	map_z = mapTransform.getOrigin().z();
+
+	geometry_msgs::Quaternion quat;
+	tf::quaternionTFToMsg(mapTransform.getRotation(), quat);
+
+	//ROS_INFO("Publishing pose!");
+
+	//Publish pose as geometry message
+	geometry_msgs::Pose pose;
+	pose.position.x = map_x;
+	pose.position.y = map_y;
+	pose.orientation = quat;
+
+	pose_pub.publish(pose);
 }
 
 Thor::Thor() : NAME("Thor"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMAGE_TOPIC("thor/camera/rgb/image_mono"), 
 		LOG_TOPIC("thor/log_messages"), STATUS_TOPIC("thor/status"), HELP_TOPIC("thor/help"), POSE_TOPIC("thor/pose"),
 		REQUEST_TOPIC("thor/requests"), TELE_OP_TOPIC("thor/tele_op"), VEL_TOPIC("thor/cmd_vel_mux/input/teleop"),
 		BUMPER_TOPIC("/thor/mobile_base/events/bumper"), NEW_TASK_TOPIC("/hsmrs/new_task"), 
-		UPDATED_TASK_TOPIC("/hsmrs/updated_task_topic"), LASER_TOPIC("thor/scan"), ODOM_TOPIC("thor/ar_tag_odom")
+		UPDATED_TASK_TOPIC("/hsmrs/updated_task_topic"), LASER_TOPIC("thor/scan")
 		{
 
 	taskList = new MyTaskList();
@@ -194,7 +258,7 @@ Thor::Thor() : NAME("Thor"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMA
 	linearSpeed = 0.3;
 	angularSpeed = 0.8;
 
-	ros::AsyncSpinner spinner(1);
+	ros::AsyncSpinner spinner(5);
 	spinner.start();
 
 	//GUI Publishers and subscribers
@@ -202,7 +266,7 @@ Thor::Thor() : NAME("Thor"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMA
 	log_pub = n.advertise<std_msgs::String>(LOG_TOPIC, 100);
 	status_pub = n.advertise<std_msgs::String>(STATUS_TOPIC, 100);
 	help_pub = n.advertise<std_msgs::String>(HELP_TOPIC, 100);
-	pose_pub = n.advertise<geometry_msgs::PoseStamped>(POSE_TOPIC, 100);
+	pose_pub = n.advertise<geometry_msgs::Pose>(POSE_TOPIC, 100);
 
 	new_task_sub = n.subscribe(NEW_TASK_TOPIC, 1000, &Thor::newTaskCallback, this);
 	updated_task_sub = n.subscribe(UPDATED_TASK_TOPIC, 1000, &Thor::updatedTaskCallback, this);
@@ -212,7 +276,7 @@ Thor::Thor() : NAME("Thor"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMA
 	//Turtlebot publishers and subscribers
 	vel_pub = n.advertise<geometry_msgs::Twist>(VEL_TOPIC, 100);
 	bumper_sub = n.subscribe(BUMPER_TOPIC, 1000, &Thor::bumperCallback, this);
-	odom_sub = n.subscribe(ODOM_TOPIC, 1, &Thor::odomCallback, this);
+	tag_sub = n.subscribe("thor/ar_pose_marker", 1, &Thor::tagCallback, this);
 	//laser_sub = n.subscribe(LASER_TOPIC, 1000, &Thor::laserCallback, this);
 
 	//ros::spinOnce();

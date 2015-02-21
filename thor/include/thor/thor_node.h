@@ -11,6 +11,7 @@
 #include "kobuki_msgs/BumperEvent.h"
 #include <tf/transform_broadcaster.h>
 #include <tf/transform_listener.h>
+#include "nav_msgs/Odometry.h"
 
 #include <sstream>
 #include <typeinfo>
@@ -48,8 +49,10 @@ private:
 	ros::Publisher vel_pub;
 	ros::Subscriber bumper_sub;
 	ros::Subscriber laser_sub;
-	ros::Subscriber tag_sub;
+	ros::Subscriber odom_sub;
 
+	tf::TransformBroadcaster br;
+	tf::TransformListener listener;
 
 	const std::string NAME;
 	const std::string REGISTRATION_TOPIC;
@@ -66,6 +69,7 @@ private:
 	const std::string VEL_TOPIC;
 	const std::string BUMPER_TOPIC;
 	const std::string LASER_TOPIC;
+	const std::string ODOM_TOPIC;
 
 	TaskList* taskList;
 	Task* p_currentTask;
@@ -112,7 +116,7 @@ private:
 
 	void laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg);
 
-	void tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& msg);
+	void odomCallback(const nav_msgs::Odometry::ConstPtr& msg);
 
 public:
 	Thor();

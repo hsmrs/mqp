@@ -7,6 +7,7 @@
 #include "std_msgs/String.h"
 #include "geometry_msgs/Pose.h"
 #include "hsmrs_framework/Robot.h"
+#include "geometry_msgs/PointStamped.h"
 
 class GoToBehavior : public Behavior{
 
@@ -14,10 +15,11 @@ private:
 	
 	Robot* parent;
 	bool isExecuting;
-	geometry_msgs::Point goalMsg;
+	geometry_msgs::PointStamped goalMsg;
 	std_msgs::String cancelMsg;
 	ros::Publisher goalPub;
 	ros::Publisher cancelPub;
+	ros::Subscriber progressSub;
 
 public:
 
@@ -30,6 +32,8 @@ public:
 	virtual void pause();
 
 	virtual void stop();
+	
+	void progressCallback(const std_msgs::String::ConstPtr& msg);
 };
 
 

@@ -18,6 +18,7 @@ GoToTask::GoToTask(hsmrs_framework::TaskMsg::ConstPtr& msg){
 
 GoToTask::GoToTask(std::string strDelimitedTask){
 	ROS_INFO("Creating go to task from colon delimited string");
+	ROS_INFO(strDelimitedTask.c_str());
 	// ID;Name;[ParamName:ParamType=ParamValue, ...];[SubTask1, SubTask2, ...];[Owner1, Owner2, ...]
 	priority = 0.0;
 	std::vector<std::string> items;
@@ -73,6 +74,7 @@ GoToTask::GoToTask(std::string strDelimitedTask){
 
     ROS_INFO("Getting owner list");
     std::string ownerList = items[4];
+    ROS_INFO(ownerList.c_str());
     ownerList.erase(0, 1);
     ownerList.erase(ownerList.size() - 1);
     //ownerList.pop_back();
@@ -82,17 +84,10 @@ GoToTask::GoToTask(std::string strDelimitedTask){
 	pos = 0;
 	ROS_INFO("Splitting on commas for owners");
 	while ((pos = ownerList.find(delimiter)) != std::string::npos) {
-    	items5.push_back(ownerList.substr(0, pos));
+    	owners.push_back(ownerList.substr(0, pos));
     	ownerList.erase(0, pos + delimiter.length());
 	}
-	items5.push_back(ownerList);
-
-    for (std::vector<std::string>::iterator it = items2.begin(); it != items2.end(); ++it){
-     	std::string owner = *it;
-     	if (owner != ""){
-     		owners.push_back(owner);
-     	}
-    }
+	owners.push_back(ownerList);
 
     goal.position.x = x;
     goal.position.y = y;
@@ -141,8 +136,8 @@ geometry_msgs::Pose GoToTask::getGoal(){
 	 * Retrieves a mapping between Attributes and their weights.
 	 * @return A map of strings and doubles
 	 */
- std::map<std::string, double>* GoToTask::getAttributeWeights(){
-	return &attributeWeights;
+ std::map<std::string, double> GoToTask::getAttributeWeights(){
+	return std::map<std::string, double>(attributeWeights);
 }
 
 	/**
@@ -150,8 +145,8 @@ geometry_msgs::Pose GoToTask::getGoal(){
 	 * this task
 	 * @return A vector of Tasks which are a part of this Task.
 	 */
- std::vector<Task*>* GoToTask::getSubtasks(){
-	return &subTasks;
+ std::vector<Task*> GoToTask::getSubtasks(){
+	return std::vector<Task*>(subTasks);
 }
 
 	/**

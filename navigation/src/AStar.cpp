@@ -7,8 +7,8 @@
 		
 		std::string poseTopic;
 		std::string mapTopic;
-		nh.param<std::string>("pose_topic", poseTopic, "pose");
-		nh.param<std::string>("map_topic", mapTopic, "map");
+		ros::param::param<std::string>("~pose_topic", poseTopic, "pose");
+		ros::param::param<std::string>("~map_topic", mapTopic, "map");
 
 		ROS_INFO("Listenening for pose on: %s", poseTopic.c_str());
 		ROS_INFO("Listenening for map on: %s", mapTopic.c_str());
@@ -22,10 +22,10 @@
 		while (ros::ok()){}
 	}
 
-	void AStar::goalCallback(const geometry_msgs::Point::ConstPtr& goal_msg){
+	void AStar::goalCallback(const geometry_msgs::PointStamped::ConstPtr& goal_msg){
 		ROS_INFO("Received goal!");
 		geometry_msgs::Point startPoint = currentPose.position;
-		createPath(startPoint, *goal_msg);
+		createPath(startPoint, goal_msg->point);
 	}
 
 	void AStar::mapCallback(const nav_msgs::OccupancyGrid::ConstPtr& map_msg){
@@ -44,8 +44,8 @@
 		ROS_INFO("Received map of height %d and width %d", mapGridHeight, mapGridWidth);
 	}
 
-	void AStar::poseCallback(const geometry_msgs::Pose::ConstPtr& pose_msg){
-		currentPose = *pose_msg;
+	void AStar::poseCallback(const geometry_msgs::PoseStamped::ConstPtr& pose_msg){
+		currentPose = pose_msg->pose;
 	}
 
 	void AStar::createHeuristic(geometry_msgs::Point goalPoint, int** target){
@@ -185,15 +185,15 @@
 				ROS_INFO("(%d, %d)", parent.getX(), parent.getY());
 			}
 
-			// std::priority_queue<AStarNode, std::vector<AStarNode>, std::greater<AStarNode> > print_queue = frontier;
-			// 	std::stringstream ss;
-			// 	while(!print_queue.empty()){
-			// 		AStarNode print_node = print_queue.top();
-			// 		print_queue.pop();
-			// 		ss << "(" << print_node.getX() << ", " << print_node.getY() << "), ";
-			// 	}	
-			// 	ROS_INFO("Frontier");
-			// 	ROS_INFO(ss.str().c_str());
+			 std::priority_queue<AStarNode, std::vector<AStarNode>, std::greater<AStarNode> > print_queue = frontier;
+			 	std::stringstream ss;
+			 	while(!print_queue.empty()){
+			 		AStarNode print_node = print_queue.top();
+			 		print_queue.pop();
+			 		ss << "(" << print_node.getX() << ", " << print_node.getY() << "), ";
+			 	}	
+			 	ROS_INFO("Frontier");
+			 	ROS_INFO(ss.str().c_str());
 
 		}
 		ROS_INFO("Failed to find a path!");
@@ -212,7 +212,7 @@
 		// 	path.push_back(current);
 		// }
 
-		while(current->getParent() != NULL){
+		while(current->hasParent){//current->getParent() != NULL){
 			current = current->getParent();
 			ROS_INFO("(%d, %d)", current->getX(), current->getY());
 			path.push_back(*current);
@@ -228,7 +228,7 @@
 			pathMsg.poses[i].pose.position.x = path[i].getX();
 			pathMsg.poses[i].pose.position.y = path[i].getY();
 		}
-
+		pathMsg.header.frame_id = "map";
 		pathPub.publish(pathMsg);
 		ROS_INFO("Path found and published!");
 	}

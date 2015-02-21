@@ -5,6 +5,7 @@
 #include "nav_msgs/Path.h"
 #include "geometry_msgs/Twist.h"
 #include "geometry_msgs/Pose.h"
+#include "geometry_msgs/PoseStamped.h"
 #include "std_msgs/String.h"
 #include "tf/transform_datatypes.h"
 
@@ -15,6 +16,7 @@ class PlanExecutor {
 private:
 
 	ros::Publisher velPub;
+	ros::Publisher progressPub;
 	ros::Subscriber poseSub;
 	ros::Subscriber pathSub;
 	ros::Subscriber cancelSub;
@@ -31,7 +33,7 @@ public:
 
 	PlanExecutor();
 
-	void poseCallback(const geometry_msgs::Pose::ConstPtr& poseMsg);
+	void poseCallback(const geometry_msgs::PoseStamped::ConstPtr& poseMsg);
 
 	void pathCallback(const nav_msgs::Path::ConstPtr& pathMsg);
 

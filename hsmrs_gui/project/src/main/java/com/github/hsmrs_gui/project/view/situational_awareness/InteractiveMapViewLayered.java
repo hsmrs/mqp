@@ -80,21 +80,27 @@ public class InteractiveMapViewLayered extends JPanel{
 		}
 	}
 	
-	public void updateRobotLocation(String robotName, Pair<Integer, Integer> location){		
+	public void updateRobotLocation(String robotName, Pair<Integer, Integer> location){	
+		System.out.println("Updating location of " + robotName);
 		RobotModel robot = RobotListModel.getInstance().getRobotModelByName(robotName);
 		JLabel target = labelMatrix[location.Y][location.X];
+		System.out.println("Coloring the map");
 		target.setOpaque(true);
 		target.setBackground(robot.getColor());
 		
 		
 		Pair<Integer, Integer> oldLocation = robot.getLocation();
-		if (oldLocation.X != location.X && oldLocation.Y != location.Y){
+		if (!oldLocation.equalTo(location)){
+			System.out.println("Removing old color!");
 			JLabel oldLabel = labelMatrix[oldLocation.Y][oldLocation.X];
 			oldLabel.setOpaque(false);
 			oldLabel.setBackground(Color.white);
 		}
 		
 		robot.setLocation(location);
+		
+		System.out.println("Old location: (" + oldLocation.X + ", " + oldLocation.Y + ")");
+		System.out.println("New location: (" + location.X + ", " + location.Y + ")");
 		
 		revalidate();
 		repaint();

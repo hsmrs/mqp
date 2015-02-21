@@ -9,6 +9,10 @@ public class Pair <A, B>{
 		Y = y;
 	}
 	
+	public boolean equalTo(Pair other){
+		return X == other.X && Y == other.Y;
+	}
+	
 	public String toString(){
 		return "(" + X + ", " + Y + ")";
 	}

@@ -1,11 +1,14 @@
 #include "thor/GoToBehavior.h"
 
 GoToBehavior::GoToBehavior(Robot* parent, geometry_msgs::Point goal, ros::NodeHandle n){
+	ROS_INFO("Creating GoTo behavior");
 	this->parent = parent;
-	goalMsg = goal;
-	goalPub = n.advertise<geometry_msgs::Point>("thor/goal", 1000, true);
+	goalMsg.header.frame_id = "map";
+	goalMsg.point = goal;
+	goalPub = n.advertise<geometry_msgs::PointStamped>("thor/navigation/goal", 1000, true);
 	cancelMsg.data = "cancel";
 	cancelPub = n.advertise<std_msgs::String>("thor/navigation/cancel", 1000);
+	progressSub = n.subscribe("thor/navigation/progress", 1000, &GoToBehavior::progressCallback, this);
 }
 
 void GoToBehavior::execute(){
@@ -23,4 +26,12 @@ void GoToBehavior::pause(){
 
 void GoToBehavior::stop(){
 	cancelPub.publish(cancelMsg);
+}
+
+void GoToBehavior::progressCallback(const std_msgs::String::ConstPtr& msg){
+	std::string progress = msg->data;
+	if (progress == "complete"){
+		//Tell thor task is complete.
+		stop();
+	}
 }

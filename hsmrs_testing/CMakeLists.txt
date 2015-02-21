@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   tf
+  ar_track_alvar
 )
 
 ## System dependencies are found with CMake's conventions
@@ -107,16 +108,16 @@ include_directories(
 # )
 
 ## Declare a cpp executable
-# add_executable(hsmrs_testing_node src/hsmrs_testing_node.cpp)
+add_executable(transform_test src/transform_test.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
 # add_dependencies(hsmrs_testing_node hsmrs_testing_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(hsmrs_testing_node
-#   ${catkin_LIBRARIES}
-# )
+target_link_libraries(transform_test
+  ${catkin_LIBRARIES}
+)
 
 #############
 ## Install ##
