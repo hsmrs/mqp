@@ -106,6 +106,10 @@ public class TaskPanel extends JPanel{
 	public List<String> getNewTaskParamValues(){
 		return newTaskView.getNewTaskParamValues();
 	}
+
+	public double getNewTaskPriority() {
+		return newTaskView.getNewTaskPrioirty();
+	}
 	
 	public String getNewTaskOwner(){
 		return newTaskView.getNewTaskOwner();

@@ -59,9 +59,10 @@ public class TaskController implements ActionListener{
 		}
 		else if (cmd.equals("Create task")){
 			TaskSpecification spec = tp.getNewTaskSpec();
-			String taskName = spec.getName();
+			String taskType = spec.getType();
 			ArrayList<TaskParam<?>> taskParams = new ArrayList<TaskParam<?>>();
 			List<String> paramValues = tp.getNewTaskParamValues();
+			double priority = tp.getNewTaskPriority();
 			String owner = tp.getNewTaskOwner();
 			
 			for (int i = 0; i < paramValues.size(); i++){
@@ -92,7 +93,10 @@ public class TaskController implements ActionListener{
 				}
 			}
 			
-			TaskModel newTask = new TaskModel(taskName, taskParams);
+			TaskModel newTask = new TaskModel(taskType, taskParams);
+			
+			newTask.setPriority(priority);
+			
 			if (!owner.equals("None")){
 				newTask.addOwner(RobotListModel.getInstance()
 						.getRobotModelByName(owner));

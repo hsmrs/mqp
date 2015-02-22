@@ -42,8 +42,7 @@ public class UpdatedTaskListener implements MessageListener<hsmrs_framework.Task
 	 */
 	@Override
 	public void onNewMessage(hsmrs_framework.TaskMsg message) {
-		boolean needsHelp = Boolean.valueOf(message.getData());
-		TaskModel task = tasks.getTaskByID(message.getId());
+		TaskModel task = tasks.getTaskByID((int)message.getId());
 		List<String> msgOwners = message.getOwners();
 		List<RobotModel> oldOwners = task.getOwners();
 		

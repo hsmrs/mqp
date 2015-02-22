@@ -38,6 +38,8 @@ public class NewTaskPanel extends JPanel implements ListSelectionListener {
 	private JLabel lblParam;
 	private JScrollPane paramScrollView;
 	private JPanel paramPane;
+	private JLabel lblPriority;
+	private JTextField txtPriority;
 	private JLabel lblOwner;
 	private JComboBox ownerSelBox;
 	private JButton btnCreate;
@@ -81,6 +83,9 @@ public class NewTaskPanel extends JPanel implements ListSelectionListener {
 		paramScrollView
 				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
+		lblPriority = new JLabel("Priority: (0.0<)");
+		txtPriority = new JTextField();
+		
 		lblOwner = new JLabel("Owner:");
 		
 		List<String> robotList = RobotListModel.getInstance().getRobotNames();
@@ -98,7 +103,7 @@ public class NewTaskPanel extends JPanel implements ListSelectionListener {
 
 		// this.setBackground(Color.white);
 		this.setLayout(new MigLayout("insets 0", "[left, 45%]10%[right, 45%]",
-				"[]20[][][]20[][]20[]20[]"));
+				"[]20[][][]20[][]20[]20[]20[]"));
 		// this.setLayout(new MigLayout("fill, debug", "[][]", "[][]"));
 
 		this.add(lblTitle, "center, span, growx, top, wrap");
@@ -107,6 +112,8 @@ public class NewTaskPanel extends JPanel implements ListSelectionListener {
 		this.add(btnNewType, "gapleft 10, wrap");
 		this.add(lblParam, "gapleft 10, span, wrap");
 		this.add(paramScrollView, "gapleft 10, gapright 10, grow, span, wrap");
+		this.add(lblPriority, "gapleft 10");
+		this.add(txtPriority, "gapright 10, growx, wrap");
 		this.add(lblOwner, "gapleft 10");
 		this.add(ownerSelBox, "gapright 10, growx, wrap");
 		this.add(btnCreate, "gapleft 10, center");
@@ -114,7 +121,7 @@ public class NewTaskPanel extends JPanel implements ListSelectionListener {
 	}
 
 	private JPanel generateParamPanel(TaskSpecification spec) {
-		System.out.println("Generating parameter panel for " + spec.getName());
+		System.out.println("Generating parameter panel for " + spec.getType());
 		JPanel returnPanel = new JPanel();
 		returnPanel.setLayout(new MigLayout("", "[]30[]", "[]"));
 
@@ -165,6 +172,16 @@ public class NewTaskPanel extends JPanel implements ListSelectionListener {
 			}
 		}
 		return paramValues;
+	}
+	
+	public double getNewTaskPrioirty() {
+		try {
+			return Double.parseDouble(txtPriority.getText());
+		}
+		catch (Exception e){
+			e.printStackTrace();
+			return 0.0;
+		}
 	}
 	
 	public String getNewTaskOwner(){

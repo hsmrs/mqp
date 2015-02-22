@@ -14,6 +14,7 @@ import java.util.List;
 import src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel;
 
 import org.ros.node.NodeConfiguration;
+import org.ros.message.MessageFactory;
 
 public class TaskModel {
 
@@ -23,7 +24,7 @@ public class TaskModel {
 	private List<TaskModel> subTasks;
 	private List<RobotModel> owners;
 	private String status;
-	private int priority;
+	private double priority;
 	
 	public TaskModel(){
 		type = "Idle";
@@ -85,6 +86,10 @@ public class TaskModel {
 		this.status = status;
 	}
 	
+	public void setPriority(double priority) {
+		this.priority = priority;
+	}
+	
 	public hsmrs_framework.TaskMsg toTaskMessage(){
 		NodeConfiguration nodeConfiguration = NodeConfiguration.newPrivate();
 		MessageFactory messageFactory = nodeConfiguration.getTopicMessageFactory();
@@ -99,6 +104,8 @@ public class TaskModel {
 			paramValues.add(taskParam.getValue().toString());
 		}
 		msg.setParamValues(paramValues);
+		
+		msg.setPriority((float)priority);
 		
 		List<String> ownerNames = new ArrayList<String>();
 		for (RobotModel robot : owners){

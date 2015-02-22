@@ -12,8 +12,21 @@ GoToTask::GoToTask(){
 	progress = new MyProgress();
 }
 
-GoToTask::GoToTask(hsmrs_framework::TaskMsg::ConstPtr& msg){
+GoToTask::GoToTask(const hsmrs_framework::TaskMsg::ConstPtr& msg){
+	double goalX = std::stod(msg->param_values[0]);
+	double goalY = std::stod(msg->param_values[1]);
 
+	goal.position.x = goalX;
+	goal.position.y = goalY;
+
+	for(std::string owner : msg->owners){
+		owners.push_back(owner);
+	}
+
+	priority = msg->priority;
+	id = msg->id;
+	prerequisite = new MyPrerequisite();
+	progress = new MyProgress();
 }
 
 GoToTask::GoToTask(std::string strDelimitedTask){

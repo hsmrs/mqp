@@ -6,12 +6,12 @@ import org.ros.node.topic.Publisher;
 
 public class NewTaskPublisher {
 
-	private Publisher<std_msgs.String> publisher;
+	private Publisher<hsmrs_framework.TaskMsg> publisher;
 	private static NewTaskPublisher instance;
 	
 	public NewTaskPublisher(ConnectedNode connectedNode){
 		publisher =
-		        connectedNode.newPublisher("hsmrs/new_task", std_msgs.String._TYPE);
+		        connectedNode.newPublisher("hsmrs/new_task", hsmrs_framework.TaskMsg._TYPE);
 		instance = this;
 	}
 	
@@ -20,8 +20,8 @@ public class NewTaskPublisher {
 	}
 	
 	public void publishNewTask(TaskModel newTask){
-		std_msgs.String str = publisher.newMessage();
-        str.setData(newTask.toString());
-        publisher.publish(str);
+		hsmrs_framework.TaskMsg msg = publisher.newMessage();
+        msg = newTask.toTaskMessage();
+        publisher.publish(msg);
 	}
 }

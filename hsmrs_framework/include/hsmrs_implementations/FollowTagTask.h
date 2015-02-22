@@ -29,7 +29,7 @@ public:
 	
 	FollowTagTask(int id, double priority, int tag);
 
-	FollowTagTask(hsmrs_framework::TaskMsg::ConstPtr& msgs);
+	FollowTagTask(const hsmrs_framework::TaskMsg::ConstPtr& msg);
 
 	FollowTagTask(std::string strDelimitedTask);
 	

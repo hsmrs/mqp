@@ -27,7 +27,7 @@ private:
 public:
 	GoToTask();
 
-	GoToTask(hsmrs_framework::TaskMsg::ConstPtr& msgs);
+	GoToTask(const hsmrs_framework::TaskMsg::ConstPtr& msg);
 
 	GoToTask(std::string strDelimitedTask);
 	

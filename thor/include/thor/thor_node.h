@@ -21,6 +21,7 @@
 #include "hsmrs_implementations/GoToTask.h"
 #include "hsmrs_implementations/FollowTagTask.h"
 #include "hsmrs_implementations/MyTaskList.h"
+#include "hsmrs_framework/TaskMsg.h"
 #include "thor/Behavior.h"
 #include "thor/FollowTagBehavior.h"
 #include "thor/GoToBehavior.h"
@@ -110,7 +111,9 @@ private:
 
 	void bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg);
 
-	void newTaskCallback(const std_msgs::String::ConstPtr& msg);
+	void newTaskFromStringCallback(const std_msgs::String::ConstPtr& msg);
+
+	void newTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg);
 
 	void updatedTaskCallback(const std_msgs::String::ConstPtr& msg);
 

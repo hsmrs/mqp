@@ -18,7 +18,7 @@ public class TaskSpecification {
 		this.parameterTypePairs = parameterTypePairs;
 	}
 	
-	public String getName(){
+	public String getType(){
 		return name;
 	}
 	

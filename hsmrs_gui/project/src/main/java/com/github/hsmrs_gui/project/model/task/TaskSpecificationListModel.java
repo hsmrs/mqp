@@ -35,7 +35,7 @@ public class TaskSpecificationListModel extends AbstractListModel{
 		
 		ArrayList<String> returnList = new ArrayList<String>();
 		for (TaskSpecification item : taskSpecList){
-			returnList.add(item.getName());
+			returnList.add(item.getType());
 		}
 		return returnList;
 	}
@@ -55,7 +55,7 @@ public class TaskSpecificationListModel extends AbstractListModel{
 
 	public TaskSpecification getSpecByName(String taskType) {
 		for (TaskSpecification ts : taskSpecList){
-			if (ts.getName().equals(taskType)){
+			if (ts.getType().equals(taskType)){
 				return ts;
 			}
 		}

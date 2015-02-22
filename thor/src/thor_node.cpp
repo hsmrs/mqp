@@ -134,7 +134,7 @@ void Thor::bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg){
 
 }
 
-void Thor::newTaskCallback(const std_msgs::String::ConstPtr& msg){
+void Thor::newTaskFromStringCallback(const std_msgs::String::ConstPtr& msg){
 	std::string data = msg->data;
 
 	std::vector<std::string> items;
@@ -157,6 +157,29 @@ void Thor::newTaskCallback(const std_msgs::String::ConstPtr& msg){
 	else{ //Task not recognized
 		return;
 	}
+	std::vector<std::string> owners = task->getOwners();
+	
+	if (std::find(owners.begin(), owners.end(), NAME)!=owners.end()){
+		claimTask(task);
+	} else{
+		taskList->addTask(task);
+	}
+}
+
+void Thor::newTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg){
+	std::string type = msg->type;
+	Task* task;
+
+	if (type == "GoTo"){
+		task = new GoToTask(msg);
+	}
+	else if (type == "FollowTag"){
+		task = new FollowTagTask(msg);
+	}
+	else{ //Task not recognized
+		return;
+	}
+
 	std::vector<std::string> owners = task->getOwners();
 	
 	if (std::find(owners.begin(), owners.end(), NAME)!=owners.end()){

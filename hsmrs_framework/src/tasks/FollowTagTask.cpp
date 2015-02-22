@@ -33,8 +33,17 @@ FollowTagTask::FollowTagTask(int id, double priority, int tag)
 	progress = new MyProgress();
 }
 
-FollowTagTask::FollowTagTask(hsmrs_framework::TaskMsg::ConstPtr& msg){
+FollowTagTask::FollowTagTask(const hsmrs_framework::TaskMsg::ConstPtr& msg){
+	tagID = std::stoi(msg->param_values[0]);
 
+	for(std::string owner : msg->owners){
+		owners.push_back(owner);
+	}
+
+	priority = msg->priority;
+	id = msg->id;
+	prerequisite = new MyPrerequisite();
+	progress = new MyProgress();
 }
 
 FollowTagTask::FollowTagTask(std::string strDelimitedTask){
