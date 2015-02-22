@@ -50,7 +50,7 @@ public class RobotListComponent extends RenderableComponent<RobotModel> {
 		lblStatus = new JLabel("Status: " + robot.getStatus());
 		lblStatus.setOpaque(false);
 
-		lblTask = new JLabel("Task: " + robot.getAssignedTask().getName(), JLabel.CENTER);
+		lblTask = new JLabel("Task: " + robot.getAssignedTask().getType(), JLabel.CENTER);
 		lblTask.setOpaque(false);
 
 		// compressButton = new TransparentButton(compress);
@@ -89,7 +89,7 @@ public class RobotListComponent extends RenderableComponent<RobotModel> {
 		lblStatus = new JLabel("Status: " + robot.getStatus());
 		lblStatus.setOpaque(false);
 
-		lblTask = new JLabel("Task: " + robot.getAssignedTask().getName(), JLabel.CENTER);
+		lblTask = new JLabel("Task: " + robot.getAssignedTask().getType(), JLabel.CENTER);
 		lblTask.setOpaque(false);
 		
 		panel.removeAll();

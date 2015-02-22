@@ -53,7 +53,7 @@ public class TaskListComponentPopup extends JPopupMenu implements ActionListener
 			if (possibilities.size() == 0) return;
 			
 			String s = (String) JOptionPane.showInputDialog(parent,
-					"Select a new owner for task: " + task.getName(),
+					"Select a new owner for task: " + task.getType(),
 					"Add owner", JOptionPane.PLAIN_MESSAGE, null,
 					possibilities.toArray(), possibilities.get(0));
 
@@ -73,7 +73,7 @@ public class TaskListComponentPopup extends JPopupMenu implements ActionListener
 						.showInputDialog(
 								parent,
 								"Select an owner to remove for task: "
-										+ task.getName(), "Remove owner",
+										+ task.getType(), "Remove owner",
 								JOptionPane.PLAIN_MESSAGE, null, possibilities,
 								possibilities[0]);
 

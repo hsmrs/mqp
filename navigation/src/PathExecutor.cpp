@@ -81,7 +81,7 @@ void PlanExecutor::executePath(){
 			angularError = atan2(y2-y1, x2-x1) - theta;
 			ROS_INFO("Angular error: %f", angularError);
 
-			if (abs(angularError) >= 45*M_PI/180){
+			if (abs(angularError) >= 25*M_PI/180){
 				linearVelocity = 0;
 				angularVelocity = angularError * angularKp;
 			}

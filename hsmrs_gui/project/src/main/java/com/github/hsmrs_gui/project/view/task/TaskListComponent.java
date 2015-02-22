@@ -51,7 +51,7 @@ public class TaskListComponent extends RenderableComponent<TaskModel> {
 				: Color.WHITE);
 		panel.setBorder(new MatteBorder(0, 0, 1, 0, Color.GRAY));
 
-		lblName = new JLabel(task.getName());
+		lblName = new JLabel(task.getType());
 		lblName.setOpaque(false);
 
 		lblStatus = new JLabel("Status: " + task.getStatus());

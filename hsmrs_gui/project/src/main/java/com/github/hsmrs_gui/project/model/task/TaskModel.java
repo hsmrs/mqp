@@ -13,17 +13,20 @@ import java.util.List;
 
 import src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel;
 
+import org.ros.node.NodeConfiguration;
+
 public class TaskModel {
 
 	private int id;
-	private String name;
+	private String type;
 	private List<TaskParam<?>> paramList;
 	private List<TaskModel> subTasks;
 	private List<RobotModel> owners;
 	private String status;
+	private int priority;
 	
 	public TaskModel(){
-		name = "Idle";
+		type = "Idle";
 		paramList = new ArrayList<TaskParam<?>>();
 		owners = new ArrayList<RobotModel>();
 		status = "---";
@@ -31,7 +34,7 @@ public class TaskModel {
 	}
 	
 	public TaskModel(String name, List<TaskParam<?>> paramList){
-		this.name = name;
+		this.type = name;
 		this.paramList = paramList;
 		owners = new ArrayList<RobotModel>();
 		status = "Not started";
@@ -54,12 +57,12 @@ public class TaskModel {
 		this.id = newID;
 	}
 	
-	public String getName() {
-		return name;
+	public String getType() {
+		return type;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public List<RobotModel> getOwners() {
@@ -80,6 +83,30 @@ public class TaskModel {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	
+	public hsmrs_framework.TaskMsg toTaskMessage(){
+		NodeConfiguration nodeConfiguration = NodeConfiguration.newPrivate();
+		MessageFactory messageFactory = nodeConfiguration.getTopicMessageFactory();
+		hsmrs_framework.TaskMsg msg = messageFactory.newFromType(hsmrs_framework.TaskMsg._TYPE); 
+		
+		msg.setId(id);
+		msg.setParentId(hsmrs_framework.TaskMsg.NO_PARENT);
+		msg.setType(type);
+		
+		List<String> paramValues = new ArrayList<String>();
+		for (TaskParam<?> taskParam : paramList){
+			paramValues.add(taskParam.getValue().toString());
+		}
+		msg.setParamValues(paramValues);
+		
+		List<String> ownerNames = new ArrayList<String>();
+		for (RobotModel robot : owners){
+			ownerNames.add(robot.getName());
+		}
+		msg.setOwners(ownerNames);
+		
+		return msg;
 	}
 
 	public String toString(){
@@ -114,7 +141,7 @@ public class TaskModel {
 		String subTaskString = sb.toString();
 		
 		return String.valueOf(id) + ";" +
-				name + ";" +
+				type + ";" +
 				paramString +
 				subTaskString;			
 	}
