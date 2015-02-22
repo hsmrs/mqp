@@ -84,7 +84,7 @@ generate_messages(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES MyAttributeWeights MyPrerequisite MyProgress MyTask MyTaskList MyUtilityHelper GoToTask FollowTagTask
+  LIBRARIES MyAttributeWeights MyPrerequisite MyProgress MyTask MyTaskList MyUtilityHelper GoToTask FollowTagTask SearchTask
   CATKIN_DEPENDS geometry_msgs nav_msgs roscpp std_msgs message_runtime
 #  DEPENDS system_lib
 )
@@ -126,6 +126,8 @@ add_library(GoToTask src/tasks/GoToTask.cpp)
 add_library(FollowTagTask src/tasks/FollowTagTask.cpp)
 #target_link_libraries(FollowTagTask.cpp ${catkin_LIBRARIES})
 
+add_library(SearchTask src/tasks/SearchTask.cpp)
+
 ## Declare a cpp executable
 add_executable(bidderbot_node src/BidderBot.cpp)
 add_executable(auctionstarter_node src/AuctionStarter.cpp)
@@ -134,6 +136,7 @@ add_executable(auctionstarter_node src/AuctionStarter.cpp)
 ## as an example, message headers may need to be generated before nodes
 add_dependencies(GoToTask hsmrs_framework_generate_messages_cpp)
 add_dependencies(FollowTagTask hsmrs_framework_generate_messages_cpp)
+add_dependencies(SearchTask hsmrs_framework_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(MyTask
