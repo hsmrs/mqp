@@ -1,0 +1,19 @@
+<launch>
+	<node pkg="tf" type="static_transform_publisher" name="robot_map_tf" args="1 1 0 0 0 0.70711 0.70711 map robot 100"/>
+	
+	<node pkg="hsmrs_testing" type="transform_test" name="tf_test"  output="screen"/>
+	<include file="$(find turtlebot_bringup)/launch/minimal.launch" />
+	<include file="$(find turtlebot_bringup)/launch/3dsensor.launch"  />
+	
+	<arg name="marker_size" default="20.3" />
+	<arg name="max_new_marker_error" default="0.08" />
+	<arg name="max_track_error" default="0.2" />
+	<arg name="cam_image_topic" default="camera/rgb/image_color" />
+	<arg name="cam_info_topic" default="camera/rgb/camera_info" />
+	<!--arg name="cam_image_topic" default="camera/rgb/image_color" /-->
+	<!--arg name="cam_info_topic" default="camera/rgb/camera_info" /-->	
+	<arg name="output_frame" default="/base_link" />
+
+	<node name="ar_track_alvar" pkg="ar_track_alvar" type="individualMarkersNoKinect" respawn="false" output="screen" args="$(arg marker_size) $(arg max_new_marker_error) $(arg max_track_error) $(arg cam_image_topic) $(arg cam_info_topic) $(arg output_frame)" />
+
+</launch>

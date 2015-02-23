@@ -1,0 +1,18 @@
+<launch>
+	<node pkg="tf" type="static_transform_publisher" name="marker0_map" args="1.651 0 0.4318 0 0.70711 0.70711 0 map hsmrs/marker_0 100" />
+	
+	
+	<node pkg="tf" type="static_transform_publisher" name="marker4_map" args="1.778 2.7432 0.4318 0.70711 0 0 0.70711 map hsmrs/marker_4 100" />
+	
+	
+	
+	
+	<node pkg="tf" type="static_transform_publisher" name="marker5_map" args="3.683 1.3208 0.4318 -0.5 0.5 0.5 -0.5 map hsmrs/marker_5 100" />
+	
+	
+	
+	
+	
+	
+	<node pkg="tf" type="static_transform_publisher" name="marker6_map" args="0 0.8382 0.4318 0.5 0.5 0.5 0.5 map hsmrs/marker_6 100" />
+</launch>

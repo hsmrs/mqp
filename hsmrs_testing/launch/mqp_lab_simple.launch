@@ -1,0 +1,3 @@
+<launch>
+	<node pkg="tf" type="static_transform_publisher" name="ar1_map" args="0 0 0.46 1 0 0 0 map hsmrs/marker_0 100" />
+</launch>
