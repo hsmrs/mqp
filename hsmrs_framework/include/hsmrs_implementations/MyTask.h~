@@ -31,7 +31,6 @@ public:
 
 	int getMinOwners();
 
-	//TODO this implementation is memory leaky
 	std::vector<std::string> getOwners();
 
 	double getPriority();
@@ -47,6 +46,8 @@ public:
 	void setProgress(double val);
 	
 	std::string getType();
+	
+	hsmrs_framework::TaskMsg toMsg();
 };
 
 #endif

@@ -10,6 +10,11 @@ MyTask::MyTask(int id, double priority)
 	progress = new MyProgress();
 }
 
+MyTask::MyTask(const hsmrs_framework::TaskMsg::ConstPtr& msg)
+{
+    MyTask(msg->id, msg->priority);
+}
+
 void MyTask::addOwner(std::string agent)
 {
 	owners->push_back(agent);
@@ -80,5 +85,16 @@ void MyTask::setProgress(double val)
 std::string MyTask::getType()
 {
     return "MyTask";
+}
+
+hsmrs_framework::TaskMsg* MyTask::toMsg()
+{
+    hsmrs_framework::TaskMsg msg = new hsmrs_framework::TaskMsg();
+    msg->id = id;
+    msg->type = "MyTask";
+    msg->priority = priority;
+    msg->owners = std::vector<std::string>(*owners);
+    
+    return msg;
 }
 

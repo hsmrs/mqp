@@ -46,6 +46,8 @@ public:
 	void setProgress(double val);
 	
 	std::string getType();
+	
+	hsmrs_framework::TaskMsg* toMsg();
 };
 
 #endif
