@@ -23,8 +23,27 @@ FollowTagTask::FollowTagTask(int id, double priority)
 	progress = new MyProgress();
 }
 
-FollowTagTask::FollowTagTask(hsmrs_framework::TaskMsg::ConstPtr& msg){
+FollowTagTask::FollowTagTask(int id, double priority, int tag)
+{
+	tagID = tag;
+	//attributeWeights;
+	this->priority = priority;
+	this->id = id;
+	prerequisite = new MyPrerequisite();
+	progress = new MyProgress();
+}
 
+FollowTagTask::FollowTagTask(const hsmrs_framework::TaskMsg::ConstPtr& msg){
+	tagID = std::stoi(msg->param_values[0]);
+
+	for(std::string owner : msg->owners){
+		owners.push_back(owner);
+	}
+
+	priority = msg->priority;
+	id = msg->id;
+	prerequisite = new MyPrerequisite();
+	progress = new MyProgress();
 }
 
 FollowTagTask::FollowTagTask(std::string strDelimitedTask){
@@ -175,3 +194,17 @@ int FollowTagTask::getTagID(){
  void FollowTagTask::setProgress(double val){
 	//progress->set(val);
 }
+
+hsmrs_framework::TaskMsg* FollowTagTask::toMsg()
+{
+    hsmrs_framework::TaskMsg msg = new hsmrs_framework::TaskMsg();
+    msg->id = id;
+    msg->type = "FollowTagTask";
+    msg->param_values = std::vector<std::string>();
+    msg->param_values.push_back(std::to_string(tagID));
+    msg->priority = priority;
+    msg->owners = std::vector<std::string>(owners);
+    
+    return msg;
+}
+

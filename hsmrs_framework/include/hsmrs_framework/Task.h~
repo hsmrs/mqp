@@ -8,6 +8,8 @@
 #ifndef _TASK_H_
  #define _TASK_H_
 
+#include <hsmrs_framework/TaskMsg.h>
+
 #include <string>
 #include <vector>
 #include <map>
@@ -23,8 +25,6 @@ public:
 	 * The destructor for the Task class
 	 */
 	~Task(void){}
-	
-	virtual std::string getType() = 0;
 	
 	/**
 	 * Retrieves the type of this Task.
@@ -87,6 +87,8 @@ public:
 	virtual int getID() = 0;
 
 	virtual void setProgress(double val) = 0;
+	
+	virtual hsmrs_framework::TaskMsg toMsg() = 0;
 };
 
 #endif

@@ -8,6 +8,8 @@
 #ifndef _TASK_H_
  #define _TASK_H_
 
+#include <hsmrs_framework/TaskMsg.h>
+
 #include <string>
 #include <vector>
 #include <map>
@@ -85,6 +87,8 @@ public:
 	virtual int getID() = 0;
 
 	virtual void setProgress(double val) = 0;
+	
+	virtual hsmrs_framework::TaskMsg* toMsg() = 0;
 };
 
 #endif

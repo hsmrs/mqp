@@ -199,3 +199,18 @@ geometry_msgs::Pose GoToTask::getGoal(){
  void GoToTask::setProgress(double val){
 	//progress->set(val);
 }
+
+hsmrs_framework::TaskMsg* GoToTask::toMsg()
+{
+    hsmrs_framework::TaskMsg* msg = new hsmrs_framework::TaskMsg();
+    msg->id = id;
+    msg->type = "GoToTask";
+    msg->param_values = std::vector<std::string>();
+    msg->param_values.push_back(std::to_string(goal.position.x));
+    msg->param_values.push_back(std::to_string(goal.position.y));
+    msg->priority = priority;
+    msg->owners = std::vector<std::string>(owners);
+    
+    return msg;
+}
+

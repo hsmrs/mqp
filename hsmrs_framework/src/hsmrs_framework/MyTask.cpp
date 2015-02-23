@@ -87,3 +87,14 @@ std::string MyTask::getType()
     return "MyTask";
 }
 
+hsmrs_framework::TaskMsg* MyTask::toMsg()
+{
+    hsmrs_framework::TaskMsg* msg = new hsmrs_framework::TaskMsg();
+    msg->id = id;
+    msg->type = "MyTask";
+    msg->priority = priority;
+    msg->owners = std::vector<std::string>(*owners);
+    
+    return msg;
+}
+
