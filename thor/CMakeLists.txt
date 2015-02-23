@@ -110,7 +110,8 @@ include_directories(
 ## Declare a cpp executable
  add_executable(thor_node src/thor_node.cpp
  						  src/FollowTagBehavior.cpp
- 						  src/GoToBehavior.cpp)
+ 						  src/GoToBehavior.cpp
+              src/SearchBehavior.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes

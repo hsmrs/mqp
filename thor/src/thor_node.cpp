@@ -154,6 +154,9 @@ void Thor::newTaskFromStringCallback(const std_msgs::String::ConstPtr& msg){
 	else if (type == "FollowTag"){
 		task = new FollowTagTask(msg->data);
 	}
+	else if (type == "Search"){
+		task = new SearchTask(msg->data);
+	}
 	else{ //Task not recognized
 		return;
 	}
@@ -175,6 +178,9 @@ void Thor::newTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg){
 	}
 	else if (type == "FollowTag"){
 		task = new FollowTagTask(msg);
+	}
+	else if (type == "Search"){
+		task = new SearchTask(msg);
 	}
 	else{ //Task not recognized
 		return;

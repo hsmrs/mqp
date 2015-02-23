@@ -14,6 +14,7 @@ class SearchTask : public Task {
 private:
 	int id;
 	double priority;
+	int tagID;
 	std::vector<geometry_msgs::PointStamped> boundaryVertices;
 	std::vector<std::string> owners;
 	std::map<std::string, double> attributeWeights;
@@ -32,6 +33,8 @@ public:
 	SearchTask(std::string strDelimitedTask);
 	
 	virtual std::string getType();
+
+	int getTagID();
 
 	std::vector<geometry_msgs::PointStamped> getBoundaryVertices();
 
