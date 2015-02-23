@@ -7,7 +7,7 @@
 #include "hsmrs_framework/TaskMsg.h"
 #include "geometry_msgs/Pose.h"
 #include "hsmrs_implementations/MyPrerequisite.h"
-#include <hsmrs_implementations/MyProgress.h>
+#include "hsmrs_implementations/MyProgress.h"
 
 class GoToTask : public Task {
 private:
@@ -27,7 +27,7 @@ private:
 public:
 	GoToTask();
 
-	GoToTask(hsmrs_framework::TaskMsg::ConstPtr& msgs);
+	GoToTask(const hsmrs_framework::TaskMsg::ConstPtr& msg);
 
 	GoToTask(std::string strDelimitedTask);
 	
@@ -89,6 +89,8 @@ public:
 	virtual int getID();
 
 	virtual void setProgress(double val);
+	
+	hsmrs_framework::TaskMsg toMsg();
 };
 
 #endif

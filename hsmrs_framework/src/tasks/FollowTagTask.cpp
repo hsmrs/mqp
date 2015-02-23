@@ -194,3 +194,17 @@ int FollowTagTask::getTagID(){
  void FollowTagTask::setProgress(double val){
 	//progress->set(val);
 }
+
+hsmrs_framework::TaskMsg* FollowTagTask::toMsg()
+{
+    hsmrs_framework::TaskMsg* msg = new hsmrs_framework::TaskMsg();
+    msg->id = id;
+    msg->type = "FollowTagTask";
+    msg->param_values = std::vector<std::string>();
+    msg->param_values.push_back(std::to_string(tagID));
+    msg->priority = priority;
+    msg->owners = std::vector<std::string>(owners);
+    
+    return msg;
+}
+

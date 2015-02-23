@@ -24,8 +24,12 @@ private:
 
 public:
 	FollowTagTask();
+	
+	FollowTagTask(int id, double priority);
+	
+	FollowTagTask(int id, double priority, int tag);
 
-	FollowTagTask(hsmrs_framework::TaskMsg::ConstPtr& msgs);
+	FollowTagTask(const hsmrs_framework::TaskMsg::ConstPtr& msg);
 
 	FollowTagTask(std::string strDelimitedTask);
 	
@@ -87,6 +91,8 @@ public:
 	virtual int getID();
 
 	virtual void setProgress(double val);
+	
+	hsmrs_framework::TaskMsg toMsg();
 };
 
 #endif

@@ -309,10 +309,7 @@ public:
                     AuctionTracker at = AuctionTracker();
                     
                     //TODO improve TaskToTaskMsg conversion, support metatasks
-                    boost::shared_ptr<hsmrs_framework::TaskMsg> msg(new hsmrs_framework::TaskMsg());
-                    msg->id = task->getID();
-                    msg->type = task->getType();
-                    msg->priority = task->getPriority();
+                    boost::shared_ptr<hsmrs_framework::TaskMsg> msg(task->toMsg());
                     
                     double myBid = bid(msg);
                     at.topBidder = getName();

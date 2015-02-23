@@ -91,6 +91,8 @@ public:
 	virtual int getID();
 
 	virtual void setProgress(double val);
+	
+	hsmrs_framework::TaskMsg* toMsg();
 };
 
 #endif
