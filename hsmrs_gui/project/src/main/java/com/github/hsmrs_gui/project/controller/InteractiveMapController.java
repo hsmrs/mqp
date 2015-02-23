@@ -148,9 +148,20 @@ public class InteractiveMapController implements MouseListener, MouseMotionListe
 			}		
 		}else{
 			//Do not clear previously highlighted cells
-			target.setBackground(Colors.lblSelectColor);
-			highlightedCells.add(target);
-			target.setOpaque(true);
+			String cellTxt = target.getText();
+			navMapModel.toggleSelectCell(Integer.parseInt(cellTxt.split(",")[1]), 
+					Integer.parseInt(cellTxt.split(",")[0]));
+			
+			if (!highlightedCells.contains(target)){
+				target.setBackground(Colors.lblSelectColor);
+				highlightedCells.add(target);
+				target.setOpaque(true);
+			}
+			else{
+				target.setBackground(Color.white);
+				highlightedCells.remove(target);
+				target.setOpaque(false);
+			}
 		}
 	}
 	
@@ -162,12 +173,13 @@ public class InteractiveMapController implements MouseListener, MouseMotionListe
 		navMapView.updateRobotLocation(robotName, location);
 	}
 	//Mouse listeners
+	Component lastDrag = new JLabel();
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		//If this is the first mouseDragged call since
 		//the last time the mouse was released, and if 
 		//the control button is not held down, clear
-		//the currently highlighted cells.
+		//the currently highlighted cells.		
 		if (!isDragging && !e.isControlDown()){
 			clearCells();
 		}
@@ -175,7 +187,8 @@ public class InteractiveMapController implements MouseListener, MouseMotionListe
 	
 		//Highlight the cell the mouse is currently over.
 		Component comp = e.getComponent().getComponentAt(e.getPoint());
-		if (comp instanceof JLabel){
+		if (comp instanceof JLabel && comp != lastDrag){
+			lastDrag = comp;
 			highlightCell((JLabel)comp, false);
 		}
 	}

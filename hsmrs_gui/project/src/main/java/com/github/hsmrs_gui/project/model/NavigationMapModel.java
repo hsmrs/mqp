@@ -86,27 +86,31 @@ public class NavigationMapModel {
 	
 	public void toggleSelectCell(int row, int column){
 		cells[row][column].toggleSelected();
-		
+		System.out.println("Toggle select cell at: (" + column + ", " + row + ")");
 		try{
-		if(cells[row][column].getIsSelected() == true){
-			Globals.gui_vars.put("mapx", column);
-			Globals.gui_vars.put("mapy", row);
-			selectedCells.add(cells[row][column]);
-			refreshSelectedVar();
-			return;
-		}
-		else if ((Integer)Globals.gui_vars.get("mapx") == column
-				&&
-				(Integer)Globals.gui_vars.get("mapy") == row){
-			Globals.gui_vars.put("mapx", null);
-			Globals.gui_vars.put("mapy", null);
-		}
+			if(cells[row][column].getIsSelected() == true){
+				System.out.println("If true");
+				Globals.gui_vars.put("mapx", column);
+				Globals.gui_vars.put("mapy", row);
+				selectedCells.add(cells[row][column]);
+				refreshSelectedVar();
+				return;
+			}
+			else if ((Integer)Globals.gui_vars.get("mapx") == column
+					&&
+					(Integer)Globals.gui_vars.get("mapy") == row){
+				System.out.println("else if true");
+				Globals.gui_vars.put("mapx", null);
+				Globals.gui_vars.put("mapy", null);
+			}
+			System.out.println("Beep Boop");
 		}
 		catch (NullPointerException e){
 			System.out.println("ERROR: mapx or mapy does not have a value!");
 		}
 		//only called if first if's return is not called.
 		selectedCells.remove(cells[row][column]);
+		refreshSelectedVar();
 	}
 	
 	public List<MapGridCellModel> getSelectedCells(){
@@ -157,5 +161,6 @@ public class NavigationMapModel {
 		
 		String result = strBld.toString();
 		Globals.gui_vars.put("map_selected", result);
+		System.out.println("Selected var: " + result);
 	}
 }

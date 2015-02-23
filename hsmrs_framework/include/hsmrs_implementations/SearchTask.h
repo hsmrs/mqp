@@ -15,6 +15,7 @@ private:
 	int id;
 	double priority;
 	int tagID;
+	std::string boundaryVerticesString;
 	std::vector<geometry_msgs::PointStamped> boundaryVertices;
 	std::vector<std::string> owners;
 	std::map<std::string, double> attributeWeights;
