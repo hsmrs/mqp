@@ -20,8 +20,8 @@ void FollowTagBehavior::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr
 		if (msg->markers[i].id == tagID){
 			double linK = 0.4;
 			double angK = 2;	
-			double x = msg->markers[0].pose.pose.position.x;
-			double y = msg->markers[0].pose.pose.position.y;
+			double x = msg->markers[i].pose.pose.position.x;
+			double y = msg->markers[i].pose.pose.position.y;
 			double linVel = std::max(std::min(maxLinearVelocity, linK * x), 0.0);
 			double angVel = std::max(std::min(maxAngularVelocity, angK * y), -1*maxAngularVelocity);
 

@@ -111,8 +111,14 @@ public class GuiNode extends AbstractNodeMain {
             	followTagParams.add("Tag ID:Integer");
             	TaskSpecification followTagSpec = new TaskSpecification("FollowTag", followTagParams);
             	
+            	List<String> searchParams = new ArrayList<String>();
+            	searchParams.add("Tag ID:Integer");
+            	searchParams.add("Vertices:String");
+            	TaskSpecification searchSpec = new TaskSpecification("Search", searchParams);
+            	
             	tslm.addTaskSpecification(goToSpec);
             	tslm.addTaskSpecification(followTagSpec);
+            	tslm.addTaskSpecification(searchSpec);
             	
             	ConsoleController.getInstance().createConsole(rlm.getRobotNames());
             	

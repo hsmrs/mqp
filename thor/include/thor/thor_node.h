@@ -20,6 +20,7 @@
 #include "hsmrs_framework/TaskList.h"
 #include "hsmrs_implementations/GoToTask.h"
 #include "hsmrs_implementations/FollowTagTask.h"
+#include "hsmrs_implementations/SearchTask.h"
 #include "hsmrs_implementations/MyTaskList.h"
 #include "hsmrs_framework/TaskMsg.h"
 #include "thor/Behavior.h"
