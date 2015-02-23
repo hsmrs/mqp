@@ -14,7 +14,7 @@ SearchTask::SearchTask(){
 
 SearchTask::SearchTask(const hsmrs_framework::TaskMsg::ConstPtr& msg){
 	tagID = stoi(msg->param_values[0]);
-	std::string boundaryVerticesString = msg->param_values[1];
+	boundaryVerticesString = msg->param_values[1];
 
 	std::vector<double> xValues;
 	std::vector<double> yValues;
@@ -153,6 +153,7 @@ hsmrs_framework::TaskMsg* SearchTask::toMsg()
     msg->type = "SearchTask";
     msg->param_values = std::vector<std::string>();
     msg->param_values.push_back(std::to_string(tagID));
+    msg->param_values.push_back(boundaryVerticesString);
     msg->priority = priority;
     msg->owners = std::vector<std::string>(owners);
     

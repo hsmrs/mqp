@@ -57,9 +57,9 @@ public class ImageView extends JPanel{
         if (w >= h){
         	System.out.println("Paint greater width");
         	double scale = (double)h / w;
-        	g.drawImage(currentImg, 0, 0, getWidth(), (int)(getWidth() * scale), this);
-//        	Image scaledCurrentImage = currentImg.getScaledInstance(getWidth(), -1, Image.SCALE_SMOOTH);
-//        	g.drawImage(scaledCurrentImage, 0, 0, -1, -1, this);
+        	//g.drawImage(currentImg, 0, 0, getWidth(), (int)(getWidth() * scale), this);
+        	Image scaledCurrentImage = currentImg.getScaledInstance(getWidth(), -1, Image.SCALE_SMOOTH);
+        	g.drawImage(scaledCurrentImage, 0, 0, this);
         }
         else{
         	System.out.println("Paint greater height");
