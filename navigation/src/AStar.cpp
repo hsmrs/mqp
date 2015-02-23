@@ -49,7 +49,7 @@
 	}
 
 	void AStar::createHeuristic(geometry_msgs::Point goalPoint, int** target){
-		ROS_INFO("Creating heuristic");
+		//ROS_INFO("Creating heuristic");
 		target = new int*[mapGridHeight];
 
 		int goalX = goalPoint.x;
@@ -61,7 +61,7 @@
 				target[y][x] = (int) sqrt(pow(x - goalY, 2) + pow(y - goalY, 2));
 			}
 		}
-		ROS_INFO("Heuristic created!");
+		//ROS_INFO("Heuristic created!");
 	}
 
 	AStarNode current;
@@ -73,7 +73,7 @@
 
 		ROS_INFO("Finding path!");
 		
-		ROS_INFO("Creating heuristic");
+		//ROS_INFO("Creating heuristic");
 		int** heuristic = new int*[mapGridHeight];
 
 		int goalX = goalPoint.x;
@@ -85,9 +85,9 @@
 				heuristic[y][x] = (int) sqrt(pow(x - goalY, 2) + pow(y - goalY, 2));
 			}
 		}
-		ROS_INFO("Heuristic created!");
+		//ROS_INFO("Heuristic created!");
 
-		ROS_INFO("%d x %d", mapGridHeight, mapGridWidth);
+		//ROS_INFO("%d x %d", mapGridHeight, mapGridWidth);
 
 		//int** heuristic;
 		//createHeuristic(goalPoint, heuristic);
@@ -131,7 +131,7 @@
 			//ROS_INFO("At node: (%d, %d)", cur_x, cur_y);
 
 			if (cur_x == goalPoint.x && cur_y == goalPoint.y){
-				ROS_INFO("Path found! Reconstructing");
+				//ROS_INFO("Path found! Reconstructing");
 				reconstructPath(&current, parents);
 				return; 
 			}
@@ -164,7 +164,7 @@
 
 			for (int i = 0; i < neighbors.size(); ++i){
 				AStarNode neighborNode = neighbors[i];
-				ROS_INFO("On frontier? %s", onFrontier[neighborNode.getY()][neighborNode.getX()] ? "true" : "false");
+				//ROS_INFO("On frontier? %s", onFrontier[neighborNode.getY()][neighborNode.getX()] ? "true" : "false");
 				if (visited[neighborNode.getY()][neighborNode.getX()]){
 					continue;
 				}
@@ -182,7 +182,7 @@
 				AStarNode parent = *(neighborNode.getParent());
 				//parents[neighborNode] = current;
 				//AStarNode parent = parents[neighborNode];
-				ROS_INFO("(%d, %d)", parent.getX(), parent.getY());
+				//ROS_INFO("(%d, %d)", parent.getX(), parent.getY());
 			}
 
 			 std::priority_queue<AStarNode, std::vector<AStarNode>, std::greater<AStarNode> > print_queue = frontier;
@@ -192,15 +192,15 @@
 			 		print_queue.pop();
 			 		ss << "(" << print_node.getX() << ", " << print_node.getY() << "), ";
 			 	}	
-			 	ROS_INFO("Frontier");
-			 	ROS_INFO(ss.str().c_str());
+			 	//ROS_INFO("Frontier");
+			 	//ROS_INFO(ss.str().c_str());
 
 		}
 		ROS_INFO("Failed to find a path!");
 	}
 
 	void AStar::reconstructPath(AStarNode* current, std::map<AStarNode, AStarNode> parents){
-		ROS_INFO("Reconstructiong!");
+		//ROS_INFO("Reconstructiong!");
 		std::vector<AStarNode> path;
 		//AStarNode parent = parents[current];
 		//ROS_INFO("(%d, %d)", parent.getX(), parent.getY());
@@ -218,10 +218,10 @@
 			path.push_back(*current);
 		}
 
-		ROS_INFO("Reversing!");
+		//ROS_INFO("Reversing!");
 		std::reverse(path.begin(), path.end());
 
-		ROS_INFO("Building message!");
+		//ROS_INFO("Building message!");
 		nav_msgs::Path pathMsg;
 		pathMsg.poses.resize(path.size());
 		for (int i = 0; i < path.size(); ++i){

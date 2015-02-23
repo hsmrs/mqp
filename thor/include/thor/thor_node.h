@@ -26,6 +26,7 @@
 #include "thor/Behavior.h"
 #include "thor/FollowTagBehavior.h"
 #include "thor/GoToBehavior.h"
+#include "thor/SearchBehavior.h"
 
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 

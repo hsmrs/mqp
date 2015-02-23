@@ -1,4 +1,5 @@
 #include "hsmrs_implementations/SearchTask.h"
+#include "ros/console.h"
 
 const int SearchTask::MIN_OWNERS = 1;
 const int SearchTask::MAX_OWNERS = 2;

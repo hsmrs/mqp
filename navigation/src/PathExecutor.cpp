@@ -60,9 +60,10 @@ void PlanExecutor::executePath(){
 		x2 = pose.position.x;
 		y1 = currentPose.position.y;
 		y2 = pose.position.y;
+		ROS_INFO("Driving to: (%f, %f)", x2, y2);
 		ROS_INFO("Distance: %f", distance(x1, y1, x2, y2));
-		while (distance(x1, y1, x2, y2) > 0.5 && !isCanceled){
-			ROS_INFO("Distance: %f", distance(x1, y1, x2, y2));
+		while (distance(x1, y1, x2, y2) > 0.5 && !isCanceled && ros::ok()){
+			//ROS_INFO("Distance: %f", distance(x1, y1, x2, y2));
 			x1 = currentPose.position.x;
 			y1 = currentPose.position.y;
 
@@ -72,22 +73,24 @@ void PlanExecutor::executePath(){
 			double roll, pitch, yaw;
 			m.getRPY(roll, pitch, yaw);
 			theta = yaw;
-			ROS_INFO("Orientation: %f", theta);
+			//ROS_INFO("Orientation: %f", theta);
 
 			double linearError, angularError;
 			double linearVelocity, angularVelocity;
 
 			linearError = distance(x1, y1, x2, y2);
 			angularError = atan2(y2-y1, x2-x1) - theta;
-			ROS_INFO("Angular error: %f", angularError);
+			//ROS_INFO("Angular error: %f", angularError);
 
 			if (abs(angularError) >= 25*M_PI/180){
 				linearVelocity = 0;
 				angularVelocity = angularError * angularKp;
+				//ROS_INFO("Facing target");
 			}
 			else {
 				linearVelocity = linearError * linearKp;
 				angularVelocity = angularError * angularKp;
+				//ROS_INFO("Driving to target");
 			}
 
 			linearVelocity = std::min(linearVelocity, maxLinearVel);
@@ -101,6 +104,7 @@ void PlanExecutor::executePath(){
 			velMsg.angular.z = angularVelocity;
 
 			velPub.publish(velMsg);
+			ros::Duration(0.1).sleep();
 		}
 
 		if (isCanceled) break;

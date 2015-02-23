@@ -20,6 +20,10 @@ void Thor::executeTask() {
 		//behavior = &ftb;
 		behavior = new FollowTagBehavior(this, 0.3, 0.5, task->getTagID(), n, VEL_TOPIC, LASER_TOPIC);
 	}
+	else if(taskType == "SearchTask"){
+		SearchTask* task = dynamic_cast<SearchTask*>(p_currentTask);
+		behavior = new SearchBehavior(this, 0.3, 0.5, 1, task->getTagID(), task->getBoundaryVertices(), n, VEL_TOPIC);
+	}
 	p_currentBehavior = behavior;
 	behavior->execute();
 	setStatus("Busy");

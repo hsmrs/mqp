@@ -11,6 +11,7 @@
 #include "kobuki_msgs/BumperEvent.h"
 #include <tf/transform_broadcaster.h>
 #include <tf/transform_listener.h>
+#include "nav_msgs/Odometry.h"
 
 #include <sstream>
 #include <typeinfo>
@@ -19,10 +20,13 @@
 #include "hsmrs_framework/TaskList.h"
 #include "hsmrs_implementations/GoToTask.h"
 #include "hsmrs_implementations/FollowTagTask.h"
+#include "hsmrs_implementations/SearchTask.h"
 #include "hsmrs_implementations/MyTaskList.h"
+#include "hsmrs_framework/TaskMsg.h"
 #include "thor/Behavior.h"
 #include "thor/FollowTagBehavior.h"
 #include "thor/GoToBehavior.h"
+#include "thor/SearchBehavior.h"
 
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 
@@ -48,8 +52,10 @@ private:
 	ros::Publisher vel_pub;
 	ros::Subscriber bumper_sub;
 	ros::Subscriber laser_sub;
-	ros::Subscriber tag_sub;
+	ros::Subscriber odom_sub;
 
+	tf::TransformBroadcaster br;
+	tf::TransformListener listener;
 
 	const std::string NAME;
 	const std::string REGISTRATION_TOPIC;
@@ -66,6 +72,7 @@ private:
 	const std::string VEL_TOPIC;
 	const std::string BUMPER_TOPIC;
 	const std::string LASER_TOPIC;
+	const std::string ODOM_TOPIC;
 
 	TaskList* taskList;
 	Task* p_currentTask;
@@ -77,7 +84,7 @@ private:
 	/**
 	 * Makes this Robot bid on the given task
 	 */
-	void bid(Task* task);
+	double bid(const hsmrs_framework::BidMsg::ConstPtr& msg);
 
 	/**
 	 * Begins the Robot's execution of its current Task.
@@ -106,13 +113,15 @@ private:
 
 	void bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg);
 
-	void newTaskCallback(const std_msgs::String::ConstPtr& msg);
+	void newTaskFromStringCallback(const std_msgs::String::ConstPtr& msg);
+
+	void newTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg);
 
 	void updatedTaskCallback(const std_msgs::String::ConstPtr& msg);
 
 	void laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg);
 
-	void tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& msg);
+	void odomCallback(const nav_msgs::Odometry::ConstPtr& msg);
 
 public:
 	Thor();
@@ -156,7 +165,7 @@ public:
 	/**
 	 * Handles the auctioning of Tasks by sending and receiving bids.
 	 */
-	virtual void handleBids();
+	virtual void handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg);
 
 	/**
 	 * Verifies that an Agent claiming a Task has the highest utility for it. If not, informs the Agent of the Task's proper owner.
