@@ -90,7 +90,7 @@ public:
 
 	virtual void setProgress(double val);
 	
-	hsmrs_framework::TaskMsg toMsg();
+	hsmrs_framework::TaskMsg* toMsg();
 };
 
 #endif
