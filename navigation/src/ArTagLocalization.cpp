@@ -8,6 +8,8 @@ ArTagLocalization::ArTagLocalization() : ODOM_PUB_TOPIC("/ar_tag_odom") {
 	std::string odomTopic;
 	ros::param::param<std::string>("~marker_topic", markerTopic, "ar_pose_marker");
 	ros::param::param<std::string>("~odom_topic", odomTopic, "ar_tag_odom");
+	
+	isFirst = true;
 
 	tagSub = nh.subscribe(markerTopic, 100, &ArTagLocalization::tagCallback, this);
 	odomPub = nh.advertise<nav_msgs::Odometry>(odomTopic, 100);
@@ -21,7 +23,7 @@ void ArTagLocalization::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr
 	//Figure out which tag we are looking at.
 	int tagID = msg->markers[0].id;
 	std::stringstream ss;
-	ss << "hsmrs/marker_" << tagID;
+	ss << "/hsmrs/marker_" << tagID;
 	std::string markerFrameID = ss.str();
 
 	//Manually create transform from robot to tag
@@ -47,9 +49,9 @@ void ArTagLocalization::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr
 	//ROS_INFO("Listening for transform!");
 	tf::StampedTransform mapTransform;
 	try{
-		listener.waitForTransform("map", "thor",
+		listener.waitForTransform("/map", "/thor",
 			ros::Time(0), ros::Duration(0.1));
-		listener.lookupTransform("map", "thor",
+		listener.lookupTransform("/map", "/thor",
 			ros::Time(0), mapTransform);
 		//ROS_INFO("Transform heard");	
 	}
@@ -57,6 +59,12 @@ void ArTagLocalization::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr
 		ROS_ERROR("%s",ex.what());
 		return;
 	}
+	
+	if (isFirst){
+		isFirst = false;
+		odomAnchor = *(new tf::Transform(mapTransform.getRotation(), mapTransform.getOrigin()));
+	}
+	br.sendTransform(tf::StampedTransform(odomAnchor, ros::Time::now(), "/map", "odom"));
 
 	//Unpack position and orientation
 	double map_x, map_y;
@@ -68,14 +76,13 @@ void ArTagLocalization::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr
 
 	//Publish pose as odometry message
 	nav_msgs::Odometry odom_msg;
+	odom_msg.header.stamp = ros::Time::now();
 	odom_msg.pose.pose.position.x = map_x;
 	odom_msg.pose.pose.position.y = map_y;
 	odom_msg.pose.pose.orientation = quat;
 	
 	for (int i = 0; i < 36; i++){
 		odom_msg.pose.covariance[i] = 1;
-	}
-	for (int i = 0; i < 36; i++){
 		odom_msg.twist.covariance[i] = 1000;
 	}
 

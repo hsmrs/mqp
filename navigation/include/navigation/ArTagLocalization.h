@@ -20,6 +20,9 @@ private:
 	int lastMarkerTime;
 	int lastMarkerX;
 	int lastMarkerY;
+	
+	bool isFirst;
+	tf::Transform odomAnchor;
 
 	void tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& msg);
 
