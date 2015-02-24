@@ -8,7 +8,8 @@ find_package(catkin REQUIRED COMPONENTS
   geometry_msgs 
   hsmrs_framework  
   nav_msgs 
-  roscpp 
+  roscpp
+  rospy
   std_msgs 
   ar_track_alvar 
   sensor_msgs
@@ -86,7 +87,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
   INCLUDE_DIRS include
 #  LIBRARIES husky
-  CATKIN_DEPENDS geometry_msgs hsmrs_framework kobuki_msgs nav_msgs roscpp std_msgs ar_track_alvar sensor_msgs
+  CATKIN_DEPENDS geometry_msgs hsmrs_framework kobuki_msgs nav_msgs roscpp rospy std_msgs ar_track_alvar sensor_msgs
 #  DEPENDS system_lib
 )
 
@@ -113,7 +114,7 @@ include_directories(
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-# add_dependencies(husky_node husky_generate_messages_cpp)
+add_dependencies(husky_node hsmrs_framework_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
  target_link_libraries(husky_node

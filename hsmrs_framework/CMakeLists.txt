@@ -137,6 +137,8 @@ add_executable(auctionstarter_node src/AuctionStarter.cpp)
 add_dependencies(GoToTask hsmrs_framework_generate_messages_cpp)
 add_dependencies(FollowTagTask hsmrs_framework_generate_messages_cpp)
 add_dependencies(SearchTask hsmrs_framework_generate_messages_cpp)
+add_dependencies(MyUtilityHelper hsmrs_framework_generate_messages_cpp)
+add_dependencies(MyTaskList hsmrs_framework_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(MyTask

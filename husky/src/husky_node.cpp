@@ -214,7 +214,7 @@ void Husky::laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg){
 
 Husky::Husky() : NAME("Husky"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMAGE_TOPIC("husky/camera/rgb/image_mono"), 
 		LOG_TOPIC("husky/log_messages"), STATUS_TOPIC("husky/status"), HELP_TOPIC("husky/help"), POSE_TOPIC("husky/pose"),
-		REQUEST_TOPIC("husky/requests"), TELE_OP_TOPIC("husky/tele_op"), VEL_TOPIC("husky/cmd_vel_mux/input/teleop"),
+		REQUEST_TOPIC("husky/requests"), TELE_OP_TOPIC("husky/tele_op"), VEL_TOPIC("husky/cmd_vel"),
 		BUMPER_TOPIC("/husky/mobile_base/events/bumper"), NEW_TASK_TOPIC("/hsmrs/new_task"), 
 		UPDATED_TASK_TOPIC("/hsmrs/updated_task_topic"), LASER_TOPIC("husky/scan")
 		{
@@ -228,7 +228,7 @@ Husky::Husky() : NAME("Husky"), REGISTRATION_TOPIC("hsmrs/robot_registration"), 
 	spinner.start();
 
 	//GUI Publishers and subscribers
-	registration_pub = n.advertise<std_msgs::String>(REGISTRATION_TOPIC, 100);
+	registration_pub = n.advertise<std_msgs::String>(REGISTRATION_TOPIC, 100, true);
 	log_pub = n.advertise<std_msgs::String>(LOG_TOPIC, 100);
 	status_pub = n.advertise<std_msgs::String>(STATUS_TOPIC, 100);
 	help_pub = n.advertise<std_msgs::String>(HELP_TOPIC, 100);
