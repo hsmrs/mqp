@@ -57,33 +57,17 @@ Visualization Manager:
       Frame Timeout: 1000
       Frames:
         All Enabled: true
-        ar_marker_5:
+        ar_marker_0:
+          Value: true
+        ar_marker_4:
+          Value: true
+        ar_marker_6:
+          Value: true
+        ar_marker_7:
           Value: true
         base_footprint:
           Value: true
-        base_link:
-          Value: true
-        camera_depth_frame:
-          Value: true
-        camera_depth_optical_frame:
-          Value: true
-        camera_link:
-          Value: true
-        camera_rgb_frame:
-          Value: true
         camera_rgb_optical_frame:
-          Value: true
-        caster_back_link:
-          Value: true
-        caster_front_link:
-          Value: true
-        cliff_sensor_front_link:
-          Value: true
-        cliff_sensor_left_link:
-          Value: true
-        cliff_sensor_right_link:
-          Value: true
-        gyro_link:
           Value: true
         hsmrs/marker_0:
           Value: true
@@ -93,55 +77,85 @@ Visualization Manager:
           Value: true
         hsmrs/marker_6:
           Value: true
+        hsmrs/marker_7:
+          Value: true
+        hsmrs/marker_8:
+          Value: true
+        hsmrs/marker_9:
+          Value: true
         map:
           Value: true
         odom:
           Value: true
-        odom_filtered:
-          Value: true
-        plate_bottom_link:
-          Value: true
-        plate_middle_link:
-          Value: true
-        plate_top_link:
-          Value: true
-        pole_bottom_0_link:
-          Value: true
-        pole_bottom_1_link:
-          Value: true
-        pole_bottom_2_link:
-          Value: true
-        pole_bottom_3_link:
-          Value: true
-        pole_bottom_4_link:
-          Value: true
-        pole_bottom_5_link:
-          Value: true
-        pole_kinect_0_link:
-          Value: true
-        pole_kinect_1_link:
-          Value: true
-        pole_middle_0_link:
-          Value: true
-        pole_middle_1_link:
-          Value: true
-        pole_middle_2_link:
-          Value: true
-        pole_middle_3_link:
-          Value: true
-        pole_top_0_link:
-          Value: true
-        pole_top_1_link:
-          Value: true
-        pole_top_2_link:
-          Value: true
-        pole_top_3_link:
-          Value: true
         thor:
           Value: true
-        wheel_left_link:
+        thor/base_footprint:
           Value: true
-        wheel_right_link:
+        thor/base_link:
+          Value: true
+        thor/camera_depth_frame:
+          Value: true
+        thor/camera_depth_optical_frame:
+          Value: true
+        thor/camera_link:
+          Value: true
+        thor/camera_rgb_frame:
+          Value: true
+        thor/camera_rgb_optical_frame:
+          Value: true
+        thor/caster_back_link:
+          Value: true
+        thor/caster_front_link:
+          Value: true
+        thor/cliff_sensor_front_link:
+          Value: true
+        thor/cliff_sensor_left_link:
+          Value: true
+        thor/cliff_sensor_right_link:
+          Value: true
+        thor/gyro_link:
+          Value: true
+        thor/plate_bottom_link:
+          Value: true
+        thor/plate_middle_link:
+          Value: true
+        thor/plate_top_link:
+          Value: true
+        thor/pole_bottom_0_link:
+          Value: true
+        thor/pole_bottom_1_link:
+          Value: true
+        thor/pole_bottom_2_link:
+          Value: true
+        thor/pole_bottom_3_link:
+          Value: true
+        thor/pole_bottom_4_link:
+          Value: true
+        thor/pole_bottom_5_link:
+          Value: true
+        thor/pole_kinect_0_link:
+          Value: true
+        thor/pole_kinect_1_link:
+          Value: true
+        thor/pole_middle_0_link:
+          Value: true
+        thor/pole_middle_1_link:
+          Value: true
+        thor/pole_middle_2_link:
+          Value: true
+        thor/pole_middle_3_link:
+          Value: true
+        thor/pole_top_0_link:
+          Value: true
+        thor/pole_top_1_link:
+          Value: true
+        thor/pole_top_2_link:
+          Value: true
+        thor/pole_top_3_link:
+          Value: true
+        thor/wheel_left_link:
+          Value: true
+        thor/wheel_right_link:
           Value: true
       Marker Scale: 1
       Name: TF
@@ -153,11 +167,17 @@ Visualization Manager:
           hsmrs/marker_0:
             {}
           hsmrs/marker_4:
-            {}
-          hsmrs/marker_5:
             thor:
               {}
+          hsmrs/marker_5:
+            {}
           hsmrs/marker_6:
+            {}
+          hsmrs/marker_7:
+            {}
+          hsmrs/marker_8:
+            {}
+          hsmrs/marker_9:
             {}
       Update Interval: 0
       Value: true
@@ -210,22 +230,22 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 4.08676
+      Distance: 6.36288
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 2.02546
-        Y: 1.41211
-        Z: 1.13689
+        X: 2.02977
+        Y: 0.405948
+        Z: 0.722322
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 1.5398
+      Pitch: 1.2848
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.69358
+      Yaw: 5.39858
     Saved: ~
 Window Geometry:
   Displays:
