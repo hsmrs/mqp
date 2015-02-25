@@ -1,6 +1,10 @@
 <launch>
 
 	<node name="husky_node" pkg="husky" type="husky_node" output="screen"/>
+        <node name="husky_drive" pkg="husky" type="husky_drive.py"/>
+	<include file="$(find turtlebot_bringup)/launch/minimal.launch" ns="husky" />
+	<include file="$(find turtlebot_bringup)/launch/3dsensor.launch" ns="husky" />
+	<include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml" ns="husky"/>
 
 	<arg name="marker_size" default="20.3" />
 	<arg name="max_new_marker_error" default="0.08" />
