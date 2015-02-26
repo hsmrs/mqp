@@ -4,6 +4,7 @@
  * Begins the Robot's execution of its current Task.
  */
 void Thor::executeTask() {
+	ROS_INFO("Execute task!");
 	//std::string taskType = typeid(p_currentTask).name();
 	std::string taskType = p_currentTask->getType();
 	Behavior* behavior;
@@ -21,6 +22,7 @@ void Thor::executeTask() {
 		behavior = new FollowTagBehavior(this, 0.3, 0.5, task->getTagID(), n, VEL_TOPIC, LASER_TOPIC);
 	}
 	else if(taskType == "SearchTask"){
+		ROS_INFO("Executing Search task!");
 		SearchTask* task = dynamic_cast<SearchTask*>(p_currentTask);
 		behavior = new SearchBehavior(this, 0.3, 0.5, 1, task->getTagID(), task->getBoundaryVertices(), n, VEL_TOPIC);
 	}
@@ -207,11 +209,23 @@ void Thor::laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg){
 
 }
 
-void Thor::odomCallback(const nav_msgs::Odometry::ConstPtr& msg){
+void Thor::poseCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& msg){
+	geometry_msgs::PoseStamped tempMsg;
 	geometry_msgs::PoseStamped poseMsg;
-
-	poseMsg.pose = msg->pose.pose;
-
+	
+	tempMsg.header.frame_id = "odom_combined";
+	tempMsg.header.stamp = ros::Time::now();
+	tempMsg.pose = msg->pose.pose;
+	try{
+		listener.waitForTransform("odom_combined", "map",
+			ros::Time::now(), ros::Duration(0.5));
+		listener.transformPose("map", tempMsg, poseMsg);
+	}
+	catch (tf::TransformException &ex) {
+		ROS_ERROR("Error in Thor Pose Callback: %s",ex.what());
+		return;
+	}
+	
 	pose_pub.publish(poseMsg);
 }
 
@@ -219,7 +233,7 @@ Thor::Thor() : NAME("Thor"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMA
 		LOG_TOPIC("thor/log_messages"), STATUS_TOPIC("thor/status"), HELP_TOPIC("thor/help"), POSE_TOPIC("thor/pose"),
 		REQUEST_TOPIC("thor/requests"), TELE_OP_TOPIC("thor/tele_op"), VEL_TOPIC("thor/cmd_vel_mux/input/teleop"),
 		BUMPER_TOPIC("/thor/mobile_base/events/bumper"), NEW_TASK_TOPIC("/hsmrs/new_task"), 
-		UPDATED_TASK_TOPIC("/hsmrs/updated_task_topic"), LASER_TOPIC("thor/scan"), ODOM_TOPIC("thor/ar_tag_odom")
+		UPDATED_TASK_TOPIC("/hsmrs/updated_task_topic"), LASER_TOPIC("thor/scan"), IN_POSE_TOPIC("thor/odom_filter/odom_combined")
 		{
 
 	taskList = new MyTaskList();
@@ -245,7 +259,7 @@ Thor::Thor() : NAME("Thor"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMA
 	//Turtlebot publishers and subscribers
 	vel_pub = n.advertise<geometry_msgs::Twist>(VEL_TOPIC, 100);
 	bumper_sub = n.subscribe(BUMPER_TOPIC, 1000, &Thor::bumperCallback, this);
-	odom_sub = n.subscribe(ODOM_TOPIC, 1, &Thor::odomCallback, this);
+	pose_sub = n.subscribe(IN_POSE_TOPIC, 1, &Thor::poseCallback, this);
 	//laser_sub = n.subscribe(LASER_TOPIC, 1000, &Thor::laserCallback, this);
 
 	//ros::spinOnce();

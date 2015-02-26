@@ -12,6 +12,7 @@
 #include <tf/transform_broadcaster.h>
 #include <tf/transform_listener.h>
 #include "nav_msgs/Odometry.h"
+#include "geometry_msgs/PoseWithCovarianceStamped.h"
 
 #include <sstream>
 #include <typeinfo>
@@ -52,7 +53,7 @@ private:
 	ros::Publisher vel_pub;
 	ros::Subscriber bumper_sub;
 	ros::Subscriber laser_sub;
-	ros::Subscriber odom_sub;
+	ros::Subscriber pose_sub;
 
 	tf::TransformBroadcaster br;
 	tf::TransformListener listener;
@@ -72,7 +73,7 @@ private:
 	const std::string VEL_TOPIC;
 	const std::string BUMPER_TOPIC;
 	const std::string LASER_TOPIC;
-	const std::string ODOM_TOPIC;
+	const std::string IN_POSE_TOPIC;
 
 	TaskList* taskList;
 	Task* p_currentTask;
@@ -121,7 +122,7 @@ private:
 
 	void laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg);
 
-	void odomCallback(const nav_msgs::Odometry::ConstPtr& msg);
+	void poseCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& msg);
 
 public:
 	Thor();

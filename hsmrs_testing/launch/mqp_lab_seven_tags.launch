@@ -5,7 +5,7 @@
 	
 	<node pkg="tf" type="static_transform_publisher" name="marker5_map" args="3.6576 2.1336 0.4318 -0.5 0.5 0.5 -0.5 map hsmrs/marker_5 100" />
 	
-	<node pkg="tf" type="static_transform_publisher" name="marker6_map" args="0 0.8382 0.4318 0.5 0.5 0.5 0.5 map hsmrs/marker_6 100" />
+	<node pkg="tf" type="static_transform_publisher" name="marker6_map" args="0 1.651 0.4318 0.5 0.5 0.5 0.5 map hsmrs/marker_6 100" />
 
 	<node pkg="tf" type="static_transform_publisher" name="marker7_map" args="2.4384 0 0.4318 0 0.70711 0.70711 0 map hsmrs/marker_7 100" />
 	

@@ -6,6 +6,7 @@
 #include "geometry_msgs/Twist.h"
 #include "geometry_msgs/Pose.h"
 #include "geometry_msgs/PoseStamped.h"
+#include "geometry_msgs/PointStamped.h"
 #include "std_msgs/String.h"
 #include "tf/transform_datatypes.h"
 
@@ -17,6 +18,7 @@ private:
 
 	ros::Publisher velPub;
 	ros::Publisher progressPub;
+	ros::Publisher nextPointPub;
 	ros::Subscriber poseSub;
 	ros::Subscriber pathSub;
 	ros::Subscriber cancelSub;

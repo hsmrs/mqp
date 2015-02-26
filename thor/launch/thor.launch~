@@ -3,27 +3,29 @@
 	<node name="thor_node" pkg="thor" type="thor_node" output="screen"/>
 
 	<!--Turtlebot setup-->
-	<group>
-		<param name="tf_prefix" value="thor" />
-		<include file="$(find turtlebot_bringup)/launch/minimal.launch" ns="thor" />
-		<include file="$(find turtlebot_bringup)/launch/3dsensor.launch" ns="thor" />
-	</group>
+	<include file="$(find turtlebot_bringup)/launch/minimal.launch" ns="thor" />
+	<include file="$(find turtlebot_bringup)/launch/3dsensor.launch" ns="thor" />
 
 	<!--Navigation stack setup-->
-	<node name="ar_localization" pkg="navigation" type="ar_tag_localization" output="screen" ns="thor">
-		<param name="tf_prefix" value="thor" />
+	<node name="ar_localization" pkg="navigation" type="ar_tag_localization" output="screen" ns="thor"/>
+	
+	<node name="odom_frame_swap" pkg="navigation" type="odom_frame_swap" ns="thor" >
+		<param name="odom_topic" value="odom" />
+		<param name="new_odom_topic" value="wheel_odom" />
+		<param name="new_odom_frame" value="wheel_odom" />
 	</node>
 	
 	<node name="odom_filter" pkg="robot_pose_ekf" type="robot_pose_ekf" respawn="true" output="screen" ns="thor">
-		<param name="tf_prefix" value="thor" />
-		<param name="output_frame" value="/map"/>
-    	<param name="freq" value="30.0"/>
-    	<param name="sensor_timeout" value="1.0"/>
+		<param name="output_frame" value="odom_combined"/>
+		<param name="base_footprint_frame" value="map" />
+    	<param name="freq" value="10.0"/>
+    	<param name="sensor_timeout" value=".5"/>
     	<param name="odom_used" value="true"/>
     	<param name="imu_used" value="false"/>
     	<param name="vo_used" value="true"/>
     	<param name="debug" value="true"/>
     	<param name="self_diagnose" value="true"/>
+    	<remap from="odom" to="wheel_odom" />
     	<remap from="vo" to="ar_tag_odom" />
   </node>
 
