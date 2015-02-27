@@ -4,6 +4,7 @@
  * Begins the Robot's execution of its current Task.
  */
 void Thor::executeTask() {
+	ROS_INFO("Execute task!");
 	//std::string taskType = typeid(p_currentTask).name();
 	std::string taskType = p_currentTask->getType();
 	Behavior* behavior;
@@ -21,6 +22,7 @@ void Thor::executeTask() {
 		behavior = new FollowTagBehavior(this, 0.3, 0.5, task->getTagID(), n, VEL_TOPIC, LASER_TOPIC);
 	}
 	else if(taskType == "SearchTask"){
+		ROS_INFO("Executing Search task!");
 		SearchTask* task = dynamic_cast<SearchTask*>(p_currentTask);
 		behavior = new SearchBehavior(this, 0.3, 0.5, 1, task->getTagID(), task->getBoundaryVertices(), n, VEL_TOPIC);
 	}
@@ -231,15 +233,22 @@ Thor::Thor() : NAME("Thor"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMA
 		LOG_TOPIC("thor/log_messages"), STATUS_TOPIC("thor/status"), HELP_TOPIC("thor/help"), POSE_TOPIC("thor/pose"),
 		REQUEST_TOPIC("thor/requests"), TELE_OP_TOPIC("thor/tele_op"), VEL_TOPIC("thor/cmd_vel_mux/input/teleop"),
 		BUMPER_TOPIC("/thor/mobile_base/events/bumper"), NEW_TASK_TOPIC("/hsmrs/new_task"), 
-		UPDATED_TASK_TOPIC("/hsmrs/updated_task_topic"), LASER_TOPIC("thor/scan"), IN_POSE_TOPIC("thor/odom_filter/odom_combined")
-		{
+		UPDATED_TASK_TOPIC("/hsmrs/updated_task_topic"), LASER_TOPIC("thor/scan"), IN_POSE_TOPIC("thor/odom_filter/odom_combined"),
+		MARKER_TOPIC("/thor/ar_pose_marker"),
+		AUCTION_TOPIC("/hsmrs/auction"), CLAIM_TOPIC("/hsmrs/claim")
+{
 
 	taskList = new MyTaskList();
+	utiHelp = new MyUtilityHelper();
+	state = new MyAgentState();
+	
+	state->setAttribute("speed", 1.0);
+	state->setAttribute("distance", 1000.0);
 
 	linearSpeed = 0.3;
 	angularSpeed = 0.8;
 
-	ros::AsyncSpinner spinner(1);
+	ros::AsyncSpinner spinner(0);
 	spinner.start();
 
 	//GUI Publishers and subscribers
@@ -259,6 +268,14 @@ Thor::Thor() : NAME("Thor"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMA
 	bumper_sub = n.subscribe(BUMPER_TOPIC, 1000, &Thor::bumperCallback, this);
 	pose_sub = n.subscribe(IN_POSE_TOPIC, 1, &Thor::poseCallback, this);
 	//laser_sub = n.subscribe(LASER_TOPIC, 1000, &Thor::laserCallback, this);
+	tag_sub = n.subscribe(MARKER_TOPIC, 1000, &Thor::tagCallback, this);
+
+	bidPub = n.advertise<hsmrs_framework::BidMsg>(AUCTION_TOPIC, 100);
+	claimPub = n.advertise<hsmrs_framework::BidMsg>(CLAIM_TOPIC, 100);
+	
+	bidSub = n.subscribe(AUCTION_TOPIC, 1000, &Thor::handleBids, this);
+	newTaskSub = n.subscribe(NEW_TASK_TOPIC, 100, &Thor::handleNewTask, this);
+	claimSub = n.subscribe(CLAIM_TOPIC, 100, &Thor::handleClaims, this);
 
 	//ros::spinOnce();
 	ros::Rate loop_rate(1);
@@ -307,7 +324,7 @@ double Thor::getUtility(Task *task) {
  * @return The AgentState representing the state of this Robot.
  */
 AgentState* Thor::getState() {
-
+    return new MyAgentState(*state);
 }
 
 /**
@@ -316,7 +333,7 @@ AgentState* Thor::getState() {
  * @return True if the robot has the named attribute.
  */
 bool Thor::hasAttribute(std::string attr) {
-
+    return state->getAttribute(attr) != NULL;
 }
 
 /**
@@ -363,12 +380,157 @@ void Thor::setStatus(std::string newStatus){
 	status_pub.publish(msg);
 }
 
+void Thor::handleNewTask(const hsmrs_framework::TaskMsg::ConstPtr& msg)
+{
+    ROS_INFO("got new task!\n");
+    boost::mutex::scoped_lock atLock(atMutex);
+    boost::mutex::scoped_lock listLock(listMutex);
+    int id = msg->id;
+    if(taskList->getTask(id) == NULL)
+    {
+        std::string type = msg->type;
+        
+        AuctionTracker at = AuctionTracker();
+        double myBid = bid(msg);
+        at.topBidder = getName();
+        at.topUtility = myBid;
+        at.haveBidded = true;
+        auctionList[id] = at;
+        atLock.unlock();
+        
+        if(type == "MyTask")
+        {
+            taskList->addTask(new MyTask(msg->id, msg->priority));
+            listLock.unlock();
+        }
+        else if(type == "FollowTagTask")
+        {
+            if(msg->param_values.size() > 0)
+            {
+                taskList->addTask(new FollowTagTask(msg->id, msg->priority, std::stoi(msg->param_values[0])));
+            }
+            else
+            {
+                taskList->addTask(new FollowTagTask(msg->id, msg->priority));
+            }
+        }
+        else if(type == "GoToTask")
+        {
+            //TODO fill in
+        }
+        else
+        {
+            ROS_ERROR("unrecognized task type %s", type.c_str());
+        }
+        
+        //spawn claimer thread
+        boost::thread claimer = boost::thread(&Thor::claimWorker, this, *msg, id, myBid);
+        claimer.detach();
+    }
+    else
+    {
+        ROS_INFO("task with ID %d is not unique!\n", id);
+    }
+}
+
+void Thor::handleClaims(const hsmrs_framework::BidMsg::ConstPtr& msg)
+{
+    int id = msg->task.id;
+    std::string owner = msg->name;
+    if(owner == getName()) return;
+    boost::mutex::scoped_lock listLock(listMutex);
+    taskList->getTask(id)->addOwner(owner);
+}
+
+void Thor::claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid)
+{
+    //sleep on it and decide whether to claim
+    ROS_INFO("sleepytime");
+    boost::this_thread::sleep(boost::posix_time::milliseconds(3000));
+    boost::mutex::scoped_lock atLock(atMutex);
+    boost::mutex::scoped_lock listLock(listMutex);
+    
+    AuctionTracker at = auctionList[id];
+    if(at.topBidder == getName())
+    {
+        ROS_INFO("claiming task %d", id);
+        hsmrs_framework::BidMsg claimMsg = hsmrs_framework::BidMsg();
+        claimMsg.name = getName();
+        claimMsg.utility = myBid;
+        claimMsg.task = taskMsg;
+        claimPub.publish(claimMsg);
+        
+        at.taskClaimed = true;
+        auctionList[id] = at;
+        taskList->getTask(id)->addOwner(getName());
+    }
+    
+	p_currentTask = taskList->getTask(id);
+	executeTask();
+}
+
+
 /**
  * Handles the auctioning of Tasks by sending and receiving bids.
  */
 void Thor::handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
-{
-    ROS_INFO("got bid!\n");
+{    
+    int id = msg->task.id;
+    std::string type = msg->task.type;
+    std::string bidder = msg->name;
+    double utility = msg->utility;
+    
+    ROS_INFO("got bid from %s\n", bidder.c_str());
+    
+    boost::mutex::scoped_lock atLock(atMutex);
+    boost::mutex::scoped_lock listLock(listMutex);
+    if(auctionList.count(id) == 0)
+    {
+        //track the auctioning of this task
+        AuctionTracker at = AuctionTracker();
+        double myBid = bid(msg);
+        at.topBidder = (myBid > utility) ? getName() : bidder;
+        at.topUtility = (myBid > utility) ? myBid : utility;
+        at.haveBidded = true;
+        auctionList[id] = at;
+        atLock.unlock();
+        
+        //add to task list
+        if(type == "MyTask")
+        {
+            taskList->addTask(new MyTask(msg->task.id, msg->task.priority));
+            listLock.unlock();
+        }
+        else if(type == "FollowTagTask")
+        {
+            if(msg->task.param_values.size() > 0)
+            {
+                taskList->addTask(new FollowTagTask(msg->task.id, msg->task.priority, std::stoi(msg->task.param_values[0])));
+            }
+            else
+            {
+                taskList->addTask(new FollowTagTask(msg->task.id, msg->task.priority));
+            }
+        }
+        else if(type == "GoToTask")
+        {
+            //TODO fill in
+        }
+        else
+        {
+            ROS_ERROR("unrecognized task type %s", type.c_str());
+        }
+        //spawn claimer thread
+        boost::thread claimer = boost::thread(&Thor::claimWorker, this, msg->task, id, myBid);
+        claimer.detach();
+    }
+    else
+    {
+        AuctionTracker* at = &(auctionList[id]);
+        at->topBidder = (at->topUtility > utility) ? at->topBidder : bidder;
+        at->topUtility = (at->topUtility > utility) ? at->topUtility : utility;
+    }
+
 }
 
 /**
@@ -376,7 +538,79 @@ void Thor::handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
  */
 double Thor::bid(const hsmrs_framework::BidMsg::ConstPtr& msg)
 {
-    return 0.0;
+    hsmrs_framework::BidMsg myBid = hsmrs_framework::BidMsg(*msg);
+    myBid.name = getName();
+    std::string type = msg->task.type;
+    
+    ROS_INFO("calculating utility...\n");
+    if(type == "MyTask")
+    {
+        myBid.utility = utiHelp->calculate(this, new MyTask(0, 1));
+    }
+	else if(type == "FollowTagTask")
+	{
+	    if(msg->task.param_values.size() > 0)
+	    {
+		myBid.utility = utiHelp->calculate(this, new FollowTagTask(msg->task.id, msg->task.priority, std::stoi(msg->task.param_values[0])));
+	    }
+	    else
+	    {
+		myBid.utility = utiHelp->calculate(this, new FollowTagTask(msg->task.id, msg->task.priority));
+	    }
+	}
+	else if(type == "GoToTask")
+	{
+	    //TODO fill in
+	}
+    else
+    {
+	ROS_ERROR("unrecognized task type %s", type.c_str());
+        myBid.utility = 0;
+    }
+    
+    ROS_INFO("my utility is %f, publishing\n", myBid.utility);
+    
+    bidPub.publish(myBid);
+    return myBid.utility;
+}
+
+double Thor::bid(const hsmrs_framework::TaskMsg::ConstPtr& msg)
+{
+    hsmrs_framework::BidMsg myBid = hsmrs_framework::BidMsg();
+    myBid.task = *msg;
+    myBid.name = getName();
+    std::string type = msg->type;
+    
+    ROS_INFO("calculating utility...\n");
+    if(type == "MyTask")
+    {
+        myBid.utility = utiHelp->calculate(this, new MyTask(0, 1));
+    }
+    else if(type == "FollowTagTask")
+	{
+	    if(msg->param_values.size() > 0)
+	    {
+		myBid.utility = utiHelp->calculate(this, new FollowTagTask(msg->id, msg->priority, std::stoi(msg->param_values[0])));
+	    }
+	    else
+	    {
+		myBid.utility = utiHelp->calculate(this, new FollowTagTask(msg->id, msg->priority));
+	    }
+	}
+	else if(type == "GoToTask")
+	{
+	    //TODO fill in
+	}
+    else
+    {
+	ROS_ERROR("unrecognized task type %s", type.c_str());
+        myBid.utility = 0;
+    }
+    
+    ROS_INFO("my utility is %f, publishing\n", myBid.utility);
+    
+    bidPub.publish(myBid);
+    return myBid.utility;
 }
 
 int main(int argc, char **argv) {
