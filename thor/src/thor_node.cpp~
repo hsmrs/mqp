@@ -247,12 +247,12 @@ void Thor::poseCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr
 	pose_pub.publish(poseMsg);
 }
 
-Thor::Thor() : NAME("Thor"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMAGE_TOPIC("thor/camera/rgb/image_mono"), 
-		LOG_TOPIC("thor/log_messages"), STATUS_TOPIC("thor/status"), HELP_TOPIC("thor/help"), POSE_TOPIC("thor/pose"),
-		REQUEST_TOPIC("thor/requests"), TELE_OP_TOPIC("thor/tele_op"), VEL_TOPIC("thor/cmd_vel_mux/input/teleop"),
-		BUMPER_TOPIC("/thor/mobile_base/events/bumper"), NEW_TASK_TOPIC("/hsmrs/new_task"), 
-		UPDATED_TASK_TOPIC("/hsmrs/updated_task_topic"), LASER_TOPIC("thor/scan"), IN_POSE_TOPIC("thor/odom_filter/odom_combined"),
-		MARKER_TOPIC("/thor/ar_pose_marker"),
+Thor::Thor(std::string name, double speed) : NAME(name), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMAGE_TOPIC(name + "/camera/rgb/image_mono"), 
+		LOG_TOPIC(name + "/log_messages"), STATUS_TOPIC(name + "/status"), HELP_TOPIC(name + "/help"), POSE_TOPIC(name + "/pose"),
+		REQUEST_TOPIC(name + "/requests"), TELE_OP_TOPIC(name + "/tele_op"), VEL_TOPIC(name + "/cmd_vel_mux/input/teleop"),
+		BUMPER_TOPIC("/" + name + "/mobile_base/events/bumper"), NEW_TASK_TOPIC("/hsmrs/new_task"), 
+		UPDATED_TASK_TOPIC("/hsmrs/updated_task_topic"), LASER_TOPIC(name + "/scan"), IN_POSE_TOPIC(name + "/odom_filter/odom_combined"),
+		MARKER_TOPIC("/" + name+ "/ar_pose_marker"),
 		AUCTION_TOPIC("/hsmrs/auction"), CLAIM_TOPIC("/hsmrs/claim")
 {
 
@@ -260,7 +260,7 @@ Thor::Thor() : NAME("Thor"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMA
 	utiHelp = new MyUtilityHelper();
 	state = new MyAgentState();
 	
-	state->setAttribute("speed", 1.0);
+	state->setAttribute("speed", speed);
 	state->setAttribute("distance", 1000.0);
 	state->setAttribute("x", 0);
 	state->setAttribute("y", 0);
@@ -631,11 +631,11 @@ double Thor::bid(const hsmrs_framework::TaskMsg::ConstPtr& msg)
 	}
 	else if(type == "GoToTask")
 	{
-	    myBid.utility = utiHelp->calculate(this, new GoToTask(msg->task));
+	    myBid.utility = utiHelp->calculate(this, new GoToTask(msg));
 	}
 	else if(type == "SearchTask")
 	{
-	    myBid.utility = utiHelp->calculate(this, new SearchTask(msg->task));
+	    myBid.utility = utiHelp->calculate(this, new SearchTask(msg));
 	}
     else
     {
@@ -650,8 +650,20 @@ double Thor::bid(const hsmrs_framework::TaskMsg::ConstPtr& msg)
 }
 
 int main(int argc, char **argv) {
-	ros::init(argc, argv, "thor");
+    std::string name = "thor"
+    double speed = 1;
+    
+    if(argc > 1)
+    {
+        name = std::string(argv[1]);
+    }
+    if(argc > 2)
+    {
+        speed = std::stod(std::string(argv[2]));
+    }
+    
+	ros::init(argc, argv, name);
 
-	Thor* robot = new Thor();
+	Thor* robot = new Thor(name, speed);
 	return 0;
 }

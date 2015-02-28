@@ -78,7 +78,6 @@ private:
 	ros::Subscriber new_task_sub;
 	ros::Subscriber updated_task_sub;
     ros::Subscriber tag_sub;
-    ros::Subscriber poseSub;
     
 	ros::Publisher bidPub;
 	ros::Publisher claimPub;
