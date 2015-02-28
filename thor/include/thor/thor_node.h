@@ -72,7 +72,6 @@ private:
 	ros::Publisher status_pub;
 	ros::Publisher help_pub;
 	ros::Publisher pose_pub;
-	
 
 	ros::Subscriber request_sub;
 	ros::Subscriber teleOp_sub;

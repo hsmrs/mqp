@@ -49,6 +49,44 @@ SearchTask::SearchTask(const hsmrs_framework::TaskMsg::ConstPtr& msg){
 	progress = new MyProgress();
 }
 
+SearchTask::SearchTask(hsmrs_framework::TaskMsg msg){
+	tagID = stoi(msg.param_values[0]);
+	boundaryVerticesString = msg.param_values[1];
+
+	std::vector<double> xValues;
+	std::vector<double> yValues;
+
+	std::string delimiter = ";";
+	size_t pos = 0;
+	size_t pos2 = 0;
+	while ((pos = boundaryVerticesString.find(delimiter)) != std::string::npos) {
+		std::string temp = boundaryVerticesString.substr(0, pos);
+		temp.erase(0, 1);
+    	temp.erase(temp.size() - 1);
+    	pos2 = temp.find(",");
+		xValues.push_back(stod(temp.substr(0, pos2)));
+		yValues.push_back(stod(temp.substr(pos2 + 1)));
+    	boundaryVerticesString.erase(0, pos + delimiter.length());
+	}
+
+	for (int i = 0; i < xValues.size(); ++i){
+		geometry_msgs::PointStamped point;
+		point.point.x = xValues[i];
+		point.point.y = yValues[i];
+		boundaryVertices.push_back(point);
+	}
+
+	for(std::string owner : msg.owners){
+		owners.push_back(owner);
+	}
+
+	priority = msg.priority;
+	id = msg.id;
+	prerequisite = new MyPrerequisite();
+	progress = new MyProgress();
+}
+
+
 SearchTask::SearchTask(std::string strDelimitedTask){
 	
 }

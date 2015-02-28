@@ -72,12 +72,13 @@ private:
 	ros::Publisher status_pub;
 	ros::Publisher help_pub;
 	ros::Publisher pose_pub;
-    ros::Subscriber tag_sub;
 
 	ros::Subscriber request_sub;
 	ros::Subscriber teleOp_sub;
 	ros::Subscriber new_task_sub;
 	ros::Subscriber updated_task_sub;
+    ros::Subscriber tag_sub;
+    ros::Subscriber poseSub;
     
 	ros::Publisher bidPub;
 	ros::Publisher claimPub;

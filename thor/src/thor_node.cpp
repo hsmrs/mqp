@@ -241,6 +241,9 @@ void Thor::poseCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr
 		return;
 	}
 	
+	state->setAttribute("x", poseMsg.pose.position.x);
+	state->setAttribute("y", poseMsg.pose.position.y);
+	
 	pose_pub.publish(poseMsg);
 }
 
@@ -259,6 +262,8 @@ Thor::Thor() : NAME("Thor"), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMA
 	
 	state->setAttribute("speed", 1.0);
 	state->setAttribute("distance", 1000.0);
+	state->setAttribute("x", 0);
+	state->setAttribute("y", 0);
 
 	linearSpeed = 0.3;
 	angularSpeed = 0.8;
@@ -433,6 +438,10 @@ void Thor::handleNewTask(const hsmrs_framework::TaskMsg::ConstPtr& msg)
         {
             //TODO fill in
         }
+        else if(type == "SearchTask")
+        {
+            
+        }
         else
         {
             ROS_ERROR("unrecognized task type %s", type.c_str());
@@ -529,7 +538,11 @@ void Thor::handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
         }
         else if(type == "GoToTask")
         {
-            //TODO fill in
+            taskList->addTask(new GoToTask(msg->task));
+        }
+        else if(type == "SearchTask")
+        {
+            taskList->addTask(new GoToTask(msg->task));
         }
         else
         {
@@ -566,16 +579,20 @@ double Thor::bid(const hsmrs_framework::BidMsg::ConstPtr& msg)
 	{
 	    if(msg->task.param_values.size() > 0)
 	    {
-		myBid.utility = utiHelp->calculate(this, new FollowTagTask(msg->task.id, msg->task.priority, std::stoi(msg->task.param_values[0])));
+		    myBid.utility = utiHelp->calculate(this, new FollowTagTask(msg->task.id, msg->task.priority, std::stoi(msg->task.param_values[0])));
 	    }
 	    else
 	    {
-		myBid.utility = utiHelp->calculate(this, new FollowTagTask(msg->task.id, msg->task.priority));
+		    myBid.utility = utiHelp->calculate(this, new FollowTagTask(msg->task.id, msg->task.priority));
 	    }
 	}
 	else if(type == "GoToTask")
 	{
-	    //TODO fill in
+	    myBid.utility = utiHelp->calculate(this, new GoToTask(msg->task));
+	}
+	else if(type == "SearchTask")
+	{
+	    myBid.utility = utiHelp->calculate(this, new SearchTask(msg->task));
 	}
     else
     {
@@ -605,16 +622,20 @@ double Thor::bid(const hsmrs_framework::TaskMsg::ConstPtr& msg)
 	{
 	    if(msg->param_values.size() > 0)
 	    {
-		myBid.utility = utiHelp->calculate(this, new FollowTagTask(msg->id, msg->priority, std::stoi(msg->param_values[0])));
+		    myBid.utility = utiHelp->calculate(this, new FollowTagTask(msg->id, msg->priority, std::stoi(msg->param_values[0])));
 	    }
 	    else
 	    {
-		myBid.utility = utiHelp->calculate(this, new FollowTagTask(msg->id, msg->priority));
+		    myBid.utility = utiHelp->calculate(this, new FollowTagTask(msg->id, msg->priority));
 	    }
 	}
 	else if(type == "GoToTask")
 	{
-	    //TODO fill in
+	    myBid.utility = utiHelp->calculate(this, new GoToTask(msg));
+	}
+	else if(type == "SearchTask")
+	{
+	    myBid.utility = utiHelp->calculate(this, new SearchTask(msg));
 	}
     else
     {

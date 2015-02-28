@@ -28,6 +28,8 @@ public:
 	GoToTask();
 
 	GoToTask(const hsmrs_framework::TaskMsg::ConstPtr& msg);
+	
+	GoToTask(hsmrs_framework::TaskMsg msg);
 
 	GoToTask(std::string strDelimitedTask);
 	

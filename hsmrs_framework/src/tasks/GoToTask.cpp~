@@ -13,6 +13,7 @@ GoToTask::GoToTask(){
 }
 
 GoToTask::GoToTask(const hsmrs_framework::TaskMsg::ConstPtr& msg){
+/*
 	double goalX = std::stod(msg->param_values[0]);
 	double goalY = std::stod(msg->param_values[1]);
 
@@ -25,6 +26,26 @@ GoToTask::GoToTask(const hsmrs_framework::TaskMsg::ConstPtr& msg){
 
 	priority = msg->priority;
 	id = msg->id;
+	prerequisite = new MyPrerequisite();
+	progress = new MyProgress();
+	*/
+	this->GoToTask(*msg);
+}
+
+GoToTask::GoToTask(hsmrs_framework::TaskMsg msg)
+{
+	double goalX = std::stod(msg.param_values[0]);
+	double goalY = std::stod(msg.param_values[1]);
+
+	goal.position.x = goalX;
+	goal.position.y = goalY;
+
+	for(std::string owner : msg.owners){
+		owners.push_back(owner);
+	}
+
+	priority = msg.priority;
+	id = msg.id;
 	prerequisite = new MyPrerequisite();
 	progress = new MyProgress();
 }
@@ -202,7 +223,7 @@ geometry_msgs::Pose GoToTask::getGoal(){
 
 hsmrs_framework::TaskMsg* GoToTask::toMsg()
 {
-    hsmrs_framework::TaskMsg msg = new hsmrs_framework::TaskMsg();
+    hsmrs_framework::TaskMsg* msg = new hsmrs_framework::TaskMsg();
     msg->id = id;
     msg->type = "GoToTask";
     msg->param_values = std::vector<std::string>();
