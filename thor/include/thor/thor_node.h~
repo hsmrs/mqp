@@ -11,7 +11,6 @@
 #include "kobuki_msgs/BumperEvent.h"
 #include <tf/transform_broadcaster.h>
 #include <tf/transform_listener.h>
-#include "tf/Vector3.h"
 #include "nav_msgs/Odometry.h"
 #include "geometry_msgs/PoseWithCovarianceStamped.h"
 
@@ -24,19 +23,48 @@
 #include "hsmrs_implementations/FollowTagTask.h"
 #include "hsmrs_implementations/SearchTask.h"
 #include "hsmrs_implementations/MyTaskList.h"
+#include "hsmrs_implementations/MyUtilityHelper.h"
+#include "hsmrs_implementations/MyTask.h"
+#include "hsmrs_implementations/MyAgentState.cpp"
 #include "hsmrs_framework/TaskMsg.h"
 #include "thor/Behavior.h"
 #include "thor/FollowTagBehavior.h"
 #include "thor/GoToBehavior.h"
 #include "thor/SearchBehavior.h"
 
+#include <boost/thread/mutex.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/thread/thread.hpp>
+
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
+
+class AuctionTracker
+{
+private:
+
+public:
+    std::string topBidder;
+    double topUtility;
+    bool haveBidded;
+    bool taskClaimed;
+    
+    AuctionTracker()
+    {
+        topBidder = "";
+        topUtility = -1;
+        haveBidded = false;
+        taskClaimed = false;
+    }
+};
 
 class Thor: public Robot {
 
 private:
 	friend class FollowTagBehavior;
 	friend class GoToBehavior;
+
+    boost::mutex atMutex;
+    boost::mutex listMutex;
 
 	ros::NodeHandle n;
 	ros::Publisher registration_pub;
@@ -49,7 +77,14 @@ private:
 	ros::Subscriber teleOp_sub;
 	ros::Subscriber new_task_sub;
 	ros::Subscriber updated_task_sub;
-
+    ros::Subscriber tag_sub;
+    
+	ros::Publisher bidPub;
+	ros::Publisher claimPub;
+	
+	ros::Subscriber bidSub;
+	ros::Subscriber newTaskSub;
+	ros::Subscriber claimSub;
 
 	ros::Publisher vel_pub;
 	ros::Subscriber bumper_sub;
@@ -70,14 +105,22 @@ private:
 	const std::string TELE_OP_TOPIC;
 	const std::string NEW_TASK_TOPIC;
 	const std::string UPDATED_TASK_TOPIC;
+	const std::string AUCTION_TOPIC;
+	const std::string CLAIM_TOPIC;
 
 	const std::string VEL_TOPIC;
 	const std::string BUMPER_TOPIC;
 	const std::string LASER_TOPIC;
 	const std::string IN_POSE_TOPIC;
+	const std::string MARKER_TOPIC;
 
 	TaskList* taskList;
 	Task* p_currentTask;
+	UtilityHelper* utiHelp;
+	AgentState* state;
+		
+	std::map<int, AuctionTracker> auctionList;
+	
 	std::string status;
 	Behavior* p_currentBehavior;
 	double linearSpeed;
@@ -87,6 +130,8 @@ private:
 	 * Makes this Robot bid on the given task
 	 */
 	double bid(const hsmrs_framework::BidMsg::ConstPtr& msg);
+	
+	double bid(const hsmrs_framework::TaskMsg::ConstPtr& msg);
 
 	/**
 	 * Begins the Robot's execution of its current Task.
@@ -124,6 +169,14 @@ private:
 	void laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg);
 
 	void poseCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& msg);
+	
+	void tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& msg);
+	
+	void handleNewTask(const hsmrs_framework::TaskMsg::ConstPtr& msg);
+	
+	void handleClaims(const hsmrs_framework::BidMsg::ConstPtr& msg);
+	
+	void claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid);
 
 public:
 	Thor();
