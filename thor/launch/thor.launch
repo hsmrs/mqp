@@ -7,7 +7,9 @@
 	<include file="$(find turtlebot_bringup)/launch/3dsensor.launch" ns="$(optenv ROBOT_NAME thor)" />
 
 	<!--Navigation stack setup-->
-	<node name="ar_localization" pkg="navigation" type="ar_tag_localization" output="screen" ns="$(optenv ROBOT_NAME thor)"/>
+	<node name="ar_localization" pkg="navigation" type="ar_tag_localization" output="screen" ns="$(optenv ROBOT_NAME thor)">
+		<param name="target_frame" value="$(optenv ROBOT_NAME thor)" />
+	</node>
 	
 	<node name="odom_frame_swap" pkg="navigation" type="odom_frame_swap" ns="$(optenv ROBOT_NAME thor)" >
 		<param name="odom_topic" value="odom" />
