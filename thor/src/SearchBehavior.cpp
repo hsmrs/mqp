@@ -59,8 +59,8 @@ void SearchBehavior::progressCallback(const std_msgs::String::ConstPtr& msg){
 			ROS_INFO("Getting next target!");
 			ROS_INFO("(%f, %f)", goals[counter].point.x, goals[counter].point.y);
 			if (counter < goals.size()) {
-			
-				goalPub.publish(goals[counter++]);
+				goalMsg = goals[counter++];
+				goalPub.publish(goalMsg);
 			}
 			else {
 				parent->sendMessage("I could not find it.");
