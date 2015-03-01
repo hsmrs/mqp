@@ -230,7 +230,7 @@ void Thor::poseCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr
 		listener.transformPose("map", tempMsg, poseMsg);
 	}
 	catch (tf::TransformException &ex) {
-		ROS_ERROR("Error in Thor Pose Callback: %s",ex.what());
+		//ROS_ERROR("Error in Thor Pose Callback: %s",ex.what());
 		return;
 	}
 	

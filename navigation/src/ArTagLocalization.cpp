@@ -70,7 +70,7 @@ void ArTagLocalization::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr
 		//ROS_INFO("Transform heard");	
 	}
 	catch (tf::TransformException &ex) {
-		ROS_ERROR("Error in ARTagLocalization tag callback: %s",ex.what());
+		//ROS_ERROR("Error in ARTagLocalization tag callback: %s",ex.what());
 		return;
 	}
 	
