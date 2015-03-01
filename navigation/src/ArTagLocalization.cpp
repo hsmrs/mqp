@@ -79,7 +79,7 @@ void ArTagLocalization::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr
 		odomAnchor = *(new tf::Transform(mapTransform.getRotation(), mapTransform.getOrigin()));
 	}
 	br.sendTransform(tf::StampedTransform(odomAnchor, ros::Time::now(), "/map", odomFrame));
-	br.sendTransform(tf::StampedTransform(odomAnchor, ros::Time::now(), "/map", "odom_combined"));
+	br.sendTransform(tf::StampedTransform(odomAnchor, ros::Time::now(), "/map", filteredOdomFrame));
 
 	//Unpack position and orientation
 	double map_x, map_y, map_z;

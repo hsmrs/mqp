@@ -17,10 +17,11 @@
 		<param name="odom_topic" value="odom" />
 		<param name="new_odom_topic" value="wheel_odom" />
 		<param name="new_odom_frame" value="$(optenv ROBOT_NAME thor)/wheel_odom" />
+		<param name="new_base_frame" value="$(optenv ROBOT_NAME thor)" />
 	</node>
 	
 	<node name="odom_filter" pkg="robot_pose_ekf" type="robot_pose_ekf" respawn="true" ns="$(optenv ROBOT_NAME thor)">
-		<param name="output_frame" value="$(optenv ROBOT_NAME thor)/odom_combined"/>
+		<param name="output_frame" value="odom_combined"/>
 		<param name="base_footprint_frame" value="map" />
     	<param name="freq" value="10.0"/>
     	<param name="sensor_timeout" value=".5"/>
