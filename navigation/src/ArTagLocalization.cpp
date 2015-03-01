@@ -10,6 +10,7 @@ ArTagLocalization::ArTagLocalization() : ODOM_PUB_TOPIC("/ar_tag_odom") {
 	std::string odomTopic;
 	ros::param::param<std::string>("~marker_topic", markerTopic, "ar_pose_marker");
 	ros::param::param<std::string>("~odom_topic", odomTopic, "ar_tag_odom");
+	ros::param::param<std::string>("~filtered_odom_frame", filteredOdomFrame, "odom_combined");
 	ros::param::param<std::string>("~wheel_odom_frame", odomFrame, "wheel_odom");
 	ros::param::param<std::string>("~target_frame", target_frame, "thor");
 	
@@ -24,7 +25,7 @@ ArTagLocalization::ArTagLocalization() : ODOM_PUB_TOPIC("/ar_tag_odom") {
 	while(ros::ok()){
 		if (!isFirst){
 			br.sendTransform(tf::StampedTransform(odomAnchor, ros::Time::now(), "/map", odomFrame));
-			br.sendTransform(tf::StampedTransform(odomAnchor, ros::Time::now(), "/map", "odom_combined"));		
+			br.sendTransform(tf::StampedTransform(odomAnchor, ros::Time::now(), "/map", filteredOdomFrame));		
 			ros::Duration(0.01).sleep();
 		}
 	}

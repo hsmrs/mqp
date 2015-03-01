@@ -27,6 +27,7 @@ private:
 	bool isFirst;
 	tf::Transform odomAnchor;
 	std::string odomFrame;
+	std::string filteredOdomFrame;
 	
 	std::deque<geometry_msgs::Pose> lastPoses;
 
