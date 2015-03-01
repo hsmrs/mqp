@@ -379,6 +379,7 @@ void Thor::cancelTask() {
     ROS_INFO("canceling task");
     hsmrs_framework::TaskMsg* update = p_currentTask->toMsg();
     update->status = "complete";
+    ROS_INFO("update message\n\tid:%d\n\ttype:%s\n\tstatus:%s", update->id, update->type.c_str(), update->status.c_str());
     updatedTaskPub.publish(*update);
 }
 

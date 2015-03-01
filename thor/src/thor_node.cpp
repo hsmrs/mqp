@@ -195,7 +195,7 @@ void Thor::updatedTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg){
     old = taskList->getTask(update->getID());
     std::vector<std::string> oldOwners = old->getOwners();
     
-    if(std::find(oldOwners.begin(), oldOwners.end(), getName()) != oldOwners.end()) //if this is my task
+    if(std::find(oldOwners.begin(), oldOwners.end(), getName()) != oldOwners.end() && p_currentTask != NULL && p_currentBehavior != NULL) //if this is my task
     {
         ROS_INFO("I own this task");
         if(std::find(msg->owners.begin(), msg->owners.end(), getName()) == msg->owners.end() || msg->status == "complete" || msg->status == "deleted") //if I'm no longer working on it
@@ -211,6 +211,8 @@ void Thor::updatedTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg){
             p_currentTask = update;
         }
     }
+    
+    //TODO make it so robots can be added
     
     ROS_INFO("updating task list copy");
     taskList->removeTask(update->getID());
