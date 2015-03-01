@@ -72,6 +72,7 @@ private:
 	ros::Publisher status_pub;
 	ros::Publisher help_pub;
 	ros::Publisher pose_pub;
+	ros::Publisher updatedTaskPub;
 
 	ros::Subscriber request_sub;
 	ros::Subscriber teleOp_sub;
@@ -84,7 +85,6 @@ private:
 	ros::Subscriber bidSub;
 	ros::Subscriber newTaskSub;
 	ros::Subscriber claimSub;
-	ros::Subscriber progressSub;
 
 	ros::Publisher vel_pub;
 	ros::Subscriber bumper_sub;
@@ -160,7 +160,7 @@ private:
 
 	void bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg);
 
-	void updatedTaskCallback(const std_msgs::String::ConstPtr& msg);
+	void updatedTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg);
 
 	void laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg);
 

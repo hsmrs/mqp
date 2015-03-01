@@ -34,7 +34,7 @@ void SearchBehavior::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& m
 			if (x <= 1.0){
 				linVel = 0;
 				parent->sendMessage("I found it!");
-				stop();
+				parent->cancelTask();
 			}
 
 			geometry_msgs::Twist velMsg;
@@ -64,7 +64,7 @@ void SearchBehavior::progressCallback(const std_msgs::String::ConstPtr& msg){
 			}
 			else {
 				parent->sendMessage("I could not find it.");
-				stop();
+				parent->cancelTask();
 			}
 			//bool success = pop_front<geometry_msgs::PointStamped>(boundaryVertices, goalMsg);
 			//ROS_INFO("(%f, %f)", goalMsg.point.x, goalMsg.point.y);

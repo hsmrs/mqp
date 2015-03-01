@@ -159,12 +159,7 @@ private:
 
 	void bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg);
 
-<<<<<<< HEAD
-=======
-	void newTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg);
-
->>>>>>> 8ce5d4144310f0911c839d194db81b636079b7d7
-	void updatedTaskCallback(const std_msgs::String::ConstPtr& msg);
+	void updatedTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg);
 
 	void laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg);
 
