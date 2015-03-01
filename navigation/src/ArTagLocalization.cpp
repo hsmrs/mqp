@@ -55,16 +55,16 @@ void ArTagLocalization::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr
 
 	//Broadcast transform
 	//ROS_INFO("Broadcasting transform!");
-	br.sendTransform(tf::StampedTransform(transform.inverse(), ros::Time::now(), markerFrameID, "target_frame"));
+	br.sendTransform(tf::StampedTransform(transform.inverse(), ros::Time::now(), markerFrameID, target_frame));
 	//ROS_INFO("Transform broadcasted!");
 	
 	//Listen for transform from map to robot
 	//ROS_INFO("Listening for transform!");
 	tf::StampedTransform mapTransform;
 	try{
-		listener.waitForTransform("map", "target_frame",
+		listener.waitForTransform("map", target_frame,
 			ros::Time(0), ros::Duration(0.1));
-		listener.lookupTransform("map", "target_frame",
+		listener.lookupTransform("map", target_frame,
 			ros::Time(0), mapTransform);
 		//ROS_INFO("Transform heard");	
 	}
