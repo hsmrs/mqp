@@ -160,8 +160,6 @@ private:
 
 	void bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg);
 
-	void newTaskFromStringCallback(const std_msgs::String::ConstPtr& msg);
-
 	void newTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg);
 
 	void updatedTaskCallback(const std_msgs::String::ConstPtr& msg);
@@ -179,7 +177,7 @@ private:
 	void claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid);
 
 public:
-	Thor();
+	Thor(std::string name, double speed);
 
 	virtual std::string getName();
 

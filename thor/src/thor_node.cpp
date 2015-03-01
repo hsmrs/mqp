@@ -140,67 +140,6 @@ void Thor::bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg){
 
 }
 
-void Thor::newTaskFromStringCallback(const std_msgs::String::ConstPtr& msg){
-	std::string data = msg->data;
-
-	std::vector<std::string> items;
-	std::string delimiter = ";";
-	size_t pos = 0;
-
-	while ((pos = data.find(delimiter)) != std::string::npos) {
-    	items.push_back(data.substr(0, pos));
-		data.erase(0, pos + delimiter.length());
-	}
-
-	std::string type = items[1];
-	Task* task;
-	if (type == "GoTo"){
-		task = new GoToTask(msg->data);
-	}
-	else if (type == "FollowTag"){
-		task = new FollowTagTask(msg->data);
-	}
-	else if (type == "Search"){
-		task = new SearchTask(msg->data);
-	}
-	else{ //Task not recognized
-		return;
-	}
-	std::vector<std::string> owners = task->getOwners();
-	
-	if (std::find(owners.begin(), owners.end(), NAME)!=owners.end()){
-		claimTask(task);
-	} else{
-		taskList->addTask(task);
-	}
-}
-
-void Thor::newTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg){
-	std::string type = msg->type;
-	Task* task;
-
-	if (type == "GoTo"){
-		task = new GoToTask(msg);
-	}
-	else if (type == "FollowTag"){
-		task = new FollowTagTask(msg);
-	}
-	else if (type == "Search"){
-		task = new SearchTask(msg);
-	}
-	else{ //Task not recognized
-		return;
-	}
-
-	std::vector<std::string> owners = task->getOwners();
-	
-	if (std::find(owners.begin(), owners.end(), NAME)!=owners.end()){
-		claimTask(task);
-	} else{
-		taskList->addTask(task);
-	}
-}
-
 //TODO this needs to be toggleable
 void Thor::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& msg)
 {
@@ -278,7 +217,6 @@ Thor::Thor(std::string name, double speed) : NAME(name), REGISTRATION_TOPIC("hsm
 	help_pub = n.advertise<std_msgs::String>(HELP_TOPIC, 100);
 	pose_pub = n.advertise<geometry_msgs::PoseStamped>(POSE_TOPIC, 100);
 
-	new_task_sub = n.subscribe(NEW_TASK_TOPIC, 1000, &Thor::newTaskCallback, this);
 	updated_task_sub = n.subscribe(UPDATED_TASK_TOPIC, 1000, &Thor::updatedTaskCallback, this);
 	request_sub = n.subscribe(REQUEST_TOPIC, 1000, &Thor::requestCallback, this);
 	teleOp_sub = n.subscribe(TELE_OP_TOPIC, 1000, &Thor::teleOpCallback, this);
@@ -436,11 +374,11 @@ void Thor::handleNewTask(const hsmrs_framework::TaskMsg::ConstPtr& msg)
         }
         else if(type == "GoToTask")
         {
-            //TODO fill in
+            taskList->addTask(new GoToTask(msg));
         }
         else if(type == "SearchTask")
         {
-            
+            taskList->addTask(new SearchTask(msg));
         }
         else
         {
@@ -542,7 +480,7 @@ void Thor::handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
         }
         else if(type == "SearchTask")
         {
-            taskList->addTask(new GoToTask(msg->task));
+            taskList->addTask(new SearchTask(msg->task));
         }
         else
         {
