@@ -203,7 +203,6 @@ void Thor::updatedTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg){
             ROS_INFO("task is complete/I'm no longer an owner, ending");
             p_currentTask = NULL;
             p_currentBehavior->stop();
-            delete p_currentBehavior;
             p_currentBehavior = NULL;
         }
         else
@@ -252,7 +251,7 @@ Thor::Thor(std::string name, double speed) : NAME(name), REGISTRATION_TOPIC("/hs
 		LOG_TOPIC("log_messages"), STATUS_TOPIC("status"), HELP_TOPIC("help"), POSE_TOPIC("pose"),
 		REQUEST_TOPIC("requests"), TELE_OP_TOPIC("tele_op"), VEL_TOPIC("cmd_vel_mux/input/teleop"),
 		BUMPER_TOPIC("mobile_base/events/bumper"), NEW_TASK_TOPIC("/hsmrs/new_task"), 
-		UPDATED_TASK_TOPIC("/hsmrs/updated_task_topic"), LASER_TOPIC("scan"), IN_POSE_TOPIC("odom_filter/odom_combined"),
+		UPDATED_TASK_TOPIC("/hsmrs/updated_task"), LASER_TOPIC("scan"), IN_POSE_TOPIC("odom_filter/odom_combined"),
 		MARKER_TOPIC("ar_pose_marker"),
 		AUCTION_TOPIC("/hsmrs/auction"), CLAIM_TOPIC("/hsmrs/claim")
 {
@@ -380,6 +379,7 @@ void Thor::cancelTask() {
     ROS_INFO("canceling task");
     hsmrs_framework::TaskMsg* update = p_currentTask->toMsg();
     update->status = "complete";
+    ROS_INFO("update message\n\tid:%d\n\ttype:%s\n\tstatus:%s", update->id, update->type.c_str(), update->status.c_str());
     updatedTaskPub.publish(*update);
 }
 
