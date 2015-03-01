@@ -186,7 +186,11 @@ void Thor::poseCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr
 	pose_pub.publish(poseMsg);
 }
 
+<<<<<<< HEAD
 Thor::Thor(std::string name, double speed) : NAME(name), REGISTRATION_TOPIC("/hsmrs/robot_registration"), IMAGE_TOPIC("camera/rgb/image_mono"), 
+=======
+Thor::Thor(std::string name, double speed) : NAME(name), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMAGE_TOPIC("camera/rgb/image_mono"), 
+>>>>>>> 8ce5d4144310f0911c839d194db81b636079b7d7
 		LOG_TOPIC("log_messages"), STATUS_TOPIC("status"), HELP_TOPIC("help"), POSE_TOPIC("pose"),
 		REQUEST_TOPIC("requests"), TELE_OP_TOPIC("tele_op"), VEL_TOPIC("cmd_vel_mux/input/teleop"),
 		BUMPER_TOPIC("mobile_base/events/bumper"), NEW_TASK_TOPIC("/hsmrs/new_task"), 

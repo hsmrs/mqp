@@ -75,7 +75,6 @@ private:
 
 	ros::Subscriber request_sub;
 	ros::Subscriber teleOp_sub;
-	ros::Subscriber new_task_sub;
 	ros::Subscriber updated_task_sub;
     ros::Subscriber tag_sub;
     
@@ -160,10 +159,11 @@ private:
 
 	void bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg);
 
-	void newTaskFromStringCallback(const std_msgs::String::ConstPtr& msg);
-
+<<<<<<< HEAD
+=======
 	void newTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg);
 
+>>>>>>> 8ce5d4144310f0911c839d194db81b636079b7d7
 	void updatedTaskCallback(const std_msgs::String::ConstPtr& msg);
 
 	void laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg);
