@@ -34,6 +34,8 @@ void SearchBehavior::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& m
 			if (x <= 1.0){
 				linVel = 0;
 				parent->sendMessage("I found it!");
+				ROS_INFO("I found it!");
+				isExecuting = false;
 				parent->cancelTask();
 			}
 
@@ -54,7 +56,7 @@ void SearchBehavior::progressCallback(const std_msgs::String::ConstPtr& msg){
 	if (!isExecuting) return;
 	
 	std::string progress = msg->data;
-	if (progress == "complete"){
+	if (progress == "complete" && isExecuting){
 		if (!isFound){
 			ROS_INFO("Getting next target!");
 			ROS_INFO("(%f, %f)", goals[counter].point.x, goals[counter].point.y);
@@ -64,6 +66,8 @@ void SearchBehavior::progressCallback(const std_msgs::String::ConstPtr& msg){
 			}
 			else {
 				parent->sendMessage("I could not find it.");
+				ROS_INFO("I could not find it.");
+				isExecuting = false;
 				parent->cancelTask();
 			}
 			//bool success = pop_front<geometry_msgs::PointStamped>(boundaryVertices, goalMsg);

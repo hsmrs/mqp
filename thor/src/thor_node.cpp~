@@ -366,7 +366,7 @@ AgentState* Thor::getState() {
 bool Thor::hasAttribute(std::string attr) {
     try
     {
-        state->getAttribute(attr)
+        state->getAttribute(attr);
         return true;
     }
     catch(...)
@@ -399,6 +399,7 @@ void Thor::verifyTaskClaim() {
 void Thor::cancelTask() {
     ROS_INFO("canceling task");
     boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
+    ROS_INFO("got task lock");
     if(p_currentTask != NULL)
     {
         hsmrs_framework::TaskMsg* update = p_currentTask->toMsg();
