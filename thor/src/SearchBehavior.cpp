@@ -1,5 +1,7 @@
 #include "thor/SearchBehavior.h"
 
+int counter = 0;
+
 //Quick and dirty utility function
 template<typename T>
 bool pop_front(std::vector<T>& vec, T& removedItem)
@@ -49,16 +51,28 @@ void SearchBehavior::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& m
 }
 
 void SearchBehavior::progressCallback(const std_msgs::String::ConstPtr& msg){
+	if (!isExecuting) return;
+	
 	std::string progress = msg->data;
 	if (progress == "complete"){
 		if (!isFound){
 			ROS_INFO("Getting next target!");
-			bool success = pop_front<geometry_msgs::PointStamped>(boundaryVertices, goalMsg);
-			if (success) goalPub.publish(goalMsg);
+			ROS_INFO("(%f, %f)", goals[counter].point.x, goals[counter].point.y);
+			if (counter < goals.size()) {
+			
+				goalPub.publish(goals[counter++]);
+			}
 			else {
 				parent->sendMessage("I could not find it.");
 				stop();
 			}
+			//bool success = pop_front<geometry_msgs::PointStamped>(boundaryVertices, goalMsg);
+			//ROS_INFO("(%f, %f)", goalMsg.point.x, goalMsg.point.y);
+			//if (success) goalPub.publish(goalMsg);
+			//else {
+			//	parent->sendMessage("I could not find it.");
+			//	stop();
+			//}
 		}
 	}
 }
@@ -77,9 +91,10 @@ MARKER_TOPIC("/thor/ar_pose_marker")
 	this->tagID = tagID;
 	this->boundaryVertices = boundaryVertices;
 	this->resolution = resolution;
-
+	counter = 0;
 	createGoals();
-	pop_front<geometry_msgs::PointStamped>(goals, goalMsg);
+	goalMsg = goals[counter++];
+	//pop_front<geometry_msgs::PointStamped>(goals, goalMsg);
 
 
 	goalPub = n.advertise<geometry_msgs::PointStamped>("thor/navigation/goal", 1000, true);
@@ -115,6 +130,7 @@ void SearchBehavior::stop(){
 
 void SearchBehavior::createGoals(){
 	ROS_INFO("Creating goals!");
+	ROS_INFO("Vertices = (%f, %f) (%f, %f) (%f, %f) (%f, %f)", boundaryVertices[0].point.x, boundaryVertices[0].point.y,boundaryVertices[1].point.x,boundaryVertices[1].point.y,boundaryVertices[2].point.x,boundaryVertices[2].point.y,boundaryVertices[3].point.x,boundaryVertices[3].point.y);
 	geometry_msgs::PointStamped vertex1 = boundaryVertices[0];
 	geometry_msgs::PointStamped vertex2 = boundaryVertices[1];
 	geometry_msgs::PointStamped vertex3 = boundaryVertices[2];
@@ -122,10 +138,11 @@ void SearchBehavior::createGoals(){
 
 	int direction = -1;
 	double curY = vertex2.point.y;
-
+	ROS_INFO("Begin pushing goals");
 	goals.push_back(vertex1);
 	goals.push_back(vertex2);
-	while(curY + resolution <= vertex4.point.y){
+	while(curY + resolution < vertex4.point.y){
+		curY += resolution;
 		ROS_INFO("Current Y: %f", curY);
 		geometry_msgs::PointStamped temp1;
 		geometry_msgs::PointStamped temp2;
@@ -134,6 +151,8 @@ void SearchBehavior::createGoals(){
 		temp1.point.y = curY;
 		temp2.point.x = vertex1.point.x;
 		temp2.point.y = curY;
+		
+		ROS_INFO("Adding points: (%f, %f) and (%f, %f)", temp1.point.x, temp1.point.y, temp2.point.x, temp2.point.y);
 		
 		if (direction == -1){
 			ROS_INFO("Right to left");
@@ -146,8 +165,6 @@ void SearchBehavior::createGoals(){
 			goals.push_back(temp1);
 		}
 		ROS_INFO("Goals pushed");
-
-		curY += resolution;
 		direction *= -1;
 	}
 	ROS_INFO("Adding last vertices");
@@ -161,4 +178,8 @@ void SearchBehavior::createGoals(){
 		goals.push_back(vertex4);
 	}
 	ROS_INFO("Goals created!");
+	for (int i = 0; i < goals.size(); i++){
+		geometry_msgs::PointStamped msg = goals[i];	
+		ROS_INFO("(%f, %f)", msg.point.x, msg.point.y);
+	}
 }

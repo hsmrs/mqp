@@ -15,7 +15,11 @@
 		<param name="new_odom_frame" value="wheel_odom" />
 	</node>
 	
+<<<<<<< HEAD
 	<node name="odom_filter" pkg="robot_pose_ekf" type="robot_pose_ekf" respawn="true" output="screen" ns="($optenv ROBOT_NAME thor)">
+=======
+	<node name="odom_filter" pkg="robot_pose_ekf" type="robot_pose_ekf" respawn="true" ns="thor">
+>>>>>>> 7e849ca7cf8e99c7d8647c68ad8acbc0d3f242c7
 		<param name="output_frame" value="odom_combined"/>
 		<param name="base_footprint_frame" value="map" />
     	<param name="freq" value="10.0"/>
