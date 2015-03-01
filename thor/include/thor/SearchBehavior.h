@@ -20,6 +20,7 @@ private:
 	ros::Subscriber markerSub;
 	ros::Subscriber progressSub;
 
+    ros::Publisher progressPub;
 	ros::Publisher cmdVelPub;
 	ros::Publisher goalPub;
 	ros::Publisher cancelPub;

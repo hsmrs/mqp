@@ -20,8 +20,6 @@ private:
 	ros::Publisher goalPub;
 	ros::Publisher cancelPub;
 	ros::Subscriber progressSub;
-	ros::Publishes updatePub;
-	Task* task;
 
 public:
 

@@ -264,7 +264,7 @@ Thor::Thor(std::string name, double speed) : NAME(name), REGISTRATION_TOPIC("/hs
 		BUMPER_TOPIC("mobile_base/events/bumper"), NEW_TASK_TOPIC("/hsmrs/new_task"), 
 		UPDATED_TASK_TOPIC("/hsmrs/updated_task"), LASER_TOPIC("scan"), IN_POSE_TOPIC("odom_filter/odom_combined"),
 		MARKER_TOPIC("ar_pose_marker"),
-		AUCTION_TOPIC("/hsmrs/auction"), CLAIM_TOPIC("/hsmrs/claim")
+		AUCTION_TOPIC("/hsmrs/auction"), CLAIM_TOPIC("/hsmrs/claim"), TASK_PROGRESS_TOPIC("progress")
 {
 
 	taskList = new MyTaskList();
@@ -307,6 +307,7 @@ Thor::Thor(std::string name, double speed) : NAME(name), REGISTRATION_TOPIC("/hs
 	bidSub = n.subscribe(AUCTION_TOPIC, 1000, &Thor::handleBids, this);
 	newTaskSub = n.subscribe(NEW_TASK_TOPIC, 100, &Thor::handleNewTask, this);
 	claimSub = n.subscribe(CLAIM_TOPIC, 100, &Thor::handleClaims, this);
+	taskProgressSub = n.subscribe(TASK_PROGRESS_TOPIC, 100, &Thor::handleProgress, this);
 
 	//ros::spinOnce();
 	ros::Rate loop_rate(1);
@@ -727,6 +728,15 @@ double Thor::bid(const hsmrs_framework::TaskMsg::ConstPtr& msg)
     }
     
     return myBid.utility;
+}
+
+void Thor::handleProgress(const std_msgs::String::ConstPtr& msg)
+{
+    std::string progress = msg->data;
+    if(progress == "complete")
+    {
+        cancelTask();
+    }
 }
 
 int main(int argc, char **argv) {

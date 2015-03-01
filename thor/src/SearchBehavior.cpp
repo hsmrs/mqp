@@ -36,7 +36,9 @@ void SearchBehavior::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& m
 				parent->sendMessage("I found it!");
 				ROS_INFO("I found it!");
 				isExecuting = false;
-				parent->cancelTask();
+				std_msgs::String progMsg = std_msgs::String();
+				progMsg.data = "complete";
+				progressPub.publish(progMsg);
 			}
 
 			geometry_msgs::Twist velMsg;
@@ -68,7 +70,7 @@ void SearchBehavior::progressCallback(const std_msgs::String::ConstPtr& msg){
 				parent->sendMessage("I could not find it.");
 				ROS_INFO("I could not find it.");
 				isExecuting = false;
-				parent->cancelTask();
+				progressPub.publish(*msg);
 			}
 			//bool success = pop_front<geometry_msgs::PointStamped>(boundaryVertices, goalMsg);
 			//ROS_INFO("(%f, %f)", goalMsg.point.x, goalMsg.point.y);
@@ -103,6 +105,7 @@ MARKER_TOPIC("ar_pose_marker")
 
 	goalPub = n.advertise<geometry_msgs::PointStamped>("navigation/goal", 1000, true);
 	cancelMsg.data = "cancel";
+	progressPub = n.advertise<std_msgs::String>("progress", 1000);
 	cancelPub = n.advertise<std_msgs::String>("navigation/cancel", 1000);
 	cmdVelPub = n.advertise<geometry_msgs::Twist>(cmdVelTopic, 1000);
 

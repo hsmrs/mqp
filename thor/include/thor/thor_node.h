@@ -86,6 +86,7 @@ private:
 	ros::Subscriber bidSub;
 	ros::Subscriber newTaskSub;
 	ros::Subscriber claimSub;
+	ros::Subscriber taskProgressSub;
 
 	ros::Publisher vel_pub;
 	ros::Subscriber bumper_sub;
@@ -108,6 +109,7 @@ private:
 	const std::string UPDATED_TASK_TOPIC;
 	const std::string AUCTION_TOPIC;
 	const std::string CLAIM_TOPIC;
+	const std::string TASK_PROGRESS_TOPIC;
 
 	const std::string VEL_TOPIC;
 	const std::string BUMPER_TOPIC;
@@ -174,6 +176,8 @@ private:
 	void handleClaims(const hsmrs_framework::BidMsg::ConstPtr& msg);
 	
 	void claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid);
+	
+	void handleProgress(const std_msgs::String::ConstPtr& msg);
 
 public:
 	Thor(std::string name, double speed);
