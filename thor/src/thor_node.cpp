@@ -161,6 +161,8 @@ void Thor::updatedTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg){
     
     std::string type = msg->type;
     
+    ROS_INFO("got task update for task %ld of type %s", msg->id, msg->type.c_str());
+    
     if(type == "MyTask")
     {
         update = new MyTask(msg->id, msg->priority);
@@ -195,8 +197,10 @@ void Thor::updatedTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg){
     
     if(std::find(oldOwners.begin(), oldOwners.end(), getName()) != oldOwners.end()) //if this is my task
     {
+        ROS_INFO("I own this task");
         if(std::find(msg->owners.begin(), msg->owners.end(), getName()) == msg->owners.end() || msg->status == "complete" || msg->status == "deleted") //if I'm no longer working on it
         {
+            ROS_INFO("task is complete/I'm no longer an owner, ending");
             p_currentTask = NULL;
             p_currentBehavior->stop();
             delete p_currentBehavior;
@@ -204,13 +208,17 @@ void Thor::updatedTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg){
         }
         else
         {
+            ROS_INFO("task isn't complete, updating my copy");
             p_currentTask = update;
         }
     }
     
+    ROS_INFO("updating task list copy");
     taskList->removeTask(update->getID());
     taskList->addTask(update);
     listLock.unlock();
+    
+    ROS_INFO("done updating");
 }
 
 void Thor::laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg){
@@ -369,6 +377,7 @@ void Thor::verifyTaskClaim() {
  * the Task be returned to the TaskList.
  */
 void Thor::cancelTask() {
+    ROS_INFO("canceling task");
     hsmrs_framework::TaskMsg* update = p_currentTask->toMsg();
     update->status = "complete";
     updatedTaskPub.publish(*update);
