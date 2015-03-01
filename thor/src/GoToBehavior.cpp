@@ -13,24 +13,30 @@ GoToBehavior::GoToBehavior(Robot* parent, geometry_msgs::Point goal, ros::NodeHa
 
 void GoToBehavior::execute(){
 	ROS_INFO("Sending goal");
+	isExecuting = true;
   	goalPub.publish(goalMsg);
 }
 
 void GoToBehavior::resume(){
+	isExecuting = true;
 	goalPub.publish(goalMsg);
 }
 
 void GoToBehavior::pause(){
+	isExecuting = false;
 	cancelPub.publish(cancelMsg);
 }
 
 void GoToBehavior::stop(){
+	isExecuting = false;
 	cancelPub.publish(cancelMsg);
 }
 
 void GoToBehavior::progressCallback(const std_msgs::String::ConstPtr& msg){
 	std::string progress = msg->data;
-	if (progress == "complete"){
+	if (progress == "complete" && isExecuting){
+		isExecuting = false;
+		
 		//Tell thor task is complete.
 		ROS_INFO("GoToTask complete, calling cancelTask");
 		parent->cancelTask();
