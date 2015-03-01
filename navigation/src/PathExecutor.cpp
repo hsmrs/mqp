@@ -38,6 +38,7 @@ void PlanExecutor::poseCallback(const geometry_msgs::PoseStamped::ConstPtr& pose
 
 void PlanExecutor::pathCallback(const nav_msgs::Path::ConstPtr& pathMsg){
 	ROS_INFO("Path received!");
+	path.clear();
 	for (geometry_msgs::PoseStamped pose : pathMsg->poses){
 		path.push_back(pose.pose);
 	}
@@ -69,7 +70,8 @@ void PlanExecutor::executePath(){
 		ROS_INFO("Driving to: (%f, %f)", x2, y2);
 		ROS_INFO("Distance: %f", distance(x1, y1, x2, y2));
 		while (distance(x1, y1, x2, y2) > 0.5 && !isCanceled && ros::ok()){
-			//ROS_INFO("Distance: %f", distance(x1, y1, x2, y2));
+			ROS_INFO("Driving to: (%f, %f)", x2, y2);
+			ROS_INFO("Distance: %f", distance(x1, y1, x2, y2));
 			x1 = currentPose.position.x;
 			y1 = currentPose.position.y;
 
@@ -86,9 +88,18 @@ void PlanExecutor::executePath(){
 
 			linearError = distance(x1, y1, x2, y2);
 			angularError = atan2(y2-y1, x2-x1) - theta;
-			//ROS_INFO("Angular error: %f", angularError);
+			ROS_INFO("Raw angular error: %f", angularError*180/M_PI);
+			if (abs(angularError) > M_PI){
+				int sign = -1*(angularError/abs(angularError));
+				angularError = 2*M_PI - abs(angularError);
+				angularError *= sign;
+			}
+			
+			ROS_INFO("My angle: %f", theta*180/M_PI);
+			ROS_INFO("Angle to goal: %f", atan2(y2-y1, x2-x1)*180/M_PI);
+			ROS_INFO("Angular error: %f", angularError*180/M_PI);
 
-			if (abs(angularError) >= 25*M_PI/180){
+			if (abs(angularError) >= 10*M_PI/180){
 				linearVelocity = 0;
 				angularVelocity = angularError * angularKp;
 				//ROS_INFO("Facing target");

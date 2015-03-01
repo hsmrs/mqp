@@ -22,6 +22,7 @@ SearchTask::SearchTask(const hsmrs_framework::TaskMsg::ConstPtr& msg){
 	std::string delimiter = ";";
 	size_t pos = 0;
 	size_t pos2 = 0;
+	ROS_INFO("Boundary Vertices String %s", boundaryVerticesString.c_str());
 	while ((pos = boundaryVerticesString.find(delimiter)) != std::string::npos) {
 		std::string temp = boundaryVerticesString.substr(0, pos);
 		temp.erase(0, 1);
@@ -37,6 +38,7 @@ SearchTask::SearchTask(const hsmrs_framework::TaskMsg::ConstPtr& msg){
 		point.point.x = xValues[i];
 		point.point.y = yValues[i];
 		boundaryVertices.push_back(point);
+		ROS_INFO("New Point: (%f, %f)", xValues[i], yValues[i]);
 	}
 
 	for(std::string owner : msg->owners){

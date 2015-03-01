@@ -228,6 +228,9 @@
 			pathMsg.poses[i].pose.position.x = path[i].getX();
 			pathMsg.poses[i].pose.position.y = path[i].getY();
 		}
+		for (int i = 0; i < path.size(); ++i){
+			ROS_INFO("(%d, %d)", path[i].getX(), path[i].getY());
+		}
 		pathMsg.header.frame_id = "map";
 		pathPub.publish(pathMsg);
 		ROS_INFO("Path found and published!");

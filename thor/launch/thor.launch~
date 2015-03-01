@@ -15,7 +15,7 @@
 		<param name="new_odom_frame" value="wheel_odom" />
 	</node>
 	
-	<node name="odom_filter" pkg="robot_pose_ekf" type="robot_pose_ekf" respawn="true" output="screen" ns="thor">
+	<node name="odom_filter" pkg="robot_pose_ekf" type="robot_pose_ekf" respawn="true" ns="thor">
 		<param name="output_frame" value="odom_combined"/>
 		<param name="base_footprint_frame" value="map" />
     	<param name="freq" value="10.0"/>
@@ -44,7 +44,7 @@
 	<!--AR Marker setup-->
 	<arg name="marker_size" default="20.3" />
 	<arg name="max_new_marker_error" default="0.08" />
-	<arg name="max_track_error" default="0.2" />
+	<arg name="max_track_error" default="0.1" />
 	<arg name="cam_image_topic" default="/thor/camera/rgb/image_color" />
 	<arg name="cam_info_topic" default="/thor/camera/rgb/camera_info" />
 	<!--arg name="cam_image_topic" default="/thor/camera/rgb/image_color" /-->
