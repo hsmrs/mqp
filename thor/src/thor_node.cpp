@@ -247,12 +247,12 @@ void Thor::poseCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr
 	pose_pub.publish(poseMsg);
 }
 
-Thor::Thor(std::string name, double speed) : NAME(name), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMAGE_TOPIC(name + "/camera/rgb/image_mono"), 
-		LOG_TOPIC(name + "/log_messages"), STATUS_TOPIC(name + "/status"), HELP_TOPIC(name + "/help"), POSE_TOPIC(name + "/pose"),
-		REQUEST_TOPIC(name + "/requests"), TELE_OP_TOPIC(name + "/tele_op"), VEL_TOPIC(name + "/cmd_vel_mux/input/teleop"),
-		BUMPER_TOPIC("/" + name + "/mobile_base/events/bumper"), NEW_TASK_TOPIC("/hsmrs/new_task"), 
-		UPDATED_TASK_TOPIC("/hsmrs/updated_task_topic"), LASER_TOPIC(name + "/scan"), IN_POSE_TOPIC(name + "/odom_filter/odom_combined"),
-		MARKER_TOPIC("/" + name+ "/ar_pose_marker"),
+Thor::Thor(std::string name, double speed) : NAME(name), REGISTRATION_TOPIC("hsmrs/robot_registration"), IMAGE_TOPIC("camera/rgb/image_mono"), 
+		LOG_TOPIC("log_messages"), STATUS_TOPIC("status"), HELP_TOPIC("help"), POSE_TOPIC("pose"),
+		REQUEST_TOPIC("requests"), TELE_OP_TOPIC("tele_op"), VEL_TOPIC("cmd_vel_mux/input/teleop"),
+		BUMPER_TOPIC("mobile_base/events/bumper"), NEW_TASK_TOPIC("/hsmrs/new_task"), 
+		UPDATED_TASK_TOPIC("/hsmrs/updated_task_topic"), LASER_TOPIC("scan"), IN_POSE_TOPIC("odom_filter/odom_combined"),
+		MARKER_TOPIC("ar_pose_marker"),
 		AUCTION_TOPIC("/hsmrs/auction"), CLAIM_TOPIC("/hsmrs/claim")
 {
 

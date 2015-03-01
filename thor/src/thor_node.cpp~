@@ -252,7 +252,7 @@ Thor::Thor(std::string name, double speed) : NAME(name), REGISTRATION_TOPIC("hsm
 		REQUEST_TOPIC(name + "/requests"), TELE_OP_TOPIC(name + "/tele_op"), VEL_TOPIC(name + "/cmd_vel_mux/input/teleop"),
 		BUMPER_TOPIC("/" + name + "/mobile_base/events/bumper"), NEW_TASK_TOPIC("/hsmrs/new_task"), 
 		UPDATED_TASK_TOPIC("/hsmrs/updated_task_topic"), LASER_TOPIC(name + "/scan"), IN_POSE_TOPIC(name + "/odom_filter/odom_combined"),
-		MARKER_TOPIC("/" + name+ "/ar_pose_marker"),
+		MARKER_TOPIC(name+ "/ar_pose_marker"),
 		AUCTION_TOPIC("/hsmrs/auction"), CLAIM_TOPIC("/hsmrs/claim")
 {
 
@@ -650,7 +650,7 @@ double Thor::bid(const hsmrs_framework::TaskMsg::ConstPtr& msg)
 }
 
 int main(int argc, char **argv) {
-    std::string name = "thor"
+    std::string name = "thor";
     double speed = 1;
     
     if(argc > 1)
