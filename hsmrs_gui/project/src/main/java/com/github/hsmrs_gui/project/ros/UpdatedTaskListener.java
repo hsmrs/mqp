@@ -42,6 +42,8 @@ public class UpdatedTaskListener implements MessageListener<hsmrs_framework.Task
 	 */
 	@Override
 	public void onNewMessage(hsmrs_framework.TaskMsg message) {
+		if (message.getStatus().equals("deleted")) return;
+		
 		TaskModel task = tasks.getTaskByID((int)message.getId());
 		List<String> msgOwners = message.getOwners();
 		List<RobotModel> oldOwners = task.getOwners();
