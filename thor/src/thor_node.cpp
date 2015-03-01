@@ -167,11 +167,11 @@ void Thor::poseCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr
 	geometry_msgs::PoseStamped tempMsg;
 	geometry_msgs::PoseStamped poseMsg;
 	
-	tempMsg.header.frame_id = "odom_combined";
+	tempMsg.header.frame_id = name + "/odom_combined";
 	tempMsg.header.stamp = ros::Time::now();
 	tempMsg.pose = msg->pose.pose;
 	try{
-		listener.waitForTransform("odom_combined", "map",
+		listener.waitForTransform(name + "/odom_combined", "map",
 			ros::Time::now(), ros::Duration(0.5));
 		listener.transformPose("map", tempMsg, poseMsg);
 	}
