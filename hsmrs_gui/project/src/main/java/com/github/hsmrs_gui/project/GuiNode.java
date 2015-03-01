@@ -36,6 +36,7 @@ import src.main.java.com.github.hsmrs_gui.project.ros.NewTaskPublisher;
 import src.main.java.com.github.hsmrs_gui.project.ros.RobotRegistrationListener;
 import src.main.java.com.github.hsmrs_gui.project.ros.SystemLogListener;
 import src.main.java.com.github.hsmrs_gui.project.ros.UpdatedTaskListener;
+import src.main.java.com.github.hsmrs_gui.project.ros.UpdatedTaskPublisher;
 import src.main.java.com.github.hsmrs_gui.project.util.Pair;
 import src.main.java.com.github.hsmrs_gui.project.view.MainFrame;
 
@@ -130,7 +131,7 @@ public class GuiNode extends AbstractNodeMain {
             	systemLogListener = new SystemLogListener(connectedNode);
             	imageListener = new ImageListener(connectedNode);
             	updatedTaskListener = new UpdatedTaskListener();
-            	
+            	UpdatedTaskPublisher.getInstance();
             	
             	taskPublisher = new NewTaskPublisher(connectedNode);
             	

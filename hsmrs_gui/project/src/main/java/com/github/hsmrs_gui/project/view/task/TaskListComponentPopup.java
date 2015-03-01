@@ -15,6 +15,7 @@ import src.main.java.com.github.hsmrs_gui.project.model.robot.RobotListModel;
 import src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskListModel;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskModel;
+import src.main.java.com.github.hsmrs_gui.project.ros.UpdatedTaskPublisher;
 
 public class TaskListComponentPopup extends JPopupMenu implements ActionListener{
 	
@@ -84,6 +85,7 @@ public class TaskListComponentPopup extends JPopupMenu implements ActionListener
 			}
 		} else if (item.getText().equals("Remove")) {
 			TaskListModel.getInstance().removeTask(task);
+			UpdatedTaskPublisher.getInstance().publishDeletedTask(task);
 			return;
 		}
 	}
