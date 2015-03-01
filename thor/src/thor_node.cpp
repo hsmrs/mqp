@@ -161,6 +161,8 @@ void Thor::updatedTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg){
     
     std::string type = msg->type;
     
+    ROS_INFO("got task update for task %ld of type %s", msg->id, msg->type.c_str());
+    
     if(type == "MyTask")
     {
         update = new MyTask(msg->id, msg->priority);
@@ -193,24 +195,31 @@ void Thor::updatedTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg){
     old = taskList->getTask(update->getID());
     std::vector<std::string> oldOwners = old->getOwners();
     
-    if(std::find(oldOwners.begin(), oldOwners.end(), getName()) != oldOwners.end()) //if this is my task
+    if(std::find(oldOwners.begin(), oldOwners.end(), getName()) != oldOwners.end() && p_currentTask != NULL && p_currentBehavior != NULL) //if this is my task
     {
+        ROS_INFO("I own this task");
         if(std::find(msg->owners.begin(), msg->owners.end(), getName()) == msg->owners.end() || msg->status == "complete" || msg->status == "deleted") //if I'm no longer working on it
         {
+            ROS_INFO("task is complete/I'm no longer an owner, ending");
             p_currentTask = NULL;
             p_currentBehavior->stop();
-            delete p_currentBehavior;
             p_currentBehavior = NULL;
         }
         else
         {
+            ROS_INFO("task isn't complete, updating my copy");
             p_currentTask = update;
         }
     }
     
+    //TODO make it so robots can be added
+    
+    ROS_INFO("updating task list copy");
     taskList->removeTask(update->getID());
     taskList->addTask(update);
     listLock.unlock();
+    
+    ROS_INFO("done updating");
 }
 
 void Thor::laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg){
@@ -244,7 +253,7 @@ Thor::Thor(std::string name, double speed) : NAME(name), REGISTRATION_TOPIC("/hs
 		LOG_TOPIC("log_messages"), STATUS_TOPIC("status"), HELP_TOPIC("help"), POSE_TOPIC("pose"),
 		REQUEST_TOPIC("requests"), TELE_OP_TOPIC("tele_op"), VEL_TOPIC("cmd_vel_mux/input/teleop"),
 		BUMPER_TOPIC("mobile_base/events/bumper"), NEW_TASK_TOPIC("/hsmrs/new_task"), 
-		UPDATED_TASK_TOPIC("/hsmrs/updated_task_topic"), LASER_TOPIC("scan"), IN_POSE_TOPIC("odom_filter/odom_combined"),
+		UPDATED_TASK_TOPIC("/hsmrs/updated_task"), LASER_TOPIC("scan"), IN_POSE_TOPIC("odom_filter/odom_combined"),
 		MARKER_TOPIC("ar_pose_marker"),
 		AUCTION_TOPIC("/hsmrs/auction"), CLAIM_TOPIC("/hsmrs/claim")
 {
@@ -369,8 +378,10 @@ void Thor::verifyTaskClaim() {
  * the Task be returned to the TaskList.
  */
 void Thor::cancelTask() {
+    ROS_INFO("canceling task");
     hsmrs_framework::TaskMsg* update = p_currentTask->toMsg();
     update->status = "complete";
+    ROS_INFO("update message\n\tid:%d\n\ttype:%s\n\tstatus:%s", update->id, update->type.c_str(), update->status.c_str());
     updatedTaskPub.publish(*update);
 }
 

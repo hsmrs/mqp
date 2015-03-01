@@ -32,6 +32,7 @@ void GoToBehavior::progressCallback(const std_msgs::String::ConstPtr& msg){
 	std::string progress = msg->data;
 	if (progress == "complete"){
 		//Tell thor task is complete.
+		ROS_INFO("GoToTask complete, calling cancelTask");
 		parent->cancelTask();
 	}
 }

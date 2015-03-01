@@ -32,7 +32,6 @@ void GoToBehavior::progressCallback(const std_msgs::String::ConstPtr& msg){
 	std::string progress = msg->data;
 	if (progress == "complete"){
 		//Tell thor task is complete.
-		stop();
 		parent->cancelTask();
 	}
 }
