@@ -27,12 +27,12 @@ public class UpdatedTaskListener implements MessageListener<hsmrs_framework.Task
 	 * The constructor for the UpdatedTaskListener class.
 	 * @param topicName The name of the ROS topic
 	 */
-	public UpdatedTaskListener(TaskListModel tasks, String topicName) {
+	public UpdatedTaskListener() {
 		connectedNode = GuiNode.getConnectedNode();
-		this.tasks = tasks;
+		this.tasks = TaskListModel.getInstance();
 
 		Subscriber<hsmrs_framework.TaskMsg> subscriber = connectedNode.newSubscriber(
-				topicName, hsmrs_framework.TaskMsg._TYPE);
+				"hsmrs/updated_task", hsmrs_framework.TaskMsg._TYPE);
 		subscriber.addMessageListener(this);
 	}
 

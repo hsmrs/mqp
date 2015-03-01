@@ -12,7 +12,7 @@ public class UpdatedTaskPublisher {
 	private static UpdatedTaskPublisher instance;
 	
 	private UpdatedTaskPublisher(){
-		ConnectedNode connectedNode = GuiNode.getConnectedNode();;
+		ConnectedNode connectedNode = GuiNode.getConnectedNode();
 		publisher =
 		        connectedNode.newPublisher("hsmrs/updated_task", hsmrs_framework.TaskMsg._TYPE);
 	}
