@@ -44,7 +44,7 @@ void PlanExecutor::pathCallback(const nav_msgs::Path::ConstPtr& pathMsg){
 	}
 
 	isCanceled = false;
-	ROS_INFO("Execuing!");
+	ROS_INFO("Executing!");
 	executePath();
 }
 
@@ -57,7 +57,7 @@ void PlanExecutor::executePath(){
 	double linearKp = 0.8, angularKp = 1.2;
 
 	for (auto pose : path){
-		ROS_INFO("Next waypoint!");
+		//ROS_INFO("Next waypoint!");
 		x1 = currentPose.position.x;
 		x2 = pose.position.x;
 		y1 = currentPose.position.y;
@@ -68,10 +68,10 @@ void PlanExecutor::executePath(){
 		nextPointMsg.point.y = y2;
 		nextPointPub.publish(nextPointMsg);
 		ROS_INFO("Driving to: (%f, %f)", x2, y2);
-		ROS_INFO("Distance: %f", distance(x1, y1, x2, y2));
+		//ROS_INFO("Distance: %f", distance(x1, y1, x2, y2));
 		while (distance(x1, y1, x2, y2) > 0.5 && !isCanceled && ros::ok()){
-			ROS_INFO("Driving to: (%f, %f)", x2, y2);
-			ROS_INFO("Distance: %f", distance(x1, y1, x2, y2));
+			//ROS_INFO("Driving to: (%f, %f)", x2, y2);
+			//ROS_INFO("Distance: %f", distance(x1, y1, x2, y2));
 			x1 = currentPose.position.x;
 			y1 = currentPose.position.y;
 
@@ -88,16 +88,16 @@ void PlanExecutor::executePath(){
 
 			linearError = distance(x1, y1, x2, y2);
 			angularError = atan2(y2-y1, x2-x1) - theta;
-			ROS_INFO("Raw angular error: %f", angularError*180/M_PI);
+			//ROS_INFO("Raw angular error: %f", angularError*180/M_PI);
 			if (abs(angularError) > M_PI){
 				int sign = -1*(angularError/abs(angularError));
 				angularError = 2*M_PI - abs(angularError);
 				angularError *= sign;
 			}
 			
-			ROS_INFO("My angle: %f", theta*180/M_PI);
-			ROS_INFO("Angle to goal: %f", atan2(y2-y1, x2-x1)*180/M_PI);
-			ROS_INFO("Angular error: %f", angularError*180/M_PI);
+			//ROS_INFO("My angle: %f", theta*180/M_PI);
+			//ROS_INFO("Angle to goal: %f", atan2(y2-y1, x2-x1)*180/M_PI);
+			//ROS_INFO("Angular error: %f", angularError*180/M_PI);
 
 			if (abs(angularError) >= 10*M_PI/180){
 				linearVelocity = 0;
@@ -126,12 +126,13 @@ void PlanExecutor::executePath(){
 
 		if (isCanceled) break;
 	}
-	ROS_INFO("Done!");
 	if (!isCanceled){
+		ROS_INFO("Plan Executed!");
 		std_msgs::String progressMsg;
 		progressMsg.data = "complete";
 		progressPub.publish(progressMsg);
 	} else {
+		ROS_INFO("Plan Execution Canceled!");
 		std_msgs::String progressMsg;
 		progressMsg.data = "canceled";
 		progressPub.publish(progressMsg);
