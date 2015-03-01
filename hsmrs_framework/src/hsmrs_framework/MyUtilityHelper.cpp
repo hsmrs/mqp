@@ -60,14 +60,13 @@ double MyUtilityHelper::calculate(Robot* robot, Task* task)
 	    double distance = 0;
 	    double time = 0;
 	    hsmrs_framework::TaskMsg* msg = task->toMsg();
-	    
+	    printf("vertices %s\n", msg->param_values[1].c_str());
 		std::string temp = msg->param_values[1].substr(0, msg->param_values[1].find(";"));
-		temp.erase(0, 1);
-    	temp.erase(temp.size() - 1);
     	int pos = temp.find(",");
 	    
-	    double destX = std::stod(temp.substr(0, pos));
-	    double destY = std::stod(temp.substr(pos + 1));
+	    printf("temp %s\n", temp.c_str());
+	    double destX = std::stod(temp.substr(1, pos - 1));
+	    double destY = std::stod(temp.substr(pos + 1, temp.size() - pos - 1));
 	    double robotX, robotY;
 	    
 	    if(robotAttributes.count("speed") > 0)

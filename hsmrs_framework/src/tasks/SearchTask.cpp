@@ -53,7 +53,7 @@ SearchTask::SearchTask(const hsmrs_framework::TaskMsg::ConstPtr& msg){
 
 SearchTask::SearchTask(hsmrs_framework::TaskMsg msg){
 	tagID = stoi(msg.param_values[0]);
-	boundaryVerticesString = msg.param_values[1];
+	boundaryVerticesString = std::string(msg.param_values[1]);
 
 	std::vector<double> xValues;
 	std::vector<double> yValues;
@@ -82,6 +82,7 @@ SearchTask::SearchTask(hsmrs_framework::TaskMsg msg){
 		owners.push_back(owner);
 	}
 
+    boundaryVerticesString = std::string(msg.param_values[1]);
 	priority = msg.priority;
 	id = msg.id;
 	prerequisite = new MyPrerequisite();
@@ -193,7 +194,26 @@ hsmrs_framework::TaskMsg* SearchTask::toMsg()
     msg->type = "SearchTask";
     msg->param_values = std::vector<std::string>();
     msg->param_values.push_back(std::to_string(tagID));
-    msg->param_values.push_back(boundaryVerticesString);
+    
+    std::string vertices = std::string("(");
+    vertices += std::to_string(boundaryVertices[0].point.x);
+    vertices += ",";
+    vertices += std::to_string(boundaryVertices[0].point.y);
+    vertices += ");(";
+    vertices += std::to_string(boundaryVertices[1].point.x);
+    vertices += ",";
+    vertices += std::to_string(boundaryVertices[1].point.y);
+    vertices += ");(";
+    vertices += std::to_string(boundaryVertices[2].point.x);
+    vertices += ",";
+    vertices += std::to_string(boundaryVertices[2].point.y);
+    vertices += ");(";
+    vertices += std::to_string(boundaryVertices[3].point.x);
+    vertices += ",";
+    vertices += std::to_string(boundaryVertices[3].point.y);
+    vertices += ");";
+    
+    msg->param_values.push_back(vertices);
     msg->priority = priority;
     msg->owners = std::vector<std::string>(owners);
     
