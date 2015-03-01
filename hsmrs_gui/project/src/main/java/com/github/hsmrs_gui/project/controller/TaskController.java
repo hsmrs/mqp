@@ -12,6 +12,7 @@ import src.main.java.com.github.hsmrs_gui.project.model.task.TaskListModel;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskParam;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskSpecification;
 import src.main.java.com.github.hsmrs_gui.project.ros.NewTaskPublisher;
+import src.main.java.com.github.hsmrs_gui.project.ros.UpdatedTaskPublisher;
 import src.main.java.com.github.hsmrs_gui.project.view.task.TaskPanel;
 
 public class TaskController implements ActionListener{
@@ -32,12 +33,14 @@ public class TaskController implements ActionListener{
 		RobotModel robot = RobotListModel.getInstance().getRobotModelByName(ownerName);
 		task.addOwner(robot);
 		TaskPanel.getInstance().updateTaskList();
+		UpdatedTaskPublisher.getInstance().publishUpdatedTask(task);
 	}
 	
 	public void removeOwnerFromTask(TaskModel task, String ownerName){
 		RobotModel robot = RobotListModel.getInstance().getRobotModelByName(ownerName);
 		task.removeOwner(robot);
 		TaskPanel.getInstance().updateTaskList();
+		UpdatedTaskPublisher.getInstance().publishUpdatedTask(task);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -52,6 +55,8 @@ public class TaskController implements ActionListener{
 			TaskListModel tlm = TaskListModel.getInstance();
 			for (TaskModel task : targets){
 				tlm.removeTask(task);
+				UpdatedTaskPublisher.getInstance().publishDeletedTask(task);
+				TaskPanel.getInstance().updateTaskList();
 			}
 		}
 		else if (cmd.equals("New task type")){

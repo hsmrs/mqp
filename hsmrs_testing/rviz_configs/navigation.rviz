@@ -4,13 +4,8 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
-        - /Global Options1
         - /Status1
-        - /TF1
-        - /Map1
-        - /PointStamped1
-        - /Path1
-        - /Pose1
+        - /Pose3
       Splitter Ratio: 0.5
     Tree Height: 463
   - Class: rviz/Selection
@@ -58,15 +53,7 @@ Visualization Manager:
       Frame Timeout: 1000
       Frames:
         All Enabled: true
-        ar_marker_0:
-          Value: true
-        ar_marker_4:
-          Value: true
-        ar_marker_5:
-          Value: true
-        ar_marker_7:
-          Value: true
-        ar_marker_8:
+        ar_marker_6:
           Value: true
         base_footprint:
           Value: true
@@ -107,6 +94,16 @@ Visualization Manager:
         hsmrs/marker_8:
           Value: true
         hsmrs/marker_9:
+          Value: true
+        hulk/odom_combined:
+          Value: true
+        hulk/wheel_odom:
+          Value: true
+        ironman:
+          Value: true
+        ironman/odom_combined:
+          Value: true
+        ironman/wheel_odom:
           Value: true
         map:
           Value: true
@@ -152,11 +149,7 @@ Visualization Manager:
           Value: true
         pole_top_3_link:
           Value: true
-        thor:
-          Value: true
         wheel_left_link:
-          Value: true
-        wheel_odom:
           Value: true
         wheel_right_link:
           Value: true
@@ -166,7 +159,31 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        {}
+        odom_combined:
+          map:
+            hsmrs/marker_0:
+              {}
+            hsmrs/marker_4:
+              {}
+            hsmrs/marker_5:
+              {}
+            hsmrs/marker_6:
+              ironman:
+                {}
+            hsmrs/marker_7:
+              {}
+            hsmrs/marker_8:
+              {}
+            hsmrs/marker_9:
+              {}
+            hulk/odom_combined:
+              {}
+            hulk/wheel_odom:
+              {}
+            ironman/odom_combined:
+              {}
+            ironman/wheel_odom:
+              {}
       Update Interval: 0
       Value: true
     - Alpha: 0.7
@@ -198,7 +215,7 @@ Visualization Manager:
       Axes Length: 1
       Axes Radius: 0.1
       Class: rviz/Pose
-      Color: 255; 25; 0
+      Color: 255; 255; 0
       Enabled: true
       Head Length: 0.3
       Head Radius: 0.1
@@ -207,6 +224,34 @@ Visualization Manager:
       Shaft Radius: 0.05
       Shape: Arrow
       Topic: /thor/pose
+      Value: true
+    - Alpha: 1
+      Axes Length: 1
+      Axes Radius: 0.1
+      Class: rviz/Pose
+      Color: 85; 255; 127
+      Enabled: true
+      Head Length: 0.3
+      Head Radius: 0.1
+      Name: Pose
+      Shaft Length: 1
+      Shaft Radius: 0.05
+      Shape: Arrow
+      Topic: /hulk/pose
+      Value: true
+    - Alpha: 1
+      Axes Length: 1
+      Axes Radius: 0.1
+      Class: rviz/Pose
+      Color: 255; 25; 0
+      Enabled: true
+      Head Length: 0.3
+      Head Radius: 0.1
+      Name: Pose
+      Shaft Length: 1
+      Shaft Radius: 0.05
+      Shape: Arrow
+      Topic: /ironman/pose
       Value: true
   Enabled: true
   Global Options:
