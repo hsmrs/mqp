@@ -65,6 +65,7 @@ private:
 
     boost::mutex atMutex;
     boost::mutex listMutex;
+    boost::mutex currentTaskMutex;
 
 	ros::NodeHandle n;
 	ros::Publisher registration_pub;

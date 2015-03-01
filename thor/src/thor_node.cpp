@@ -5,6 +5,7 @@
  */
 void Thor::executeTask() {
 	ROS_INFO("Execute task!");
+	boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
 	//std::string taskType = typeid(p_currentTask).name();
 	std::string taskType = p_currentTask->getType();
 	Behavior* behavior;
@@ -28,15 +29,20 @@ void Thor::executeTask() {
 	}
 	p_currentBehavior = behavior;
 	behavior->execute();
+	currentTaskLock.unlock();
 	setStatus("Busy");
 }
 
 void Thor::pauseTask(){
+    boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
 	if (p_currentBehavior != NULL) p_currentBehavior->pause();
+	currentTaskLock.unlock();
 }
 
 void Thor::resumeTask(){
-	if (p_currentBehavior != NULL) p_currentBehavior->resume();	
+    boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
+	if (p_currentBehavior != NULL) p_currentBehavior->resume();
+	currentTaskLock.unlock();	
 }
 
 void Thor::doGoToTask(double x, double y){
@@ -192,6 +198,7 @@ void Thor::updatedTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg){
     }
     
     boost::mutex::scoped_lock listLock(listMutex);
+    boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
     old = taskList->getTask(update->getID());
     std::vector<std::string> oldOwners = old->getOwners();
     
@@ -203,6 +210,7 @@ void Thor::updatedTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg){
             ROS_INFO("task is complete/I'm no longer an owner, ending");
             p_currentTask = NULL;
             p_currentBehavior->stop();
+            delete p_currentBehavior;
             p_currentBehavior = NULL;
         }
         else
@@ -218,6 +226,7 @@ void Thor::updatedTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg){
     taskList->removeTask(update->getID());
     taskList->addTask(update);
     listLock.unlock();
+    currentTaskLock.unlock();
     
     ROS_INFO("done updating");
 }
@@ -363,7 +372,9 @@ bool Thor::hasAttribute(std::string attr) {
  * @param A pointer to the Task to be set
  */
 void Thor::setTask(Task* task) {
+    boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
 	p_currentTask = task;
+	currentTaskLock.unlock();
 }
 
 /**
@@ -379,10 +390,12 @@ void Thor::verifyTaskClaim() {
  */
 void Thor::cancelTask() {
     ROS_INFO("canceling task");
+    boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
     hsmrs_framework::TaskMsg* update = p_currentTask->toMsg();
     update->status = "complete";
     ROS_INFO("update message\n\tid:%d\n\ttype:%s\n\tstatus:%s", update->id, update->type.c_str(), update->status.c_str());
     updatedTaskPub.publish(*update);
+    currentTaskLock.unlock();
 }
 
 /**
@@ -391,7 +404,9 @@ void Thor::cancelTask() {
  */
 void Thor::claimTask(Task* task) {
 	ROS_INFO("Claiming task!");
+	boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
 	p_currentTask = task;
+	currentTaskLock.unlock();
 	executeTask();
 }
 
@@ -508,7 +523,9 @@ void Thor::claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid)
         auctionList[id] = at;
         taskList->getTask(id)->addOwner(getName());
         
+        boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
     	p_currentTask = taskList->getTask(id);
+    	currentTaskLock.unlock();
 	    executeTask();
     }
 }
