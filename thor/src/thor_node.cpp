@@ -167,7 +167,7 @@ void Thor::updatedTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg){
     
     std::string type = msg->type;
     
-    ROS_INFO("got task update for task %ld of type %s", msg->id, msg->type.c_str());
+    ROS_INFO("got task update for task %llu of type %s", msg->id, std::string(msg->type).c_str());
     
     if(type == "MyTask")
     {
@@ -338,7 +338,7 @@ std::string Thor::getName(){
  * @return The value of the attribute
  */
 double Thor::getAttribute(std::string attr) {
-
+    return state->getAttribute(attr);
 }
 
 /**
@@ -364,7 +364,15 @@ AgentState* Thor::getState() {
  * @return True if the robot has the named attribute.
  */
 bool Thor::hasAttribute(std::string attr) {
-    return state->getAttribute(attr) != NULL;
+    try
+    {
+        state->getAttribute(attr);
+        return true;
+    }
+    catch(...)
+    {
+        return false;
+    }
 }
 
 /**
@@ -395,7 +403,7 @@ void Thor::cancelTask() {
     {
         hsmrs_framework::TaskMsg* update = p_currentTask->toMsg();
         update->status = "complete";
-        ROS_INFO("update message\n\tid:%d\n\ttype:%s\n\tstatus:%s", update->id, update->type.c_str(), update->status.c_str());
+        ROS_INFO("update message\n\tid:%llu\n\ttype:%s\n\tstatus:%s", update->id, update->type.c_str(), update->status.c_str());
         updatedTaskPub.publish(*update);
     }
     currentTaskLock.unlock();
