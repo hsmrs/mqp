@@ -179,7 +179,7 @@ private:
 	void claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid);
 
 public:
-	Thor();
+	Thor(std::string name, double speed);
 
 	virtual std::string getName();
 

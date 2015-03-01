@@ -3,6 +3,7 @@
 GoToBehavior::GoToBehavior(Robot* parent, geometry_msgs::Point goal, ros::NodeHandle n){
 	ROS_INFO("Creating GoTo behavior");
 	this->parent = parent;
+	goalMsg.header.frame_id = "map";
 	goalMsg.point = goal;
 	goalPub = n.advertise<geometry_msgs::PointStamped>("thor/navigation/goal", 1000, true);
 	cancelMsg.data = "cancel";

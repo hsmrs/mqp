@@ -5,10 +5,10 @@ GoToBehavior::GoToBehavior(Robot* parent, geometry_msgs::Point goal, ros::NodeHa
 	this->parent = parent;
 	goalMsg.header.frame_id = "map";
 	goalMsg.point = goal;
-	goalPub = n.advertise<geometry_msgs::PointStamped>("thor/navigation/goal", 1000, true);
+	goalPub = n.advertise<geometry_msgs::PointStamped>("navigation/goal", 1000, true);
 	cancelMsg.data = "cancel";
-	cancelPub = n.advertise<std_msgs::String>("thor/navigation/cancel", 1000);
-	progressSub = n.subscribe("thor/navigation/progress", 1000, &GoToBehavior::progressCallback, this);
+	cancelPub = n.advertise<std_msgs::String>("navigation/cancel", 1000);
+	progressSub = n.subscribe("navigation/progress", 1000, &GoToBehavior::progressCallback, this);
 }
 
 void GoToBehavior::execute(){

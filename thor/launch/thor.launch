@@ -1,25 +1,21 @@
 <launch>
 
-	<node name="thor_node" pkg="thor" type="thor_node" output="screen" args="($optenv ROBOT_NAME thor) ($optenv ROBOT_SPEED 1.0)" ns="($optenv ROBOT_NAME thor)"/>
+	<node name="thor_node" pkg="thor" type="thor_node" output="screen" args="$(optenv ROBOT_NAME thor) $(optenv ROBOT_SPEED 1.0)" ns="$(optenv ROBOT_NAME thor)"/>
 
 	<!--Turtlebot setup-->
-	<include file="$(find turtlebot_bringup)/launch/minimal.launch" ns="($optenv ROBOT_NAME thor)" />
-	<include file="$(find turtlebot_bringup)/launch/3dsensor.launch" ns="($optenv ROBOT_NAME thor)" />
+	<include file="$(find turtlebot_bringup)/launch/minimal.launch" ns="$(optenv ROBOT_NAME thor)" />
+	<include file="$(find turtlebot_bringup)/launch/3dsensor.launch" ns="$(optenv ROBOT_NAME thor)" />
 
 	<!--Navigation stack setup-->
-	<node name="ar_localization" pkg="navigation" type="ar_tag_localization" output="screen" ns="($optenv ROBOT_NAME thor)"/>
+	<node name="ar_localization" pkg="navigation" type="ar_tag_localization" output="screen" ns="$(optenv ROBOT_NAME thor)"/>
 	
-	<node name="odom_frame_swap" pkg="navigation" type="odom_frame_swap" ns="($optenv ROBOT_NAME thor)" >
+	<node name="odom_frame_swap" pkg="navigation" type="odom_frame_swap" ns="$(optenv ROBOT_NAME thor)" >
 		<param name="odom_topic" value="odom" />
 		<param name="new_odom_topic" value="wheel_odom" />
 		<param name="new_odom_frame" value="wheel_odom" />
 	</node>
 	
-<<<<<<< HEAD
-	<node name="odom_filter" pkg="robot_pose_ekf" type="robot_pose_ekf" respawn="true" output="screen" ns="($optenv ROBOT_NAME thor)">
-=======
-	<node name="odom_filter" pkg="robot_pose_ekf" type="robot_pose_ekf" respawn="true" ns="thor">
->>>>>>> 7e849ca7cf8e99c7d8647c68ad8acbc0d3f242c7
+	<node name="odom_filter" pkg="robot_pose_ekf" type="robot_pose_ekf" respawn="true" ns="$(optenv ROBOT_NAME thor)">
 		<param name="output_frame" value="odom_combined"/>
 		<param name="base_footprint_frame" value="map" />
     	<param name="freq" value="10.0"/>
@@ -33,12 +29,12 @@
     	<remap from="vo" to="ar_tag_odom" />
   </node>
 
-	<node name="thor_planner" pkg="navigation" type="astar" output="screen" ns="($optenv ROBOT_NAME thor)">
+	<node name="thor_planner" pkg="navigation" type="astar" output="screen" ns="$(optenv ROBOT_NAME thor)">
 		<param name="pose_topic" value="pose" />
 		<param name="map_topic" value="/hsmrs/map" />
 	</node>
 
-	<node name="thor_executor" pkg="navigation" type="path_executor" output="screen" ns="($optenv ROBOT_NAME thor)">
+	<node name="thor_executor" pkg="navigation" type="path_executor" output="screen" ns="$(optenv ROBOT_NAME thor)">
 		<param name="pose_topic" value="pose" />
 		<param name="vel_topic" value="cmd_vel_mux/input/teleop" />
 		<param name="max_linear_velocity" value="0.2" />
@@ -49,12 +45,12 @@
 	<arg name="marker_size" default="20.3" />
 	<arg name="max_new_marker_error" default="0.08" />
 	<arg name="max_track_error" default="0.1" />
-	<arg name="cam_image_topic" default="/($optenv ROBOT_NAME thor)/camera/rgb/image_color" />
-	<arg name="cam_info_topic" default="/($optenv ROBOT_NAME thor)/camera/rgb/camera_info" />
-	<!--arg name="cam_image_topic" default="/($optenv ROBOT_NAME thor)/camera/rgb/image_color" /-->
-	<!--arg name="cam_info_topic" default="/($optenv ROBOT_NAME thor)/camera/rgb/camera_info" /-->	
+	<arg name="cam_image_topic" default="/$(optenv ROBOT_NAME thor)/camera/rgb/image_color" />
+	<arg name="cam_info_topic" default="/$(optenv ROBOT_NAME thor)/camera/rgb/camera_info" />
+	<!--arg name="cam_image_topic" default="/$(optenv ROBOT_NAME thor)/camera/rgb/image_color" /-->
+	<!--arg name="cam_info_topic" default="/$(optenv ROBOT_NAME thor)/camera/rgb/camera_info" /-->	
 	<arg name="output_frame" default="/base_link" />
 
-	<node name="ar_track_alvar" pkg="ar_track_alvar" type="individualMarkersNoKinect" respawn="false" output="screen" args="$(arg marker_size) $(arg max_new_marker_error) $(arg max_track_error) $(arg cam_image_topic) $(arg cam_info_topic) $(arg output_frame)" ns="($optenv ROBOT_NAME thor)"/>
+	<node name="ar_track_alvar" pkg="ar_track_alvar" type="individualMarkersNoKinect" respawn="false" output="screen" args="$(arg marker_size) $(arg max_new_marker_error) $(arg max_track_error) $(arg cam_image_topic) $(arg cam_info_topic) $(arg output_frame)" ns="$(optenv ROBOT_NAME thor)"/>
 
 </launch>

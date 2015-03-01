@@ -43,7 +43,7 @@ void FollowTagBehavior::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr
 
 FollowTagBehavior::FollowTagBehavior(Thor* parent, double maxLinearVelocity, double maxAngularVelocity, int tagID, 
 	ros::NodeHandle n, std::string cmdVelTopic, std::string laserTopic) : 
-MARKER_TOPIC("/thor/ar_pose_marker")
+MARKER_TOPIC("ar_pose_marker")
 {
 	isExecuting = false;
 	isObstacle = false;

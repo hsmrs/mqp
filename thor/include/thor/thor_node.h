@@ -75,7 +75,6 @@ private:
 
 	ros::Subscriber request_sub;
 	ros::Subscriber teleOp_sub;
-	ros::Subscriber new_task_sub;
 	ros::Subscriber updated_task_sub;
     ros::Subscriber tag_sub;
     
@@ -159,10 +158,6 @@ private:
 	void teleOpCallback(const geometry_msgs::Twist::ConstPtr& msg);
 
 	void bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg);
-
-	void newTaskFromStringCallback(const std_msgs::String::ConstPtr& msg);
-
-	void newTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg);
 
 	void updatedTaskCallback(const std_msgs::String::ConstPtr& msg);
 

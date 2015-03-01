@@ -80,7 +80,7 @@ void SearchBehavior::progressCallback(const std_msgs::String::ConstPtr& msg){
 
 SearchBehavior::SearchBehavior(Robot* parent, double maxLinearVelocity, double maxAngularVelocity, double resolution, 
 	int tagID, std::vector<geometry_msgs::PointStamped> boundaryVertices, ros::NodeHandle n, std::string cmdVelTopic) : 
-MARKER_TOPIC("/thor/ar_pose_marker")
+MARKER_TOPIC("ar_pose_marker")
 {
 	this->parent = parent;
 	isExecuting = false;
@@ -97,12 +97,12 @@ MARKER_TOPIC("/thor/ar_pose_marker")
 	//pop_front<geometry_msgs::PointStamped>(goals, goalMsg);
 
 
-	goalPub = n.advertise<geometry_msgs::PointStamped>("thor/navigation/goal", 1000, true);
+	goalPub = n.advertise<geometry_msgs::PointStamped>("navigation/goal", 1000, true);
 	cancelMsg.data = "cancel";
-	cancelPub = n.advertise<std_msgs::String>("thor/navigation/cancel", 1000);
+	cancelPub = n.advertise<std_msgs::String>("navigation/cancel", 1000);
 	cmdVelPub = n.advertise<geometry_msgs::Twist>(cmdVelTopic, 1000);
 
-	progressSub = n.subscribe("thor/navigation/progress", 1000, &SearchBehavior::progressCallback, this);
+	progressSub = n.subscribe("navigation/progress", 1000, &SearchBehavior::progressCallback, this);
 	markerSub = n.subscribe(MARKER_TOPIC, 1000, &SearchBehavior::tagCallback, this);
 }
 
