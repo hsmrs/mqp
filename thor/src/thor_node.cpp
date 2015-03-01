@@ -391,10 +391,13 @@ void Thor::verifyTaskClaim() {
 void Thor::cancelTask() {
     ROS_INFO("canceling task");
     boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
-    hsmrs_framework::TaskMsg* update = p_currentTask->toMsg();
-    update->status = "complete";
-    ROS_INFO("update message\n\tid:%d\n\ttype:%s\n\tstatus:%s", update->id, update->type.c_str(), update->status.c_str());
-    updatedTaskPub.publish(*update);
+    if(p_currentTask != NULL)
+    {
+        hsmrs_framework::TaskMsg* update = p_currentTask->toMsg();
+        update->status = "complete";
+        ROS_INFO("update message\n\tid:%d\n\ttype:%s\n\tstatus:%s", update->id, update->type.c_str(), update->status.c_str());
+        updatedTaskPub.publish(*update);
+    }
     currentTaskLock.unlock();
 }
 
