@@ -347,42 +347,53 @@ void Thor::handleNewTask(const hsmrs_framework::TaskMsg::ConstPtr& msg)
     if(taskList->getTask(id) == NULL)
     {
         std::string type = msg->type;
-        
-        AuctionTracker at = AuctionTracker();
-        double myBid = bid(msg);
-        at.topBidder = getName();
-        at.topUtility = myBid;
-        at.haveBidded = true;
-        auctionList[id] = at;
-        atLock.unlock();
+        Task* task;
         
         if(type == "MyTask")
         {
-            taskList->addTask(new MyTask(msg->id, msg->priority));
-            listLock.unlock();
+            task = new MyTask(msg->id, msg->priority);
+            taskList->addTask(task);
         }
         else if(type == "FollowTagTask")
         {
             if(msg->param_values.size() > 0)
             {
-                taskList->addTask(new FollowTagTask(msg->id, msg->priority, std::stoi(msg->param_values[0])));
+                task = new FollowTagTask(msg->id, msg->priority, std::stoi(msg->param_values[0]));
             }
             else
             {
                 taskList->addTask(new FollowTagTask(msg->id, msg->priority));
             }
+            taskList->addTask(task);
         }
         else if(type == "GoToTask")
         {
-            taskList->addTask(new GoToTask(msg));
+            task = new GoToTask(msg);
+            taskList->addTask(task);
         }
         else if(type == "SearchTask")
         {
-            taskList->addTask(new SearchTask(msg));
+            task = new SearchTask(msg);
+            taskList->addTask(task);
         }
         else
         {
             ROS_ERROR("unrecognized task type %s", type.c_str());
+        }
+        
+        listLock.unlock();
+        
+        double myBid = 0;
+        
+        if(msg->owners.size() < task->getMaxOwners())
+        {
+            AuctionTracker at = AuctionTracker();
+            myBid = bid(msg);
+            at.topBidder = getName();
+            at.topUtility = myBid;
+            at.haveBidded = true;
+            auctionList[id] = at;
+            atLock.unlock();
         }
         
         //spawn claimer thread
@@ -415,7 +426,7 @@ void Thor::claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid)
     boost::mutex::scoped_lock listLock(listMutex);
     
     AuctionTracker at = auctionList[id];
-    if(at.topBidder == getName())
+    if(at.topBidder == getName() || std::find(taskMsg.owners.begin(), taskMsg.owners.end(), getName()) != taskMsg.owners.end())
     {
         ROS_INFO("claiming task %d", id);
         hsmrs_framework::BidMsg claimMsg = hsmrs_framework::BidMsg();
@@ -427,10 +438,10 @@ void Thor::claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid)
         at.taskClaimed = true;
         auctionList[id] = at;
         taskList->getTask(id)->addOwner(getName());
+        
+    	p_currentTask = taskList->getTask(id);
+	    executeTask();
     }
-    
-	p_currentTask = taskList->getTask(id);
-	executeTask();
 }
 
 

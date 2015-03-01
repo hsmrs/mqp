@@ -84,6 +84,7 @@ private:
 	ros::Subscriber bidSub;
 	ros::Subscriber newTaskSub;
 	ros::Subscriber claimSub;
+	ros::Subscriber progressSub;
 
 	ros::Publisher vel_pub;
 	ros::Subscriber bumper_sub;
