@@ -7,7 +7,7 @@ std::string odomTopic, newOdomTopic, newOdomFrame, newBaseFrame;
 void odomCallback(const nav_msgs::Odometry::ConstPtr& msg){
 	nav_msgs::Odometry newMsg = *msg;
 	newMsg.header.frame_id = newOdomFrame;
-	newMsg.header.child_frame_id = newBaseFrame;
+	newMsg.child_frame_id = newBaseFrame;
 	newMsg.header.stamp = ros::Time::now();
 	newOdomPub.publish(newMsg);
 }
