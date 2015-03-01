@@ -103,7 +103,6 @@ public class NavigationMapModel {
 				Globals.gui_vars.put("mapx", null);
 				Globals.gui_vars.put("mapy", null);
 			}
-			System.out.println("Beep Boop");
 		}
 		catch (NullPointerException e){
 			System.out.println("ERROR: mapx or mapy does not have a value!");
@@ -118,6 +117,9 @@ public class NavigationMapModel {
 	}
 	
 	public void clearAllCells(){
+		for (MapGridCellModel cell : selectedCells){
+			cell.toggleSelected();
+		}
 		selectedCells.clear();
 	}
 	

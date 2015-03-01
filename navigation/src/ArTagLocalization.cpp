@@ -11,6 +11,7 @@ ArTagLocalization::ArTagLocalization() : ODOM_PUB_TOPIC("/ar_tag_odom") {
 	ros::param::param<std::string>("~marker_topic", markerTopic, "ar_pose_marker");
 	ros::param::param<std::string>("~odom_topic", odomTopic, "ar_tag_odom");
 	ros::param::param<std::string>("~wheel_odom_frame", odomFrame, "wheel_odom");
+	ros::param::param<std::string>("~target_frame", target_frame, "thor");
 	
 	isFirst = true;
 	
@@ -54,16 +55,16 @@ void ArTagLocalization::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr
 
 	//Broadcast transform
 	//ROS_INFO("Broadcasting transform!");
-	br.sendTransform(tf::StampedTransform(transform.inverse(), ros::Time::now(), markerFrameID, "thor"));
+	br.sendTransform(tf::StampedTransform(transform.inverse(), ros::Time::now(), markerFrameID, "target_frame"));
 	//ROS_INFO("Transform broadcasted!");
 	
 	//Listen for transform from map to robot
 	//ROS_INFO("Listening for transform!");
 	tf::StampedTransform mapTransform;
 	try{
-		listener.waitForTransform("map", "thor",
+		listener.waitForTransform("map", "target_frame",
 			ros::Time(0), ros::Duration(0.1));
-		listener.lookupTransform("map", "thor",
+		listener.lookupTransform("map", "target_frame",
 			ros::Time(0), mapTransform);
 		//ROS_INFO("Transform heard");	
 	}

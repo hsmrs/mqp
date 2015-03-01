@@ -145,6 +145,9 @@ public class InteractiveMapController implements MouseListener, MouseMotionListe
 			} else{
 				//If it was highlighted, clear it.
 				highlightedCells.clear();
+				String cellTxt = target.getText();
+				navMapModel.toggleSelectCell(Integer.parseInt(cellTxt.split(",")[1]), 
+						Integer.parseInt(cellTxt.split(",")[0]));
 			}		
 		}else{
 			//Do not clear previously highlighted cells

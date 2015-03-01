@@ -97,7 +97,7 @@ public class TaskModel {
 		
 		msg.setId(id);
 		msg.setParentId(hsmrs_framework.TaskMsg.NO_PARENT);
-		msg.setType(type);
+		msg.setType(type+"Task");
 		
 		List<String> paramValues = new ArrayList<String>();
 		for (TaskParam<?> taskParam : paramList){

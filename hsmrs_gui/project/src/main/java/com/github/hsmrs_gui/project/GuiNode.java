@@ -67,6 +67,7 @@ public class GuiNode extends AbstractNodeMain {
 
   @Override
   public void onStart(final ConnectedNode connectedNode) {
+	  System.out.println("Launching HSMRS GUI");
 	  this.connectedNode = connectedNode;
     log = connectedNode.getLog();
 

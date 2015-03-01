@@ -12,6 +12,8 @@ class ArTagLocalization {
 private:
 	const std::string ODOM_PUB_TOPIC;
 
+	std::string target_frame;
+
 	ros::Subscriber tagSub;
 	ros::Publisher odomPub;
 
