@@ -355,6 +355,7 @@ Thor::Thor(std::string name, double speed) : NAME(name), REGISTRATION_TOPIC("/hs
 		    if(auctionList.count(t->getID()) == 0 && taskAllowed)
 		    {
 		        nextTask = t;
+		        ROS_INFO("found queued task %d", t->getID());
 		        break;
 		    }
 		}
@@ -365,6 +366,7 @@ Thor::Thor(std::string name, double speed) : NAME(name), REGISTRATION_TOPIC("/hs
 		     	
 	        if(nextTask->getOwners().size() < nextTask->getMaxOwners())
             {
+                ROS_INFO("starting auction on queued task %d", nextTask->getID());
                 AuctionTracker at = AuctionTracker();
                 myBid = bid(boost::shared_ptr<hsmrs_framework::TaskMsg>(nextTask->toMsg()));
                 
@@ -386,6 +388,7 @@ Thor::Thor(std::string name, double speed) : NAME(name), REGISTRATION_TOPIC("/hs
 		
 		listLock.unlock();
 		currentTaskLock.unlock();
+		atLock.unlock();
 		loop_rate.sleep();
 	}
 	ros::waitForShutdown();
@@ -609,6 +612,8 @@ void Thor::claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid)
         taskAllowed = false;
     }
     
+    ROS_INFO("top bidder is %s with %f", at.topBidder.c_str(), at.topUtility);
+    
     if((at.topBidder == getName() || std::find(taskMsg.owners.begin(), taskMsg.owners.end(), getName()) != taskMsg.owners.end()) && taskAllowed)
     {
         ROS_INFO("claiming task %d", id);
@@ -629,8 +634,12 @@ void Thor::claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid)
 	    return;
     }
     
+    ROS_INFO("not claiming task %d", id);
     if(at.bidCount == 0)
+    {
+        ROS_INFO("no bids, erasing tracker");
         auctionList.erase(id);
+    }
 }
 
 
@@ -698,7 +707,7 @@ void Thor::handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
             
             if(myBid > 0)
             {
-                at.topBidder = (myBid > utility) getName() : bidder;
+                at.topBidder = (myBid > utility) ? getName() : bidder;
                 at.topUtility = (myBid > utility) ? myBid : utility;
                 at.haveBidded = true;
                 at.bidCount++;
