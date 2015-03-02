@@ -10,36 +10,83 @@ GoToBehavior::GoToBehavior(Robot* parent, geometry_msgs::Point goal, ros::NodeHa
 	cancelPub = n.advertise<std_msgs::String>("navigation/cancel", 1000);
 	progressSub = n.subscribe("navigation/progress", 1000, &GoToBehavior::progressCallback, this);
 	progressPub = n.advertise<std_msgs::String>("progress", 1000);
+	
+	info = "robot: " + parent->getName();
 }
 
 void GoToBehavior::execute(){
 	ROS_INFO("Sending goal");
-	isExecuting = true;
-  	goalPub.publish(goalMsg);
+	try
+	{
+	    boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
+	    isExecuting = true;
+	    isExecutingLock.unlock();
+      	goalPub.publish(goalMsg);
+  	}
+  	catch(boost::lock_error& e)
+  	{
+  	    ROS_INFO("lock error %s", e.what());
+  	}
 }
 
 void GoToBehavior::resume(){
-	isExecuting = true;
-	goalPub.publish(goalMsg);
+    try
+    {
+        boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
+	    isExecuting = true;
+	    isExecutingLock.unlock();
+	    goalPub.publish(goalMsg);
+	}
+  	catch(boost::lock_error& e)
+  	{
+  	    ROS_INFO("lock error %s", e.what());
+  	}
 }
 
 void GoToBehavior::pause(){
-	isExecuting = false;
-	cancelPub.publish(cancelMsg);
+    try
+    {
+        boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
+	    isExecuting = false;
+	    isExecutingLock.unlock();
+	    cancelPub.publish(cancelMsg);
+    }
+  	catch(boost::lock_error& e)
+  	{
+  	    ROS_INFO("lock error %s", e.what());
+  	}
 }
 
 void GoToBehavior::stop(){
-	isExecuting = false;
-	cancelPub.publish(cancelMsg);
+    try
+    {
+        boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
+	    isExecuting = false;
+	    isExecutingLock.unlock();
+	    cancelPub.publish(cancelMsg);
+    }
+  	catch(boost::lock_error& e)
+  	{
+  	    ROS_INFO("lock error %s", e.what());
+  	}
 }
 
 void GoToBehavior::progressCallback(const std_msgs::String::ConstPtr& msg){
 	std::string progress = msg->data;
-	if (progress == "complete" && isExecuting){
-		isExecuting = false;
+	try
+	{
+	    boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
+	    if (progress == "complete" && isExecuting){
+		    isExecuting = false;
 		
-		//Tell thor task is complete.
-		ROS_INFO("GoToTask complete, calling cancelTask");
-		progressPub.publish(*msg);
+		    //Tell thor task is complete.
+		    ROS_INFO("GoToTask complete, calling cancelTask on %s", info.c_str());
+		    progressPub.publish(*msg);
+	    }
+	    isExecutingLock.unlock();
 	}
+  	catch(boost::lock_error& e)
+  	{
+  	    ROS_INFO("lock error %s", e.what());
+  	}
 }

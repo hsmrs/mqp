@@ -8,6 +8,7 @@
 #include "geometry_msgs/Pose.h"
 #include "hsmrs_framework/Robot.h"
 #include "geometry_msgs/PointStamped.h"
+#include <boost/thread/mutex.hpp>
 
 class GoToBehavior : public Behavior{
 
@@ -21,6 +22,8 @@ private:
 	ros::Publisher cancelPub;
 	ros::Publisher progressPub;
 	ros::Subscriber progressSub;
+	boost::mutex isExecutingMutex;
+	std::string info;
 
 public:
 

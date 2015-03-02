@@ -9,6 +9,7 @@
 #include "nav_msgs/Path.h"
 #include "ar_track_alvar/AlvarMarkers.h"
 #include "thor/thor_node.h"
+#include <boost/thread/mutex.hpp>
 
 class Thor;
 
@@ -35,7 +36,9 @@ private:
 	bool isExecuting;
 	bool isFound;
 	std_msgs::String cancelMsg;
-
+	
+	boost::mutex isExecutingMutex;
+    std::string info;
 
 	void tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& msg);
 
