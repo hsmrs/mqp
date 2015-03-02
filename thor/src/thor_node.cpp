@@ -259,11 +259,13 @@ void Thor::poseCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr
 }
 
 void Thor::handleRoleAssign(const hsmrs_framework::RoleMsg::ConstPtr& msg){
+    ROS_INFO("got role assignment");
     for (std::string owner : msg->owners){
         if (owner == NAME){
             p_currentRole = new MyRole();
 
             for (std::string taskType : msg->task_types){
+                ROS_INFO("role includes %s", taskType.c_str());
                 p_currentRole->addTask(taskType);
             }
 
@@ -584,7 +586,7 @@ void Thor::handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
     std::string bidder = msg->name;
     double utility = msg->utility;
     
-    ROS_INFO("got bid from %s", bidder.c_str());
+    ROS_INFO("got bid of %f from %s", utility, bidder.c_str());
     
     boost::mutex::scoped_lock atLock(atMutex);
     boost::mutex::scoped_lock listLock(listMutex);
@@ -768,7 +770,7 @@ double Thor::bid(const hsmrs_framework::TaskMsg::ConstPtr& msg)
     }
     else
     {
-        ROS_INFO("already have a task, abstaining from auction");
+        ROS_INFO("already have a task/task disallowed, abstaining from auction");
         myBid.utility = 0;
     }
     
