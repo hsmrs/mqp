@@ -30,7 +30,7 @@ public class RoleListModel {
 	
 	public RoleModel getRoleByName(String name){
 		for (RoleModel rm : roleList){
-			if (rm.getName().equals(name)){
+			if (rm.getType().equals(name)){
 				return rm;
 			}
 		}
@@ -40,7 +40,7 @@ public class RoleListModel {
 	public List<String> getRoleNames(){
 		ArrayList<String> returnList = new ArrayList<String>();
 		for (RoleModel rm : roleList){
-			returnList.add(rm.getName());
+			returnList.add(rm.getType());
 		}
 		
 		return returnList;

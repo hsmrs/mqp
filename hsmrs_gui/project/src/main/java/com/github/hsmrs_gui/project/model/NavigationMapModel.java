@@ -162,7 +162,7 @@ public class NavigationMapModel {
 		}
 		
 		String result = strBld.toString();
-		Globals.gui_vars.put("map_selected", result);
+		Globals.gui_vars.put("map_sel", result);
 		System.out.println("Selected var: " + result);
 	}
 }

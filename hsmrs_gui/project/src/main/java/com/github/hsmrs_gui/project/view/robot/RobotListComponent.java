@@ -42,7 +42,7 @@ public class RobotListComponent extends RenderableComponent<RobotModel> {
 
 		String nameString = robot.getName();
 		if (robot.getRole() != null){
-			nameString += " - " + robot.getRole().getName();
+			nameString += " - " + robot.getRole().getType();
 		}
 		lblName = new JLabel(nameString, JLabel.CENTER);
 		lblName.setOpaque(false);
@@ -81,7 +81,7 @@ public class RobotListComponent extends RenderableComponent<RobotModel> {
 
 		String nameString = robot.getName();
 		if (robot.getRole() != null){
-			nameString += " - " + robot.getRole().getName();
+			nameString += " - " + robot.getRole().getType();
 		}
 		lblName = new JLabel(nameString, JLabel.CENTER);
 		lblName.setOpaque(false);

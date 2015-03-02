@@ -258,18 +258,33 @@ void Thor::poseCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr
 	pose_pub.publish(poseMsg);
 }
 
+void Thor::handleRoleAssign(const hsmrs_framework::RoleMsg::ConstPtr& msg){
+    for (std::string owner : msg->owners){
+        if (owner == NAME){
+            p_currentRole = new MyRole();
+
+            for (std::string taskType : msg->task_types){
+                p_currentRole->addTask(taskType);
+            }
+
+            return;
+        }
+    }
+}
+
 Thor::Thor(std::string name, double speed) : NAME(name), REGISTRATION_TOPIC("/hsmrs/robot_registration"), IMAGE_TOPIC("camera/rgb/image_mono"), 
 		LOG_TOPIC("log_messages"), STATUS_TOPIC("status"), HELP_TOPIC("help"), POSE_TOPIC("pose"),
 		REQUEST_TOPIC("requests"), TELE_OP_TOPIC("tele_op"), VEL_TOPIC("cmd_vel_mux/input/teleop"),
 		BUMPER_TOPIC("mobile_base/events/bumper"), NEW_TASK_TOPIC("/hsmrs/new_task"), 
 		UPDATED_TASK_TOPIC("/hsmrs/updated_task"), LASER_TOPIC("scan"), IN_POSE_TOPIC("odom_filter/odom_combined"),
 		MARKER_TOPIC("ar_pose_marker"),
-		AUCTION_TOPIC("/hsmrs/auction"), CLAIM_TOPIC("/hsmrs/claim"), TASK_PROGRESS_TOPIC("progress")
+		AUCTION_TOPIC("/hsmrs/auction"), CLAIM_TOPIC("/hsmrs/claim"), TASK_PROGRESS_TOPIC("progress"), ROLE_TOPIC("/hsmrs/role_assign")
 {
 
 	taskList = new MyTaskList();
 	utiHelp = new MyUtilityHelper();
 	state = new MyAgentState();
+    p_currentRole = new MyRole();
 	
 	state->setAttribute("speed", speed);
 	state->setAttribute("distance", 1000.0);
@@ -308,6 +323,8 @@ Thor::Thor(std::string name, double speed) : NAME(name), REGISTRATION_TOPIC("/hs
 	newTaskSub = n.subscribe(NEW_TASK_TOPIC, 100, &Thor::handleNewTask, this);
 	claimSub = n.subscribe(CLAIM_TOPIC, 100, &Thor::handleClaims, this);
 	taskProgressSub = n.subscribe(TASK_PROGRESS_TOPIC, 100, &Thor::handleProgress, this);
+
+    roleSub = n.subscribe(ROLE_TOPIC, 100, &Thor::handleRoleAssign, this);
 
 	//ros::spinOnce();
 	ros::Rate loop_rate(1);
@@ -444,6 +461,14 @@ void Thor::handleNewTask(const hsmrs_framework::TaskMsg::ConstPtr& msg)
     if(taskList->getTask(id) == NULL)
     {
         std::string type = msg->type;
+
+        std::vector<std::string> roleTasks = p_currentRole->getTasks();
+        if (!roleTasks.empty() &&                                                       //If my role has tasks listed
+            std::find(roleTasks.begin(), roleTasks.end(), type) == roleTasks.end()){     //If this this task is not in the list
+            ROS_INFO("The task of type: %s is disallowed by my role.", type.c_str());           //Exit
+            return;
+        }
+
         Task* task;
         
         if(type == "MyTask")

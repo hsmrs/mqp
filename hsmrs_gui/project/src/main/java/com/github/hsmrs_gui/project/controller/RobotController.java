@@ -16,6 +16,7 @@ import src.main.java.com.github.hsmrs_gui.project.model.task.TaskModel;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskParam;
 import src.main.java.com.github.hsmrs_gui.project.model.task.TaskSpecification;
 import src.main.java.com.github.hsmrs_gui.project.ros.NewTaskPublisher;
+import src.main.java.com.github.hsmrs_gui.project.ros.RolePublisher;
 import src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListView;
 import src.main.java.com.github.hsmrs_gui.project.view.robot.RobotPanel;
 import src.main.java.com.github.hsmrs_gui.project.view.task.TaskPanel;
@@ -85,6 +86,7 @@ public class RobotController implements ActionListener{
 			RoleModel assignedRole = rp.getSelectedRole();
 			RobotModel robot = RobotPanel.getInstance().getTargetRobot();			
 			robot.setRole(assignedRole);
+			RolePublisher.getInstance().publishRole(assignedRole, robot);
 			System.out.println("Setting role to " + robot.getName());
 			rp.setView(RobotPanel.ROBOT_LIST_VIEW);
 			rp.updateRobotList();
