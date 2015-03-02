@@ -23,6 +23,7 @@ private:
 	ros::Publisher progressPub;
 	ros::Subscriber progressSub;
 	boost::mutex isExecutingMutex;
+	std::string info;
 
 public:
 

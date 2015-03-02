@@ -38,7 +38,7 @@ private:
 	std_msgs::String cancelMsg;
 	
 	boost::mutex isExecutingMutex;
-
+    std::string info;
 
 	void tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& msg);
 

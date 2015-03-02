@@ -35,7 +35,7 @@ void SearchBehavior::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& m
 			if (x <= 1.0){
 				linVel = 0;
 				parent->sendMessage("I found it!");
-				ROS_INFO("I found it!");
+				ROS_INFO("I found it! %s", info.c_str());
 				isExecuting = false;
 				std_msgs::String progMsg = std_msgs::String();
 				progMsg.data = "complete";
@@ -66,11 +66,12 @@ void SearchBehavior::progressCallback(const std_msgs::String::ConstPtr& msg){
 			ROS_INFO("(%f, %f)", goals[counter].point.x, goals[counter].point.y);
 			if (counter < goals.size()) {
 				goalMsg = goals[counter++];
+				ROS_INFO("publishing goal %s", info.c_str());
 				goalPub.publish(goalMsg);
 			}
 			else {
 				parent->sendMessage("I could not find it.");
-				ROS_INFO("I could not find it.");
+				ROS_INFO("I could not find it. %s", info.c_str());
 				isExecuting = false;
 				progressPub.publish(*msg);
 			}
@@ -103,7 +104,7 @@ MARKER_TOPIC("ar_pose_marker")
 	createGoals();
 	goalMsg = goals[counter++];
 	//pop_front<geometry_msgs::PointStamped>(goals, goalMsg);
-
+    info = "robot: " + parent->getName();
 
 	goalPub = n.advertise<geometry_msgs::PointStamped>("navigation/goal", 1000, true);
 	cancelMsg.data = "cancel";
@@ -117,7 +118,7 @@ MARKER_TOPIC("ar_pose_marker")
 
 void SearchBehavior::execute(){
     boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
-	ROS_INFO("Executing search behavior!");
+	ROS_INFO("Executing search behavior! %s", info.c_str());
 	isExecuting = true;
 	goalPub.publish(goalMsg);
 }

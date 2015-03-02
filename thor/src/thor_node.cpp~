@@ -730,6 +730,15 @@ double Thor::bid(const hsmrs_framework::TaskMsg::ConstPtr& msg)
     return myBid.utility;
 }
 
+void Thor::handleProgress(const std_msgs::String::ConstPtr& msg)
+{
+    std::string progress = msg->data;
+    if(progress == "complete")
+    {
+        cancelTask();
+    }
+}
+
 int main(int argc, char **argv) {
     std::string name = "thor";
     double speed = 1;

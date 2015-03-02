@@ -10,6 +10,8 @@ GoToBehavior::GoToBehavior(Robot* parent, geometry_msgs::Point goal, ros::NodeHa
 	cancelPub = n.advertise<std_msgs::String>("navigation/cancel", 1000);
 	progressSub = n.subscribe("navigation/progress", 1000, &GoToBehavior::progressCallback, this);
 	progressPub = n.advertise<std_msgs::String>("progress", 1000);
+	
+	info = parent->getName();
 }
 
 void GoToBehavior::execute(){

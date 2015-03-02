@@ -10,6 +10,8 @@ GoToBehavior::GoToBehavior(Robot* parent, geometry_msgs::Point goal, ros::NodeHa
 	cancelPub = n.advertise<std_msgs::String>("navigation/cancel", 1000);
 	progressSub = n.subscribe("navigation/progress", 1000, &GoToBehavior::progressCallback, this);
 	progressPub = n.advertise<std_msgs::String>("progress", 1000);
+	
+	info = "robot: " + parent->getName();
 }
 
 void GoToBehavior::execute(){
@@ -44,7 +46,7 @@ void GoToBehavior::progressCallback(const std_msgs::String::ConstPtr& msg){
 		isExecuting = false;
 		
 		//Tell thor task is complete.
-		ROS_INFO("GoToTask complete, calling cancelTask");
+		ROS_INFO("GoToTask complete, calling cancelTask on %s", info.c_str());
 		progressPub.publish(*msg);
 	}
 }
