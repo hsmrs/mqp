@@ -19,6 +19,7 @@ private:
 	std_msgs::String cancelMsg;
 	ros::Publisher goalPub;
 	ros::Publisher cancelPub;
+	ros::Publisher progressPub;
 	ros::Subscriber progressSub;
 
 public:

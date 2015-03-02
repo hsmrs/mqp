@@ -35,7 +35,7 @@ private:
 	bool isExecuting;
 	bool isFound;
 	std_msgs::String cancelMsg;
-
+    std::string info;
 
 	void tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& msg);
 

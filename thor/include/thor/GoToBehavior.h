@@ -21,6 +21,8 @@ private:
 	ros::Publisher cancelPub;
 	ros::Publisher progressPub;
 	ros::Subscriber progressSub;
+	
+	std::string info;
 
 public:
 

@@ -733,6 +733,7 @@ double Thor::bid(const hsmrs_framework::TaskMsg::ConstPtr& msg)
 void Thor::handleProgress(const std_msgs::String::ConstPtr& msg)
 {
     std::string progress = msg->data;
+    ROS_INFO("got progress %s", msg->data.c_str());
     if(progress == "complete")
     {
         cancelTask();
