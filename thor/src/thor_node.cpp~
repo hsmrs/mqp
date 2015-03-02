@@ -261,6 +261,7 @@ void Thor::poseCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr
 void Thor::handleRoleAssign(const hsmrs_framework::RoleMsg::ConstPtr& msg){
     ROS_INFO("got role assignment");
     for (std::string owner : msg->owners){
+        ROS_INFO("role for %s", owner.c_str());
         if (owner == NAME){
             p_currentRole = new MyRole();
 
@@ -335,10 +336,57 @@ Thor::Thor(std::string name, double speed) : NAME(name), REGISTRATION_TOPIC("/hs
 	registerWithGUI();
 
 	while (ros::ok()){
-		//Task* nextTask = taskList->pullNextTask();
-		//if (nextTask != NULL){
-			//bid(nextTask);
-		//}
+	    boost::mutex::scoped_lock listLock(listMutex);
+	    boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
+	    boost::mutex::scoped_lock atLock(atMutex);
+	    
+		Task* nextTask = NULL;
+		std::vector<Task*> taskVec = taskList->getTasks();
+		for(Task* t : taskVec)
+		{
+    	    bool taskAllowed = true;
+            std::vector<std::string> roleTasks = p_currentRole->getTasks();
+            if (!roleTasks.empty() &&                                                       //If my role has tasks listed
+                std::find(roleTasks.begin(), roleTasks.end(), t->getType()) == roleTasks.end())     //If this this task is not in the list
+            {          
+                taskAllowed = false;
+            }
+            
+		    if(auctionList.count(t->getID()) == 0 && taskAllowed)
+		    {
+		        nextTask = t;
+		        break;
+		    }
+		}
+		
+		if (nextTask != NULL && p_currentTask == NULL)
+		{           
+		    double myBid = 0;
+		     	
+	        if(nextTask->getOwners().size() < nextTask->getMaxOwners())
+            {
+                AuctionTracker at = AuctionTracker();
+                myBid = bid(boost::shared_ptr<hsmrs_framework::TaskMsg>(nextTask->toMsg()));
+                
+                if(myBid > 0)
+                {
+                    at.topBidder = getName();
+                    at.topUtility = myBid;
+                    at.haveBidded = true;
+                    at.bidCount++;
+                }
+                
+                auctionList[nextTask->getID()] = at;
+            }
+            
+            //spawn claimer thread
+            boost::thread claimer = boost::thread(&Thor::claimWorker, this, *nextTask->toMsg(), nextTask->getID(), myBid);
+            claimer.detach();
+		}
+		
+		listLock.unlock();
+		currentTaskLock.unlock();
+		loop_rate.sleep();
 	}
 	ros::waitForShutdown();
 	//ros::spin();
@@ -507,9 +555,15 @@ void Thor::handleNewTask(const hsmrs_framework::TaskMsg::ConstPtr& msg)
         {
             AuctionTracker at = AuctionTracker();
             myBid = bid(msg);
-            at.topBidder = getName();
-            at.topUtility = myBid;
-            at.haveBidded = true;
+            
+            if(myBid > 0)
+            {
+                at.topBidder = getName();
+                at.topUtility = myBid;
+                at.haveBidded = true;
+                at.bidCount++;
+            }
+            
             auctionList[id] = at;
             atLock.unlock();
         }
@@ -572,7 +626,11 @@ void Thor::claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid)
     	p_currentTask = taskList->getTask(id);
     	currentTaskLock.unlock();
 	    executeTask();
+	    return;
     }
+    
+    if(at.bidCount == 0)
+        auctionList.erase(id);
 }
 
 
@@ -636,9 +694,21 @@ void Thor::handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
         {
             AuctionTracker at = AuctionTracker();
             myBid = bid(msg);
-            at.topBidder = getName();
-            at.topUtility = myBid;
-            at.haveBidded = true;
+            at.bidCount = 1;
+            
+            if(myBid > 0)
+            {
+                at.topBidder = (myBid > utility) getName() : bidder;
+                at.topUtility = (myBid > utility) ? myBid : utility;
+                at.haveBidded = true;
+                at.bidCount++;
+            }
+            else
+            {
+                at.topBidder = bidder;
+                at.topUtility = utility;
+            }
+            
             auctionList[id] = at;
             atLock.unlock();
         }
@@ -652,6 +722,7 @@ void Thor::handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
         AuctionTracker* at = &(auctionList[id]);
         at->topBidder = (at->topUtility > utility) ? at->topBidder : bidder;
         at->topUtility = (at->topUtility > utility) ? at->topUtility : utility;
+        at->bidCount++;
     }
 
 }
@@ -706,7 +777,8 @@ double Thor::bid(const hsmrs_framework::BidMsg::ConstPtr& msg)
         }
     
         ROS_INFO("my utility is %f, publishing", myBid.utility);
-        bidPub.publish(myBid);
+        if(myBid.utility > 0)
+            bidPub.publish(myBid);
     }
     else
     {
@@ -766,7 +838,8 @@ double Thor::bid(const hsmrs_framework::TaskMsg::ConstPtr& msg)
         
         ROS_INFO("my utility is %f, publishing", myBid.utility);
         
-        bidPub.publish(myBid);
+        if(myBid.utility > 0)
+            bidPub.publish(myBid);
     }
     else
     {
