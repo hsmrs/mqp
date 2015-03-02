@@ -261,6 +261,7 @@ void Thor::poseCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr
 void Thor::handleRoleAssign(const hsmrs_framework::RoleMsg::ConstPtr& msg){
     ROS_INFO("got role assignment");
     for (std::string owner : msg->owners){
+        ROS_INFO("role for %s", owner.c_str());
         if (owner == NAME){
             p_currentRole = new MyRole();
 
@@ -555,7 +556,7 @@ void Thor::claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid)
         taskAllowed = false;
     }
     
-    if(at.topBidder == getName() || std::find(taskMsg.owners.begin(), taskMsg.owners.end(), getName()) != taskMsg.owners.end() && taskAllowed)
+    if((at.topBidder == getName() || std::find(taskMsg.owners.begin(), taskMsg.owners.end(), getName()) != taskMsg.owners.end()) && taskAllowed)
     {
         ROS_INFO("claiming task %d", id);
         hsmrs_framework::BidMsg claimMsg = hsmrs_framework::BidMsg();
