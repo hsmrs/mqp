@@ -462,13 +462,6 @@ void Thor::handleNewTask(const hsmrs_framework::TaskMsg::ConstPtr& msg)
     {
         std::string type = msg->type;
 
-        std::vector<std::string> roleTasks = p_currentRole->getTasks();
-        if (!roleTasks.empty() &&                                                       //If my role has tasks listed
-            std::find(roleTasks.begin(), roleTasks.end(), type) == roleTasks.end()){     //If this this task is not in the list
-            ROS_INFO("The task of type: %s is disallowed by my role.", type.c_str());           //Exit
-            return;
-        }
-
         Task* task;
         
         if(type == "MyTask")
@@ -549,7 +542,18 @@ void Thor::claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid)
     boost::mutex::scoped_lock listLock(listMutex);
     
     AuctionTracker at = auctionList[id];
-    if(at.topBidder == getName() || std::find(taskMsg.owners.begin(), taskMsg.owners.end(), getName()) != taskMsg.owners.end())
+    
+    bool taskAllowed = true;
+    std::string type = taskMsg.type;
+    std::vector<std::string> roleTasks = p_currentRole->getTasks();
+    if (!roleTasks.empty() &&                                                       //If my role has tasks listed
+        std::find(roleTasks.begin(), roleTasks.end(), type) == roleTasks.end())     //If this this task is not in the list
+    {
+        ROS_INFO("The task of type: %s is disallowed by my role.", type.c_str());           
+        taskAllowed = false;
+    }
+    
+    if(at.topBidder == getName() || std::find(taskMsg.owners.begin(), taskMsg.owners.end(), getName()) != taskMsg.owners.end() && taskAllowed)
     {
         ROS_INFO("claiming task %d", id);
         hsmrs_framework::BidMsg claimMsg = hsmrs_framework::BidMsg();
@@ -658,8 +662,16 @@ double Thor::bid(const hsmrs_framework::BidMsg::ConstPtr& msg)
     hsmrs_framework::BidMsg myBid = hsmrs_framework::BidMsg(*msg);
     myBid.name = getName();
     std::string type = msg->task.type;
+    bool taskAllowed = true;
+    std::vector<std::string> roleTasks = p_currentRole->getTasks();
+    if (!roleTasks.empty() &&                                                       //If my role has tasks listed
+        std::find(roleTasks.begin(), roleTasks.end(), type) == roleTasks.end())     //If this this task is not in the list
+    {
+        ROS_INFO("The task of type: %s is disallowed by my role.", type.c_str());           
+        taskAllowed = false;
+    }
     
-    if(p_currentTask == NULL)
+    if(p_currentTask == NULL && taskAllowed)
     {
         ROS_INFO("calculating utility...");
         if(type == "MyTask")
@@ -696,7 +708,7 @@ double Thor::bid(const hsmrs_framework::BidMsg::ConstPtr& msg)
     }
     else
     {
-        ROS_INFO("already have a task, abstaining from auction");
+        ROS_INFO("already have a task/task disallowed, abstaining from auction");
         myBid.utility = 0;
     }
     
@@ -709,8 +721,16 @@ double Thor::bid(const hsmrs_framework::TaskMsg::ConstPtr& msg)
     myBid.task = *msg;
     myBid.name = getName();
     std::string type = msg->type;
+    bool taskAllowed = true;
+    std::vector<std::string> roleTasks = p_currentRole->getTasks();
+    if (!roleTasks.empty() &&                                                       //If my role has tasks listed
+        std::find(roleTasks.begin(), roleTasks.end(), type) == roleTasks.end())     //If this this task is not in the list
+    {
+        ROS_INFO("The task of type: %s is disallowed by my role.", type.c_str());           
+        taskAllowed = false;
+    }
     
-    if(p_currentTask == NULL)
+    if(p_currentTask == NULL && taskAllowed)
     {
         ROS_INFO("calculating utility...");
         if(type == "MyTask")
