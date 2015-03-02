@@ -16,6 +16,7 @@ bool pop_front(std::vector<T>& vec, T& removedItem)
 
 
 void SearchBehavior::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& msg){
+    boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
 	if (!isExecuting || 
 		msg->markers.size() == 0) return;
 
@@ -55,6 +56,7 @@ void SearchBehavior::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& m
 }
 
 void SearchBehavior::progressCallback(const std_msgs::String::ConstPtr& msg){
+    boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
 	if (!isExecuting) return;
 	
 	std::string progress = msg->data;
@@ -114,22 +116,26 @@ MARKER_TOPIC("ar_pose_marker")
 }
 
 void SearchBehavior::execute(){
+    boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
 	ROS_INFO("Executing search behavior!");
 	isExecuting = true;
 	goalPub.publish(goalMsg);
 }
 
 void SearchBehavior::resume(){
+    boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
 	isExecuting = true;
 	goalPub.publish(goalMsg);
 }
 
 void SearchBehavior::pause(){
+    boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
 	isExecuting = false;
 	cancelPub.publish(cancelMsg);
 }
 
 void SearchBehavior::stop(){
+    boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
 	isExecuting = false;
 	cancelPub.publish(cancelMsg);
 }

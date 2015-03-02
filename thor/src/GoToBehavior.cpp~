@@ -14,6 +14,7 @@ GoToBehavior::GoToBehavior(Robot* parent, geometry_msgs::Point goal, ros::NodeHa
 
 void GoToBehavior::execute(){
 	ROS_INFO("Sending goal");
+	boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
 	isExecuting = true;
   	goalPub.publish(goalMsg);
 }
