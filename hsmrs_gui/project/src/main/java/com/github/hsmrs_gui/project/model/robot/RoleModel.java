@@ -46,7 +46,7 @@ public class RoleModel {
 		
 		List<String> taskTypes = new ArrayList<String>();
 		for (TaskSpecification ts : roleTasks){
-			taskTypes.add(ts.getType());
+			taskTypes.add(ts.getType() + "Task");
 		}
 		msg.setTaskTypes(taskTypes);
 		

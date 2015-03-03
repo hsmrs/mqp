@@ -18,8 +18,6 @@ void Thor::executeTask() {
 	}
 	else if(taskType == "FollowTagTask"){
 		FollowTagTask* task = dynamic_cast<FollowTagTask*>(p_currentTask);
-		//FollowTagBehavior ftb(this, 0.3, 0.5, task->getTagID(), n, VEL_TOPIC, LASER_TOPIC);
-		//behavior = &ftb;
 		behavior = new FollowTagBehavior(this, 0.3, 0.5, task->getTagID(), n, VEL_TOPIC, LASER_TOPIC);
 	}
 	else if(taskType == "SearchTask"){
