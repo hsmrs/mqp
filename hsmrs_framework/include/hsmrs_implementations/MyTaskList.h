@@ -16,7 +16,7 @@ public:
 
 	Task* pullNextTask();
 
-	Task* removeTask(int id);
+	void removeTask(int id);
 
 	void setPriority(int task, double priority);
 

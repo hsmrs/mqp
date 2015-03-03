@@ -11,14 +11,12 @@ public:
 	void addTask(Task* task);
 
 	std::vector<Task*> getTasks();
-	
-	std::map<std::string, double> getAttributeWeights();
 
 	bool isEmpty();
 
 	Task* pullNextTask();
 
-	Task* removeTask(int id);
+	void removeTask(int id);
 
 	void setPriority(int task, double priority);
 

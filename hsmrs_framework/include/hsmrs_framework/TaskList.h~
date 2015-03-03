@@ -56,14 +56,14 @@ public:
 	 * Removes the given task from the TaskList.
 	 * @return The removed Task
 	 */
-	virtual Task* removeTask(int id) = 0;
+	virtual void removeTask(int id) = 0;
 
 	/**
 	 * Sets the priority of the given Task to the given priority
 	 * @param task The Task whose priority will be changed
 	 * @param priority The new priority for the task.
 	 */
-	virtual void setPriority(Task* task, double priority) = 0;
+	virtual void setPriority(int task, double priority) = 0;
 private:
 	/**
 	 * Sorts the TaskList in order of decreasing priority
