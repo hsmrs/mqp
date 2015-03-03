@@ -18,6 +18,7 @@
 #include <typeinfo>
 
 #include "hsmrs_framework/Robot.h"
+#include "hsmrs_framework/Role.h"
 #include "hsmrs_framework/TaskList.h"
 #include "hsmrs_implementations/GoToTask.h"
 #include "hsmrs_implementations/FollowTagTask.h"
@@ -26,7 +27,9 @@
 #include "hsmrs_implementations/MyUtilityHelper.h"
 #include "hsmrs_implementations/MyTask.h"
 #include "hsmrs_implementations/MyAgentState.cpp"
+#include "hsmrs_implementations/MyRole.cpp"
 #include "hsmrs_framework/TaskMsg.h"
+#include "hsmrs_framework/RoleMsg.h"
 #include "thor/Behavior.h"
 #include "thor/FollowTagBehavior.h"
 #include "thor/GoToBehavior.h"
@@ -88,6 +91,8 @@ private:
 	ros::Subscriber claimSub;
 	ros::Subscriber taskProgressSub;
 
+	ros::Subscriber roleSub;
+
 	ros::Publisher vel_pub;
 	ros::Subscriber bumper_sub;
 	ros::Subscriber laser_sub;
@@ -110,6 +115,7 @@ private:
 	const std::string AUCTION_TOPIC;
 	const std::string CLAIM_TOPIC;
 	const std::string TASK_PROGRESS_TOPIC;
+	const std::string ROLE_TOPIC;
 
 	const std::string VEL_TOPIC;
 	const std::string BUMPER_TOPIC;
@@ -121,6 +127,7 @@ private:
 	Task* p_currentTask;
 	UtilityHelper* utiHelp;
 	AgentState* state;
+	Role* p_currentRole;
 		
 	std::map<int, AuctionTracker> auctionList;
 	
@@ -177,7 +184,9 @@ private:
 	
 	void claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid);
 	
-	void Thor::handleProgress(const std_msgs::String::ConstPtr& msg);
+	void handleProgress(const std_msgs::String::ConstPtr& msg);
+
+	void handleRoleAssign(const hsmrs_framework::RoleMsg::ConstPtr& msg);
 
 public:
 	Thor(std::string name, double speed);

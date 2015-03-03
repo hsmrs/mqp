@@ -50,6 +50,7 @@ public:
     double topUtility;
     bool haveBidded;
     bool taskClaimed;
+    int bidCount;
     
     AuctionTracker()
     {
@@ -57,6 +58,7 @@ public:
         topUtility = -1;
         haveBidded = false;
         taskClaimed = false;
+        bidCount = 0;
     }
 };
 
