@@ -14,6 +14,12 @@ GoToBehavior::GoToBehavior(Robot* parent, geometry_msgs::Point goal, ros::NodeHa
 	info = "robot: " + parent->getName();
 }
 
+GoToBehavior::~GoToBehavior(){
+	goalPub.shutdown();
+	progressPub.shutdown();
+	progressSub.shutdown();
+}
+
 void GoToBehavior::execute(){
 	ROS_INFO("Sending goal");
 	try
@@ -71,6 +77,11 @@ void GoToBehavior::stop(){
   	}
 }
 
+std::string GoToBehavior::checkProgress(){
+	boost::mutex::scoped_lock progressLock(progressMutex);
+	return progress;
+}
+
 void GoToBehavior::progressCallback(const std_msgs::String::ConstPtr& msg){
 	std::string progress = msg->data;
 	try
@@ -80,8 +91,11 @@ void GoToBehavior::progressCallback(const std_msgs::String::ConstPtr& msg){
 		    isExecuting = false;
 		
 		    //Tell thor task is complete.
-		    ROS_INFO("GoToTask complete, calling cancelTask on %s", info.c_str());
-		    progressPub.publish(*msg);
+		    boost::mutex::scoped_lock progressLock(progressMutex);
+		    progress = "complete";
+		    progressLock.unlock();
+		    //ROS_INFO("GoToTask complete, calling cancelTask on %s", info.c_str());
+		    //progressPub.publish(*msg);
 	    }
 	    isExecutingLock.unlock();
 	}

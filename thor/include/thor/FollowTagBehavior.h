@@ -24,6 +24,10 @@ private:
 	int tagID;
 	bool isExecuting;
 	bool isObstacle;
+	std::string progress;
+
+
+	boost::mutex progressMutex;
 
 	void laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg);
 
@@ -34,6 +38,8 @@ public:
 	FollowTagBehavior(Thor* parent, double maxLinearVelocity, double maxAngularVelocity, int tagID, ros::NodeHandle n, 
 		std::string cmdVelTopic, std::string laserTopic);
 
+	~FollowTagBehavior();
+
 	virtual void execute();
 
 	virtual void resume();
@@ -41,6 +47,8 @@ public:
 	virtual void pause();
 
 	virtual void stop();
+
+	virtual std::string checkProgress();
 };
 
 

@@ -21,6 +21,8 @@ public:
 	virtual void pause() = 0;
 
 	virtual void stop() = 0;
+
+	virtual std::string checkProgress() = 0;
 };
 
 #endif

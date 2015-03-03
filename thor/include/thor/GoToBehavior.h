@@ -23,11 +23,15 @@ private:
 	ros::Publisher progressPub;
 	ros::Subscriber progressSub;
 	boost::mutex isExecutingMutex;
+	boost::mutex progressMutex;
 	std::string info;
+	std::string progress;
 
 public:
 
 	GoToBehavior(Robot* parent, geometry_msgs::Point goal, ros::NodeHandle n);
+
+	~GoToBehavior();
 
 	virtual void execute();
 
@@ -36,6 +40,8 @@ public:
 	virtual void pause();
 
 	virtual void stop();
+
+	virtual std::string checkProgress();
 	
 	void progressCallback(const std_msgs::String::ConstPtr& msg);
 };
