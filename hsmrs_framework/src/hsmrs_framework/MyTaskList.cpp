@@ -32,7 +32,7 @@ bool MyTaskList::isEmpty()
 {
 	return list->size() == 0;
 }
-
+ 
 Task* MyTaskList::pullNextTask()
 {
 	for (int i = 0; i < list->size(); i++)

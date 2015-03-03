@@ -48,7 +48,7 @@ void MyTaskList::removeTask(int id)
 {
     ROS_INFO("MyTaskList: removeTask");
     ROS_INFO("Getting list size: %d", list->size());
-    ROS_INFO("Getting ID of 0th element: %d", (*list)[i]->getID());
+    ROS_INFO("Getting ID of 0th element: %d", (*list)[0]->getID());
     
 	for (int i = 0; i < list->size(); i++)
 	{
