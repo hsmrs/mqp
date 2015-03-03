@@ -57,6 +57,12 @@ MARKER_TOPIC("ar_pose_marker")
 	markerSub = n.subscribe(MARKER_TOPIC, 1000, &FollowTagBehavior::tagCallback, this);
 }
 
+FollowTagBehavior::~FollowTagBehavior(){
+	cmdVelPub.shutdown();
+	laserSub.shutdown();
+	markerSub.shutdown();
+}
+
 void FollowTagBehavior::execute(){
 	isExecuting = true;
 }
@@ -71,4 +77,9 @@ void FollowTagBehavior::pause(){
 
 void FollowTagBehavior::stop(){
 	isExecuting = false;
+}
+
+std::string FollowTagBehavior::checkProgress(){
+	boost::mutex::scoped_lock progressLock(progressMutex);
+	return progress;
 }

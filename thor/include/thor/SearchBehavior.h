@@ -38,7 +38,10 @@ private:
 	std_msgs::String cancelMsg;
 	
 	boost::mutex isExecutingMutex;
+	boost::mutex progressMutex;
     std::string info;
+   	std::string progress;
+
 
 	void tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& msg);
 
@@ -51,6 +54,8 @@ public:
 	SearchBehavior(Robot* parent, double maxLinearVelocity, double maxAngularVelocity, double resolution, int tagID, 
 		std::vector<geometry_msgs::PointStamped> boundaryVertices, ros::NodeHandle n, std::string cmdVelTopic);
 
+	~SearchBehavior();
+
 	virtual void execute();
 
 	virtual void resume();
@@ -58,6 +63,8 @@ public:
 	virtual void pause();
 
 	virtual void stop();
+
+	virtual std::string checkProgress();
 };
 
 

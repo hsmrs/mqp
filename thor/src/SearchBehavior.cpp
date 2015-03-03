@@ -59,8 +59,8 @@ void SearchBehavior::progressCallback(const std_msgs::String::ConstPtr& msg){
     boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
 	if (!isExecuting) return;
 	
-	std::string progress = msg->data;
-	if (progress == "complete" && isExecuting){
+	std::string msgProgress = msg->data;
+	if (msgProgress == "complete" && isExecuting){
 		if (!isFound){
 			ROS_INFO("Getting next target!");
 			ROS_INFO("(%f, %f)", goals[counter].point.x, goals[counter].point.y);
@@ -73,7 +73,10 @@ void SearchBehavior::progressCallback(const std_msgs::String::ConstPtr& msg){
 				parent->sendMessage("I could not find it.");
 				ROS_INFO("I could not find it. %s", info.c_str());
 				isExecuting = false;
-				progressPub.publish(*msg);
+				boost::mutex::scoped_lock progressLock(progressMutex);
+				progress = "complete";
+				progressLock.unlock();
+				//progressPub.publish(*msg);
 			}
 			//bool success = pop_front<geometry_msgs::PointStamped>(boundaryVertices, goalMsg);
 			//ROS_INFO("(%f, %f)", goalMsg.point.x, goalMsg.point.y);
@@ -116,6 +119,15 @@ MARKER_TOPIC("ar_pose_marker")
 	markerSub = n.subscribe(MARKER_TOPIC, 1000, &SearchBehavior::tagCallback, this);
 }
 
+SearchBehavior::~SearchBehavior(){
+	goalPub.shutdown();
+	progressPub.shutdown();
+	cancelPub.shutdown();
+	cmdVelPub.shutdown();
+	progressSub.shutdown();
+	markerSub.shutdown();
+}
+
 void SearchBehavior::execute(){
     boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
 	ROS_INFO("Executing search behavior! %s", info.c_str());
@@ -141,6 +153,10 @@ void SearchBehavior::stop(){
 	cancelPub.publish(cancelMsg);
 }
 
+std::string SearchBehavior::checkProgress(){
+	boost::mutex::scoped_lock progressLock(progressMutex);
+	return progress;
+}
 
 void SearchBehavior::createGoals(){
 	ROS_INFO("Creating goals!");
