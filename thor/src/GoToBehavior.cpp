@@ -94,7 +94,7 @@ void GoToBehavior::progressCallback(const std_msgs::String::ConstPtr& msg){
 		    boost::mutex::scoped_lock progressLock(progressMutex);
 		    progress = "complete";
 		    progressLock.unlock();
-		    //ROS_INFO("GoToTask complete, calling cancelTask on %s", info.c_str());
+		    ROS_INFO("GoToTask complete, calling cancelTask on %s", info.c_str());
 		    //progressPub.publish(*msg);
 	    }
 	    isExecutingLock.unlock();

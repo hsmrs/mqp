@@ -392,6 +392,7 @@ Thor::Thor(std::string name, double speed) : NAME(name), REGISTRATION_TOPIC("/hs
         //Get progress on behavior
         boost::mutex::scoped_lock behaviorLock(currentTaskMutex);
         if (p_currentBehavior != NULL && p_currentBehavior->checkProgress() == "complete"){
+            ROS_INFO("After check progress: canceling task")
             behaviorLock.unlock();
             cancelTask();
         }
