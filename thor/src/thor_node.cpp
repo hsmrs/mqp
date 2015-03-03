@@ -211,6 +211,7 @@ void Thor::updatedTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg){
             p_currentBehavior->stop();
             delete p_currentBehavior;
             p_currentBehavior = NULL;
+            setStatus("Idle");
         }
         else
         {
@@ -223,6 +224,7 @@ void Thor::updatedTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg){
     
     ROS_INFO("updating task list copy");
     taskList->removeTask(update->getID());
+    ROS_INFO("remove task executed successfully");
     taskList->addTask(update);
     listLock.unlock();
     currentTaskLock.unlock();
@@ -392,11 +394,13 @@ Thor::Thor(std::string name, double speed) : NAME(name), REGISTRATION_TOPIC("/hs
         //Get progress on behavior
         boost::mutex::scoped_lock behaviorLock(currentTaskMutex);
         if (p_currentBehavior != NULL && p_currentBehavior->checkProgress() == "complete"){
-            ROS_INFO("After check progress: canceling task")
+            ROS_INFO("After checking progress: canceling task");
             behaviorLock.unlock();
             cancelTask();
         }
-        behaviorLock.unlock();
+        else {
+            behaviorLock.unlock();
+        }
 
 		loop_rate.sleep();
 	}
