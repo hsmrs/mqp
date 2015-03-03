@@ -614,7 +614,8 @@ void Thor::claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid)
     
     ROS_INFO("top bidder is %s with %f", at.topBidder.c_str(), at.topUtility);
     
-    if((at.topBidder == getName() || std::find(taskMsg.owners.begin(), taskMsg.owners.end(), getName()) != taskMsg.owners.end()) && taskAllowed)
+    boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
+    if((at.topBidder == getName() || std::find(taskMsg.owners.begin(), taskMsg.owners.end(), getName()) != taskMsg.owners.end()) && taskAllowed && p_currentTask == NULL)
     {
         ROS_INFO("claiming task %d", id);
         hsmrs_framework::BidMsg claimMsg = hsmrs_framework::BidMsg();
@@ -627,7 +628,6 @@ void Thor::claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid)
         auctionList[id] = at;
         taskList->getTask(id)->addOwner(getName());
         
-        boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
     	p_currentTask = taskList->getTask(id);
     	currentTaskLock.unlock();
 	    executeTask();
