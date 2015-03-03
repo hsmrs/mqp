@@ -63,7 +63,7 @@ public:
 	 * @param task The Task whose priority will be changed
 	 * @param priority The new priority for the task.
 	 */
-	virtual void setPriority(Task* task, double priority) = 0;
+	virtual void setPriority(int task, double priority) = 0;
 private:
 	/**
 	 * Sorts the TaskList in order of decreasing priority

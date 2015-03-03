@@ -43,19 +43,15 @@ Task* MyTaskList::pullNextTask()
 	return NULL;
 }
 
-Task* MyTaskList::removeTask(int id)
+void MyTaskList::removeTask(int id)
 {
 	for (int i = 0; i < list->size(); i++)
 	{
 		if ((*list)[i]->getID() == id)
 		{
-			Task* ret = (*list)[i];
 			list->erase(list->begin() + i);
-			return ret;
 		}
 	}
-
-	return NULL;
 }
 
 void MyTaskList::setPriority(int task, double priority)
