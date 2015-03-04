@@ -223,7 +223,6 @@ void Thor::updatedTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg){
     
     ROS_INFO("updating task list copy");
     taskList->removeTask(update->getID());
-    ROS_INFO("remove task executed successfully");
     taskList->addTask(update);
     listLock.unlock();
     currentTaskLock.unlock();
@@ -392,7 +391,6 @@ Thor::Thor(std::string name, double speed) : NAME(name), REGISTRATION_TOPIC("/hs
 
         //Get progress on behavior
         boost::mutex::scoped_lock behaviorLock(currentTaskMutex);
-        ROS_INFO("loop running");
         if (p_currentBehavior != NULL && p_currentBehavior->checkProgress() == "complete"){
             ROS_INFO("After checking progress: canceling task");
             behaviorLock.unlock();
@@ -521,13 +519,12 @@ void Thor::setStatus(std::string newStatus){
 void Thor::handleNewTask(const hsmrs_framework::TaskMsg::ConstPtr& msg)
 {
     ROS_INFO("got new task!");
-    boost::mutex::scoped_lock atLock(atMutex);
     boost::mutex::scoped_lock listLock(listMutex);
     int id = msg->id;
     if(taskList->getTask(id) == NULL)
     {
         std::string type = msg->type;
-
+        ROS_INFO("new task has id %d, type %s", msg->id, type.c_str());
         Task* task;
         
         if(type == "MyTask")

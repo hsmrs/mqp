@@ -45,22 +45,15 @@ Task* MyTaskList::pullNextTask()
 }
 
 void MyTaskList::removeTask(int id)
-{
-    ROS_INFO("MyTaskList: removeTask");
-    ROS_INFO("Getting list size: %d", list->size());
-    ROS_INFO("Getting ID of 0th element: %d", (*list)[0]->getID());
-    
+{    
 	for (int i = 0; i < list->size(); i++)
 	{
 	    ROS_INFO("%d", i);
 		if ((*list)[i]->getID() == id)
 		{
-		    ROS_INFO("Found matching task");
-			//Task* ret = (*list)[i];
 			list->erase(list->begin() + i);
 		}
 	}
-	ROS_INFO("Exiting remove task");
 }
 
 void MyTaskList::setPriority(int task, double priority)

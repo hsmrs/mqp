@@ -4,7 +4,7 @@
 
 MyTaskList::MyTaskList()
 {
-	list = new std::vector<Task*>;
+	list = new std::vector<Task*>();
 	sorted = true;
 }
 
@@ -32,7 +32,7 @@ bool MyTaskList::isEmpty()
 {
 	return list->size() == 0;
 }
-
+ 
 Task* MyTaskList::pullNextTask()
 {
 	for (int i = 0; i < list->size(); i++)
@@ -55,18 +55,12 @@ void MyTaskList::removeTask(int id)
 	    ROS_INFO("%d", i);
 		if ((*list)[i]->getID() == id)
 		{
-<<<<<<< HEAD
-			list->erase(list->begin() + i);
-		}
-	}
-=======
 		    ROS_INFO("Found matching task");
 			//Task* ret = (*list)[i];
 			list->erase(list->begin() + i);
 		}
 	}
 	ROS_INFO("Exiting remove task");
->>>>>>> bd26135db10543532558feacfe08ca20b7a4a74e
 }
 
 void MyTaskList::setPriority(int task, double priority)
