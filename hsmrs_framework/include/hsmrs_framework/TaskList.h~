@@ -56,7 +56,7 @@ public:
 	 * Removes the given task from the TaskList.
 	 * @return The removed Task
 	 */
-	virtual Task* removeTask(int id) = 0;
+	virtual void removeTask(int id) = 0;
 
 	/**
 	 * Sets the priority of the given Task to the given priority

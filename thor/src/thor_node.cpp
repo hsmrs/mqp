@@ -392,6 +392,7 @@ Thor::Thor(std::string name, double speed) : NAME(name), REGISTRATION_TOPIC("/hs
 
         //Get progress on behavior
         boost::mutex::scoped_lock behaviorLock(currentTaskMutex);
+        ROS_INFO("loop running");
         if (p_currentBehavior != NULL && p_currentBehavior->checkProgress() == "complete"){
             ROS_INFO("After checking progress: canceling task");
             behaviorLock.unlock();
@@ -615,11 +616,14 @@ void Thor::claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid)
         
         at.taskClaimed = true;
         auctionList[id] = at;
+        ROS_INFO("ClaimWorker: Adding auction winner to the task");
         taskList->getTask(id)->addOwner(getName());
+        ROS_INFO("ClaimWorker: Added");
         
     	p_currentTask = taskList->getTask(id);
     	currentTaskLock.unlock();
 	    executeTask();
+	    ROS_INFO("Ending claim worker execution");
 	    return;
     }
     
