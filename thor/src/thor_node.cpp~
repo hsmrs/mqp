@@ -18,8 +18,6 @@ void Thor::executeTask() {
 	}
 	else if(taskType == "FollowTagTask"){
 		FollowTagTask* task = dynamic_cast<FollowTagTask*>(p_currentTask);
-		//FollowTagBehavior ftb(this, 0.3, 0.5, task->getTagID(), n, VEL_TOPIC, LASER_TOPIC);
-		//behavior = &ftb;
 		behavior = new FollowTagBehavior(this, 0.3, 0.5, task->getTagID(), n, VEL_TOPIC, LASER_TOPIC);
 	}
 	else if(taskType == "SearchTask"){
@@ -208,10 +206,12 @@ void Thor::updatedTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg){
         if(std::find(msg->owners.begin(), msg->owners.end(), getName()) == msg->owners.end() || msg->status == "complete" || msg->status == "deleted") //if I'm no longer working on it
         {
             ROS_INFO("task is complete/I'm no longer an owner, ending");
+            delete p_currentTask;
             p_currentTask = NULL;
             p_currentBehavior->stop();
             delete p_currentBehavior;
             p_currentBehavior = NULL;
+            setStatus("Idle");
         }
         else
         {
@@ -224,6 +224,7 @@ void Thor::updatedTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg){
     
     ROS_INFO("updating task list copy");
     taskList->removeTask(update->getID());
+    ROS_INFO("remove task executed successfully");
     taskList->addTask(update);
     listLock.unlock();
     currentTaskLock.unlock();
@@ -389,6 +390,18 @@ Thor::Thor(std::string name, double speed) : NAME(name), REGISTRATION_TOPIC("/hs
 		listLock.unlock();
 		currentTaskLock.unlock();
 		atLock.unlock();
+
+        //Get progress on behavior
+        boost::mutex::scoped_lock behaviorLock(currentTaskMutex);
+        if (p_currentBehavior != NULL && p_currentBehavior->checkProgress() == "complete"){
+            ROS_INFO("After checking progress: canceling task");
+            behaviorLock.unlock();
+            cancelTask();
+        }
+        else {
+            behaviorLock.unlock();
+        }
+
 		loop_rate.sleep();
 	}
 	ros::waitForShutdown();
@@ -551,29 +564,6 @@ void Thor::handleNewTask(const hsmrs_framework::TaskMsg::ConstPtr& msg)
         }
         
         listLock.unlock();
-        
-        double myBid = 0;
-        
-        if(msg->owners.size() < task->getMaxOwners())
-        {
-            AuctionTracker at = AuctionTracker();
-            myBid = bid(msg);
-            
-            if(myBid > 0)
-            {
-                at.topBidder = getName();
-                at.topUtility = myBid;
-                at.haveBidded = true;
-                at.bidCount++;
-            }
-            
-            auctionList[id] = at;
-            atLock.unlock();
-        }
-        
-        //spawn claimer thread
-        boost::thread claimer = boost::thread(&Thor::claimWorker, this, *msg, id, myBid);
-        claimer.detach();
     }
     else
     {
@@ -614,7 +604,8 @@ void Thor::claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid)
     
     ROS_INFO("top bidder is %s with %f", at.topBidder.c_str(), at.topUtility);
     
-    if((at.topBidder == getName() || std::find(taskMsg.owners.begin(), taskMsg.owners.end(), getName()) != taskMsg.owners.end()) && taskAllowed)
+    boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
+    if((at.topBidder == getName() || std::find(taskMsg.owners.begin(), taskMsg.owners.end(), getName()) != taskMsg.owners.end()) && taskAllowed && p_currentTask == NULL)
     {
         ROS_INFO("claiming task %d", id);
         hsmrs_framework::BidMsg claimMsg = hsmrs_framework::BidMsg();
@@ -627,7 +618,6 @@ void Thor::claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid)
         auctionList[id] = at;
         taskList->getTask(id)->addOwner(getName());
         
-        boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
     	p_currentTask = taskList->getTask(id);
     	currentTaskLock.unlock();
 	    executeTask();

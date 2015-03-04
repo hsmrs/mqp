@@ -206,7 +206,6 @@ void Thor::updatedTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg){
         if(std::find(msg->owners.begin(), msg->owners.end(), getName()) == msg->owners.end() || msg->status == "complete" || msg->status == "deleted") //if I'm no longer working on it
         {
             ROS_INFO("task is complete/I'm no longer an owner, ending");
-            delete p_currentTask;
             p_currentTask = NULL;
             p_currentBehavior->stop();
             delete p_currentBehavior;

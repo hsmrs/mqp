@@ -3,7 +3,7 @@
 
 MyTaskList::MyTaskList()
 {
-	list = new std::vector<Task*>;
+	list = new std::vector<Task*>();
 	sorted = true;
 }
 
