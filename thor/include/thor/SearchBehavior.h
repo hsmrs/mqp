@@ -10,6 +10,8 @@
 #include "ar_track_alvar/AlvarMarkers.h"
 #include "thor/thor_node.h"
 #include <boost/thread/mutex.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/thread/thread.hpp>
 
 class Thor;
 

@@ -53,6 +53,8 @@ void SearchBehavior::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& m
 	}
 	if (isFound) goalPub.publish(goalMsg);
 	isFound = false;
+	
+	boost::this_thread::sleep(boost::posix_time::milliseconds(100));
 }
 
 void SearchBehavior::progressCallback(const std_msgs::String::ConstPtr& msg){
@@ -116,7 +118,7 @@ MARKER_TOPIC("ar_pose_marker")
 	cmdVelPub = n.advertise<geometry_msgs::Twist>(cmdVelTopic, 1000);
 
 	progressSub = n.subscribe("navigation/progress", 1000, &SearchBehavior::progressCallback, this);
-	markerSub = n.subscribe(MARKER_TOPIC, 1000, &SearchBehavior::tagCallback, this);
+	markerSub = n.subscribe(MARKER_TOPIC, 1, &SearchBehavior::tagCallback, this);
 }
 
 SearchBehavior::~SearchBehavior(){
