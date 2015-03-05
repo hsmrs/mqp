@@ -22,6 +22,8 @@ class SearchBehavior : public Behavior{
 private:
 	const std::string MARKER_TOPIC;
 
+	ros::NodeHandle nh;
+
 	ros::Subscriber markerSub;
 	ros::Subscriber progressSub;
 
