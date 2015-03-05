@@ -365,7 +365,7 @@ Thor::Thor(std::string name, double speed) : NAME(name), REGISTRATION_TOPIC("/hs
                 taskAllowed = false;
             }
             
-		    if(auctionList.count(t->getID()) == 0 && taskAllowed && t.getOwners().size() < t.getMaxOwners())
+		    if(auctionList.count(t->getID()) == 0 && taskAllowed && t->getOwners().size() < t->getMaxOwners())
 		    {
 		        nextTask = t;
 		        ROS_INFO("found queued task %d", t->getID());
@@ -588,14 +588,15 @@ void Thor::handleClaims(const hsmrs_framework::BidMsg::ConstPtr& msg)
 void Thor::claimWorker(hsmrs_framework::TaskMsg taskMsg, int id)
 {
     ROS_INFO("Beginnging execution of claimWorker");
-    std::unique_lock<std::recursive_mutex> auctionLock(auctionMutex);
+    std::unique_lock<std::mutex> auctionLock(auctionMutex);
     std::unique_lock<std::recursive_mutex> atLock(atMutex);
     
     AuctionTracker at = auctionList[id];
 
     double myBid = 0;
         
-    myBid = bid(msg);
+    boost::shared_ptr<hsmrs_framework::TaskMsg const> taskMsgPtr(&taskMsg);
+    myBid = bid(taskMsgPtr);
     at.bidCount = 1;
             
     if(myBid > at.topUtility)
