@@ -88,7 +88,7 @@ void SearchBehavior::progressCallback(const std_msgs::String::ConstPtr& msg){
 			ROS_INFO("Getting next target!");
 			ROS_INFO("(%f, %f)", g_goals[counter].point.x, g_goals[counter].point.y);
 			if (counter < g_goals.size()) {
-				g_goalMsg = goals[counter++];
+				g_goalMsg = g_goals[counter++];
 				ROS_INFO("publishing goal");// %s", info.c_str());
 				g_goalPub.publish(g_goalMsg);
 			}
@@ -132,6 +132,7 @@ MARKER_TOPIC("ar_pose_marker")
 	this->boundaryVertices = boundaryVertices;
 	this->resolution = resolution;
 	counter = 0;
+	g_goals.clear();
 	createGoals();
 	g_goalMsg = g_goals[counter++];
 	//pop_front<geometry_msgs::PointStamped>(goals, goalMsg);
@@ -164,25 +165,25 @@ void SearchBehavior::execute(){
     //std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
 	ROS_INFO("Executing search behavior! %s", info.c_str());
 	protected_isExecuting.store(true);
-	g_goalPub.publish(goalMsg);
+	g_goalPub.publish(g_goalMsg);
 }
 
 void SearchBehavior::resume(){
     //std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
 	protected_isExecuting.store(true);
-	g_goalPub.publish(goalMsg);
+	g_goalPub.publish(g_goalMsg);
 }
 
 void SearchBehavior::pause(){
     //std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
 	protected_isExecuting.store(false);
-	g_cancelPub.publish(cancelMsg);
+	g_cancelPub.publish(g_cancelMsg);
 }
 
 void SearchBehavior::stop(){
     //std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
 	protected_isExecuting.store(false);
-	g_cancelPub.publish(cancelMsg);
+	g_cancelPub.publish(g_cancelMsg);
 }
 
 std::string SearchBehavior::checkProgress(){
