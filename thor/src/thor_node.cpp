@@ -6,7 +6,7 @@
 void Thor::executeTask() {
 	ROS_INFO("Execute task!");
 	////boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
-    std::unique_lock<std::mutex> currentTaskLock(currentTaskMutex);
+    std::unique_lock<std::recursive_mutex> currentTaskLock(currentTaskMutex);
 	//std::string taskType = typeid(p_currentTask).name();
 	std::string taskType = p_currentTask->getType();
 	Behavior* behavior;
@@ -34,13 +34,13 @@ void Thor::executeTask() {
 
 void Thor::pauseTask(){
     //boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
-    std::unique_lock<std::mutex> currentTaskLock(currentTaskMutex);
+    std::unique_lock<std::recursive_mutex> currentTaskLock(currentTaskMutex);
 	if (p_currentBehavior != NULL) p_currentBehavior->pause();
 }
 
 void Thor::resumeTask(){
     //boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
-    std::unique_lock<std::mutex> currentTaskLock(currentTaskMutex);
+    std::unique_lock<std::recursive_mutex> currentTaskLock(currentTaskMutex);
 	if (p_currentBehavior != NULL) p_currentBehavior->resume();
 }
 
@@ -197,9 +197,9 @@ void Thor::updatedTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg){
     }
     
     ////boost::mutex::scoped_lock listLock(listMutex);
-    std::unique_lock<std::mutex> listLock(listMutex);
+    std::unique_lock<std::recursive_mutex> listLock(listMutex);
     //boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
-    std::unique_lock<std::mutex> currentTaskLock(currentTaskMutex);
+    std::unique_lock<std::recursive_mutex> currentTaskLock(currentTaskMutex);
     old = taskList->getTask(update->getID());
     std::vector<std::string> oldOwners = old->getOwners();
     
@@ -339,11 +339,11 @@ Thor::Thor(std::string name, double speed) : NAME(name), REGISTRATION_TOPIC("/hs
 
 	while (ros::ok()){
 	    //boost::mutex::scoped_lock listLock(listMutex);
-        std::unique_lock<std::mutex> listLock(listMutex);
+        std::unique_lock<std::recursive_mutex> listLock(listMutex);
 	    //boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
-        std::unique_lock<std::mutex> currentTaskLock(currentTaskMutex);
+        std::unique_lock<std::recursive_mutex> currentTaskLock(currentTaskMutex);
 	    ////boost::mutex::scoped_lock atLock(atMutex);
-        std::unique_lock<std::mutex> atLock(atMutex);        
+        std::unique_lock<std::recursive_mutex> atLock(atMutex);        
 
 		Task* nextTask = NULL;
 		std::vector<Task*> taskVec = taskList->getTasks();
@@ -397,7 +397,7 @@ Thor::Thor(std::string name, double speed) : NAME(name), REGISTRATION_TOPIC("/hs
 
         //Get progress on behavior
         //boost::mutex::scoped_lock behaviorLock(currentTaskMutex);
-        std::unique_lock<std::mutex> behaviorLock(currentBehaviorMutex);
+        std::unique_lock<std::recursive_mutex> behaviorLock(currentBehaviorMutex);
         if (p_currentBehavior != NULL && p_currentBehavior->checkProgress() == "complete"){
             ROS_INFO("After checking progress: canceling task");
             behaviorLock.unlock();
@@ -470,7 +470,7 @@ bool Thor::hasAttribute(std::string attr) {
  */
 void Thor::setTask(Task* task) {
     //boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
-    std::unique_lock<std::mutex> currentTaskLock(currentTaskMutex);
+    std::unique_lock<std::recursive_mutex> currentTaskLock(currentTaskMutex);
 	p_currentTask = task;
 	currentTaskLock.unlock();
 }
@@ -489,7 +489,7 @@ void Thor::verifyTaskClaim() {
 void Thor::cancelTask() {
     ROS_INFO("canceling task");
     //boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
-    std::unique_lock<std::mutex> currentTaskLock(currentTaskMutex);
+    std::unique_lock<std::recursive_mutex> currentTaskLock(currentTaskMutex);
     ROS_INFO("got task lock");
     if(p_currentTask != NULL)
     {
@@ -509,7 +509,7 @@ void Thor::cancelTask() {
 void Thor::claimTask(Task* task) {
 	ROS_INFO("Claiming task!");
 	//boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
-    std::unique_lock<std::mutex> currentTaskLock(currentTaskMutex);
+    std::unique_lock<std::recursive_mutex> currentTaskLock(currentTaskMutex);
 	p_currentTask = task;
 	currentTaskLock.unlock();
 	executeTask();
@@ -530,7 +530,7 @@ void Thor::handleNewTask(const hsmrs_framework::TaskMsg::ConstPtr& msg)
 {
     ROS_INFO("got new task!");
     //boost::mutex::scoped_lock listLock(listMutex);
-    std::unique_lock<std::mutex> listLock(listMutex);
+    std::unique_lock<std::recursive_mutex> listLock(listMutex);
     int id = msg->id;
     if(taskList->getTask(id) == NULL)
     {
@@ -587,7 +587,7 @@ void Thor::handleClaims(const hsmrs_framework::BidMsg::ConstPtr& msg)
     std::string owner = msg->name;
     if(owner == getName()) return;
     //boost::mutex::scoped_lock listLock(listMutex);
-    std::unique_lock<std::mutex> listLock(listMutex);
+    std::unique_lock<std::recursive_mutex> listLock(listMutex);
     taskList->getTask(id)->addOwner(owner);
 }
 
@@ -597,9 +597,9 @@ void Thor::claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid)
     ROS_INFO("sleepytime");
     boost::this_thread::sleep(boost::posix_time::milliseconds(3000));
     //boost::mutex::scoped_lock atLock(atMutex);
-    std::unique_lock<std::mutex> atLock(atMutex); 
+    std::unique_lock<std::recursive_mutex> atLock(atMutex); 
     //boost::mutex::scoped_lock listLock(listMutex);
-    std::unique_lock<std::mutex> listLock(listMutex);
+    std::unique_lock<std::recursive_mutex> listLock(listMutex);
     
     AuctionTracker at = auctionList[id];
     
@@ -616,7 +616,7 @@ void Thor::claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid)
     ROS_INFO("top bidder is %s with %f", at.topBidder.c_str(), at.topUtility);
     
     //boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
-    std::unique_lock<std::mutex> currentTaskLock(currentTaskMutex);
+    std::unique_lock<std::recursive_mutex> currentTaskLock(currentTaskMutex);
     if((at.topBidder == getName() || std::find(taskMsg.owners.begin(), taskMsg.owners.end(), getName()) != taskMsg.owners.end()) && taskAllowed && p_currentTask == NULL)
     {
         ROS_INFO("claiming task %d", id);
@@ -662,8 +662,8 @@ void Thor::handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
     
     //boost::mutex::scoped_lock atLock(atMutex);
     //boost::mutex::scoped_lock listLock(listMutex);
-    std::unique_lock<std::mutex> atLock(atMutex);    
-    std::unique_lock<std::mutex> listLock(listMutex);
+    std::unique_lock<std::recursive_mutex> atLock(atMutex);    
+    std::unique_lock<std::recursive_mutex> listLock(listMutex);
     if(auctionList.count(id) == 0)
     {
         std::string type = msg->task.type;

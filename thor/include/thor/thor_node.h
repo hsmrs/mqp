@@ -73,10 +73,10 @@ private:
     //boost::mutex listMutex;
     //boost::mutex currentTaskMutex;
 
-    std::mutex atMutex;
-    std::mutex listMutex;
-    std::mutex currentTaskMutex;
-    std::mutex currentBehaviorMutex;
+    std::recursive_mutex atMutex;
+    std::recursive_mutex listMutex;
+    std::recursive_mutex currentTaskMutex;
+    std::recursive_mutex currentBehaviorMutex;
 
 	ros::NodeHandle n;
 	ros::Publisher registration_pub;
