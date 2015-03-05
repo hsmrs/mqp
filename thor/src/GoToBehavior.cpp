@@ -1,5 +1,7 @@
 #include "thor/GoToBehavior.h"
 
+int instance;
+
 GoToBehavior::GoToBehavior(Robot* parent, geometry_msgs::Point goal, ros::NodeHandle n){
 	ROS_INFO("Creating GoTo behavior");
 	this->parent = parent;
@@ -12,6 +14,7 @@ GoToBehavior::GoToBehavior(Robot* parent, geometry_msgs::Point goal, ros::NodeHa
 	progressPub = n.advertise<std_msgs::String>("progress", 1000);
 	
 	info = "robot: " + parent->getName();
+	myInstance = instance++;
 }
 
 GoToBehavior::~GoToBehavior(){
@@ -26,8 +29,9 @@ void GoToBehavior::execute(){
 	try
 	{
 	    //boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
-	    std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
-	    isExecuting = true;
+	    //std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
+	    //isExecuting = true;
+	    protected_isExecuting.store(true);
       	goalPub.publish(goalMsg);
   	}
   	catch(boost::lock_error& e)
@@ -41,9 +45,10 @@ void GoToBehavior::resume(){
     try
     {
         //boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
-	    std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
-	    isExecuting = true;
-	    isExecutingLock.unlock();
+	    //std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
+	    //isExecuting = true;
+	    //isExecutingLock.unlock();
+	    protected_isExecuting.store(true);
 	    goalPub.publish(goalMsg);
 	}
   	catch(boost::lock_error& e)
@@ -57,8 +62,9 @@ void GoToBehavior::pause(){
     try
     {
         //boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
-	    std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
-	    isExecuting = false;
+	    //std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
+	    //isExecuting = false;
+	    protected_isExecuting.store(false);
 	    cancelPub.publish(cancelMsg);
     }
   	catch(boost::lock_error& e)
@@ -72,8 +78,9 @@ void GoToBehavior::stop(){
     try
     {
         //boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
-	    std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
-	    isExecuting = false;
+	    //std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
+	    //isExecuting = false;
+	    protected_isExecuting.store(false);
 	    cancelPub.publish(cancelMsg);
     }
   	catch(boost::lock_error& e)
@@ -85,29 +92,32 @@ void GoToBehavior::stop(){
 std::string GoToBehavior::checkProgress(){
 	ROS_INFO("GoToBehavior::checkProgress");
 	//boost::mutex::scoped_lock progressLock(progressMutex);
-	std::unique_lock<std::recursive_mutex> progressLock(progressMutex);
-		return progress;
+	//std::unique_lock<std::recursive_mutex> progressLock(progressMutex);
+	//return progress;
+	return (protected_progress.load() == 100 ? "complete" : "");
 }
 
 void GoToBehavior::progressCallback(const std_msgs::String::ConstPtr& msg){
-	ROS_INFO("GoToBehavior::progressCallback");
+	ROS_INFO("GoToBehavior::progressCallback on instance: %d", myInstance);
 	std::string progress = msg->data;
 	try
 	{
 	    //boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
-	    std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
+	    //std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
 	    //boost::mutex::scoped_lock progressLock(progressMutex);
-		std::unique_lock<std::recursive_mutex> progressLock(progressMutex);
-		    if (progress == "complete" && isExecuting){
-		    isExecuting = false;
+		//std::unique_lock<std::recursive_mutex> progressLock(progressMutex);
+		if (progress == "complete" && protected_isExecuting.load()){
+		    //isExecuting = false;
+		    protected_isExecuting.store(false);
 		
 		    //Tell thor task is complete.
-		    this->progress = "complete";
+		    //this->progress = "complete";
+		    protected_progress.store(100);
 		    ROS_INFO("GoToTask complete, calling cancelTask on %s", info.c_str());
 		    //progressPub.publish(*msg);
 	    }
-	    progressLock.unlock();
-	    isExecutingLock.unlock();
+	    //progressLock.unlock();
+	    //isExecutingLock.unlock();
 	}
   	catch(boost::lock_error& e)
   	{

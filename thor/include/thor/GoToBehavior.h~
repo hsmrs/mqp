@@ -9,6 +9,8 @@
 #include "hsmrs_framework/Robot.h"
 #include "geometry_msgs/PointStamped.h"
 #include <boost/thread/mutex.hpp>
+#include <mutex>
+#include <atomic>
 
 class GoToBehavior : public Behavior{
 
@@ -22,16 +24,24 @@ private:
 	ros::Publisher cancelPub;
 	ros::Publisher progressPub;
 	ros::Subscriber progressSub;
-<<<<<<< HEAD
-	boost::mutex isExecutingMutex;
-=======
 	
 	std::string info;
->>>>>>> 2f7ff4a6cfdc23dead3b931225e8ab314dcf6064
+	std::string progress;
+	std::atomic_uint protected_progress;
+	std::atomic_bool protected_isExecuting;
+
+	//boost::mutex isExecutingMutex;
+	//boost::mutex progressMutex;
+	std::recursive_mutex isExecutingMutex;
+	std::recursive_mutex progressMutex;
+	
+	int myInstance;
 
 public:
 
 	GoToBehavior(Robot* parent, geometry_msgs::Point goal, ros::NodeHandle n);
+
+	~GoToBehavior();
 
 	virtual void execute();
 
@@ -40,6 +50,8 @@ public:
 	virtual void pause();
 
 	virtual void stop();
+
+	virtual std::string checkProgress();
 	
 	void progressCallback(const std_msgs::String::ConstPtr& msg);
 };

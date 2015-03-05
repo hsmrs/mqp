@@ -10,6 +10,7 @@
 #include "geometry_msgs/PointStamped.h"
 #include <boost/thread/mutex.hpp>
 #include <mutex>
+#include <atomic>
 
 class GoToBehavior : public Behavior{
 
@@ -26,11 +27,15 @@ private:
 	
 	std::string info;
 	std::string progress;
+	std::atomic_uint protected_progress;
+	std::atomic_bool protected_isExecuting;
 
 	//boost::mutex isExecutingMutex;
 	//boost::mutex progressMutex;
 	std::recursive_mutex isExecutingMutex;
 	std::recursive_mutex progressMutex;
+	
+	int myInstance;
 
 public:
 
