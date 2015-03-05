@@ -16,7 +16,8 @@ bool pop_front(std::vector<T>& vec, T& removedItem)
 
 
 void SearchBehavior::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& msg){
-    boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
+    //boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
+    std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
 	if (!isExecuting || 
 		msg->markers.size() == 0) return;
 
@@ -37,9 +38,11 @@ void SearchBehavior::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& m
 				parent->sendMessage("I found it!");
 				ROS_INFO("I found it! %s", info.c_str());
 				isExecuting = false;
-				std_msgs::String progMsg = std_msgs::String();
-				progMsg.data = "complete";
-				progressPub.publish(progMsg);
+				std::unique_lock<std::recursive_mutex> progressLock(progressMutex);
+				progress = "complete";
+				//std_msgs::String progMsg = std_msgs::String();
+				//progMsg.data = "complete";
+				//progressPub.publish(progMsg);
 			}
 
 			geometry_msgs::Twist velMsg;
@@ -53,12 +56,13 @@ void SearchBehavior::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& m
 	}
 	if (isFound) goalPub.publish(goalMsg);
 	isFound = false;
-	
+	isExecutingLock.unlock();
 	boost::this_thread::sleep(boost::posix_time::milliseconds(100));
 }
 
 void SearchBehavior::progressCallback(const std_msgs::String::ConstPtr& msg){
-    boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
+    //boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
+    std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
 	if (!isExecuting) return;
 	
 	std::string msgProgress = msg->data;
@@ -75,7 +79,8 @@ void SearchBehavior::progressCallback(const std_msgs::String::ConstPtr& msg){
 				parent->sendMessage("I could not find it.");
 				ROS_INFO("I could not find it. %s", info.c_str());
 				isExecuting = false;
-				boost::mutex::scoped_lock progressLock(progressMutex);
+				//boost::mutex::scoped_lock progressLock(progressMutex);
+				std::unique_lock<std::recursive_mutex> progressLock(progressMutex);
 				progress = "complete";
 				progressLock.unlock();
 				//progressPub.publish(*msg);
@@ -131,38 +136,39 @@ SearchBehavior::~SearchBehavior(){
 }
 
 void SearchBehavior::execute(){
-    boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
+    std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
 	ROS_INFO("Executing search behavior! %s", info.c_str());
 	isExecuting = true;
 	goalPub.publish(goalMsg);
 }
 
 void SearchBehavior::resume(){
-    boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
+    std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
 	isExecuting = true;
 	goalPub.publish(goalMsg);
 }
 
 void SearchBehavior::pause(){
-    boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
+    std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
 	isExecuting = false;
 	cancelPub.publish(cancelMsg);
 }
 
 void SearchBehavior::stop(){
-    boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
+    std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
 	isExecuting = false;
 	cancelPub.publish(cancelMsg);
 }
 
 std::string SearchBehavior::checkProgress(){
-	boost::mutex::scoped_lock progressLock(progressMutex);
+	//boost::mutex::scoped_lock progressLock(progressMutex);
+	std::unique_lock<std::recursive_mutex> progressLock(progressMutex);
 	return progress;
 }
 
 void SearchBehavior::createGoals(){
 	ROS_INFO("Creating goals!");
-	ROS_INFO("Vertices = (%f, %f) (%f, %f) (%f, %f) (%f, %f)", boundaryVertices[0].point.x, boundaryVertices[0].point.y,boundaryVertices[1].point.x,boundaryVertices[1].point.y,boundaryVertices[2].point.x,boundaryVertices[2].point.y,boundaryVertices[3].point.x,boundaryVertices[3].point.y);
+	//ROS_INFO("Vertices = (%f, %f) (%f, %f) (%f, %f) (%f, %f)", boundaryVertices[0].point.x, boundaryVertices[0].point.y,boundaryVertices[1].point.x,boundaryVertices[1].point.y,boundaryVertices[2].point.x,boundaryVertices[2].point.y,boundaryVertices[3].point.x,boundaryVertices[3].point.y);
 	geometry_msgs::PointStamped vertex1 = boundaryVertices[0];
 	geometry_msgs::PointStamped vertex2 = boundaryVertices[1];
 	geometry_msgs::PointStamped vertex3 = boundaryVertices[2];
@@ -170,7 +176,7 @@ void SearchBehavior::createGoals(){
 
 	int direction = -1;
 	double curY = vertex2.point.y;
-	ROS_INFO("Begin pushing goals");
+	//ROS_INFO("Begin pushing goals");
 	goals.push_back(vertex1);
 	goals.push_back(vertex2);
 	while(curY + resolution < vertex4.point.y){
@@ -184,22 +190,22 @@ void SearchBehavior::createGoals(){
 		temp2.point.x = vertex1.point.x;
 		temp2.point.y = curY;
 		
-		ROS_INFO("Adding points: (%f, %f) and (%f, %f)", temp1.point.x, temp1.point.y, temp2.point.x, temp2.point.y);
+		//ROS_INFO("Adding points: (%f, %f) and (%f, %f)", temp1.point.x, temp1.point.y, temp2.point.x, temp2.point.y);
 		
 		if (direction == -1){
-			ROS_INFO("Right to left");
+			//ROS_INFO("Right to left");
 			goals.push_back(temp1);
 			goals.push_back(temp2);
 		}
 		else{
-			ROS_INFO("Left to right");
+			//ROS_INFO("Left to right");
 			goals.push_back(temp2);
 			goals.push_back(temp1);
 		}
-		ROS_INFO("Goals pushed");
+		//ROS_INFO("Goals pushed");
 		direction *= -1;
 	}
-	ROS_INFO("Adding last vertices");
+	//ROS_INFO("Adding last vertices");
 	if (direction == -1)
 	{
 		goals.push_back(vertex4);

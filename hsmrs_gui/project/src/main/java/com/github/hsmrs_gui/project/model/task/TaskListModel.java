@@ -30,27 +30,27 @@ public class TaskListModel extends AbstractListModel{
 		return instance;
 	}
 	
-	public void addTask(TaskModel newTask){
+	public synchronized void addTask(TaskModel newTask){
 		idCount++;
 		newTask.setID(idCount);
 		taskList.add(newTask);
 		this.fireIntervalAdded(this, 0, 0);
 	}
 	
-	public TaskModel removeTask(TaskModel targetTask){
+	public synchronized TaskModel removeTask(TaskModel targetTask){
 		taskList.remove(targetTask);
 		this.fireIntervalRemoved(this, 0, 0);
 		return targetTask;
 	}
 	
-	public TaskModel removeTask(int index){
+	public synchronized TaskModel removeTask(int index){
 		TaskModel targetTask = getElementAt(index);
 		taskList.remove(index);
 		this.fireIntervalRemoved(this, 0, 0);
 		return targetTask;
 	}
 	
-	public TaskModel getTaskByID(int taskID){
+	public synchronized TaskModel getTaskByID(int taskID){
 		for (TaskModel task : taskList){
 			if (task.getID() == taskID){
 				return task;
@@ -59,11 +59,11 @@ public class TaskListModel extends AbstractListModel{
 		return null;
 	}
 	
-	public TaskModel getElementAt(int index) {
+	public synchronized TaskModel getElementAt(int index) {
 		return taskList.get(index);
 	}
 
-	public int getSize() {
+	public synchronized int getSize() {
 		return taskList.size();
 	}
 }

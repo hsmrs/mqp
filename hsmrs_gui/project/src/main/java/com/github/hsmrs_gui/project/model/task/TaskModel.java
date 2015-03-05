@@ -50,47 +50,47 @@ public class TaskModel {
 		this.status = status;
 	}
 	
-	public int getID(){
+	public synchronized int getID(){ 
 		return id;
 	}
 	
-	public void setID(int newID){
+	public synchronized void setID(int newID){
 		this.id = newID;
 	}
 	
-	public String getType() {
+	public synchronized String getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public synchronized void setType(String type) {
 		this.type = type;
 	}
 
-	public List<RobotModel> getOwners() {
+	public synchronized List<RobotModel> getOwners() {
 		return owners;
 	}
 
-	public void addOwner(RobotModel owner) {
+	public synchronized void addOwner(RobotModel owner) {
 		owners.add(owner);
 	}
 	
-	public void removeOwner(RobotModel owner){
+	public synchronized void removeOwner(RobotModel owner){
 		owners.remove(owner);
 	}
 
-	public String getStatus() {
+	public synchronized String getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public synchronized void setStatus(String status) {
 		this.status = status;
 	}
 	
-	public void setPriority(double priority) {
+	public synchronized void setPriority(double priority) {
 		this.priority = priority;
 	}
 	
-	public hsmrs_framework.TaskMsg toTaskMessage(){
+	public synchronized hsmrs_framework.TaskMsg toTaskMessage(){
 		NodeConfiguration nodeConfiguration = NodeConfiguration.newPrivate();
 		MessageFactory messageFactory = nodeConfiguration.getTopicMessageFactory();
 		hsmrs_framework.TaskMsg msg = messageFactory.newFromType(hsmrs_framework.TaskMsg._TYPE); 

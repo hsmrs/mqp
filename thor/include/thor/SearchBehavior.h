@@ -12,6 +12,7 @@
 #include <boost/thread/mutex.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/thread/thread.hpp>
+#include <mutex>
 
 class Thor;
 
@@ -39,8 +40,11 @@ private:
 	bool isFound;
 	std_msgs::String cancelMsg;
 	
-	boost::mutex isExecutingMutex;
-	boost::mutex progressMutex;
+	//boost::mutex isExecutingMutex;
+	//boost::mutex progressMutex;
+	std::recursive_mutex isExecutingMutex;
+	std::recursive_mutex progressMutex;
+
     std::string info;
    	std::string progress;
 
