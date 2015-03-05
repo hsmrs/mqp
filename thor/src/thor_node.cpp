@@ -174,7 +174,7 @@ void Thor::updatedTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg){
     
     std::string type = msg->type;
     
-    ROS_INFO("got task update for task %llu of type %s", msg->id, std::string(msg->type).c_str());
+    ROS_INFO("got task update for task %lu of type %s", msg->id, std::string(msg->type).c_str());
     
     if(type == "MyTask")
     {
@@ -488,7 +488,7 @@ void Thor::cancelTask() {
     {
         hsmrs_framework::TaskMsg* update = p_currentTask->toMsg();
         update->status = "complete";
-        ROS_INFO("update message\n\tid:%llu\n\ttype:%s\n\tstatus:%s", update->id, update->type.c_str(), update->status.c_str());
+        ROS_INFO("update message\n\tid:%lu\n\ttype:%s\n\tstatus:%s", update->id, update->type.c_str(), update->status.c_str());
         updatedTaskPub.publish(*update);
     }
     //ROS_INFO("unlocking");
@@ -528,7 +528,7 @@ void Thor::handleNewTask(const hsmrs_framework::TaskMsg::ConstPtr& msg)
     if(taskList->getTask(id) == NULL)
     {
         std::string type = msg->type;
-        ROS_INFO("new task has id %d, type %s", msg->id, type.c_str());
+        ROS_INFO("new task has id %lu, type %s", msg->id, type.c_str());
         Task* task;
         
         if(type == "MyTask")
@@ -595,7 +595,7 @@ void Thor::claimWorker(hsmrs_framework::TaskMsg taskMsg, int id)
 
     double myBid = 0;
         
-    boost::shared_ptr<hsmrs_framework::TaskMsg const> taskMsgPtr(&taskMsg);
+    boost::shared_ptr<hsmrs_framework::TaskMsg const> taskMsgPtr( new hsmrs_framework::TaskMsg(taskMsg));
     myBid = bid(taskMsgPtr);
     at.bidCount = 1;
             
