@@ -28,7 +28,12 @@ void Thor::executeTask() {
 	}
 	p_currentBehavior = behavior;
 	behavior->execute();
-	currentTaskLock.unlock();
+	
+    hsmrs_framework::TaskMsg executedTaskMsg = *(p_currentTask->toMsg());
+    executedTaskMsg.status = "In progress";
+    updatedTaskPub.publish(executedTaskMsg);
+    currentTaskLock.unlock();
+
 	setStatus("Busy");
 }
 
@@ -645,9 +650,9 @@ void Thor::claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid)
     }
     
     ROS_INFO("not claiming task %d", id);
-    if(at.bidCount == 0)
+    if(at.topUtility == 0)
     {
-        ROS_INFO("no bids, erasing tracker");
+        ROS_INFO("no winner, erasing tracker");
         auctionList.erase(id);
     }
 }
