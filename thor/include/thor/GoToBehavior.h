@@ -9,6 +9,7 @@
 #include "hsmrs_framework/Robot.h"
 #include "geometry_msgs/PointStamped.h"
 #include <boost/thread/mutex.hpp>
+#include <mutex>
 
 class GoToBehavior : public Behavior{
 
@@ -22,10 +23,14 @@ private:
 	ros::Publisher cancelPub;
 	ros::Publisher progressPub;
 	ros::Subscriber progressSub;
-	boost::mutex isExecutingMutex;
-	boost::mutex progressMutex;
+	
 	std::string info;
 	std::string progress;
+
+	//boost::mutex isExecutingMutex;
+	//boost::mutex progressMutex;
+	std::recursive_mutex isExecutingMutex;
+	std::recursive_mutex progressMutex;
 
 public:
 

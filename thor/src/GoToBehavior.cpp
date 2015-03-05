@@ -24,83 +24,87 @@ void GoToBehavior::execute(){
 	ROS_INFO("Sending goal");
 	try
 	{
-	    boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
+	    //boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
+	    std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
 	    isExecuting = true;
-	    isExecutingLock.unlock();
       	goalPub.publish(goalMsg);
   	}
   	catch(boost::lock_error& e)
   	{
-  	    ROS_INFO("lock error %s", e.what());
+  	    ROS_INFO("lock error GoToBehavior::execute %s", e.what());
   	}
 }
 
 void GoToBehavior::resume(){
     try
     {
-        boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
+        //boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
+	    std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
 	    isExecuting = true;
 	    isExecutingLock.unlock();
 	    goalPub.publish(goalMsg);
 	}
   	catch(boost::lock_error& e)
   	{
-  	    ROS_INFO("lock error %s", e.what());
+  	    ROS_INFO("lock error GoToBehavior::resume %s", e.what());
   	}
 }
 
 void GoToBehavior::pause(){
     try
     {
-        boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
+        //boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
+	    std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
 	    isExecuting = false;
-	    isExecutingLock.unlock();
 	    cancelPub.publish(cancelMsg);
     }
   	catch(boost::lock_error& e)
   	{
-  	    ROS_INFO("lock error %s", e.what());
+  	    ROS_INFO("lock error in GoToBehavior::pause %s", e.what());
   	}
 }
 
 void GoToBehavior::stop(){
     try
     {
-        boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
+        //boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
+	    std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
 	    isExecuting = false;
-	    isExecutingLock.unlock();
 	    cancelPub.publish(cancelMsg);
     }
   	catch(boost::lock_error& e)
   	{
-  	    ROS_INFO("lock error %s", e.what());
+  	    ROS_INFO("lock error in GoToBehavior::stop %s", e.what());
   	}
 }
 
 std::string GoToBehavior::checkProgress(){
-	boost::mutex::scoped_lock progressLock(progressMutex);
-	return progress;
+	//boost::mutex::scoped_lock progressLock(progressMutex);
+	std::unique_lock<std::recursive_mutex> progressLock(progressMutex);
+		return progress;
 }
 
 void GoToBehavior::progressCallback(const std_msgs::String::ConstPtr& msg){
 	std::string progress = msg->data;
 	try
 	{
-	    boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
-	    if (progress == "complete" && isExecuting){
+	    //boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
+	    std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
+	    //boost::mutex::scoped_lock progressLock(progressMutex);
+		std::unique_lock<std::recursive_mutex> progressLock(progressMutex);
+		    if (progress == "complete" && isExecuting){
 		    isExecuting = false;
 		
 		    //Tell thor task is complete.
-		    boost::mutex::scoped_lock progressLock(progressMutex);
 		    this->progress = "complete";
-		    progressLock.unlock();
 		    ROS_INFO("GoToTask complete, calling cancelTask on %s", info.c_str());
 		    //progressPub.publish(*msg);
 	    }
+	    progressLock.unlock();
 	    isExecutingLock.unlock();
 	}
   	catch(boost::lock_error& e)
   	{
-  	    ROS_INFO("lock error %s", e.what());
+  	    ROS_INFO("lock error in GoToBehavior::progressCallback %s", e.what());
   	}
 }
