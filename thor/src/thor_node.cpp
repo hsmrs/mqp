@@ -36,14 +36,12 @@ void Thor::pauseTask(){
     //boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
     std::unique_lock<std::mutex> currentTaskLock(currentTaskMutex);
 	if (p_currentBehavior != NULL) p_currentBehavior->pause();
-	currentTaskLock.unlock();
 }
 
 void Thor::resumeTask(){
     //boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
     std::unique_lock<std::mutex> currentTaskLock(currentTaskMutex);
 	if (p_currentBehavior != NULL) p_currentBehavior->resume();
-	currentTaskLock.unlock();	
 }
 
 void Thor::doGoToTask(double x, double y){
@@ -229,8 +227,8 @@ void Thor::updatedTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg){
     ROS_INFO("updating task list copy");
     taskList->removeTask(update->getID());
     taskList->addTask(update);
-    listLock.unlock();
-    currentTaskLock.unlock();
+    //listLock.unlock();
+    //currentTaskLock.unlock();
     
     ROS_INFO("done updating");
 }
@@ -393,9 +391,9 @@ Thor::Thor(std::string name, double speed) : NAME(name), REGISTRATION_TOPIC("/hs
             claimer.detach();
 		}
 		
+        atLock.unlock();
+        currentTaskLock.unlock();
 		listLock.unlock();
-		currentTaskLock.unlock();
-		atLock.unlock();
 
         //Get progress on behavior
         //boost::mutex::scoped_lock behaviorLock(currentTaskMutex);
@@ -500,8 +498,8 @@ void Thor::cancelTask() {
         ROS_INFO("update message\n\tid:%llu\n\ttype:%s\n\tstatus:%s", update->id, update->type.c_str(), update->status.c_str());
         updatedTaskPub.publish(*update);
     }
-    ROS_INFO("unlocking");
-    currentTaskLock.unlock();
+    //ROS_INFO("unlocking");
+    //currentTaskLock.unlock();
 }
 
 /**
@@ -663,7 +661,8 @@ void Thor::handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
     ROS_INFO("got bid of %f from %s", utility, bidder.c_str());
     
     //boost::mutex::scoped_lock atLock(atMutex);
-        std::unique_lock<std::mutex> atLock(atMutex);    //boost::mutex::scoped_lock listLock(listMutex);
+    //boost::mutex::scoped_lock listLock(listMutex);
+    std::unique_lock<std::mutex> atLock(atMutex);    
     std::unique_lock<std::mutex> listLock(listMutex);
     if(auctionList.count(id) == 0)
     {
