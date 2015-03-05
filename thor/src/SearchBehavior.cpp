@@ -1,6 +1,8 @@
 #include "thor/SearchBehavior.h"
 
 int counter = 0;
+std::atomic_uint protected_progress;
+std::atomic_bool protected_isExecuting;
 
 //Quick and dirty utility function
 template<typename T>
@@ -17,8 +19,8 @@ bool pop_front(std::vector<T>& vec, T& removedItem)
 
 void SearchBehavior::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& msg){
     //boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
-    std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
-	if (!isExecuting || 
+    //std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
+	if (!protected_isExecuting.load() || 
 		msg->markers.size() == 0) return;
 
 	for (int i = 0; i < msg->markers.size(); ++i){
@@ -37,9 +39,9 @@ void SearchBehavior::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& m
 				linVel = 0;
 				parent->sendMessage("I found it!");
 				ROS_INFO("I found it! %s", info.c_str());
-				isExecuting = false;
-				std::unique_lock<std::recursive_mutex> progressLock(progressMutex);
-				progress = "complete";
+				protected_isExecuting.store(false);
+				//std::unique_lock<std::recursive_mutex> progressLock(progressMutex);
+				protected_progress.store(100);
 				//std_msgs::String progMsg = std_msgs::String();
 				//progMsg.data = "complete";
 				//progressPub.publish(progMsg);
@@ -56,17 +58,17 @@ void SearchBehavior::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& m
 	}
 	if (isFound) goalPub.publish(goalMsg);
 	isFound = false;
-	isExecutingLock.unlock();
+	//isExecutingLock.unlock();
 	boost::this_thread::sleep(boost::posix_time::milliseconds(100));
 }
 
 void SearchBehavior::progressCallback(const std_msgs::String::ConstPtr& msg){
     //boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
-    std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
-	if (!isExecuting) return;
+    //std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
+	if (!protected_isExecuting.load()) return;
 	
 	std::string msgProgress = msg->data;
-	if (msgProgress == "complete" && isExecuting){
+	if (msgProgress == "complete" && protected_isExecuting.load()){
 		if (!isFound){
 			ROS_INFO("Getting next target!");
 			ROS_INFO("(%f, %f)", goals[counter].point.x, goals[counter].point.y);
@@ -78,11 +80,11 @@ void SearchBehavior::progressCallback(const std_msgs::String::ConstPtr& msg){
 			else {
 				parent->sendMessage("I could not find it.");
 				ROS_INFO("I could not find it. %s", info.c_str());
-				isExecuting = false;
+				protected_isExecuting.store(false);
 				//boost::mutex::scoped_lock progressLock(progressMutex);
-				std::unique_lock<std::recursive_mutex> progressLock(progressMutex);
-				progress = "complete";
-				progressLock.unlock();
+				//std::unique_lock<std::recursive_mutex> progressLock(progressMutex);
+				protected_progress.store(100);
+				//progressLock.unlock();
 				//progressPub.publish(*msg);
 			}
 			//bool success = pop_front<geometry_msgs::PointStamped>(boundaryVertices, goalMsg);
@@ -116,6 +118,9 @@ MARKER_TOPIC("ar_pose_marker")
 	//pop_front<geometry_msgs::PointStamped>(goals, goalMsg);
     info = "robot: " + parent->getName();
 
+    protected_progress.store(0);
+    protected_isExecuting.store(false);
+
 	goalPub = n.advertise<geometry_msgs::PointStamped>("navigation/goal", 1000, true);
 	cancelMsg.data = "cancel";
 	progressPub = n.advertise<std_msgs::String>("progress", 1000);
@@ -136,34 +141,34 @@ SearchBehavior::~SearchBehavior(){
 }
 
 void SearchBehavior::execute(){
-    std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
+    //std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
 	ROS_INFO("Executing search behavior! %s", info.c_str());
-	isExecuting = true;
+	protected_isExecuting.store(true);
 	goalPub.publish(goalMsg);
 }
 
 void SearchBehavior::resume(){
-    std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
-	isExecuting = true;
+    //std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
+	protected_isExecuting.store(true);
 	goalPub.publish(goalMsg);
 }
 
 void SearchBehavior::pause(){
-    std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
-	isExecuting = false;
+    //std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
+	protected_isExecuting.store(false);
 	cancelPub.publish(cancelMsg);
 }
 
 void SearchBehavior::stop(){
-    std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
-	isExecuting = false;
+    //std::unique_lock<std::recursive_mutex> isExecutingLock(isExecutingMutex);
+	protected_isExecuting.store(false);
 	cancelPub.publish(cancelMsg);
 }
 
 std::string SearchBehavior::checkProgress(){
 	//boost::mutex::scoped_lock progressLock(progressMutex);
-	std::unique_lock<std::recursive_mutex> progressLock(progressMutex);
-	return progress;
+	//std::unique_lock<std::recursive_mutex> progressLock(progressMutex);
+	return (protected_progress.load() == 100 ? "complete" : "");
 }
 
 void SearchBehavior::createGoals(){
