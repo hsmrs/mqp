@@ -379,6 +379,7 @@ Thor::Thor(std::string name, double speed) : NAME(name), REGISTRATION_TOPIC("/hs
 		     	
 	        if(nextTask->getOwners().size() < nextTask->getMaxOwners())
             {
+                auctionMutex.lock(); //This is unlocked at the end of the current auction
                 ROS_INFO("starting auction on queued task %d", nextTask->getID());
                 AuctionTracker at = AuctionTracker();
                 myBid = bid(boost::shared_ptr<hsmrs_framework::TaskMsg>(nextTask->toMsg()));
@@ -655,6 +656,7 @@ void Thor::claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid)
         ROS_INFO("no winner, erasing tracker");
         auctionList.erase(id);
     }
+    auctionMutex.unlock(); //This is locked at the beginning of an auction.
 }
 
 
@@ -719,6 +721,7 @@ void Thor::handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
         
         if(msg->task.owners.size() < task->getMaxOwners())
         {
+            auctionMutex.lock(); //This is unlocked at the end of the current auction
             AuctionTracker at = AuctionTracker();
             myBid = bid(msg);
             at.bidCount = 1;

@@ -77,6 +77,7 @@ private:
     std::recursive_mutex listMutex;
     std::recursive_mutex currentTaskMutex;
     std::recursive_mutex currentBehaviorMutex;
+    std::mutex auctionMutex;
 
 	ros::NodeHandle n;
 	ros::Publisher registration_pub;
