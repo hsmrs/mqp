@@ -21,6 +21,7 @@ GoToBehavior::~GoToBehavior(){
 }
 
 void GoToBehavior::execute(){
+	ROS_INFO("GoToBehavior::execute");
 	ROS_INFO("Sending goal");
 	try
 	{
@@ -36,6 +37,7 @@ void GoToBehavior::execute(){
 }
 
 void GoToBehavior::resume(){
+	ROS_INFO("GoToBehavior::resume");
     try
     {
         //boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
@@ -51,6 +53,7 @@ void GoToBehavior::resume(){
 }
 
 void GoToBehavior::pause(){
+	ROS_INFO("GoToBehavior::pause");
     try
     {
         //boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
@@ -65,6 +68,7 @@ void GoToBehavior::pause(){
 }
 
 void GoToBehavior::stop(){
+	ROS_INFO("GoToBehavior::stop");
     try
     {
         //boost::mutex::scoped_lock isExecutingLock(isExecutingMutex);
@@ -79,12 +83,14 @@ void GoToBehavior::stop(){
 }
 
 std::string GoToBehavior::checkProgress(){
+	ROS_INFO("GoToBehavior::checkProgress");
 	//boost::mutex::scoped_lock progressLock(progressMutex);
 	std::unique_lock<std::recursive_mutex> progressLock(progressMutex);
 		return progress;
 }
 
 void GoToBehavior::progressCallback(const std_msgs::String::ConstPtr& msg){
+	ROS_INFO("GoToBehavior::progressCallback");
 	std::string progress = msg->data;
 	try
 	{

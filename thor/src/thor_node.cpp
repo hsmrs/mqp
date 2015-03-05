@@ -4,7 +4,7 @@
  * Begins the Robot's execution of its current Task.
  */
 void Thor::executeTask() {
-	ROS_INFO("Execute task!");
+	ROS_INFO("Execute task");
 	////boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
     std::unique_lock<std::recursive_mutex> currentTaskLock(currentTaskMutex);
 	//std::string taskType = typeid(p_currentTask).name();
@@ -33,12 +33,14 @@ void Thor::executeTask() {
 }
 
 void Thor::pauseTask(){
+    ROS_INFO("Pause task");
     //boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
     std::unique_lock<std::recursive_mutex> currentTaskLock(currentTaskMutex);
 	if (p_currentBehavior != NULL) p_currentBehavior->pause();
 }
 
 void Thor::resumeTask(){
+    ROS_INFO("Resume task");
     //boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
     std::unique_lock<std::recursive_mutex> currentTaskLock(currentTaskMutex);
 	if (p_currentBehavior != NULL) p_currentBehavior->resume();
@@ -161,6 +163,7 @@ void Thor::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& msg)
 }
 
 void Thor::updatedTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg){
+    ROS_INFO("Updated task callback");
     Task* old;
     Task* update;
     
@@ -487,7 +490,7 @@ void Thor::verifyTaskClaim() {
  * the Task be returned to the TaskList.
  */
 void Thor::cancelTask() {
-    ROS_INFO("canceling task");
+    ROS_INFO("Cancel task");
     //boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
     std::unique_lock<std::recursive_mutex> currentTaskLock(currentTaskMutex);
     ROS_INFO("got task lock");
@@ -507,7 +510,7 @@ void Thor::cancelTask() {
  * @param task A pointer to the task object to be claimed.
  */
 void Thor::claimTask(Task* task) {
-	ROS_INFO("Claiming task!");
+	ROS_INFO("Claim task");
 	//boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
     std::unique_lock<std::recursive_mutex> currentTaskLock(currentTaskMutex);
 	p_currentTask = task;
@@ -528,7 +531,7 @@ void Thor::setStatus(std::string newStatus){
 
 void Thor::handleNewTask(const hsmrs_framework::TaskMsg::ConstPtr& msg)
 {
-    ROS_INFO("got new task!");
+    ROS_INFO("New task");
     //boost::mutex::scoped_lock listLock(listMutex);
     std::unique_lock<std::recursive_mutex> listLock(listMutex);
     int id = msg->id;
@@ -583,6 +586,7 @@ void Thor::handleNewTask(const hsmrs_framework::TaskMsg::ConstPtr& msg)
 
 void Thor::handleClaims(const hsmrs_framework::BidMsg::ConstPtr& msg)
 {
+    ROS_INFO("Handle claim");
     int id = msg->task.id;
     std::string owner = msg->name;
     if(owner == getName()) return;
@@ -593,6 +597,7 @@ void Thor::handleClaims(const hsmrs_framework::BidMsg::ConstPtr& msg)
 
 void Thor::claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid)
 {
+    ROS_INFO("Beginnging execution of claimWorker");
     //sleep on it and decide whether to claim
     ROS_INFO("sleepytime");
     boost::this_thread::sleep(boost::posix_time::milliseconds(3000));
@@ -653,6 +658,7 @@ void Thor::claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid)
  */
 void Thor::handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
 {    
+    ROS_INFO("Handle Bid");
     int id = msg->task.id;
     std::string type = msg->task.type;
     std::string bidder = msg->name;
@@ -748,6 +754,7 @@ void Thor::handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
  */
 double Thor::bid(const hsmrs_framework::BidMsg::ConstPtr& msg)
 {
+    ROS_INFO("Bid from bid message");
     hsmrs_framework::BidMsg myBid = hsmrs_framework::BidMsg(*msg);
     myBid.name = getName();
     std::string type = msg->task.type;
@@ -807,6 +814,7 @@ double Thor::bid(const hsmrs_framework::BidMsg::ConstPtr& msg)
 
 double Thor::bid(const hsmrs_framework::TaskMsg::ConstPtr& msg)
 {
+    ROS_INFO("Bid from task message");
     hsmrs_framework::BidMsg myBid = hsmrs_framework::BidMsg();
     myBid.task = *msg;
     myBid.name = getName();
