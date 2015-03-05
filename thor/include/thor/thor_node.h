@@ -16,6 +16,7 @@
 
 #include <sstream>
 #include <typeinfo>
+#include <mutex>
 
 #include "hsmrs_framework/Robot.h"
 #include "hsmrs_framework/Role.h"
@@ -68,9 +69,14 @@ private:
 	friend class FollowTagBehavior;
 	friend class GoToBehavior;
 
-    boost::mutex atMutex;
-    boost::mutex listMutex;
-    boost::mutex currentTaskMutex;
+    //boost::mutex atMutex;
+    //boost::mutex listMutex;
+    //boost::mutex currentTaskMutex;
+
+    std::mutex atMutex;
+    std::mutex listMutex;
+    std::mutex currentTaskMutex;
+    std::mutex currentBehaviorMutex;
 
 	ros::NodeHandle n;
 	ros::Publisher registration_pub;
