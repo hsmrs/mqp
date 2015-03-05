@@ -191,7 +191,7 @@ private:
 	
 	void handleClaims(const hsmrs_framework::BidMsg::ConstPtr& msg);
 	
-	void claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid);
+	void claimWorker(hsmrs_framework::TaskMsg taskMsg, int id);
 	
 	void handleProgress(const std_msgs::String::ConstPtr& msg);
 

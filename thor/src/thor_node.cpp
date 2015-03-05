@@ -365,7 +365,7 @@ Thor::Thor(std::string name, double speed) : NAME(name), REGISTRATION_TOPIC("/hs
                 taskAllowed = false;
             }
             
-		    if(auctionList.count(t->getID()) == 0 && taskAllowed)
+		    if(auctionList.count(t->getID()) == 0 && taskAllowed && t.getOwners().size() < t.getMaxOwners())
 		    {
 		        nextTask = t;
 		        ROS_INFO("found queued task %d", t->getID());
@@ -375,28 +375,12 @@ Thor::Thor(std::string name, double speed) : NAME(name), REGISTRATION_TOPIC("/hs
 		
 		if (nextTask != NULL && p_currentTask == NULL)
 		{           
-		    double myBid = 0;
 		     	
-	        if(nextTask->getOwners().size() < nextTask->getMaxOwners())
-            {
-                auctionMutex.lock(); //This is unlocked at the end of the current auction
-                ROS_INFO("starting auction on queued task %d", nextTask->getID());
-                AuctionTracker at = AuctionTracker();
-                myBid = bid(boost::shared_ptr<hsmrs_framework::TaskMsg>(nextTask->toMsg()));
-                
-                if(myBid > 0)
-                {
-                    at.topBidder = getName();
-                    at.topUtility = myBid;
-                    at.haveBidded = true;
-                    at.bidCount++;
-                }
-                
-                auctionList[nextTask->getID()] = at;
-            }
+            AuctionTracker at = AuctionTracker();            
+            auctionList[nextTask->getID()] = at;
             
             //spawn claimer thread
-            boost::thread claimer = boost::thread(&Thor::claimWorker, this, *nextTask->toMsg(), nextTask->getID(), myBid);
+            boost::thread claimer = boost::thread(&Thor::claimWorker, this, *nextTask->toMsg(), nextTask->getID());
             claimer.detach();
 		}
 		
@@ -601,34 +585,46 @@ void Thor::handleClaims(const hsmrs_framework::BidMsg::ConstPtr& msg)
     taskList->getTask(id)->addOwner(owner);
 }
 
-void Thor::claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid)
+void Thor::claimWorker(hsmrs_framework::TaskMsg taskMsg, int id)
 {
     ROS_INFO("Beginnging execution of claimWorker");
+    std::unique_lock<std::recursive_mutex> auctionLock(auctionMutex);
+    std::unique_lock<std::recursive_mutex> atLock(atMutex);
+    
+    AuctionTracker at = auctionList[id];
+
+    double myBid = 0;
+        
+    myBid = bid(msg);
+    at.bidCount = 1;
+            
+    if(myBid > at.topUtility)
+    {
+        at.topBidder = getName();
+        at.topUtility = myBid;
+        at.haveBidded = true;
+        at.bidCount++;
+    }
+            
+    auctionList[id] = at;
+
+    atLock.unlock();
     //sleep on it and decide whether to claim
     ROS_INFO("sleepytime");
     boost::this_thread::sleep(boost::posix_time::milliseconds(3000));
     //boost::mutex::scoped_lock atLock(atMutex);
-    std::unique_lock<std::recursive_mutex> atLock(atMutex); 
+     
     //boost::mutex::scoped_lock listLock(listMutex);
     std::unique_lock<std::recursive_mutex> listLock(listMutex);
+    atLock.lock();
     
-    AuctionTracker at = auctionList[id];
-    
-    bool taskAllowed = true;
     std::string type = taskMsg.type;
-    std::vector<std::string> roleTasks = p_currentRole->getTasks();
-    if (!roleTasks.empty() &&                                                       //If my role has tasks listed
-        std::find(roleTasks.begin(), roleTasks.end(), type) == roleTasks.end())     //If this this task is not in the list
-    {
-        ROS_INFO("The task of type: %s is disallowed by my role.", type.c_str());           
-        taskAllowed = false;
-    }
     
     ROS_INFO("top bidder is %s with %f", at.topBidder.c_str(), at.topUtility);
     
     //boost::mutex::scoped_lock currentTaskLock(currentTaskMutex);
     std::unique_lock<std::recursive_mutex> currentTaskLock(currentTaskMutex);
-    if((at.topBidder == getName() || std::find(taskMsg.owners.begin(), taskMsg.owners.end(), getName()) != taskMsg.owners.end()) && taskAllowed && p_currentTask == NULL)
+    if((at.topBidder == getName() && at.topUtility != 0 || std::find(taskMsg.owners.begin(), taskMsg.owners.end(), getName()) != taskMsg.owners.end()) && p_currentTask == NULL)
     {
         ROS_INFO("claiming task %d", id);
         hsmrs_framework::BidMsg claimMsg = hsmrs_framework::BidMsg();
@@ -644,7 +640,12 @@ void Thor::claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid)
         ROS_INFO("ClaimWorker: Added");
         
     	p_currentTask = taskList->getTask(id);
+
     	currentTaskLock.unlock();
+        atLock.unlock();
+        listLock.unlock();
+        auctionLock.unlock();
+
 	    executeTask();
 	    ROS_INFO("Ending claim worker execution");
 	    return;
@@ -656,7 +657,6 @@ void Thor::claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid)
         ROS_INFO("no winner, erasing tracker");
         auctionList.erase(id);
     }
-    auctionMutex.unlock(); //This is locked at the beginning of an auction.
 }
 
 
@@ -677,6 +677,7 @@ void Thor::handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
     //boost::mutex::scoped_lock listLock(listMutex);
     std::unique_lock<std::recursive_mutex> atLock(atMutex);    
     std::unique_lock<std::recursive_mutex> listLock(listMutex);
+    //If an auction has not been started on this task yet
     if(auctionList.count(id) == 0)
     {
         std::string type = msg->task.type;
@@ -716,35 +717,15 @@ void Thor::handleBids(const hsmrs_framework::BidMsg::ConstPtr& msg)
         }
         
         listLock.unlock();
-        
-        double myBid = 0;
-        
-        if(msg->task.owners.size() < task->getMaxOwners())
-        {
-            auctionMutex.lock(); //This is unlocked at the end of the current auction
-            AuctionTracker at = AuctionTracker();
-            myBid = bid(msg);
-            at.bidCount = 1;
-            
-            if(myBid > 0)
-            {
-                at.topBidder = (myBid > utility) ? getName() : bidder;
-                at.topUtility = (myBid > utility) ? myBid : utility;
-                at.haveBidded = true;
-                at.bidCount++;
-            }
-            else
-            {
-                at.topBidder = bidder;
-                at.topUtility = utility;
-            }
-            
-            auctionList[id] = at;
-            atLock.unlock();
-        }
-        
+
+        AuctionTracker at = AuctionTracker();
+        at.topBidder = bidder;
+        at.topUtility = utility;
+        auctionList[id] = at;
+        atLock.unlock();
+
         //spawn claimer thread
-        boost::thread claimer = boost::thread(&Thor::claimWorker, this, msg->task, id, myBid);
+        boost::thread claimer = boost::thread(&Thor::claimWorker, this, msg->task, id);
         claimer.detach();
     }
     else
