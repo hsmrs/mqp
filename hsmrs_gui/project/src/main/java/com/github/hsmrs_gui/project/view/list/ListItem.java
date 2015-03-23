@@ -14,6 +14,11 @@ public class ListItem<T> {
 	private JComponent component;
 	private RenderableComponent<T> renderableComponent;
 	
+	/**
+	 * The constructor for the ListItem class.
+	 * @param srList The SRList which contains this ListItem.
+	 * @param listItem The underlying object that this ListItem wraps.
+	 */
 	public ListItem(SRList<T> srList, T listItem) {
 		this.srList = srList;
 		this.listObject = listItem;

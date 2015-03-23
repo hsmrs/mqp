@@ -36,6 +36,9 @@ public class NewRolePanel extends JPanel implements ListSelectionListener{
 	private JButton btnCreate;
 	private JButton btnCancel;
 
+	/**
+	 * The constructor for the NewRolePanel class.
+	 */
 	public NewRolePanel(){
 		lblTitle = new JLabel("New Role", JLabel.CENTER);
 		lblTitle.setBackground(Color.decode("0XC0BCB6"));
@@ -86,6 +89,10 @@ public class NewRolePanel extends JPanel implements ListSelectionListener{
 		
 	}
 
+	/**
+	 * Parses the user inputed data and extracts a RoleModel from it.
+	 * @return The RoleModel created from the user input.
+	 */
 	public RoleModel getNewRole() {
 		String name = txtName.getText();
 		Object[] taskTypesObjs = typeListView.getSelectedValues();

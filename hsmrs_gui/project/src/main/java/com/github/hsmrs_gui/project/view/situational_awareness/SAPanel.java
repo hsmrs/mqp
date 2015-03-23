@@ -17,6 +17,9 @@ public class SAPanel extends JPanel{
 	private InteractiveMapViewLayered mapView;
 	private MuxPanel muxPanel;
 	
+	/**
+	 * The constructor for the SAPanel class. This class contains the subpanels which give the user situational awareness.
+	 */
 	public SAPanel(){
 		setLayout(new MigLayout("insets 0, fill", "[fill]", "[fill]0[fill]"));
 		imgView = new ImageView();
@@ -30,6 +33,10 @@ public class SAPanel extends JPanel{
 		//add(new JButton("Hello World!"));
 	}
 	
+	/**
+	 * Sets which Situational Awareness view is currently on display.
+	 * @param view Which view should be displayed: [imgView, mapView].
+	 */
 	public void setView(String view){
 		if (view.equals("imgView")){
 			remove(mapView);

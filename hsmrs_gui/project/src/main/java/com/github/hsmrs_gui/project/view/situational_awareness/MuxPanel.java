@@ -13,6 +13,10 @@ import src.main.java.com.github.hsmrs_gui.project.util.Colors;
 
 public class MuxPanel extends JPanel{
 	
+	/**
+	 * The constructor for the MuxPanel class. It controls which Situational Awareness panel is currently being viewed.
+	 * @param parent
+	 */
 	public MuxPanel(final SAPanel parent){
 		setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		

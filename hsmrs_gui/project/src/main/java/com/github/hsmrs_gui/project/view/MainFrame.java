@@ -69,6 +69,12 @@ public class MainFrame extends JFrame {
 	private SAPanel situAwareView;
 	private Log log;
 
+	/**
+	 * This constructor creates the MainFrame class, which is the underlying GUI element which contains
+	 * every part of the GUI.
+	 * @param roboListModel The list model for robots used in this system.
+	 * @param taskListModel The list model for tasks used in this system.
+	 */
   	public MainFrame(ListModel roboListModel, ListModel taskListModel) {
   		this.robotListModel = roboListModel;
   		this.taskListModel = taskListModel;
@@ -83,6 +89,9 @@ public class MainFrame extends JFrame {
        setup();
     }
 
+  	/**
+  	 * This method actually creates the GUI elements within the main frame.
+  	 */
     public void setup(){
       Container cp = this.getContentPane(); 
       //cp.setLayout(new MigLayout("insets 0", "[20%]0[60%]0[20%]", "[75%]0[25%]"));
@@ -128,6 +137,12 @@ public class MainFrame extends JFrame {
       pack();
     }
 
+    /**
+     * Binds tele-op actions to keystrokes on the keyboard.
+     * @param name The name of the keystroke to be bound.
+     * @param direction The tele-op direction to be bound to the keystroke. Directions are defined in TeleOpPublisher.
+     * @return The TeleOpAction that was bound to the keystroke.
+     */
     public TeleOpAction addAction(String name, String direction)
 	{
     	TeleOpAction action = new TeleOpAction(name, direction);

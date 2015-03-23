@@ -13,6 +13,11 @@ public class TaskListItemRenderer implements ListItemRenderer<TaskModel> {
 	public TaskListItemRenderer() {
 	}
 
+	/**
+	 * This method creates rendered components from the list of ListItems.
+	 * @param listPanel Unused
+	 * @param listItems The ListItems to be rendered.
+	 */
 	@Override
 	public void createRenderedListComponents(SRList<TaskModel> listPanel,
 			List<ListItem<TaskModel>> listItems) {
@@ -24,6 +29,11 @@ public class TaskListItemRenderer implements ListItemRenderer<TaskModel> {
 		
 	}
 
+	/**
+	 * This method recreates rendered components from the list of ListItems.
+	 * @param listPanel Unused
+	 * @param listItems The ListItems to be rendered.
+	 */
 	@Override
 	public void updateRenderedListComponents(SRList<TaskModel> listPanel,
 			List<ListItem<TaskModel>> listItems) {

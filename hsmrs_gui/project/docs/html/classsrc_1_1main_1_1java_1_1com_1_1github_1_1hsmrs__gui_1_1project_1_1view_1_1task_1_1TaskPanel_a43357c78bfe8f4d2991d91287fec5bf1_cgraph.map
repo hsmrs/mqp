@@ -1,0 +1,6 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1task_1_1TaskPanel.html#aa9cb7de2358cdcdc4932b2d72e11350a" title="src.main.java.com.github.hsmrs_gui.project.view.task.TaskPanel.setTaskListModel" alt="" coords="521,5,1028,35"/>
+<area shape="rect" id="node7" href="$classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1task_1_1TaskListModel.html#a5ab3ed58daa0abd79fb2a7e4d25dfbc3" title="src.main.java.com.github.hsmrs_gui.project.model.task.TaskListModel.getInstance" alt="" coords="523,59,1027,88"/>
+<area shape="rect" id="node5" href="$classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1task_1_1TaskPanel.html#a1c70742a741ca17fd90f56860e219cc2" title="src.main.java.com.github.hsmrs_gui.project.view.task.TaskPanel.setView" alt="" coords="1113,5,1564,35"/>
+<area shape="rect" id="node9" href="$classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1task_1_1TaskListModel.html#abad53e1875f9e2c8d124ab2e834f7610" title="src.main.java.com.github.hsmrs_gui.project.model.task.TaskListModel.TaskListModel" alt="" coords="1079,59,1599,88"/>
+</map>

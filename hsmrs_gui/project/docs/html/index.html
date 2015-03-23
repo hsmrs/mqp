@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>HSMRSGUI: Main Page</title>
+<title>HSMRSGUI: Welcome to the Human Supervision of Multi-Robot Systems Graphical User Interface! (HSMRS GUI)</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -47,7 +47,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li class="current"><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Packages</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -69,16 +71,48 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="header">
   <div class="headertitle">
-<div class="title">HSMRSGUI Documentation</div>  </div>
+<div class="title">Welcome to the Human Supervision of Multi-Robot Systems Graphical User Interface! (HSMRS GUI) </div>  </div>
 </div><!--header-->
 <div class="contents">
-</div><!-- contents -->
+<div class="textblock"><h2><a class="anchor" id="into"></a>
+Introduction</h2>
+<p>This GUI was created in order to facilitate the interactions between a single human supervisor using a laptop or desktop computer and a team of heterogeneous robots. It has been designed in large part using the Singleton design pattern with the Java programming language with ROS bindings (ROSJava).</p>
+<p>The entirety of the GUI is contained within the MainFrame entity. The MainFrame is subdivided into four parts: the task view, the situational awareness view, the robot/role view, and the feedback view.</p>
+<h2><a class="anchor" id="task_view"></a>
+Task View</h2>
+<p>The task view contains the list of tasks, the form for creating a new task, and the form for creating a meta task out of the available tasks. On the task list, new tasks can be added using the New Task button. Tasks can similarly be removed by selecting one or more tasks and using the Remove Task button. Multiple tasks can be selected by holding down the control key while selecting tasks. Other actions can be performed on tasks by right clicking on a specific task. The options include adding and removing owners and deleting the task.</p>
+<p>In the New Task View, the user is presented with a list of all tasks recognized by the system. When a specific task is selected, a form is generated below the list which enumerates the parameters and gives the user a place to add values for the parameters. The values can be stored in unix type variables which can be accessed using $var_name syntax.</p>
+<p>In the New Task Type View, meta tasks which contain subtasks can be created. The user is given a place to add a name for the new task and can select subtasks from a list. Subtasks can be added using the Add Subtask button. Navigation of the subtasks can be achieved using the side tabs on the view. Within a subtask, the user can enter parameter values or leave them blank. Blank fields will show up on the parameter form in the New Task View when the meta task is to be created.</p>
+<h2><a class="anchor" id="situ_aware"></a>
+Situational Awareness View</h2>
+<p>The Situational Awareness View is where the user can see information about the system that can help them make decisions and understand the environment. Currently, only a camera image view and an interactive map view are implemented. These views can be toggled using radio buttons at the top of the Situational Awareness View.</p>
+<p>The camera image view displays images being transmitted from the selected robot. By selecting different robots on the robot list view, different camera views can be displayed.</p>
+<p>The interactive map view allows the user to track the locations of the robots in their environment. It also allows the user to select one or more grid cells (select multiple using the control key) to use as parameters for tasks. The interactive map view variables are mapx, mapy, and map_sel, which store the x-coordinate of the primary selected cell, the y-coordinate of the primary selected cell, and a String-encoded list of all selected cells in the order that they were selected. The primary selected cell is the first cell selected in a series, or the only selected cell if only one cell is selected. These can be accessed using the $ key in the task parameter form (i.e. $mapx).</p>
+<h2><a class="anchor" id="robot_view"></a>
+Robot/Role View</h2>
+<p>The Robot/Role view is where the user can see the list of robots connected to the system, create roles, and assign those roles to the connected robots. The primary view is the list of connected robots. The user can select each robot to affect the situational awareness views, such as the camera image view. The robots in the list can be right clicked to access options for those robots. At this time there are only three options: Assign Role, Remove Role, and Tele-Op. Clicking Tele-Op sends a request to the target and allows the user to control the robot using the arrow keys if the robot accepts the request. Multiple robots can be tele-oped at the same time.</p>
+<p>Choosing Assign Role opens the Role List View. This view allows the user to choose a role to assign the robot. If the user would like to create a new Role, they may click the New Role button. This button opens up the New Role View which allows the user to choose a name for the role as well as choose from a list of tasks which tasks will be admissible under this role. The Remove Role option simply removes the assigned role from the robot, allowing them to bid for whichever Task they can take.</p>
+<h2><a class="anchor" id="feedback_view"></a>
+Feedback View</h2>
+<p>The Feedback View allows the user to get intrinsic information about the system. Unlike the Situational Awareness View, this view is meant to monitor the internal state of the system. Currently only the Console View is implemented for this view. The Console View allows the user to read messages about the system or messages sent from specific robots. Messages are filtered by sender in seperate tabs, however an All tab allows the user to read all messages at once.</p>
+<h2><a class="anchor" id="robot_registration"></a>
+Registering Robots</h2>
+<p>Robots are added to the system through a process called registration. The GUI listens to the hsmrs/robot_registration topic for std_msgs/String messages. The messages are colon delimited and are formatted as the following: <b> name;requestTopic;logTopic;imageTopic;poseTopic;statusTopic;helpTopic;teleOpTopic </b> where: <br/>
+ <b>name</b> is the name of the robot, <br/>
+ <b>requestTopic</b> is the ROS topic through which requests should be sent to the robot, <br/>
+ <b>logTopic</b> is the topic through which the robot will send log messages to the GUI, <br/>
+ <b>imageTopic</b> is the topic through which camera images will be sent to the GUI, <br/>
+ <b>poseTopic</b> is the topic through which the robot's pose will be sent to the GUI, <br/>
+ <b>statusTopic</b> is the topic through which status messages will be sent to the GUI, <br/>
+ <b>helpTopic</b> is the topic through which requests for help will be sent to the GUI, <br/>
+ and <b>teleopTopic</b> is the topic through which tele-op commands will be sent to the robot. </p>
+</div></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -90,7 +124,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Dec 25 2014 01:42:02 for HSMRSGUI by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 23 2015 14:30:58 for HSMRSGUI by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

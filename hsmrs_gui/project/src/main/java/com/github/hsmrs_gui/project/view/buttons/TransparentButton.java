@@ -17,11 +17,19 @@ import javax.swing.JButton;
 
 public class TransparentButton extends JButton implements MouseListener {
 
+	/**
+	 * The constructor for the TransparentButton class.
+	 * @param string The String to be displayed on the button.
+	 */
 	public TransparentButton(String string) {
 		super(string);
 		init();
 	}
 
+	/**
+	 * The constructor for the TransparentButton class.
+	 * @param imageIcon The image to display on the button.
+	 */
 	public TransparentButton(ImageIcon imageIcon) {
 		super(imageIcon);
 		init();

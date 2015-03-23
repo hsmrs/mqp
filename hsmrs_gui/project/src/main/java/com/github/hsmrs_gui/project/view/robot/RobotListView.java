@@ -28,6 +28,10 @@ public class RobotListView extends JPanel implements ListItemListener<RobotModel
 	private RobotListView (){
 	}
 	
+	/**
+	 * Returns the only existing instance of the RobotListView.
+	 * @return The only existing instance of the RobotListView.
+	 */
 	public static RobotListView getInstance(){
 		if (instance == null) {
 			instance = new RobotListView();
@@ -35,6 +39,10 @@ public class RobotListView extends JPanel implements ListItemListener<RobotModel
 		return instance;
 	}
 	
+	/**
+	 * Sets the underlying ListModel for this view.
+	 * @param listModel The ListModel to be associated with this view.
+	 */
 	public void setListModel(ListModel listModel) {
 		lblTitle = new JLabel("Robot List", JLabel.CENTER);
 		lblTitle.setBackground(Colors.bannerColor);
@@ -50,6 +58,10 @@ public class RobotListView extends JPanel implements ListItemListener<RobotModel
 		this.add(robotListView, "push, growy, wrap");
 	}
 	
+	/**
+	 * Gets the first selected robot in the view. This is considered the robot in focus.
+	 * @return The robot in focus.
+	 */
 	public RobotModel getRobotInFocus(){
 		if (robotListView != null && robotListView.getSelectedItems().size() > 0){
 			List<RobotModel> selectedRobots = robotListView.getSelectedItems();
@@ -59,6 +71,9 @@ public class RobotListView extends JPanel implements ListItemListener<RobotModel
 		}
 	}
 	
+	/**
+	 * Updates the component views within this list.
+	 */
 	public void update(){
 		robotListView.updateComponents();
 	}

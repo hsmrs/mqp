@@ -22,6 +22,12 @@ public class TaskListComponentPopup extends JPopupMenu implements ActionListener
 	private TaskModel task;
 	private JComponent parent;
 
+	/**
+	 * The constructor for the TaskListComponentPopup class. This class represents a right click menu that
+	 * allows easy access to options for Tasks.
+	 * @param task The task associated with this right click popup.
+	 * @param parent The parent component that will be right clicked to spawn this menu.
+	 */
 	public TaskListComponentPopup(TaskModel task, JComponent parent){
 		this.task = task;
 		this.parent = parent;
@@ -37,6 +43,9 @@ public class TaskListComponentPopup extends JPopupMenu implements ActionListener
 		add(itemRemove);
 	}
 	
+	/**
+	 * This method is called whenever an option is chosen on the popup menu.
+	 */
 	public void actionPerformed(ActionEvent e) {
 		JMenuItem item = (JMenuItem) e.getSource();
 

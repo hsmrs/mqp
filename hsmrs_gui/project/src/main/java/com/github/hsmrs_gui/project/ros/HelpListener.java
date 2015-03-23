@@ -19,8 +19,9 @@ public class HelpListener implements MessageListener<std_msgs.String>{
 	private RobotModel robot;
 	
 	/**
-	 * The constructor for the StatusListener class.
-	 * @param topicName The name of the ROS topic
+	 * The constructor for the HelpListener class.
+	 * @param robot The robot associated with this listener.
+	 * @param topicName The name of the ROS topic.
 	 */
 	public HelpListener(RobotModel robot, String topicName) {
 		log = GuiNode.getLog();

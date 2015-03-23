@@ -32,6 +32,9 @@ public class RobotPanel extends JPanel{
 	public static final int ROLE_LIST_VIEW = 1;
 	public static final int NEW_ROLE_VIEW = 2;
 	
+	/**
+	 * The constructor for the RobotPanel class, which wraps all of the subpanels dealing with displaying Robot and Role information.
+	 */
 	private RobotPanel(){
 		this.setBorder(BorderFactory.createMatteBorder(1, 1, 3, 3, Color.black));
 		//this.setLayout(new MigLayout("insets 0, top, fill, debug", "[]", "[]"));
@@ -41,6 +44,10 @@ public class RobotPanel extends JPanel{
 		add(robotListView);
 	}
 	
+	/**
+	 * Gets the instance of the only existing RobotPanel.
+	 * @return The instance of the only existing RobotPanel.
+	 */
 	public static RobotPanel getInstance(){
 		if (instance == null){
 			instance = new RobotPanel();
@@ -49,6 +56,10 @@ public class RobotPanel extends JPanel{
 		return instance;
 	}
 	
+	/**
+	 * Sets which subpanel is being displayed. THis creates a new instance of the subpanel.
+	 * @param viewCode The integer code for the subview, given by the consts defined in this class.
+	 */
 	public void setView(int viewCode){
 		removeAll();
 		validate();
@@ -66,18 +77,22 @@ public class RobotPanel extends JPanel{
 			newRolePanel = new NewRolePanel();
 			add(newRolePanel, "push, grow, top");
 			break;
-		}
-		
-		//add(new JLabel("I HATE THIS"));
-		
+		}		
 		validate();
 		repaint();
 	}
 	
+	/**
+	 * Update the robot list subpanel. 
+	 */
 	public void updateRobotList(){
 		robotListView.update();
 	}
 	
+	/**
+	 * Sets which subpanel is being viewed. This does not create new instances of the subpanels.
+	 * @param viewCode The integer code for the subview, given by the consts defined in this class. 
+	 */
 	public void switchView(int viewCode) {
 		removeAll();
 		
@@ -97,22 +112,42 @@ public class RobotPanel extends JPanel{
 		repaint();
 	}
 	
+	/**
+	 * Sets the underlying list model for this view.
+	 * @param rlm
+	 */
 	public void setListModel(ListModel rlm){
 		robotListView.setListModel(rlm);
 	}
 
+	/**
+	 * Gets the role that is selected in the RoleListView.
+	 * @return The role that is selected in the RoleListView.
+	 */
 	public RoleModel getSelectedRole() {
 		return roleListPanel.getSelectedRole();
 	}
 
+	/**
+	 * Gets the robot that was targeted for a new role.
+	 * @return The robot being given a new role.
+	 */
 	public RobotModel getTargetRobot() {
 		return targetRobot;
 	}
 
+	/**
+	 * Set the robot that is being targeted for a new role.
+	 * @param robot The robot being given a new role.
+	 */
 	public void setTargetRobot(RobotModel robot) {
 		targetRobot = robot;		
 	}
 
+	/**
+	 * Gets the new role being given to the target robot.
+	 * @return The new role being given to the target robot.
+	 */
 	public RoleModel getNewRole() {
 		return newRolePanel.getNewRole();
 	}

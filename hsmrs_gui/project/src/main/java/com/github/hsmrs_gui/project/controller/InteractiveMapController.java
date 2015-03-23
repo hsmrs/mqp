@@ -94,12 +94,20 @@ public class InteractiveMapController implements MouseListener, MouseMotionListe
 		return instance;
 	}
 	
+	/**
+	 * Accepts a map view to be utilized by this controller. All actions made by this controller
+	 * will use this map view.
+	 * @param navMapView The map view to be used by this controller.
+	 */
 	public void setNavMapView(InteractiveMapViewLayered navMapView){
 		this.navMapView = navMapView;
 		navMapView.createGrid(navMapModel.getHeight(), navMapModel.getWidth(), (int)navMapModel.getCellSize());
 		navMapView.setBackgroundImage(mapImage);
 	}
-	
+	/**
+	 * Returns the map model being used by the controller.
+	 * @return The map model being used by the controller.
+	 */
 	public NavigationMapModel getMapModel(){
 		return navMapModel;
 	}
@@ -168,15 +176,31 @@ public class InteractiveMapController implements MouseListener, MouseMotionListe
 		}
 	}
 	
+	/**
+	 * Alters the current map model to reflect new data.
+	 * @param data The new data to be applied to the map model
+	 */
 	public void getNewMapData(int[] data){
 		navMapModel.getNewMapData(data);
 	}
 	
+	/**
+	 * Updates the location on the map view of the named robot to the location given by the Pair parameter
+	 * @param robotName The robot whose location needs to be updated
+	 * @param location The new location of the robot.
+	 */
 	public void updateRobotLocation(String robotName, Pair<Integer, Integer> location){
 		navMapView.updateRobotLocation(robotName, location);
 	}
+	
+	
 	//Mouse listeners
 	Component lastDrag = new JLabel();
+	
+	/**
+	 * This method is called whenever the mouse is dragged. It highlights
+	 * any cell the mouse is dragged over.
+	 */
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		//If this is the first mouseDragged call since
@@ -200,7 +224,10 @@ public class InteractiveMapController implements MouseListener, MouseMotionListe
 	@Override
 	public void mouseMoved(MouseEvent e) {	}
 
-
+	/**
+	 * This method is called whenever the mouse is clicked. It toggles the highlighted status of
+	 * a cell in the map view.
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		//Highlight the clicked cell. If control is down, do not

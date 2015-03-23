@@ -24,18 +24,33 @@ public class ConsoleChannelModel {
 		log = "";
 	}
 	
+	/**
+	 * Gets the name of this ConsoleChannelModel.
+	 * @return The name of this ConsoleChannelModel.
+	 */
 	public String getName(){
 		return name;
 	}
 	
+	/**
+	 * Adds a log entry to this console channel.
+	 * @param logEntry The log entry to be added to the channel. 
+	 */
 	public void addLogEntry(String logEntry){
 		log += logEntry + "<br>";
 	}
 	
+	/**
+	 * Gets the contents of this console channel's log as a formatted HTML string.
+	 * @return The contents of this console channel's log as HTML
+	 */
 	public String getLog(){
 		return "<html>" + log + "</html>";
 	}
 	
+	/**
+	 * Deletes all of the text in the log.
+	 */
 	public void clearLog(){
 		log = "";
 	}

@@ -12,6 +12,11 @@ public class RobotListItemRenderer implements ListItemRenderer<RobotModel> {
 	public RobotListItemRenderer() {
 	}
 
+	/**
+	 * This method takes a list of ListItems and renders them into JComponents.
+	 * @param listPanel Unused.
+	 * @param listItems The list of ListItems to be rendered.
+	 */
 	@Override
 	public void createRenderedListComponents(SRList<RobotModel> listPanel,
 			List<ListItem<RobotModel>> listItems) {
@@ -23,6 +28,11 @@ public class RobotListItemRenderer implements ListItemRenderer<RobotModel> {
 		
 	}
 
+	/**
+	 * Recreates the JComponents of the rendered ListItems.
+	 * @param listPanel Unused.
+	 * @param listItems The items which will be rerendered.
+	 */
 	@Override
 	public void updateRenderedListComponents(SRList<RobotModel> listPanel,
 			List<ListItem<RobotModel>> listItems) {

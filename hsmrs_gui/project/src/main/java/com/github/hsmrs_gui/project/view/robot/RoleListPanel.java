@@ -37,6 +37,9 @@ public class RoleListPanel extends JPanel implements ListSelectionListener{
 	private JButton btnAssign;
 	private JButton btnCancel;
 
+	/**
+	 * The constructor for the RoleListPanel class.
+	 */
 	public RoleListPanel(){
 		lblTitle = new JLabel("Role List", JLabel.CENTER);
 		lblTitle.setBackground(Color.decode("0XC0BCB6"));
@@ -89,6 +92,10 @@ public class RoleListPanel extends JPanel implements ListSelectionListener{
 		
 	}
 
+	/**
+	 * Gets the Role which is currently selected.
+	 * @return The Role which is currently selected.
+	 */
 	public RoleModel getSelectedRole() {
 		return RoleListModel.getInstance().
 				getRole(typeListView.getSelectedIndex());

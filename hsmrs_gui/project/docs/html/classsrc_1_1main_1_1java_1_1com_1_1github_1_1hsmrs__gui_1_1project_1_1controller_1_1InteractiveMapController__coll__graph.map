@@ -1,2 +1,9 @@
 <map id="G" name="G">
+<area shape="rect" id="node6" href="$classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1MapPublisher.html" title="src.main.java.com.github.hsmrs_gui.project.ros.MapPublisher" alt="" coords="1103,153,1481,183"/>
+<area shape="rect" id="node13" href="$classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1situational__aware3d82c275c5aebf0ac4319bd1fe245ebf.html" title="src.main.java.com.github.hsmrs_gui.project.view.situational_awareness.InteractiveMapViewLayered" alt="" coords="991,323,1593,352"/>
+<area shape="rect" id="node23" href="$classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html" title="src.main.java.com.github.hsmrs_gui.project.view.feedback.ConsoleView" alt="" coords="401,225,844,255"/>
+<area shape="rect" id="node45" href="$classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1NavigationMapModel.html" title="src.main.java.com.github.hsmrs_gui.project.model.NavigationMapModel" alt="" coords="1072,467,1512,496"/>
+<area shape="rect" id="node21" href="$classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1ConsoleController.html" title="src.main.java.com.github.hsmrs_gui.project.controller.ConsoleController" alt="" coords="1072,248,1512,277"/>
+<area shape="rect" id="node35" href="$classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1ConsoleModel.html" title="src.main.java.com.github.hsmrs_gui.project.model.ConsoleModel" alt="" coords="423,172,823,201"/>
+<area shape="rect" id="node52" href="$classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1MapGridCellModel.html" title="src.main.java.com.github.hsmrs_gui.project.model.MapGridCellModel" alt="" coords="411,593,835,623"/>
 </map>

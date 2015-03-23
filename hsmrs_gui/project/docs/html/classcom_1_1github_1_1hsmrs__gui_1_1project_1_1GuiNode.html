@@ -47,7 +47,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Packages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -79,7 +81,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -90,10 +92,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
   <div id="nav-path" class="navpath">
     <ul>
-      <li class="navelem"><b>com</b>      </li>
-      <li class="navelem"><b>github</b>      </li>
-      <li class="navelem"><b>hsmrs_gui</b>      </li>
-      <li class="navelem"><b>project</b>      </li>
+      <li class="navelem"><a class="el" href="namespacecom.html">com</a>      </li>
+      <li class="navelem"><a class="el" href="namespacecom_1_1github.html">github</a>      </li>
+      <li class="navelem"><a class="el" href="namespacecom_1_1github_1_1hsmrs__gui.html">hsmrs_gui</a>      </li>
+      <li class="navelem"><a class="el" href="namespacecom_1_1github_1_1hsmrs__gui_1_1project.html">project</a>      </li>
       <li class="navelem"><a class="el" href="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode.html">GuiNode</a>      </li>
     </ul>
   </div>
@@ -101,7 +103,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a>  </div>
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">com.github.hsmrs_gui.project.GuiNode Class Reference</div>  </div>
 </div><!--header-->
@@ -110,34 +114,208 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Inheritance diagram for com.github.hsmrs_gui.project.GuiNode:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode__inherit__graph.png" border="0" usemap="#com_8github_8hsmrs__gui_8project_8GuiNode_inherit__map" alt="Inheritance graph"/></div>
-<map name="com_8github_8hsmrs__gui_8project_8GuiNode_inherit__map" id="com_8github_8hsmrs__gui_8project_8GuiNode_inherit__map">
-</map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for com.github.hsmrs_gui.project.GuiNode:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode__coll__graph.png" border="0" usemap="#com_8github_8hsmrs__gui_8project_8GuiNode_coll__map" alt="Collaboration graph"/></div>
 <map name="com_8github_8hsmrs__gui_8project_8GuiNode_coll__map" id="com_8github_8hsmrs__gui_8project_8GuiNode_coll__map">
-</map>
+<area shape="rect" id="node10" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1NewTaskPublisher.html" title="src.main.java.com.github.hsmrs_gui.project.ros.NewTaskPublisher" alt="" coords="376,260,787,289"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 
 <p><a href="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode-members.html">List of all members.</a></p>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abedb4a5cf5a04947e967b53108371dab"></a><!-- doxytag: member="com::github::hsmrs_gui::project::GuiNode::getDefaultNodeName" ref="abedb4a5cf5a04947e967b53108371dab" args="()" -->
-GraphName&#160;</td><td class="memItemRight" valign="bottom"><b>getDefaultNodeName</b> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7a02ca370a1b9c773e4e72732f6034e9"></a><!-- doxytag: member="com::github::hsmrs_gui::project::GuiNode::onStart" ref="a7a02ca370a1b9c773e4e72732f6034e9" args="(final ConnectedNode connectedNode)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>onStart</b> (final ConnectedNode connectedNode)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">GraphName&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode.html#abedb4a5cf5a04947e967b53108371dab">getDefaultNodeName</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode.html#a7a02ca370a1b9c773e4e72732f6034e9">onStart</a> (final ConnectedNode <a class="el" href="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode.html#af3f31d456f7e1db627e30d457cd91e0d">connectedNode</a>)</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a61ed501273c5de3f2ac64a54150614a4"></a><!-- doxytag: member="com::github::hsmrs_gui::project::GuiNode::getLog" ref="a61ed501273c5de3f2ac64a54150614a4" args="()" -->
-static Log&#160;</td><td class="memItemRight" valign="bottom"><b>getLog</b> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6bf3a25d01154a978a33cb4600886f33"></a><!-- doxytag: member="com::github::hsmrs_gui::project::GuiNode::getConnectedNode" ref="a6bf3a25d01154a978a33cb4600886f33" args="()" -->
-static ConnectedNode&#160;</td><td class="memItemRight" valign="bottom"><b>getConnectedNode</b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static Log&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode.html#a61ed501273c5de3f2ac64a54150614a4">getLog</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static ConnectedNode&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode.html#a6bf3a25d01154a978a33cb4600886f33">getConnectedNode</a> ()</td></tr>
+<tr><td colspan="2"><h2><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">MessageListener&lt; std_msgs.String &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode.html#ac3b490afd572cb8b8d8bfd6776f3eda3">robotRegistrationListener</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">MessageListener&lt; std_msgs.String &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode.html#acf0cdf0562a93212323fa259dc29746e">systemLogListener</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">MessageListener<br class="typebreak"/>
+&lt; sensor_msgs.Image &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode.html#ac2bf4830355d888e9b070b6e9cb57752">imageListener</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">MessageListener<br class="typebreak"/>
+&lt; hsmrs_framework.TaskMsg &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode.html#af00b538319283f2672fb81e17c254af5">updatedTaskListener</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1NewTaskPublisher.html">NewTaskPublisher</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode.html#ad5591f96da53914364fb12eed509bc48">taskPublisher</a></td></tr>
+<tr><td colspan="2"><h2><a name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static Log&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode.html#a9c27edb703c254a955143637ed8e32b6">log</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static ConnectedNode&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode.html#af3f31d456f7e1db627e30d457cd91e0d">connectedNode</a></td></tr>
 </table>
+<hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a6bf3a25d01154a978a33cb4600886f33"></a><!-- doxytag: member="com::github::hsmrs_gui::project::GuiNode::getConnectedNode" ref="a6bf3a25d01154a978a33cb4600886f33" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static ConnectedNode <a class="el" href="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode.html#a6bf3a25d01154a978a33cb4600886f33">com.github.hsmrs_gui.project.GuiNode.getConnectedNode</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="abedb4a5cf5a04947e967b53108371dab"></a><!-- doxytag: member="com::github::hsmrs_gui::project::GuiNode::getDefaultNodeName" ref="abedb4a5cf5a04947e967b53108371dab" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">GraphName <a class="el" href="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode.html#abedb4a5cf5a04947e967b53108371dab">com.github.hsmrs_gui.project.GuiNode.getDefaultNodeName</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a61ed501273c5de3f2ac64a54150614a4"></a><!-- doxytag: member="com::github::hsmrs_gui::project::GuiNode::getLog" ref="a61ed501273c5de3f2ac64a54150614a4" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Log <a class="el" href="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode.html#a61ed501273c5de3f2ac64a54150614a4">com.github.hsmrs_gui.project.GuiNode.getLog</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a7a02ca370a1b9c773e4e72732f6034e9"></a><!-- doxytag: member="com::github::hsmrs_gui::project::GuiNode::onStart" ref="a7a02ca370a1b9c773e4e72732f6034e9" args="(final ConnectedNode connectedNode)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode.html#a7a02ca370a1b9c773e4e72732f6034e9">com.github.hsmrs_gui.project.GuiNode.onStart</a> </td>
+          <td>(</td>
+          <td class="paramtype">final ConnectedNode&#160;</td>
+          <td class="paramname"><em>connectedNode</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode_a7a02ca370a1b9c773e4e72732f6034e9_cgraph.png" border="0" usemap="#classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode_a7a02ca370a1b9c773e4e72732f6034e9_cgraph" alt=""/></div>
+<map name="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode_a7a02ca370a1b9c773e4e72732f6034e9_cgraph" id="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode_a7a02ca370a1b9c773e4e72732f6034e9_cgraph">
+<area shape="rect" id="node3" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotListModel.html#ae15051ca765a4ddb1a433f2b642e0b8f" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RobotListModel.getInstance" alt="" coords="411,5,925,35"/><area shape="rect" id="node7" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1task_1_1TaskListModel.html#a5ab3ed58daa0abd79fb2a7e4d25dfbc3" title="src.main.java.com.github.hsmrs_gui.project.model.task.TaskListModel.getInstance" alt="" coords="416,59,920,88"/><area shape="rect" id="node11" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1task_1_1TaskSpecificationListModel.html#a923ce690e1fa27a5ccf4aeb5399127e6" title="src.main.java.com.github.hsmrs_gui.project.model.task.TaskSpecificationListModel.getInstance" alt="" coords="379,112,957,141"/><area shape="rect" id="node15" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1task_1_1TaskSpecificationListModel.html#a8cae18d020ddb20873eaf9935d01b336" title="src.main.java.com.github.hsmrs_gui.project.model.task.TaskSpecificationListModel.addTaskSpecification" alt="" coords="351,165,985,195"/><area shape="rect" id="node17" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1ConsoleController.html#aebdfbb7ad0fe7d552c66b11dc394d2b1" title="src.main.java.com.github.hsmrs_gui.project.controller.ConsoleController.getInstance" alt="" coords="412,219,924,248"/><area shape="rect" id="node21" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1ConsoleController.html#a1155a31072e708e0fbde01c23a56b8fd" title="src.main.java.com.github.hsmrs_gui.project.controller.ConsoleController.createConsole" alt="" coords="404,272,932,301"/><area shape="rect" id="node23" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotListModel.html#ab3709deba5535ce7a49c7ad00c5798f8" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RobotListModel.getRobotNames" alt="" coords="397,325,939,355"/><area shape="rect" id="node25" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1UpdatedTaskPublisher.html#a3db0cff96a74a795b4936f65a457a51e" title="src.main.java.com.github.hsmrs_gui.project.ros.UpdatedTaskPublisher.getInstance" alt="" coords="416,379,920,408"/><area shape="rect" id="node31" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1RolePublisher.html#a516bb8326960ca523294103a91f966a4" title="src.main.java.com.github.hsmrs_gui.project.ros.RolePublisher.getInstance" alt="" coords="441,432,895,461"/><area shape="rect" id="node5" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotListModel.html#ae64e386343be88f0f5a81d53b4d1ff2f" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RobotListModel.RobotListModel" alt="" coords="1103,5,1639,35"/><area shape="rect" id="node9" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1task_1_1TaskListModel.html#abad53e1875f9e2c8d124ab2e834f7610" title="src.main.java.com.github.hsmrs_gui.project.model.task.TaskListModel.TaskListModel" alt="" coords="1111,59,1631,88"/><area shape="rect" id="node13" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1task_1_1TaskSpecificationListModel.html#ac5f796e8263bc4d25d4af5103696db1e" title="src.main.java.com.github.hsmrs_gui.project.model.task.TaskSpecificationListModel.TaskSpecificationListModel" alt="" coords="1036,112,1705,141"/><area shape="rect" id="node19" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1ConsoleController.html#a733fd793c19cbbe5554320f95e482929" title="src.main.java.com.github.hsmrs_gui.project.controller.ConsoleController.ConsoleController" alt="" coords="1097,219,1644,248"/><area shape="rect" id="node27" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1UpdatedTaskPublisher.html#a9110db8743e743306c902a43af162b81" title="src.main.java.com.github.hsmrs_gui.project.ros.UpdatedTaskPublisher.UpdatedTaskPublisher" alt="" coords="1087,379,1655,408"/><area shape="rect" id="node29" href="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode.html#a6bf3a25d01154a978a33cb4600886f33" title="com.github.hsmrs_gui.project.GuiNode.getConnectedNode" alt="" coords="1756,405,2119,435"/><area shape="rect" id="node33" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1RolePublisher.html#a0fa7f41c7dd4912740197733ba2b26ae" title="src.main.java.com.github.hsmrs_gui.project.ros.RolePublisher.RolePublisher" alt="" coords="1137,432,1604,461"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="af3f31d456f7e1db627e30d457cd91e0d"></a><!-- doxytag: member="com::github::hsmrs_gui::project::GuiNode::connectedNode" ref="af3f31d456f7e1db627e30d457cd91e0d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ConnectedNode <a class="el" href="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode.html#af3f31d456f7e1db627e30d457cd91e0d">com.github.hsmrs_gui.project.GuiNode.connectedNode</a><code> [static, private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ac2bf4830355d888e9b070b6e9cb57752"></a><!-- doxytag: member="com::github::hsmrs_gui::project::GuiNode::imageListener" ref="ac2bf4830355d888e9b070b6e9cb57752" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">MessageListener&lt;sensor_msgs.Image&gt; <a class="el" href="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode.html#ac2bf4830355d888e9b070b6e9cb57752">com.github.hsmrs_gui.project.GuiNode.imageListener</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a9c27edb703c254a955143637ed8e32b6"></a><!-- doxytag: member="com::github::hsmrs_gui::project::GuiNode::log" ref="a9c27edb703c254a955143637ed8e32b6" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Log <a class="el" href="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode.html#a9c27edb703c254a955143637ed8e32b6">com.github.hsmrs_gui.project.GuiNode.log</a><code> [static, private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ac3b490afd572cb8b8d8bfd6776f3eda3"></a><!-- doxytag: member="com::github::hsmrs_gui::project::GuiNode::robotRegistrationListener" ref="ac3b490afd572cb8b8d8bfd6776f3eda3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">MessageListener&lt;std_msgs.String&gt; <a class="el" href="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode.html#ac3b490afd572cb8b8d8bfd6776f3eda3">com.github.hsmrs_gui.project.GuiNode.robotRegistrationListener</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="acf0cdf0562a93212323fa259dc29746e"></a><!-- doxytag: member="com::github::hsmrs_gui::project::GuiNode::systemLogListener" ref="acf0cdf0562a93212323fa259dc29746e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">MessageListener&lt;std_msgs.String&gt; <a class="el" href="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode.html#acf0cdf0562a93212323fa259dc29746e">com.github.hsmrs_gui.project.GuiNode.systemLogListener</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad5591f96da53914364fb12eed509bc48"></a><!-- doxytag: member="com::github::hsmrs_gui::project::GuiNode::taskPublisher" ref="ad5591f96da53914364fb12eed509bc48" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1NewTaskPublisher.html">NewTaskPublisher</a> <a class="el" href="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode.html#ad5591f96da53914364fb12eed509bc48">com.github.hsmrs_gui.project.GuiNode.taskPublisher</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af00b538319283f2672fb81e17c254af5"></a><!-- doxytag: member="com::github::hsmrs_gui::project::GuiNode::updatedTaskListener" ref="af00b538319283f2672fb81e17c254af5" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">MessageListener&lt;hsmrs_framework.TaskMsg&gt; <a class="el" href="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode.html#af00b538319283f2672fb81e17c254af5">com.github.hsmrs_gui.project.GuiNode.updatedTaskListener</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>project/src/main/java/com/github/hsmrs_gui/project/GuiNode.java</li>
+<li>project/src/main/java/com/github/hsmrs_gui/project/<a class="el" href="GuiNode_8java.html">GuiNode.java</a></li>
 </ul>
 </div><!-- contents -->
 <!-- window showing the filter options -->
@@ -145,7 +323,7 @@ static ConnectedNode&#160;</td><td class="memItemRight" valign="bottom"><b>getCo
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -157,7 +335,7 @@ static ConnectedNode&#160;</td><td class="memItemRight" valign="bottom"><b>getCo
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Dec 25 2014 01:42:02 for HSMRSGUI by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 23 2015 14:30:57 for HSMRSGUI by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

@@ -42,6 +42,11 @@ public class TaskListComponent extends RenderableComponent<TaskModel> {
 	public TaskListComponent() {
 	}
 
+	/**
+	 * Create a JComponent from a ListItem parameterized as a TaskModel.
+	 * @param The ListItem to render a JComponent from.
+	 * @return A JComponent rendered from the given ListItem.
+	 */
 	@Override
 	public JComponent create(ListItem<TaskModel> listItem) {
 		task = listItem.getListObject();
@@ -86,6 +91,10 @@ public class TaskListComponent extends RenderableComponent<TaskModel> {
 		return panel;
 	}
 
+	/**
+	 * Recreate a JComponent from a ListItem parameterized as a TaskModel.
+	 * @param The ListItem to render a JComponent from.
+	 */
 	@Override
 	public void update(ListItem<TaskModel> listItem) {
 		panel.setBackground(listItem.isSelected() ? Colors.selectionColor

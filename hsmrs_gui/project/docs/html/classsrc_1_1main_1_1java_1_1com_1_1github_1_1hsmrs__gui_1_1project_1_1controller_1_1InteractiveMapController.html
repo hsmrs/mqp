@@ -47,7 +47,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Packages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -79,7 +81,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -90,14 +92,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
   <div id="nav-path" class="navpath">
     <ul>
-      <li class="navelem"><b>src</b>      </li>
-      <li class="navelem"><b>main</b>      </li>
-      <li class="navelem"><b>java</b>      </li>
-      <li class="navelem"><b>com</b>      </li>
-      <li class="navelem"><b>github</b>      </li>
-      <li class="navelem"><b>hsmrs_gui</b>      </li>
-      <li class="navelem"><b>project</b>      </li>
-      <li class="navelem"><b>controller</b>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc.html">src</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main.html">main</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java.html">java</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com.html">com</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github.html">github</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui.html">hsmrs_gui</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project.html">project</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller.html">controller</a>      </li>
       <li class="navelem"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html">InteractiveMapController</a>      </li>
     </ul>
   </div>
@@ -105,7 +107,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a>  </div>
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pac-attribs">Package Attributes</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController Class Reference</div>  </div>
 </div><!--header-->
@@ -114,41 +120,87 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Inheritance diagram for src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController:</div>
 <div class="dyncontent">
 <div class="center"><img src="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController__inherit__graph.png" border="0" usemap="#src_8main_8java_8com_8github_8hsmrs__gui_8project_8controller_8InteractiveMapController_inherit__map" alt="Inheritance graph"/></div>
-<map name="src_8main_8java_8com_8github_8hsmrs__gui_8project_8controller_8InteractiveMapController_inherit__map" id="src_8main_8java_8com_8github_8hsmrs__gui_8project_8controller_8InteractiveMapController_inherit__map">
-</map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController:</div>
 <div class="dyncontent">
 <div class="center"><img src="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController__coll__graph.png" border="0" usemap="#src_8main_8java_8com_8github_8hsmrs__gui_8project_8controller_8InteractiveMapController_coll__map" alt="Collaboration graph"/></div>
 <map name="src_8main_8java_8com_8github_8hsmrs__gui_8project_8controller_8InteractiveMapController_coll__map" id="src_8main_8java_8com_8github_8hsmrs__gui_8project_8controller_8InteractiveMapController_coll__map">
-</map>
+<area shape="rect" id="node6" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1MapPublisher.html" title="src.main.java.com.github.hsmrs_gui.project.ros.MapPublisher" alt="" coords="1103,153,1481,183"/><area shape="rect" id="node13" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1situational__aware3d82c275c5aebf0ac4319bd1fe245ebf.html" title="src.main.java.com.github.hsmrs_gui.project.view.situational_awareness.InteractiveMapViewLayered" alt="" coords="991,323,1593,352"/><area shape="rect" id="node23" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html" title="src.main.java.com.github.hsmrs_gui.project.view.feedback.ConsoleView" alt="" coords="401,225,844,255"/><area shape="rect" id="node45" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1NavigationMapModel.html" title="src.main.java.com.github.hsmrs_gui.project.model.NavigationMapModel" alt="" coords="1072,467,1512,496"/><area shape="rect" id="node21" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1ConsoleController.html" title="src.main.java.com.github.hsmrs_gui.project.controller.ConsoleController" alt="" coords="1072,248,1512,277"/><area shape="rect" id="node35" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1ConsoleModel.html" title="src.main.java.com.github.hsmrs_gui.project.model.ConsoleModel" alt="" coords="423,172,823,201"/><area shape="rect" id="node52" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1MapGridCellModel.html" title="src.main.java.com.github.hsmrs_gui.project.model.MapGridCellModel" alt="" coords="411,593,835,623"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 
 <p><a href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController-members.html">List of all members.</a></p>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a57ac368a52c0c7b2d7881181809d13ba">setNavMapView</a> (<a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1situational__aware3d82c275c5aebf0ac4319bd1fe245ebf.html">InteractiveMapViewLayered</a> <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a619b342d863773878cd05cc3f2dfe5a7">navMapView</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1NavigationMapModel.html">NavigationMapModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a1622690b39332128726d585bb4068975">getMapModel</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a81f7d90cc0d2f08aed011dcb80be6169">clearCells</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#ace76e9cd61cbf21e66ffee5355129f00">highlightCell</a> (JLabel target, boolean clearSelection)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5038a1ac45c408225c6418d2c50c9b04"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::mouseDragged" ref="a5038a1ac45c408225c6418d2c50c9b04" args="(MouseEvent e)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>mouseDragged</b> (MouseEvent e)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6aa66a487655d34a86a879a513f49d77"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::mouseMoved" ref="a6aa66a487655d34a86a879a513f49d77" args="(MouseEvent e)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>mouseMoved</b> (MouseEvent e)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afbecf7df897954c13d264d7ea20e58d4"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::mouseClicked" ref="afbecf7df897954c13d264d7ea20e58d4" args="(MouseEvent e)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>mouseClicked</b> (MouseEvent e)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7e31f4ad20aaa7ac45470a11331ed020"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::mouseEntered" ref="a7e31f4ad20aaa7ac45470a11331ed020" args="(MouseEvent arg0)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>mouseEntered</b> (MouseEvent arg0)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1d7b4fd43d7129da2dbc5635553ae64a"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::mouseExited" ref="a1d7b4fd43d7129da2dbc5635553ae64a" args="(MouseEvent arg0)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>mouseExited</b> (MouseEvent arg0)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a961249ae54756cf9f65f0d70057cc316"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::mousePressed" ref="a961249ae54756cf9f65f0d70057cc316" args="(MouseEvent arg0)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>mousePressed</b> (MouseEvent arg0)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9a18cd7819cdd94cd299c947f6698588"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::mouseReleased" ref="a9a18cd7819cdd94cd299c947f6698588" args="(MouseEvent arg0)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>mouseReleased</b> (MouseEvent arg0)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#add5d799af3f0b77f0ab20d2322e7ca8e">getNewMapData</a> (int[] data)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a61b2cfc42fab423f351487af69ffcf0a">updateRobotLocation</a> (String robotName, Pair&lt; Integer, Integer &gt; location)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a5038a1ac45c408225c6418d2c50c9b04">mouseDragged</a> (MouseEvent e)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a6aa66a487655d34a86a879a513f49d77">mouseMoved</a> (MouseEvent e)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#afbecf7df897954c13d264d7ea20e58d4">mouseClicked</a> (MouseEvent e)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a7e31f4ad20aaa7ac45470a11331ed020">mouseEntered</a> (MouseEvent arg0)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a1d7b4fd43d7129da2dbc5635553ae64a">mouseExited</a> (MouseEvent arg0)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a961249ae54756cf9f65f0d70057cc316">mousePressed</a> (MouseEvent arg0)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a9a18cd7819cdd94cd299c947f6698588">mouseReleased</a> (MouseEvent arg0)</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html">InteractiveMapController</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a35302fa8faa9226b116aba713e2cdd06">getInstance</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static synchronized <br class="typebreak"/>
+<a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html">InteractiveMapController</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#ae286acab7eedae50d0c92c2991a02061">getInstance</a> ()</td></tr>
+<tr><td colspan="2"><h2><a name="pac-attribs"></a>
+Package Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">Component&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#af1f56b470ed01d7e57236ecd97cc2cda">lastDrag</a> = new JLabel()</td></tr>
+<tr><td colspan="2"><h2><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#ac17cf4d05b1bb049dd260c728914475f">InteractiveMapController</a> ()</td></tr>
+<tr><td colspan="2"><h2><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1NavigationMapModel.html">NavigationMapModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a6bfd33e3cf803e6c622ec30bec439159">navMapModel</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1situational__aware3d82c275c5aebf0ac4319bd1fe245ebf.html">InteractiveMapViewLayered</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a619b342d863773878cd05cc3f2dfe5a7">navMapView</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">ArrayList&lt; JLabel &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a5d26d74fe87855c64a128993294b9d6b">highlightedCells</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1ConsoleController.html">ConsoleController</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a1a2686804bd69677cd9476f4f4df23fa">consoleController</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#aeb22169a83c4c91ef27e4f96fe015b36">isDragging</a> = false</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a9e61aa94531854255dfde6bec9429195">INSTITUTE_PARK_MAP_PATH</a> = &quot;&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">final double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a4d7fa72aa8376c458429bd4907bb443b">INSTITUTE_PARK_MAP_SCALE</a> = 6.3876889849</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">BufferedImage&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a84b2f40c2bbeb27be59ab2f50add715e">mapImage</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#ab1e606e323e205d047a152a5f175a494">defaultHeight</a> = 40</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#afc1b91996b6b536beaf8bc54663e782e">defaultWidth</a> = 40</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a372fc98de818caf27ace40d0990c78ae">defaultResolution</a> = 1.0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1MapPublisher.html">MapPublisher</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a373f4063f3d29b99cd8563e384ab737f">mapPublisher</a></td></tr>
+<tr><td colspan="2"><h2><a name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html">InteractiveMapController</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a203548b7711b1246e5590cff8699ef05">instance</a></td></tr>
 </table>
+<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="ac17cf4d05b1bb049dd260c728914475f"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::InteractiveMapController" ref="ac17cf4d05b1bb049dd260c728914475f" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#ac17cf4d05b1bb049dd260c728914475f">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.InteractiveMapController</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Constructor for the <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html">InteractiveMapController</a> class </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_ac17cf4d05b1bb049dd260c728914475f_cgraph.png" border="0" usemap="#classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_ac17cf4d05b1bb049dd260c728914475f_cgraph" alt=""/></div>
+<map name="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_ac17cf4d05b1bb049dd260c728914475f_cgraph" id="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_ac17cf4d05b1bb049dd260c728914475f_cgraph">
+<area shape="rect" id="node3" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1ConsoleController.html#aebdfbb7ad0fe7d552c66b11dc394d2b1" title="src.main.java.com.github.hsmrs_gui.project.controller.ConsoleController.getInstance" alt="" coords="677,5,1189,35"/><area shape="rect" id="node7" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1MapPublisher.html#aa0456edad6126c335900f6ecf0884518" title="src.main.java.com.github.hsmrs_gui.project.ros.MapPublisher.publishMap" alt="" coords="708,59,1159,88"/><area shape="rect" id="node5" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1ConsoleController.html#a733fd793c19cbbe5554320f95e482929" title="src.main.java.com.github.hsmrs_gui.project.controller.ConsoleController.ConsoleController" alt="" coords="1239,5,1785,35"/></map>
+</div>
+</p>
+
+</div>
+</div>
 <hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="a81f7d90cc0d2f08aed011dcb80be6169"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::clearCells" ref="a81f7d90cc0d2f08aed011dcb80be6169" args="()" -->
 <div class="memitem">
@@ -165,14 +217,23 @@ Static Public Member Functions</h2></td></tr>
 <div class="memdoc">
 <p>Removes the highlighted state from all grid cells </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_a81f7d90cc0d2f08aed011dcb80be6169_cgraph.png" border="0" usemap="#classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_a81f7d90cc0d2f08aed011dcb80be6169_cgraph" alt=""/></div>
+<map name="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_a81f7d90cc0d2f08aed011dcb80be6169_cgraph" id="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_a81f7d90cc0d2f08aed011dcb80be6169_cgraph">
+<area shape="rect" id="node3" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1NavigationMapModel.html#abb67b16606e4e0e83d7addf27fb0490f" title="src.main.java.com.github.hsmrs_gui.project.model.NavigationMapModel.clearAllCells" alt="" coords="595,5,1112,35"/></map>
+</div>
+</p>
+
 </div>
 </div>
-<a class="anchor" id="a35302fa8faa9226b116aba713e2cdd06"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::getInstance" ref="a35302fa8faa9226b116aba713e2cdd06" args="()" -->
+<a class="anchor" id="ae286acab7eedae50d0c92c2991a02061"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::getInstance" ref="ae286acab7eedae50d0c92c2991a02061" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html">InteractiveMapController</a> <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a35302fa8faa9226b116aba713e2cdd06">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.getInstance</a> </td>
+          <td class="memname">static synchronized <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html">InteractiveMapController</a> <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#ae286acab7eedae50d0c92c2991a02061">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.getInstance</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [static]</code></td>
@@ -182,6 +243,66 @@ Static Public Member Functions</h2></td></tr>
 <div class="memdoc">
 <p>This method returns the instance of the only existing <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html">InteractiveMapController</a> instance. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>An instance of <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html">InteractiveMapController</a> </dd></dl>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_ae286acab7eedae50d0c92c2991a02061_cgraph.png" border="0" usemap="#classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_ae286acab7eedae50d0c92c2991a02061_cgraph" alt=""/></div>
+<map name="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_ae286acab7eedae50d0c92c2991a02061_cgraph" id="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_ae286acab7eedae50d0c92c2991a02061_cgraph">
+<area shape="rect" id="node3" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#ac17cf4d05b1bb049dd260c728914475f" title="src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.InteractiveMapController" alt="" coords="605,32,1229,61"/><area shape="rect" id="node5" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1ConsoleController.html#aebdfbb7ad0fe7d552c66b11dc394d2b1" title="src.main.java.com.github.hsmrs_gui.project.controller.ConsoleController.getInstance" alt="" coords="1277,5,1789,35"/><area shape="rect" id="node9" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1MapPublisher.html#aa0456edad6126c335900f6ecf0884518" title="src.main.java.com.github.hsmrs_gui.project.ros.MapPublisher.publishMap" alt="" coords="1308,59,1759,88"/><area shape="rect" id="node7" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1ConsoleController.html#a733fd793c19cbbe5554320f95e482929" title="src.main.java.com.github.hsmrs_gui.project.controller.ConsoleController.ConsoleController" alt="" coords="1839,5,2385,35"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a1622690b39332128726d585bb4068975"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::getMapModel" ref="a1622690b39332128726d585bb4068975" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1NavigationMapModel.html">NavigationMapModel</a> <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a1622690b39332128726d585bb4068975">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.getMapModel</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Returns the map model being used by the controller. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The map model being used by the controller. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="add5d799af3f0b77f0ab20d2322e7ca8e"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::getNewMapData" ref="add5d799af3f0b77f0ab20d2322e7ca8e" args="(int[] data)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#add5d799af3f0b77f0ab20d2322e7ca8e">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.getNewMapData</a> </td>
+          <td>(</td>
+          <td class="paramtype">int[]&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Alters the current map model to reflect new data. </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>The new data to be applied to the map model </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_add5d799af3f0b77f0ab20d2322e7ca8e_cgraph.png" border="0" usemap="#classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_add5d799af3f0b77f0ab20d2322e7ca8e_cgraph" alt=""/></div>
+<map name="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_add5d799af3f0b77f0ab20d2322e7ca8e_cgraph" id="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_add5d799af3f0b77f0ab20d2322e7ca8e_cgraph">
+<area shape="rect" id="node3" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1NavigationMapModel.html#a612f000b29b909e1867de3a1e0d4fc01" title="src.main.java.com.github.hsmrs_gui.project.model.NavigationMapModel.getNewMapData" alt="" coords="636,5,1177,35"/><area shape="rect" id="node5" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1MapGridCellModel.html#a3d3ede09ee6975e5962bf72ab69e5b4c" title="src.main.java.com.github.hsmrs_gui.project.model.MapGridCellModel.setValue" alt="" coords="1227,5,1707,35"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -218,10 +339,418 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_ace76e9cd61cbf21e66ffee5355129f00_cgraph.png" border="0" usemap="#classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_ace76e9cd61cbf21e66ffee5355129f00_cgraph" alt=""/></div>
+<map name="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_ace76e9cd61cbf21e66ffee5355129f00_cgraph" id="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_ace76e9cd61cbf21e66ffee5355129f00_cgraph">
+<area shape="rect" id="node3" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1NavigationMapModel.html#abb67b16606e4e0e83d7addf27fb0490f" title="src.main.java.com.github.hsmrs_gui.project.model.NavigationMapModel.clearAllCells" alt="" coords="619,5,1136,35"/><area shape="rect" id="node5" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1NavigationMapModel.html#ae386455fd9eff47eb7406cefcb0d03f1" title="src.main.java.com.github.hsmrs_gui.project.model.NavigationMapModel.toggleSelectCell" alt="" coords="608,59,1147,88"/><area shape="rect" id="node7" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1MapGridCellModel.html#af220101c9f96fcf694506fee4c43ff97" title="src.main.java.com.github.hsmrs_gui.project.model.MapGridCellModel.toggleSelected" alt="" coords="1215,32,1729,61"/><area shape="rect" id="node9" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1NavigationMapModel.html#adf28cb8c93903bea0ac67f2c8bf5e363" title="src.main.java.com.github.hsmrs_gui.project.model.NavigationMapModel.refreshSelectedVar" alt="" coords="1195,85,1749,115"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="afbecf7df897954c13d264d7ea20e58d4"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::mouseClicked" ref="afbecf7df897954c13d264d7ea20e58d4" args="(MouseEvent e)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#afbecf7df897954c13d264d7ea20e58d4">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.mouseClicked</a> </td>
+          <td>(</td>
+          <td class="paramtype">MouseEvent&#160;</td>
+          <td class="paramname"><em>e</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>This method is called whenever the mouse is clicked. It toggles the highlighted status of a cell in the map view. </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_afbecf7df897954c13d264d7ea20e58d4_cgraph.png" border="0" usemap="#classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_afbecf7df897954c13d264d7ea20e58d4_cgraph" alt=""/></div>
+<map name="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_afbecf7df897954c13d264d7ea20e58d4_cgraph" id="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_afbecf7df897954c13d264d7ea20e58d4_cgraph">
+<area shape="rect" id="node3" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#ace76e9cd61cbf21e66ffee5355129f00" title="src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.highlightCell" alt="" coords="620,32,1172,61"/><area shape="rect" id="node5" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1NavigationMapModel.html#abb67b16606e4e0e83d7addf27fb0490f" title="src.main.java.com.github.hsmrs_gui.project.model.NavigationMapModel.clearAllCells" alt="" coords="1232,5,1749,35"/><area shape="rect" id="node7" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1NavigationMapModel.html#ae386455fd9eff47eb7406cefcb0d03f1" title="src.main.java.com.github.hsmrs_gui.project.model.NavigationMapModel.toggleSelectCell" alt="" coords="1221,59,1760,88"/><area shape="rect" id="node9" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1MapGridCellModel.html#af220101c9f96fcf694506fee4c43ff97" title="src.main.java.com.github.hsmrs_gui.project.model.MapGridCellModel.toggleSelected" alt="" coords="1828,32,2343,61"/><area shape="rect" id="node11" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1NavigationMapModel.html#adf28cb8c93903bea0ac67f2c8bf5e363" title="src.main.java.com.github.hsmrs_gui.project.model.NavigationMapModel.refreshSelectedVar" alt="" coords="1808,85,2363,115"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a5038a1ac45c408225c6418d2c50c9b04"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::mouseDragged" ref="a5038a1ac45c408225c6418d2c50c9b04" args="(MouseEvent e)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a5038a1ac45c408225c6418d2c50c9b04">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.mouseDragged</a> </td>
+          <td>(</td>
+          <td class="paramtype">MouseEvent&#160;</td>
+          <td class="paramname"><em>e</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>This method is called whenever the mouse is dragged. It highlights any cell the mouse is dragged over. </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_a5038a1ac45c408225c6418d2c50c9b04_cgraph.png" border="0" usemap="#classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_a5038a1ac45c408225c6418d2c50c9b04_cgraph" alt=""/></div>
+<map name="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_a5038a1ac45c408225c6418d2c50c9b04_cgraph" id="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_a5038a1ac45c408225c6418d2c50c9b04_cgraph">
+<area shape="rect" id="node3" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a81f7d90cc0d2f08aed011dcb80be6169" title="src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.clearCells" alt="" coords="632,5,1171,35"/><area shape="rect" id="node7" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#ace76e9cd61cbf21e66ffee5355129f00" title="src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.highlightCell" alt="" coords="625,59,1177,88"/><area shape="rect" id="node5" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1NavigationMapModel.html#abb67b16606e4e0e83d7addf27fb0490f" title="src.main.java.com.github.hsmrs_gui.project.model.NavigationMapModel.clearAllCells" alt="" coords="1237,5,1755,35"/><area shape="rect" id="node10" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1NavigationMapModel.html#ae386455fd9eff47eb7406cefcb0d03f1" title="src.main.java.com.github.hsmrs_gui.project.model.NavigationMapModel.toggleSelectCell" alt="" coords="1227,59,1765,88"/><area shape="rect" id="node12" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1MapGridCellModel.html#af220101c9f96fcf694506fee4c43ff97" title="src.main.java.com.github.hsmrs_gui.project.model.MapGridCellModel.toggleSelected" alt="" coords="1833,32,2348,61"/><area shape="rect" id="node14" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1NavigationMapModel.html#adf28cb8c93903bea0ac67f2c8bf5e363" title="src.main.java.com.github.hsmrs_gui.project.model.NavigationMapModel.refreshSelectedVar" alt="" coords="1813,85,2368,115"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a7e31f4ad20aaa7ac45470a11331ed020"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::mouseEntered" ref="a7e31f4ad20aaa7ac45470a11331ed020" args="(MouseEvent arg0)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a7e31f4ad20aaa7ac45470a11331ed020">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.mouseEntered</a> </td>
+          <td>(</td>
+          <td class="paramtype">MouseEvent&#160;</td>
+          <td class="paramname"><em>arg0</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a1d7b4fd43d7129da2dbc5635553ae64a"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::mouseExited" ref="a1d7b4fd43d7129da2dbc5635553ae64a" args="(MouseEvent arg0)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a1d7b4fd43d7129da2dbc5635553ae64a">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.mouseExited</a> </td>
+          <td>(</td>
+          <td class="paramtype">MouseEvent&#160;</td>
+          <td class="paramname"><em>arg0</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a6aa66a487655d34a86a879a513f49d77"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::mouseMoved" ref="a6aa66a487655d34a86a879a513f49d77" args="(MouseEvent e)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a6aa66a487655d34a86a879a513f49d77">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.mouseMoved</a> </td>
+          <td>(</td>
+          <td class="paramtype">MouseEvent&#160;</td>
+          <td class="paramname"><em>e</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a961249ae54756cf9f65f0d70057cc316"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::mousePressed" ref="a961249ae54756cf9f65f0d70057cc316" args="(MouseEvent arg0)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a961249ae54756cf9f65f0d70057cc316">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.mousePressed</a> </td>
+          <td>(</td>
+          <td class="paramtype">MouseEvent&#160;</td>
+          <td class="paramname"><em>arg0</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a9a18cd7819cdd94cd299c947f6698588"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::mouseReleased" ref="a9a18cd7819cdd94cd299c947f6698588" args="(MouseEvent arg0)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a9a18cd7819cdd94cd299c947f6698588">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.mouseReleased</a> </td>
+          <td>(</td>
+          <td class="paramtype">MouseEvent&#160;</td>
+          <td class="paramname"><em>arg0</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a57ac368a52c0c7b2d7881181809d13ba"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::setNavMapView" ref="a57ac368a52c0c7b2d7881181809d13ba" args="(InteractiveMapViewLayered navMapView)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a57ac368a52c0c7b2d7881181809d13ba">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.setNavMapView</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1situational__aware3d82c275c5aebf0ac4319bd1fe245ebf.html">InteractiveMapViewLayered</a>&#160;</td>
+          <td class="paramname"><em>navMapView</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Accepts a map view to be utilized by this controller. All actions made by this controller will use this map view. </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">navMapView</td><td>The map view to be used by this controller. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_a57ac368a52c0c7b2d7881181809d13ba_cgraph.png" border="0" usemap="#classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_a57ac368a52c0c7b2d7881181809d13ba_cgraph" alt=""/></div>
+<map name="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_a57ac368a52c0c7b2d7881181809d13ba_cgraph" id="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_a57ac368a52c0c7b2d7881181809d13ba_cgraph">
+<area shape="rect" id="node3" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1situational__aware3d82c275c5aebf0ac4319bd1fe245ebf.html#af24214cfb3f9aeed21f0b26f273b93db" title="src.main.java.com.github.hsmrs_gui.project.view.situational_awareness.InteractiveMapViewLayered.createGrid" alt="" coords="664,112,1331,141"/><area shape="rect" id="node24" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1NavigationMapModel.html#a182129ed490eeeec431fd9972e8f5d90" title="src.main.java.com.github.hsmrs_gui.project.model.NavigationMapModel.getHeight" alt="" coords="748,165,1247,195"/><area shape="rect" id="node26" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1NavigationMapModel.html#a5e9a32af824ceafbadb3b2249af2b28e" title="src.main.java.com.github.hsmrs_gui.project.model.NavigationMapModel.getWidth" alt="" coords="749,219,1245,248"/><area shape="rect" id="node28" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1NavigationMapModel.html#a3186201c2ccf4b5ef4569800a1776038" title="src.main.java.com.github.hsmrs_gui.project.model.NavigationMapModel.getCellSize" alt="" coords="743,272,1252,301"/><area shape="rect" id="node30" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1situational__aware3d82c275c5aebf0ac4319bd1fe245ebf.html#a01186c52b8397d143f5af4334824d716" title="src.main.java.com.github.hsmrs_gui.project.view.situational_awareness.InteractiveMapViewLayered.setBackgroundImage" alt="" coords="632,325,1363,355"/><area shape="rect" id="node5" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotListModel.html#ae15051ca765a4ddb1a433f2b642e0b8f" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RobotListModel.getInstance" alt="" coords="2225,5,2740,35"/><area shape="rect" id="node9" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotListModel.html#ab3709deba5535ce7a49c7ad00c5798f8" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RobotListModel.getRobotNames" alt="" coords="1505,216,2047,245"/><area shape="rect" id="node11" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotListModel.html#adeea2f4e04ed04e8cf6fe232c9305bc5" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RobotListModel.getRobotModelByName" alt="" coords="2191,59,2775,88"/><area shape="rect" id="node13" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1situational__aware3d82c275c5aebf0ac4319bd1fe245ebf.html#a4cac41be465d4095f71e474c12626c04" title="src.main.java.com.github.hsmrs_gui.project.view.situational_awareness.InteractiveMapViewLayered.updateRobotLocation" alt="" coords="1411,112,2141,141"/><area shape="rect" id="node19" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html#acd46c96f0e7a5b2b74305b7c90104840" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel.getLocation" alt="" coords="2237,219,2728,248"/><area shape="rect" id="node7" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotListModel.html#ae64e386343be88f0f5a81d53b4d1ff2f" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RobotListModel.RobotListModel" alt="" coords="2825,5,3361,35"/><area shape="rect" id="node17" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html#a54ad9fce703080fafbee421025bf0cf3" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel.getColor" alt="" coords="2245,165,2720,195"/><area shape="rect" id="node21" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html#a0903d1bec080b217e7db241ad84cfe16" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel.setLocation" alt="" coords="2237,112,2728,141"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a61b2cfc42fab423f351487af69ffcf0a"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::updateRobotLocation" ref="a61b2cfc42fab423f351487af69ffcf0a" args="(String robotName, Pair&lt; Integer, Integer &gt; location)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a61b2cfc42fab423f351487af69ffcf0a">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.updateRobotLocation</a> </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>robotName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Pair&lt; Integer, Integer &gt;&#160;</td>
+          <td class="paramname"><em>location</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Updates the location on the map view of the named robot to the location given by the Pair parameter </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">robotName</td><td>The robot whose location needs to be updated </td></tr>
+    <tr><td class="paramname">location</td><td>The new location of the robot. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_a61b2cfc42fab423f351487af69ffcf0a_cgraph.png" border="0" usemap="#classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_a61b2cfc42fab423f351487af69ffcf0a_cgraph" alt=""/></div>
+<map name="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_a61b2cfc42fab423f351487af69ffcf0a_cgraph" id="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController_a61b2cfc42fab423f351487af69ffcf0a_cgraph">
+<area shape="rect" id="node3" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1situational__aware3d82c275c5aebf0ac4319bd1fe245ebf.html#a4cac41be465d4095f71e474c12626c04" title="src.main.java.com.github.hsmrs_gui.project.view.situational_awareness.InteractiveMapViewLayered.updateRobotLocation" alt="" coords="659,112,1389,141"/><area shape="rect" id="node5" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotListModel.html#ae15051ca765a4ddb1a433f2b642e0b8f" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RobotListModel.getInstance" alt="" coords="1473,5,1988,35"/><area shape="rect" id="node9" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotListModel.html#adeea2f4e04ed04e8cf6fe232c9305bc5" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RobotListModel.getRobotModelByName" alt="" coords="1439,59,2023,88"/><area shape="rect" id="node11" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html#a54ad9fce703080fafbee421025bf0cf3" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel.getColor" alt="" coords="1493,112,1968,141"/><area shape="rect" id="node13" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html#acd46c96f0e7a5b2b74305b7c90104840" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel.getLocation" alt="" coords="1485,165,1976,195"/><area shape="rect" id="node15" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html#a0903d1bec080b217e7db241ad84cfe16" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel.setLocation" alt="" coords="1485,219,1976,248"/><area shape="rect" id="node7" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotListModel.html#ae64e386343be88f0f5a81d53b4d1ff2f" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RobotListModel.RobotListModel" alt="" coords="2073,5,2609,35"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="a1a2686804bd69677cd9476f4f4df23fa"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::consoleController" ref="a1a2686804bd69677cd9476f4f4df23fa" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1ConsoleController.html">ConsoleController</a> <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a1a2686804bd69677cd9476f4f4df23fa">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.consoleController</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab1e606e323e205d047a152a5f175a494"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::defaultHeight" ref="ab1e606e323e205d047a152a5f175a494" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#ab1e606e323e205d047a152a5f175a494">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.defaultHeight</a> = 40<code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a372fc98de818caf27ace40d0990c78ae"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::defaultResolution" ref="a372fc98de818caf27ace40d0990c78ae" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a372fc98de818caf27ace40d0990c78ae">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.defaultResolution</a> = 1.0<code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="afc1b91996b6b536beaf8bc54663e782e"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::defaultWidth" ref="afc1b91996b6b536beaf8bc54663e782e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#afc1b91996b6b536beaf8bc54663e782e">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.defaultWidth</a> = 40<code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a5d26d74fe87855c64a128993294b9d6b"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::highlightedCells" ref="a5d26d74fe87855c64a128993294b9d6b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ArrayList&lt;JLabel&gt; <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a5d26d74fe87855c64a128993294b9d6b">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.highlightedCells</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a203548b7711b1246e5590cff8699ef05"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::instance" ref="a203548b7711b1246e5590cff8699ef05" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html">InteractiveMapController</a> <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a203548b7711b1246e5590cff8699ef05">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.instance</a><code> [static, private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a9e61aa94531854255dfde6bec9429195"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::INSTITUTE_PARK_MAP_PATH" ref="a9e61aa94531854255dfde6bec9429195" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">String <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a9e61aa94531854255dfde6bec9429195">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.INSTITUTE_PARK_MAP_PATH</a> = &quot;&quot;<code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a4d7fa72aa8376c458429bd4907bb443b"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::INSTITUTE_PARK_MAP_SCALE" ref="a4d7fa72aa8376c458429bd4907bb443b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">final double <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a4d7fa72aa8376c458429bd4907bb443b">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.INSTITUTE_PARK_MAP_SCALE</a> = 6.3876889849<code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aeb22169a83c4c91ef27e4f96fe015b36"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::isDragging" ref="aeb22169a83c4c91ef27e4f96fe015b36" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boolean <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#aeb22169a83c4c91ef27e4f96fe015b36">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.isDragging</a> = false<code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af1f56b470ed01d7e57236ecd97cc2cda"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::lastDrag" ref="af1f56b470ed01d7e57236ecd97cc2cda" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Component <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#af1f56b470ed01d7e57236ecd97cc2cda">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.lastDrag</a> = new JLabel()<code> [package]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a84b2f40c2bbeb27be59ab2f50add715e"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::mapImage" ref="a84b2f40c2bbeb27be59ab2f50add715e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BufferedImage <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a84b2f40c2bbeb27be59ab2f50add715e">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.mapImage</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a373f4063f3d29b99cd8563e384ab737f"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::mapPublisher" ref="a373f4063f3d29b99cd8563e384ab737f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1MapPublisher.html">MapPublisher</a> <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a373f4063f3d29b99cd8563e384ab737f">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.mapPublisher</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a6bfd33e3cf803e6c622ec30bec439159"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::navMapModel" ref="a6bfd33e3cf803e6c622ec30bec439159" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1NavigationMapModel.html">NavigationMapModel</a> <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a6bfd33e3cf803e6c622ec30bec439159">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.navMapModel</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a619b342d863773878cd05cc3f2dfe5a7"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::controller::InteractiveMapController::navMapView" ref="a619b342d863773878cd05cc3f2dfe5a7" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1situational__aware3d82c275c5aebf0ac4319bd1fe245ebf.html">InteractiveMapViewLayered</a> <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a619b342d863773878cd05cc3f2dfe5a7">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController.navMapView</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>project/src/main/java/com/github/hsmrs_gui/project/controller/InteractiveMapController.java</li>
+<li>project/src/main/java/com/github/hsmrs_gui/project/controller/<a class="el" href="InteractiveMapController_8java.html">InteractiveMapController.java</a></li>
 </ul>
 </div><!-- contents -->
 <!-- window showing the filter options -->
@@ -229,7 +758,7 @@ Static Public Member Functions</h2></td></tr>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -241,7 +770,7 @@ Static Public Member Functions</h2></td></tr>
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Dec 25 2014 01:42:02 for HSMRSGUI by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 23 2015 14:30:57 for HSMRSGUI by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

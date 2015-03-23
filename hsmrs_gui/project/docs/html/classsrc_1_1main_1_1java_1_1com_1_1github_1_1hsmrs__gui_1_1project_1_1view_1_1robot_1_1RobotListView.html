@@ -47,7 +47,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Packages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -79,7 +81,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -90,15 +92,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
   <div id="nav-path" class="navpath">
     <ul>
-      <li class="navelem"><b>src</b>      </li>
-      <li class="navelem"><b>main</b>      </li>
-      <li class="navelem"><b>java</b>      </li>
-      <li class="navelem"><b>com</b>      </li>
-      <li class="navelem"><b>github</b>      </li>
-      <li class="navelem"><b>hsmrs_gui</b>      </li>
-      <li class="navelem"><b>project</b>      </li>
-      <li class="navelem"><b>view</b>      </li>
-      <li class="navelem"><b>robot</b>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc.html">src</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main.html">main</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java.html">java</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com.html">com</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github.html">github</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui.html">hsmrs_gui</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project.html">project</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view.html">view</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot.html">robot</a>      </li>
       <li class="navelem"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html">RobotListView</a>      </li>
     </ul>
   </div>
@@ -106,41 +108,274 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a>  </div>
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListView Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<!-- doxytag: class="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListView" --><!-- doxytag: inherits="javax::swing::JPanel" --><div class="dynheader">
+<!-- doxytag: class="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListView" --><!-- doxytag: inherits="javax::swing::JPanel,src::main::java::com::github::hsmrs_gui::project::view::list::ListItemListener" --><div class="dynheader">
 Inheritance diagram for src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListView:</div>
 <div class="dyncontent">
 <div class="center"><img src="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView__inherit__graph.png" border="0" usemap="#src_8main_8java_8com_8github_8hsmrs__gui_8project_8view_8robot_8RobotListView_inherit__map" alt="Inheritance graph"/></div>
-<map name="src_8main_8java_8com_8github_8hsmrs__gui_8project_8view_8robot_8RobotListView_inherit__map" id="src_8main_8java_8com_8github_8hsmrs__gui_8project_8view_8robot_8RobotListView_inherit__map">
-</map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListView:</div>
 <div class="dyncontent">
 <div class="center"><img src="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView__coll__graph.png" border="0" usemap="#src_8main_8java_8com_8github_8hsmrs__gui_8project_8view_8robot_8RobotListView_coll__map" alt="Collaboration graph"/></div>
-<map name="src_8main_8java_8com_8github_8hsmrs__gui_8project_8view_8robot_8RobotListView_coll__map" id="src_8main_8java_8com_8github_8hsmrs__gui_8project_8view_8robot_8RobotListView_coll__map">
-</map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 
 <p><a href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView-members.html">List of all members.</a></p>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaa7b4eacbfcd6c9a905c128ea6fa0a47"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListView::setListModel" ref="aaa7b4eacbfcd6c9a905c128ea6fa0a47" args="(ListModel listModel)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setListModel</b> (ListModel listModel)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="addc7fb371f98c7178522c95850d62f5f"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListView::getRobotInFocus" ref="addc7fb371f98c7178522c95850d62f5f" args="()" -->
-<a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1RobotModel.html">RobotModel</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getRobotInFocus</b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html#aaa7b4eacbfcd6c9a905c128ea6fa0a47">setListModel</a> (ListModel listModel)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html">RobotModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html#addc7fb371f98c7178522c95850d62f5f">getRobotInFocus</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html#a07079c39b672be0df03f3fb7798f5a56">update</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html#a67ba344987b49f9f74a74c39291de168">itemsSelected</a> (List&lt; <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html">RobotModel</a> &gt; listObjects)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html#ac4b6442ac6e7968d2eaaac91ede9e2ae">itemDoubleClicked</a> (<a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html">RobotModel</a> listObject)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html#af0ceeeca4e656ae029537f4089aad3b5">itemRightClicked</a> (<a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html">RobotModel</a> listObject, Point p)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html#abad1be6708c3552cba7257d45621c4bc">itemFocused</a> (<a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html">RobotModel</a> listObject)</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a36331c92972043e82cd71dfcb109639e"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListView::getInstance" ref="a36331c92972043e82cd71dfcb109639e" args="()" -->
-static <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html">RobotListView</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getInstance</b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html">RobotListView</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html#a36331c92972043e82cd71dfcb109639e">getInstance</a> ()</td></tr>
+<tr><td colspan="2"><h2><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html#a50474770e80246915917e1b0a8af88fe">RobotListView</a> ()</td></tr>
+<tr><td colspan="2"><h2><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">JLabel&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html#a418d03355c62bbc720a9a56392c8b5a5">lblTitle</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">SRList&lt; <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html">RobotModel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html#a0541e35bf58a4676edc4528409371e70">robotListView</a></td></tr>
+<tr><td colspan="2"><h2><a name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html">RobotListView</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html#a38313e720fff6be7255c2d6d3004e4f3">instance</a></td></tr>
 </table>
+<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a50474770e80246915917e1b0a8af88fe"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListView::RobotListView" ref="a50474770e80246915917e1b0a8af88fe" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html#a50474770e80246915917e1b0a8af88fe">src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListView.RobotListView</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a36331c92972043e82cd71dfcb109639e"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListView::getInstance" ref="a36331c92972043e82cd71dfcb109639e" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html">RobotListView</a> <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html#a36331c92972043e82cd71dfcb109639e">src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListView.getInstance</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Returns the only existing instance of the <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html">RobotListView</a>. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The only existing instance of the <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html">RobotListView</a>. </dd></dl>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView_a36331c92972043e82cd71dfcb109639e_cgraph.png" border="0" usemap="#classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView_a36331c92972043e82cd71dfcb109639e_cgraph" alt=""/></div>
+<map name="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView_a36331c92972043e82cd71dfcb109639e_cgraph" id="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView_a36331c92972043e82cd71dfcb109639e_cgraph">
+<area shape="rect" id="node3" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html#a50474770e80246915917e1b0a8af88fe" title="src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListView.RobotListView" alt="" coords="555,5,1072,35"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="addc7fb371f98c7178522c95850d62f5f"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListView::getRobotInFocus" ref="addc7fb371f98c7178522c95850d62f5f" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html">RobotModel</a> <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html#addc7fb371f98c7178522c95850d62f5f">src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListView.getRobotInFocus</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Gets the first selected robot in the view. This is considered the robot in focus. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The robot in focus. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ac4b6442ac6e7968d2eaaac91ede9e2ae"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListView::itemDoubleClicked" ref="ac4b6442ac6e7968d2eaaac91ede9e2ae" args="(RobotModel listObject)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html#ac4b6442ac6e7968d2eaaac91ede9e2ae">src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListView.itemDoubleClicked</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html">RobotModel</a>&#160;</td>
+          <td class="paramname"><em>listObject</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="abad1be6708c3552cba7257d45621c4bc"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListView::itemFocused" ref="abad1be6708c3552cba7257d45621c4bc" args="(RobotModel listObject)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html#abad1be6708c3552cba7257d45621c4bc">src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListView.itemFocused</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html">RobotModel</a>&#160;</td>
+          <td class="paramname"><em>listObject</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af0ceeeca4e656ae029537f4089aad3b5"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListView::itemRightClicked" ref="af0ceeeca4e656ae029537f4089aad3b5" args="(RobotModel listObject, Point p)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html#af0ceeeca4e656ae029537f4089aad3b5">src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListView.itemRightClicked</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html">RobotModel</a>&#160;</td>
+          <td class="paramname"><em>listObject</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Point&#160;</td>
+          <td class="paramname"><em>p</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a67ba344987b49f9f74a74c39291de168"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListView::itemsSelected" ref="a67ba344987b49f9f74a74c39291de168" args="(List&lt; RobotModel &gt; listObjects)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html#a67ba344987b49f9f74a74c39291de168">src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListView.itemsSelected</a> </td>
+          <td>(</td>
+          <td class="paramtype">List&lt; <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html">RobotModel</a> &gt;&#160;</td>
+          <td class="paramname"><em>listObjects</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aaa7b4eacbfcd6c9a905c128ea6fa0a47"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListView::setListModel" ref="aaa7b4eacbfcd6c9a905c128ea6fa0a47" args="(ListModel listModel)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html#aaa7b4eacbfcd6c9a905c128ea6fa0a47">src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListView.setListModel</a> </td>
+          <td>(</td>
+          <td class="paramtype">ListModel&#160;</td>
+          <td class="paramname"><em>listModel</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Sets the underlying ListModel for this view. </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">listModel</td><td>The ListModel to be associated with this view. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a07079c39b672be0df03f3fb7798f5a56"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListView::update" ref="a07079c39b672be0df03f3fb7798f5a56" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html#a07079c39b672be0df03f3fb7798f5a56">src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListView.update</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Updates the component views within this list. </p>
+
+</div>
+</div>
+<hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="a38313e720fff6be7255c2d6d3004e4f3"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListView::instance" ref="a38313e720fff6be7255c2d6d3004e4f3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html">RobotListView</a> <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html#a38313e720fff6be7255c2d6d3004e4f3">src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListView.instance</a><code> [static, private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a418d03355c62bbc720a9a56392c8b5a5"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListView::lblTitle" ref="a418d03355c62bbc720a9a56392c8b5a5" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">JLabel <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html#a418d03355c62bbc720a9a56392c8b5a5">src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListView.lblTitle</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a0541e35bf58a4676edc4528409371e70"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListView::robotListView" ref="a0541e35bf58a4676edc4528409371e70" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SRList&lt;<a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html">RobotModel</a>&gt; <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListView.html#a0541e35bf58a4676edc4528409371e70">src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListView.robotListView</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>project/src/main/java/com/github/hsmrs_gui/project/view/robot/RobotListView.java</li>
+<li>project/src/main/java/com/github/hsmrs_gui/project/view/robot/<a class="el" href="RobotListView_8java.html">RobotListView.java</a></li>
 </ul>
 </div><!-- contents -->
 <!-- window showing the filter options -->
@@ -148,7 +383,7 @@ static <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__g
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -160,7 +395,7 @@ static <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__g
 
 
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Dec 25 2014 01:42:02 for HSMRSGUI by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 23 2015 14:30:58 for HSMRSGUI by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.7.6.1
 </small></address>

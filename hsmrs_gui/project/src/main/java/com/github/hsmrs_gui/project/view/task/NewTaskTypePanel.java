@@ -40,6 +40,9 @@ public class NewTaskTypePanel extends JPanel {
 	private int numSubTasks = 1;
 	private int maxTabIndex = 0;
 
+	/**
+	 * The constructor for the NewTaskTypePanel. 
+	 */
 	public NewTaskTypePanel() {
 		tabLblArrays = new ArrayList<JLabel[]>();
 		tabTxtArrays = new ArrayList<JTextField[]>();
@@ -86,6 +89,11 @@ public class NewTaskTypePanel extends JPanel {
 		this.add(btnCancel, "gapright 10, center");
 	}
 	
+	/**
+	 * Generates a JPanel with the details of a subtask.
+	 * @param index The index of the subtask within the meta task.
+	 * @return The JPanel containing the subtask form.
+	 */
 	private JPanel generateSubtaskPane(final int index){
 		JLabel lblType;
 		JScrollPane typeScrollView;
@@ -143,6 +151,11 @@ public class NewTaskTypePanel extends JPanel {
 		
 	}
 	
+	/**
+	 * Generate the parameter pane for the subtask.
+	 * @param spec The TaskSpecification for the subtask.
+	 * @return The JPanel containing the subtask parameter form.
+	 */
 	private JPanel generateParamPanel(TaskSpecification spec){
 		JPanel returnPanel = new JPanel();
 		JLabel[] paramlbls;
@@ -171,6 +184,9 @@ public class NewTaskTypePanel extends JPanel {
 		return returnPanel;
 	}
 	
+	/**
+	 * Adds a new subtask to the tab view of subtasks and generates its subtask panel.
+	 */
 	public void addNewSubtask(){
 		numSubTasks++;
 		maxTabIndex++;
@@ -182,6 +198,10 @@ public class NewTaskTypePanel extends JPanel {
 		//repaint();
 	}
 	
+	/**
+	 * Removes a subtask from the tab view of subtasks.
+	 * @param index The index of the subtask.
+	 */
 	public void removeSubtask(int index){
 		subtaskTabPane.remove(index);
 	}

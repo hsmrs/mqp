@@ -22,6 +22,11 @@ public class RobotListComponentPopup extends JPopupMenu implements ActionListene
 	private RobotModel robot;
 	private JComponent parent;
 
+	/**
+	 * The constructor for the RobotListComponentPopup class.
+	 * @param robot The robot associated with this Popup.
+	 * @param parent The Component that must be right clicked to display this Popup
+	 */
 	public RobotListComponentPopup(RobotModel robot, JComponent parent){
 		this.robot = robot;
 		this.parent = parent;
@@ -40,6 +45,9 @@ public class RobotListComponentPopup extends JPopupMenu implements ActionListene
 		//add(itemRemove);
 	}
 	
+	/**
+	 * This method is called when an option on the Popup is clicked.
+	 */
 	public void actionPerformed(ActionEvent e) {
 		JMenuItem item = (JMenuItem) e.getSource();
 

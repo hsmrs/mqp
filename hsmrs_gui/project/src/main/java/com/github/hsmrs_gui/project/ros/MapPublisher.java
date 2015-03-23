@@ -18,6 +18,10 @@ public class MapPublisher {
 	private Publisher<nav_msgs.OccupancyGrid> publisher;
 	private static MapPublisher instance;
 	
+	/**
+	 * The constructor for the MapPublisher class.
+	 * @param topicName The topic to publish OccupancyGrid messages to.
+	 */
 	public MapPublisher(String topicName){
 		connectedNode = GuiNode.getConnectedNode();
 		
@@ -27,10 +31,20 @@ public class MapPublisher {
 		instance = this;
 	}
 	
+	/**
+	 * Gets the instance of the MapPublisher.
+	 * @return The instance of the MapPublisher.
+	 */
 	public static MapPublisher getInstance(){
 		return instance;
 	}
 	
+	/**
+	 * Publishes an empty OccupancyGrid ROS message with the given specifications.
+	 * @param height The height of the OccupancyGrid.
+	 * @param width The width of the OccupancyGrid.
+	 * @param resolution The resolution of the OccupancyGrid.
+	 */
 	public void publishMap(int height, int width, float resolution){
 		nav_msgs.OccupancyGrid map = publisher.newMessage();
 		map.getInfo().setHeight(height);

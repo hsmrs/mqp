@@ -27,6 +27,10 @@ public class Colors {
 	public static final Color lblObstacle = new Color(0, 0, 0);
 	public static final Color bannerColor = Color.decode("0XC0BCB6");
 	
+	/**
+	 * Returns a color which has not already been chosen.
+	 * @return
+	 */
 	public static Color chooseRobotColor(){
 		Color returnColor = lblRobotPoseColors[lblRobotPoseColorIndex];
 		lblRobotPoseColorIndex++;

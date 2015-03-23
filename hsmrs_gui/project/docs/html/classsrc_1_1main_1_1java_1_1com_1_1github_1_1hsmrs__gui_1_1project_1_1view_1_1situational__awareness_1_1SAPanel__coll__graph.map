@@ -1,2 +1,5 @@
 <map id="G" name="G">
+<area shape="rect" id="node4" href="$classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1situational__aware3d82c275c5aebf0ac4319bd1fe245ebf.html" title="src.main.java.com.github.hsmrs_gui.project.view.situational_awareness.InteractiveMapViewLayered" alt="" coords="231,107,833,136"/>
+<area shape="rect" id="node11" href="$classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1situational__awareness_1_1ImageView.html" title="src.main.java.com.github.hsmrs_gui.project.view.situational_awareness.ImageView" alt="" coords="279,188,785,217"/>
+<area shape="rect" id="node16" href="$classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1situational__awareness_1_1MuxPanel.html" title="src.main.java.com.github.hsmrs_gui.project.view.situational_awareness.MuxPanel" alt="" coords="281,28,783,57"/>
 </map>

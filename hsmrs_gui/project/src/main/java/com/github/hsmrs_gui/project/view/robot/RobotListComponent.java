@@ -27,6 +27,10 @@ public class RobotListComponent extends RenderableComponent<RobotModel> {
 	public RobotListComponent() {
 	}
 
+	/**
+	 * This method creates a JComponent from a given ListItem.
+	 * @param The ListItem to turn into a JComponent.
+	 */
 	@Override
 	public JComponent create(ListItem<RobotModel> listItem) {
 		robot = listItem.getListObject();
@@ -74,6 +78,10 @@ public class RobotListComponent extends RenderableComponent<RobotModel> {
 		return panel;
 	}
 
+	/**
+	 * Recreates the JComponent from a given listItem.
+	 * @param The ListItem to create a JComponent from.
+	 */
 	@Override
 	public void update(ListItem<RobotModel> listItem) {
 		panel.setBackground(listItem.isSelected() ? Colors.selectionColor

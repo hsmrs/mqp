@@ -20,6 +20,9 @@ public class ImageView extends JPanel{
 	private BufferedImage currentImg;
 	private JLabel lblImage;
 	
+	/**
+	 * The constructor for the ImageView class.
+	 */
 	public ImageView() {
 		String path = String.format("%s/project/%s", System.getProperty("user.dir"), this.getClass().getPackage().getName().replace(".", "/"));
 	    path += "/images/wall_e.jpg";
@@ -43,12 +46,19 @@ public class ImageView extends JPanel{
 	    currentImg = img;
 	}
 	
+	/**
+	 * Sets the image to be displayed by this panel.
+	 * @param newImg The image to be displayed.
+	 */
 	public void setImage(BufferedImage newImg){
 		currentImg = newImg;
 		lblImage.setIcon(new ImageIcon(newImg));
 		repaint();
 	}
 	
+	/**
+	 * Paints the image to the component with a relative scale.
+	 */
 	@Override
 	protected void paintComponent(Graphics g) {
         super.paintComponent(g);

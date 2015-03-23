@@ -19,8 +19,15 @@ public class TaskController implements ActionListener{
 	
 	private static TaskController instance;
 	
+	/**
+	 * The constructor for the TaskController class.
+	 */
 	private TaskController(){}
 	
+	/**
+	 * Returns the instance of the only existing TaskController.
+	 * @return The instance of the only existing TaskController.
+	 */
 	public static TaskController getInstance(){
 		if (instance == null){
 			instance = new TaskController();
@@ -29,6 +36,11 @@ public class TaskController implements ActionListener{
 		return instance;
 	}
 	
+	/**
+	 * Adds the named owner to the given task and updates the task view.
+	 * @param task The task to be given a new owner.
+	 * @param ownerName The name of the robot which now owns the task.
+	 */
 	public void addOwnerToTask(TaskModel task, String ownerName){
 		RobotModel robot = RobotListModel.getInstance().getRobotModelByName(ownerName);
 		task.addOwner(robot);
@@ -36,6 +48,11 @@ public class TaskController implements ActionListener{
 		UpdatedTaskPublisher.getInstance().publishUpdatedTask(task);
 	}
 	
+	/**
+	 * Removes the named owner from the given task and updates the view.
+	 * @param task The task which will have an owner removed.
+	 * @param ownerName The name of the robot who no longer owns the task.
+	 */
 	public void removeOwnerFromTask(TaskModel task, String ownerName){
 		RobotModel robot = RobotListModel.getInstance().getRobotModelByName(ownerName);
 		task.removeOwner(robot);
@@ -43,6 +60,10 @@ public class TaskController implements ActionListener{
 		UpdatedTaskPublisher.getInstance().publishUpdatedTask(task);
 	}
 
+	/**
+	 * This method is called whenever an action which has been linked to this controller is
+	 * executed. This method determines what type of action has occurred and responds appropriately.
+	 */
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
 		TaskPanel tp = TaskPanel.getInstance();
@@ -64,7 +85,7 @@ public class TaskController implements ActionListener{
 		}
 		else if (cmd.equals("Create task")){
 			TaskSpecification spec = tp.getNewTaskSpec();
-			String taskType = spec.getType();
+			String taskType = spec.getName();
 			ArrayList<TaskParam<?>> taskParams = new ArrayList<TaskParam<?>>();
 			List<String> paramValues = tp.getNewTaskParamValues();
 			double priority = tp.getNewTaskPriority();

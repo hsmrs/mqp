@@ -24,6 +24,12 @@ public class NavigationMapModel {
 		this(1, 1, 1);
 	}
 	
+	/**
+	 * The constructor for the NavigationMapModel.
+	 * @param height The number of cells vertically in the map.
+	 * @param width The number of cells horizontally in the map. 
+	 * @param resolution The number of meters represented by a grid cell [meter/cell].
+	 */
 	public NavigationMapModel(int height, int width, double resolution){
 		this.height = height;
 		this.width = width;
@@ -40,6 +46,11 @@ public class NavigationMapModel {
 		objectLocations = new HashMap<String, MapGridCellModel>();
 	}
 	
+	/**
+	 * The constructor for the NavigationMapModel by background image and pixel to meter resolution.
+	 * @param mapImage The image to be shown as the background of the map.
+	 * @param pixelMeterResolution The number of pixels which represent a meter [pix/meter].
+	 */
 	public NavigationMapModel(BufferedImage mapImage, double pixelMeterResolution){
 		height = ((int)(((double)mapImage.getHeight()) / pixelMeterResolution));
 		width = ((int)(((double)mapImage.getWidth()) / pixelMeterResolution));
@@ -56,18 +67,36 @@ public class NavigationMapModel {
 		this.pixelMeterResolution = pixelMeterResolution;
 	}
 	
+	/**
+	 * Gets the height of the map.
+	 * @return The height of the map.
+	 */
 	public int getHeight(){
 		return height;
 	}
 	
+	/**
+	 * Gets the width of the map.
+	 * @return The width of the map.
+	 */
 	public int getWidth(){
 		return width;
 	}
 	
+	/**
+	 * Gets the size of a grid cell in pixels.
+	 * @return The size of a grid cell in pixels.
+	 */
 	public double getCellSize(){
 		return pixelMeterResolution / resolution;
 	}
 	
+	/**
+	 * Sets the image to be used as the background for the map.
+	 * @param newMapImage The new image to be used as the map background.
+	 * @param pixelMeterResolution The number of pixels which represent a meter.
+	 * @param redrawGrid True if the grid should be redrawn.
+	 */
 	public void setMapImage(BufferedImage newMapImage, double pixelMeterResolution, boolean redrawGrid){
 		this.mapImage = newMapImage;
 		this.pixelMeterResolution = pixelMeterResolution;
@@ -84,6 +113,11 @@ public class NavigationMapModel {
 		}
 	}
 	
+	/**
+	 * Toggle the selected status of the grid cell identified by the parameters.
+	 * @param row The row of the cell to be toggled.
+	 * @param column The column of the cell to be toggled.
+	 */
 	public void toggleSelectCell(int row, int column){
 		cells[row][column].toggleSelected();
 		System.out.println("Toggle select cell at: (" + column + ", " + row + ")");
@@ -112,10 +146,17 @@ public class NavigationMapModel {
 		refreshSelectedVar();
 	}
 	
+	/**
+	 * Gets a list of cells which are selected.
+	 * @return A list of selected cells.
+	 */
 	public List<MapGridCellModel> getSelectedCells(){
 		return selectedCells;
 	}
 	
+	/**
+	 * Clears all selected cells.
+	 */
 	public void clearAllCells(){
 		for (MapGridCellModel cell : selectedCells){
 			cell.toggleSelected();
@@ -123,6 +164,10 @@ public class NavigationMapModel {
 		selectedCells.clear();
 	}
 	
+	/**
+	 * Applies the given array of values to the cells of this map.
+	 * @param values The new values to be applied to the map.
+	 */
 	public void getNewMapData(int[] values){
 		if (values.length != height * width){
 			System.out.println("Bad map data, length does not match");
@@ -138,6 +183,11 @@ public class NavigationMapModel {
 		}
 	}
 	
+	/**
+	 * Returns the location of an object named in the parameter.
+	 * @param targetObject The name of the object whose location is being queried.
+	 * @return The location of the named object as a Pair object.
+	 */
 	public Pair<Integer, Integer> getLocation(String targetObject){
 		MapGridCellModel location = objectLocations.get(targetObject);
 		int x = location.getColumn();
@@ -145,11 +195,20 @@ public class NavigationMapModel {
 		return new Pair<Integer, Integer>(x, y);
 	}
 	
+	/**
+	 * Sets the location of the named object to the given location.
+	 * @param targetObject The name of the object whose location is to be set.
+	 * @param x The x location of the named object.
+	 * @param y The y location of the named object.
+	 */
 	public void setLocation(String targetObject, int x, int y){
 		MapGridCellModel gridCell = cells[y][x];
 		objectLocations.put(targetObject, gridCell);		
 	}
 	
+	/**
+	 * Refresh the global variable which saves the list of selected cells.
+	 */
 	public void refreshSelectedVar(){
 		StringBuilder strBld = new StringBuilder();
 		

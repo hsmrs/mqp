@@ -18,6 +18,9 @@ public class FeedbackPane extends JPanel{
 
 	private ConsoleView consoleView;
 	
+	/**
+	 * The constructor for the FeedbackPane class.
+	 */
 	public FeedbackPane(){
 		consoleView = new ConsoleView();
 		
