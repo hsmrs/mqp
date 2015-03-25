@@ -7,9 +7,14 @@
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-
-<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
   $(document).ready(function() { searchBox.OnSelectItem(0); });
@@ -69,6 +74,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     </ul>
   </div>
 </div>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+  initNavTree('index.html','');
+</script>
+<div id="doc-content">
 <div class="header">
   <div class="headertitle">
 <div class="title">Welcome to the Human Supervision of Multi-Robot Systems Graphical User Interface! (HSMRS GUI) </div>  </div>
@@ -98,14 +116,17 @@ Feedback View</h2>
 <h2><a class="anchor" id="robot_registration"></a>
 Registering Robots</h2>
 <p>Robots are added to the system through a process called registration. The GUI listens to the hsmrs/robot_registration topic for std_msgs/String messages. The messages are colon delimited and are formatted as the following: <b> name;requestTopic;logTopic;imageTopic;poseTopic;statusTopic;helpTopic;teleOpTopic </b> where: <br/>
- <b>name</b> is the name of the robot, <br/>
- <b>requestTopic</b> is the ROS topic through which requests should be sent to the robot, <br/>
- <b>logTopic</b> is the topic through which the robot will send log messages to the GUI, <br/>
- <b>imageTopic</b> is the topic through which camera images will be sent to the GUI, <br/>
- <b>poseTopic</b> is the topic through which the robot's pose will be sent to the GUI, <br/>
- <b>statusTopic</b> is the topic through which status messages will be sent to the GUI, <br/>
- <b>helpTopic</b> is the topic through which requests for help will be sent to the GUI, <br/>
- and <b>teleopTopic</b> is the topic through which tele-op commands will be sent to the robot. </p>
+</p>
+<ul>
+<li><b>name</b> is the name of the robot</li>
+<li><b>requestTopic</b> is the ROS topic through which requests should be sent to the robot</li>
+<li><b>logTopic</b> is the topic through which the robot will send log messages to the GUI</li>
+<li><b>imageTopic</b> is the topic through which camera images will be sent to the GUI</li>
+<li><b>poseTopic</b> is the topic through which the robot's pose will be sent to the GUI</li>
+<li><b>statusTopic</b> is the topic through which status messages will be sent to the GUI</li>
+<li><b>helpTopic</b> is the topic through which requests for help will be sent to the GUI</li>
+<li><b>teleopTopic</b> is the topic through which tele-op commands will be sent to the robot </li>
+</ul>
 </div></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -121,13 +142,16 @@ Registering Robots</h2>
 </iframe>
 </div>
 
+</div>
+  <div id="nav-path" class="navpath">
+    <ul>
 
+    <li class="footer">Generated on Mon Mar 23 2015 22:29:02 for HSMRSGUI by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
+   </ul>
+ </div>
 
-<hr class="footer"/><address class="footer"><small>
-Generated on Mon Mar 23 2015 14:30:58 for HSMRSGUI by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.7.6.1
-</small></address>
 
 </body>
 </html>

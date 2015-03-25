@@ -7,9 +7,14 @@
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-
-<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
   $(document).ready(function() { searchBox.OnSelectItem(0); });
@@ -76,16 +81,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
-  <div id="nav-path" class="navpath">
-    <ul>
-      <li class="navelem"><a class="el" href="namespacecom.html">com</a>      </li>
-      <li class="navelem"><a class="el" href="namespacecom_1_1github.html">github</a>      </li>
-      <li class="navelem"><a class="el" href="namespacecom_1_1github_1_1hsmrs__gui.html">hsmrs_gui</a>      </li>
-      <li class="navelem"><a class="el" href="namespacecom_1_1github_1_1hsmrs__gui_1_1project.html">project</a>      </li>
-      <li class="navelem"><a class="el" href="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode.html">GuiNode</a>      </li>
-    </ul>
+</div>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
   </div>
 </div>
+<script type="text/javascript">
+  initNavTree('classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode.html','');
+</script>
+<div id="doc-content">
 <div class="header">
   <div class="headertitle">
 <div class="title">com.github.hsmrs_gui.project.GuiNode Member List</div>  </div>
@@ -118,13 +127,16 @@ This is the complete list of members for <a class="el" href="classcom_1_1github_
 </iframe>
 </div>
 
+</div>
+  <div id="nav-path" class="navpath">
+    <ul>
 
+    <li class="footer">Generated on Mon Mar 23 2015 22:29:02 for HSMRSGUI by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
+   </ul>
+ </div>
 
-<hr class="footer"/><address class="footer"><small>
-Generated on Mon Mar 23 2015 14:30:57 for HSMRSGUI by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.7.6.1
-</small></address>
 
 </body>
 </html>

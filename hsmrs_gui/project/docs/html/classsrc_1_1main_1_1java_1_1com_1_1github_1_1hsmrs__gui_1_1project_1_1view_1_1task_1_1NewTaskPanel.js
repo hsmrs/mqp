@@ -1,0 +1,26 @@
+var classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1task_1_1NewTaskPanel =
+[
+    [ "NewTaskPanel", "classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1task_1_1NewTaskPanel.html#ab01c82c1e42e8fbc37e321265afd70f3", null ],
+    [ "generateParamPanel", "classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1task_1_1NewTaskPanel.html#ae1ff05d05fdbe68a7ab65ffeef4efd8b", null ],
+    [ "getNewTaskOwner", "classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1task_1_1NewTaskPanel.html#aa9d2c778c27354d4ec4f0ee582e201b0", null ],
+    [ "getNewTaskParamValues", "classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1task_1_1NewTaskPanel.html#a84531d84ad8bfb706228faf73d8d81d8", null ],
+    [ "getNewTaskPrioirty", "classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1task_1_1NewTaskPanel.html#a7219d359c26d4b759ab39bdfbcbb9f2c", null ],
+    [ "getNewTaskSpec", "classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1task_1_1NewTaskPanel.html#a906be51e6e0be63c33ae61e5e11859da", null ],
+    [ "valueChanged", "classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1task_1_1NewTaskPanel.html#a962f4fe27f68edf96798344ae77733d0", null ],
+    [ "btnCancel", "classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1task_1_1NewTaskPanel.html#a023779274819bbb500aa9960f8834524", null ],
+    [ "btnCreate", "classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1task_1_1NewTaskPanel.html#a96c4d55862e13a2cbe301bc051f72336", null ],
+    [ "btnNewType", "classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1task_1_1NewTaskPanel.html#a0df047553603b005d85ea7c070b4efb6", null ],
+    [ "lblOwner", "classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1task_1_1NewTaskPanel.html#ad3c360ecd1075418dd62adbc1aea105b", null ],
+    [ "lblParam", "classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1task_1_1NewTaskPanel.html#aadf24e4159da67a2004a26a9b2d45ea1", null ],
+    [ "lblPriority", "classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1task_1_1NewTaskPanel.html#a41043100dd3f4d4dade31cc149f50f4e", null ],
+    [ "lblTitle", "classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1task_1_1NewTaskPanel.html#a70e67357f5317a7d0191afa5696335c2", null ],
+    [ "lblType", "classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1task_1_1NewTaskPanel.html#ae8ece9302cc459322c14024d0ac70ce7", null ],
+    [ "ownerSelBox", "classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1task_1_1NewTaskPanel.html#a0180d357a191ad39ee904994d09af88c", null ],
+    [ "paramlbls", "classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1task_1_1NewTaskPanel.html#aa8a9169f4d8725eeaf2cef98b3398408", null ],
+    [ "paramPane", "classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1task_1_1NewTaskPanel.html#a9b9e6b1d721ccdbe81aa911359ebf925", null ],
+    [ "paramScrollView", "classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1task_1_1NewTaskPanel.html#a47b3cec4707a9dd92caacc6482be097a", null ],
+    [ "paramtxts", "classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1task_1_1NewTaskPanel.html#ab74bd41de1293b7458c818e0564a2e2b", null ],
+    [ "txtPriority", "classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1task_1_1NewTaskPanel.html#a38e80d1600af3248a6a4baa3a6447fd2", null ],
+    [ "typeListView", "classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1task_1_1NewTaskPanel.html#a7d7526daf8050b23880c4b2678d04b0e", null ],
+    [ "typeScrollView", "classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1task_1_1NewTaskPanel.html#aedd2d2e0c7bf1e1a9bd0f69c9a2e30d8", null ]
+];

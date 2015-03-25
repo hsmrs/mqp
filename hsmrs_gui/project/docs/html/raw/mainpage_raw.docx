@@ -29,12 +29,12 @@ Choosing Assign Role opens the Role List View. This view allows the user to choo
 *
 *\section robot_registration Registering Robots
 *Robots are added to the system through a process called registration. The GUI listens to the hsmrs/robot_registration topic for std_msgs/String messages. The messages are colon delimited and are formatted as the following: <b> name;requestTopic;logTopic;imageTopic;poseTopic;statusTopic;helpTopic;teleOpTopic </b> where: \n
-*\b name is the name of the robot, \n
-*\b requestTopic is the ROS topic through which requests should be sent to the robot, \n
-*\b logTopic is the topic through which the robot will send log messages to the GUI, \n
-*\b imageTopic is the topic through which camera images will be sent to the GUI, \n
-*\b poseTopic is the topic through which the robot's pose will be sent to the GUI, \n
-*\b statusTopic is the topic through which status messages will be sent to the GUI, \n
-*\b helpTopic is the topic through which requests for help will be sent to the GUI, \n
-*and \b teleopTopic is the topic through which tele-op commands will be sent to the robot.
+* - \b name is the name of the robot
+* - \b requestTopic is the ROS topic through which requests should be sent to the robot 
+* - \b logTopic is the topic through which the robot will send log messages to the GUI 
+* - \b imageTopic is the topic through which camera images will be sent to the GUI 
+* - \b poseTopic is the topic through which the robot's pose will be sent to the GUI 
+* - \b statusTopic is the topic through which status messages will be sent to the GUI 
+* - \b helpTopic is the topic through which requests for help will be sent to the GUI 
+* - \b teleopTopic is the topic through which tele-op commands will be sent to the robot
 */

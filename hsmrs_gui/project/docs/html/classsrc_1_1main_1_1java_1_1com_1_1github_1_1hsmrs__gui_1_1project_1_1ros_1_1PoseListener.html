@@ -7,9 +7,14 @@
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-
-<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
   $(document).ready(function() { searchBox.OnSelectItem(0); });
@@ -76,34 +81,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
-<!-- window showing the filter options -->
-<div id="MSearchSelectWindow"
-     onmouseover="return searchBox.OnSearchSelectShow()"
-     onmouseout="return searchBox.OnSearchSelectHide()"
-     onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
-
-<!-- iframe showing the search results (closed by default) -->
-<div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
 </div>
-
-  <div id="nav-path" class="navpath">
-    <ul>
-      <li class="navelem"><a class="el" href="namespacesrc.html">src</a>      </li>
-      <li class="navelem"><a class="el" href="namespacesrc_1_1main.html">main</a>      </li>
-      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java.html">java</a>      </li>
-      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com.html">com</a>      </li>
-      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github.html">github</a>      </li>
-      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui.html">hsmrs_gui</a>      </li>
-      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project.html">project</a>      </li>
-      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros.html">ros</a>      </li>
-      <li class="navelem"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1PoseListener.html">PoseListener</a>      </li>
-    </ul>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
   </div>
 </div>
+<script type="text/javascript">
+  initNavTree('classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1PoseListener.html','');
+</script>
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -116,14 +107,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Inheritance diagram for src.main.java.com.github.hsmrs_gui.project.ros.PoseListener:</div>
 <div class="dyncontent">
 <div class="center"><img src="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1PoseListener__inherit__graph.png" border="0" usemap="#src_8main_8java_8com_8github_8hsmrs__gui_8project_8ros_8PoseListener_inherit__map" alt="Inheritance graph"/></div>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for src.main.java.com.github.hsmrs_gui.project.ros.PoseListener:</div>
 <div class="dyncontent">
 <div class="center"><img src="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1PoseListener__coll__graph.png" border="0" usemap="#src_8main_8java_8com_8github_8hsmrs__gui_8project_8ros_8PoseListener_coll__map" alt="Collaboration graph"/></div>
 <map name="src_8main_8java_8com_8github_8hsmrs__gui_8project_8ros_8PoseListener_coll__map" id="src_8main_8java_8com_8github_8hsmrs__gui_8project_8ros_8PoseListener_coll__map">
 <area shape="rect" id="node4" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel" alt="" coords="1212,473,1633,503"/><area shape="rect" id="node12" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1HelpListener.html" title="src.main.java.com.github.hsmrs_gui.project.ros.HelpListener" alt="" coords="1804,159,2177,188"/><area shape="rect" id="node32" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1StatusListener.html" title="src.main.java.com.github.hsmrs_gui.project.ros.StatusListener" alt="" coords="1799,355,2183,384"/><area shape="rect" id="node52" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1LogListener.html" title="src.main.java.com.github.hsmrs_gui.project.ros.LogListener" alt="" coords="1807,521,2175,551"/><area shape="rect" id="node6" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1TeleOpPublisher.html" title="src.main.java.com.github.hsmrs_gui.project.ros.TeleOpPublisher" alt="" coords="632,463,1029,492"/><area shape="rect" id="node46" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1RequestPublisher.html" title="src.main.java.com.github.hsmrs_gui.project.ros.RequestPublisher" alt="" coords="629,676,1032,705"/><area shape="rect" id="node22" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1ImageListener.html" title="src.main.java.com.github.hsmrs_gui.project.ros.ImageListener" alt="" coords="640,516,1021,545"/><area shape="rect" id="node26" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RoleModel.html" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RoleModel" alt="" coords="624,623,1037,652"/><area shape="rect" id="node38" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1task_1_1TaskModel.html" title="src.main.java.com.github.hsmrs_gui.project.model.task.TaskModel" alt="" coords="625,756,1036,785"/><area shape="rect" id="node56" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1ConsoleController.html" title="src.main.java.com.github.hsmrs_gui.project.controller.ConsoleController" alt="" coords="1203,889,1643,919"/><area shape="rect" id="node58" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html" title="src.main.java.com.github.hsmrs_gui.project.view.feedback.ConsoleView" alt="" coords="609,1023,1052,1052"/><area shape="rect" id="node71" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1ConsoleModel.html" title="src.main.java.com.github.hsmrs_gui.project.model.ConsoleModel" alt="" coords="631,889,1031,919"/></map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 
 <p><a href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1PoseListener-members.html">List of all members.</a></p>
 <table class="memberdecls">
@@ -259,6 +250,7 @@ Here is the call graph for this function:</div>
 <li>project/src/main/java/com/github/hsmrs_gui/project/ros/<a class="el" href="PoseListener_8java.html">PoseListener.java</a></li>
 </ul>
 </div><!-- contents -->
+</div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -273,13 +265,24 @@ Here is the call graph for this function:</div>
 </iframe>
 </div>
 
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><a class="el" href="namespacesrc.html">src</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main.html">main</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java.html">java</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com.html">com</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github.html">github</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui.html">hsmrs_gui</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project.html">project</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros.html">ros</a>      </li>
+      <li class="navelem"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1PoseListener.html">PoseListener</a>      </li>
 
+    <li class="footer">Generated on Mon Mar 23 2015 22:29:02 for HSMRSGUI by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
+   </ul>
+ </div>
 
-<hr class="footer"/><address class="footer"><small>
-Generated on Mon Mar 23 2015 14:30:57 for HSMRSGUI by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.7.6.1
-</small></address>
 
 </body>
 </html>
