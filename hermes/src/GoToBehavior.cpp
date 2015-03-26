@@ -1,52 +1,100 @@
 #include "hermes/GoToBehavior.h"
 
-GoToBehavior::GoToBehavior(Robot* parent, geometry_msgs::Pose goal, ros::NodeHandle n){
+int instance;
+bool global_isExecuting;
+std::string global_progress;
+
+GoToBehavior::GoToBehavior(Robot* parent, geometry_msgs::Point goal, ros::NodeHandle n){
+	ROS_INFO("Creating GoTo behavior");
 	this->parent = parent;
-	ac = new MoveBaseClient("move_base", true);
-
-	//wait for the action server to come up
-	while(!ac->waitForServer(ros::Duration(5.0))){
-		ROS_INFO("Waiting for the move_base action server to come up");
-	}
-
-  	goalMsg.target_pose.header.frame_id = "map";
-  	goalMsg.target_pose.header.stamp = ros::Time::now();
-
-  	goalMsg.target_pose.pose = goal;
-}
-
-void GoToBehavior::goalCallback(const actionlib::SimpleClientGoalState& state,
-          			const move_base_msgs::MoveBaseResult::ConstPtr& result) {
-	if(state == actionlib::SimpleClientGoalState::SUCCEEDED){
-		ROS_INFO("Goal reached!");
-	}
-	else{
-		ROS_INFO("Goal failed");
-		parent->sendMessage("I was not able to go to my goal!");
-		parent->callForHelp();
-	}
-}
-
-void GoToBehavior::feebackCallback(const move_base_msgs::MoveBaseFeedback::ConstPtr& feedback){
+	goalMsg.header.frame_id = "map";
+	goalMsg.point = goal;
+	goalPub = n.advertise<geometry_msgs::PointStamped>("navigation/goal", 1000, true);
+	cancelMsg.data = "cancel";
+	cancelPub = n.advertise<std_msgs::String>("navigation/cancel", 1000);
+	progressSub = n.subscribe("navigation/progress", 1000, &GoToBehavior::progressCallback, this);
+	progressPub = n.advertise<std_msgs::String>("progress", 1000);
 	
+	info = "robot: " + parent->getName();
+	global_isExecuting = false;
+	global_progress = "";
 }
+/*
+GoToBehavior::~GoToBehavior(){
+	goalPub.shutdown();
+	progressPub.shutdown();
+	progressSub.shutdown();
+}*/
 
 void GoToBehavior::execute(){
+	ROS_INFO("GoToBehavior::execute");
 	ROS_INFO("Sending goal");
-  	ac->sendGoal(goalMsg,
-                boost::bind(&GoToBehavior::goalCallback, this, _1, _2),
-                MoveBaseClient::SimpleActiveCallback(),
-                boost::bind(&GoToBehavior::feebackCallback, this, _1));
+	try
+	{
+	    global_isExecuting = true;
+      	goalPub.publish(goalMsg);
+  	}
+  	catch(boost::lock_error& e)
+  	{
+  	    ROS_INFO("lock error GoToBehavior::execute %s", e.what());
+  	}
 }
 
 void GoToBehavior::resume(){
-
+	ROS_INFO("GoToBehavior::resume");
+    try
+    {
+	    global_isExecuting = true;
+	    goalPub.publish(goalMsg);
+	}
+  	catch(boost::lock_error& e)
+  	{
+  	    ROS_INFO("lock error GoToBehavior::resume %s", e.what());
+  	}
 }
 
 void GoToBehavior::pause(){
-
+	ROS_INFO("GoToBehavior::pause");
+    try
+    {
+	    global_isExecuting = false;
+	    cancelPub.publish(cancelMsg);
+    }
+  	catch(boost::lock_error& e)
+  	{
+  	    ROS_INFO("lock error in GoToBehavior::pause %s", e.what());
+  	}
 }
 
 void GoToBehavior::stop(){
+	ROS_INFO("GoToBehavior::stop");
+    try
+    {
+	    global_isExecuting = false;
+	    cancelPub.publish(cancelMsg);
+    }
+  	catch(boost::lock_error& e)
+  	{
+  	    ROS_INFO("lock error in GoToBehavior::stop %s", e.what());
+  	}
+}
 
+std::string GoToBehavior::checkProgress(){
+	ROS_INFO("GoToBehavior::checkProgress");
+	return global_progress;
+}
+
+void GoToBehavior::progressCallback(const std_msgs::String::ConstPtr& msg){
+	ROS_INFO("GoToBehavior::progressCallback");
+	std::string progress = msg->data;
+	
+	if (progress == "complete" && global_isExecuting){
+	    global_isExecuting = false;
+		
+	    //Tell parent task is complete.
+	    //protected_progress.store(100);
+	    global_progress = "complete";
+	    ROS_INFO("GoToTask complete");
+	}
+	
 }

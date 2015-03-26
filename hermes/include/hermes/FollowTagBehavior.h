@@ -9,7 +9,7 @@
 #include "ar_track_alvar/AlvarMarkers.h"
 #include "hermes/hermes_node.h"
 
-class Hermes;
+class Thor;
 
 class FollowTagBehavior : public Behavior{
 
@@ -24,6 +24,10 @@ private:
 	int tagID;
 	bool isExecuting;
 	bool isObstacle;
+	std::string progress;
+
+
+	boost::mutex progressMutex;
 
 	void laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg);
 
@@ -31,8 +35,10 @@ private:
 
 public:
 
-	FollowTagBehavior(Hermes* parent, double maxLinearVelocity, double maxAngularVelocity, int tagID, ros::NodeHandle n, 
+	FollowTagBehavior(Robot* parent, double maxLinearVelocity, double maxAngularVelocity, int tagID, ros::NodeHandle n,
 		std::string cmdVelTopic, std::string laserTopic);
+
+	~FollowTagBehavior();
 
 	virtual void execute();
 
@@ -41,6 +47,8 @@ public:
 	virtual void pause();
 
 	virtual void stop();
+
+	virtual std::string checkProgress();
 };
 
 

@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(husky)
 
+set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS}")
+
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
@@ -109,6 +111,7 @@ include_directories(
 
 ## Declare a cpp executable
  add_executable(husky_node src/husky_node.cpp
+              src/SearchBehavior.cpp
  						  src/FollowTagBehavior.cpp
  						  src/GoToBehavior.cpp)
 

@@ -16,28 +16,34 @@ void FollowTagBehavior::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr
 	if (!isExecuting || 
 		msg->markers.size() == 0) return;
 
-	double linK = 0.4;
-	double angK = 2;	
-	double x = msg->markers[0].pose.pose.position.x;
-	double y = msg->markers[0].pose.pose.position.y;
-	double linVel = std::max(std::min(maxLinearVelocity, linK * x), 0.0);
-	double angVel = std::max(std::min(maxAngularVelocity, angK * y), -1*maxAngularVelocity);
+	for (int i = 0; i < msg->markers.size(); ++i){
+		if (msg->markers[i].id == tagID){
+			double linK = 0.4;
+			double angK = 2;	
+			double x = msg->markers[i].pose.pose.position.x;
+			double y = msg->markers[i].pose.pose.position.y;
+			double linVel = std::max(std::min(maxLinearVelocity, linK * x), 0.0);
+			double angVel = std::max(std::min(maxAngularVelocity, angK * y), -1*maxAngularVelocity);
 
-	if (x <= 1.0){
-		linVel = 0;
+			if (x <= 1.0){
+				linVel = 0;
+			}
+
+			geometry_msgs::Twist velMsg;
+			velMsg.linear.x = linVel;
+			velMsg.angular.z = angVel;
+
+			cmdVelPub.publish(velMsg);
+
+			return;
+		}
 	}
-
-	geometry_msgs::Twist velMsg;
-	velMsg.linear.x = linVel;
-	velMsg.angular.z = angVel;
-
-	cmdVelPub.publish(velMsg);
 }
 
 
-FollowTagBehavior::FollowTagBehavior(Hermes* parent, double maxLinearVelocity, double maxAngularVelocity, int tagID, 
+FollowTagBehavior::FollowTagBehavior(Robot* parent, double maxLinearVelocity, double maxAngularVelocity, int tagID,
 	ros::NodeHandle n, std::string cmdVelTopic, std::string laserTopic) : 
-MARKER_TOPIC("/hermes/ar_pose_marker")
+MARKER_TOPIC("ar_pose_marker")
 {
 	isExecuting = false;
 	isObstacle = false;
@@ -49,6 +55,12 @@ MARKER_TOPIC("/hermes/ar_pose_marker")
 	cmdVelPub = n.advertise<geometry_msgs::Twist>(cmdVelTopic, 1000);
 	laserSub = n.subscribe(laserTopic, 1000, &FollowTagBehavior::laserCallback, this);
 	markerSub = n.subscribe(MARKER_TOPIC, 1000, &FollowTagBehavior::tagCallback, this);
+}
+
+FollowTagBehavior::~FollowTagBehavior(){
+	cmdVelPub.shutdown();
+	laserSub.shutdown();
+	markerSub.shutdown();
 }
 
 void FollowTagBehavior::execute(){
@@ -65,4 +77,9 @@ void FollowTagBehavior::pause(){
 
 void FollowTagBehavior::stop(){
 	isExecuting = false;
+}
+
+std::string FollowTagBehavior::checkProgress(){
+	boost::mutex::scoped_lock progressLock(progressMutex);
+	return progress;
 }
