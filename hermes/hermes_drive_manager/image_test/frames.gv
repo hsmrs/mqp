@@ -1,0 +1,4 @@
+digraph G {
+"world" -> "base_link"[label="Broadcaster: /static_transform_publisher_1418805632842002615\nAverage rate: 1.250 Hz\nMost recent transform: 1418805730.891 \nBuffer length: 4.001 sec\n"];
+"base_link" -> "camera_link"[label="Broadcaster: /static_transform_publisher_1418805655054979626\nAverage rate: 1.250 Hz\nMost recent transform: 1418805731.100 \nBuffer length: 4.001 sec\n"];
+}
