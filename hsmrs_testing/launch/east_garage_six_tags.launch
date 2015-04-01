@@ -1,0 +1,26 @@
+<launch>
+
+<!--
+		|<--------24m-------->|				_________
+		-------1-------0-------	 ---		       |         |
+		|      v       v      |	  ^		       |       	 |
+		|		      |	  |		       |         |  ---
+  		2>		     <4	  16m                  |         |   ^
+		|		      |	  |		       |_________|2ft, 0.609m
+		|                     |	  v				     v
+		3>		     <5	 ---		       ___________  ---
+-->
+
+
+	<node pkg="tf" type="static_transform_publisher" name="marker0_map" args="8 0 0.609 0 0.70711 0.70711 0 map hsmrs/marker_0 100" />
+	
+	<node pkg="tf" type="static_transform_publisher" name="marker1_map" args="16 0 0.609 0 0.70711 0.70711 0 map hsmrs/marker_1 100" />
+		
+	<node pkg="tf" type="static_transform_publisher" name="marker2_map" args="24 8 0.609 0.70711 0 0 0.70711 map hsmrs/marker_2 100" />
+
+	<node pkg="tf" type="static_transform_publisher" name="marker3_map" args="24 16 0.609 0.70711 0 0 0.70711 map hsmrs/marker_3 100" />
+
+	<node pkg="tf" type="static_transform_publisher" name="marker4_map" args="0 8 0.4318 0.5 0.5 0.5 0.5 map hsmrs/marker_4 100" />
+
+	<node pkg="tf" type="static_transform_publisher" name="marker5_map" args="0 16 0.4318 0.5 0.5 0.5 0.5 map hsmrs/marker_5 100" />
+</launch>
