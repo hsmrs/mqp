@@ -43,7 +43,7 @@ public class InteractiveMapViewLayered extends JPanel{
 		addMouseListener(InteractiveMapController.getInstance());
 		addMouseMotionListener(InteractiveMapController.getInstance());
 		
-		createGrid(60, 60, 10);
+		createGrid(24, 24, 10);
 		
 		for (String robotName : RobotListModel.getInstance().getRobotNames()){
 			RobotModel robot = RobotListModel.getInstance().getRobotModelByName(robotName);
@@ -61,7 +61,7 @@ public class InteractiveMapViewLayered extends JPanel{
 	 */
 	public void createGrid(int height, int width, int gridCellDimPixels){
 		removeAll();
-		setBackground(Color.white);
+		setBackground(Color.black);
 		
 		labelMatrix = new JLabel[height][width];
 		for (int y = 0; y < height; y++){

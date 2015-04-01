@@ -177,7 +177,7 @@ public class NewTaskPanel extends JPanel implements ListSelectionListener {
 					continue;
 				}
 				try{
-				paramValues.add(Globals.gui_vars.get(varName).toString());
+					paramValues.add(Globals.gui_vars.get(varName).toString());
 				}
 				catch(NullPointerException e)
 				{
