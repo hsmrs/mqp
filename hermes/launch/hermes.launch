@@ -1,5 +1,7 @@
 <launch>
 
+	<node pkg="tf" type="static_transform_publisher" name="hermes_camera" args="0 0 0.1016 0.5 0.5 0.5 0.5 hermes hermes/camera 100" />
+
 	<node name="hermes_node" pkg="hermes" type="hermes_node" output="screen" ns="hermes"/>
 
 	<!--Navigation stack setup-->
