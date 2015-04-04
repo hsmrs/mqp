@@ -47,9 +47,9 @@ int main(int argc, char* argv[])
 {
 	ros::init(argc, argv, "hermesTeleopNode");
 	ros::NodeHandle nodeHandle;
-	ros::Subscriber sub = nodeHandle.subscribe<geometry_msgs::Twist>("hermes/cmd_vel_mux/input/teleop", 4, controlCallback);
-	ros::Publisher timeout_pub = nodeHandle.advertise<geometry_msgs::Twist>("hermes/cmd_vel_mux/input/teleop", 100);
-	ros::Publisher odom_pub = nodeHandle.advertise<nav_msgs::Odometry>("hermes/odom", 10);
+	ros::Subscriber sub = nodeHandle.subscribe<geometry_msgs::Twist>("cmd_vel_mux/input/teleop", 4, controlCallback);
+	ros::Publisher timeout_pub = nodeHandle.advertise<geometry_msgs::Twist>("cmd_vel_mux/input/teleop", 100);
+	ros::Publisher odom_pub = nodeHandle.advertise<nav_msgs::Odometry>("odom", 10);
 
 	int i;
 	long vel;
