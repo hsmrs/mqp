@@ -43,7 +43,7 @@
 	<node name="hermes_camera" pkg="image_test" type="webcam_stream" output="screen" ns="hermes" />
 	
 	<arg name="nav_marker_size" default="60.9" />
-	<arg name="obj_marker_size" default="10" />
+	<arg name="obj_marker_size" default="6" />
 	<arg name="max_new_marker_error" default="0.08" />
 	<arg name="max_track_error" default="0.1" />
 	<arg name="cam_image_topic" default="/hermes/camera" />
@@ -52,6 +52,6 @@
 
 	<node name="ar_track_alvar" pkg="ar_track_alvar" type="individualMarkersNoKinect" respawn="false" output="screen" args="$(arg nav_marker_size) $(arg max_new_marker_error) $(arg max_track_error) $(arg cam_image_topic) $(arg cam_info_topic) $(arg output_frame)" ns="hermes"/>
 
-	<!--node name="ar_track_alvar" pkg="ar_track_alvar" type="individualMarkersNoKinect" respawn="false" output="screen" args="$(arg obj_marker_size) $(arg max_new_marker_error) $(arg max_track_error) $(arg cam_image_topic) $(arg cam_info_topic) $(arg output_frame)" ns="hermes"/-->
+	<node name="ar_track_alvar" pkg="ar_track_alvar" type="individualMarkersNoKinect" respawn="false" output="screen" args="$(arg obj_marker_size) $(arg max_new_marker_error) $(arg max_track_error) $(arg cam_image_topic) $(arg cam_info_topic) $(arg output_frame)" ns="hermes/obj">
 
 </launch>
