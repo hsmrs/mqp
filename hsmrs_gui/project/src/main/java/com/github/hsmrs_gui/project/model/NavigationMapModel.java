@@ -41,7 +41,7 @@ public class NavigationMapModel {
 				cells[i][j] = new MapGridCellModel(i, j, 0);
 			}
 		}
-		pixelMeterResolution = 13;
+		pixelMeterResolution = 5.5; //pixels per meter. Play with this to make cells bigger/smaller.
 		selectedCells = new ArrayList<MapGridCellModel>();
 		objectLocations = new HashMap<String, MapGridCellModel>();
 	}
@@ -124,8 +124,8 @@ public class NavigationMapModel {
 		try{
 			if(cells[row][column].getIsSelected() == true){
 				System.out.println("If true");
-				Globals.gui_vars.put("mapx", column);
-				Globals.gui_vars.put("mapy", row);
+				Globals.gui_vars.put("mapx", column*resolution);
+				Globals.gui_vars.put("mapy", row*resolution);
 				selectedCells.add(cells[row][column]);
 				refreshSelectedVar();
 				return;
@@ -214,9 +214,9 @@ public class NavigationMapModel {
 		
 		for (MapGridCellModel cell : selectedCells){
 			strBld.append("(");
-			strBld.append(cell.getColumn());
+			strBld.append(cell.getColumn()*resolution);
 			strBld.append(",");
-			strBld.append(cell.getRow());
+			strBld.append(cell.getRow()*resolution);
 			strBld.append(");");
 		}
 		

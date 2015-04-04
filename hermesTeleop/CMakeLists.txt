@@ -18,7 +18,7 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-link_directories(/home/don/src/EPOS_Linux_Library/example/src)
+link_directories(src)
 
 #add_executable(HelloEposCmd src/HelloEposCmd.cpp)
 #target_link_libraries(HelloEposCmd EposCmd ${catkin_LIBRARIES})

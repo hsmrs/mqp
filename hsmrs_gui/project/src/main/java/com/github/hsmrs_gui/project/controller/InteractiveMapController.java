@@ -47,9 +47,9 @@ public class InteractiveMapController implements MouseListener, MouseMotionListe
 	private final double INSTITUTE_PARK_MAP_SCALE = 6.3876889849; //pixels per meter
 	private BufferedImage mapImage;
 	
-	private int defaultHeight = 40;
-	private int defaultWidth = 40;
-	private double defaultResolution = 1.0;
+	private int defaultHeight = 48;
+	private int defaultWidth = 48;
+	private double defaultResolution = 0.5;
 	
 	private MapPublisher mapPublisher;
 		
@@ -118,7 +118,7 @@ public class InteractiveMapController implements MouseListener, MouseMotionListe
 	public void clearCells(){
 		for (JLabel cell : highlightedCells){
 			cell.setBackground(Color.white);
-			cell.setOpaque(false);
+			//cell.setOpaque(false);
 		}
 		highlightedCells.clear();
 		navMapModel.clearAllCells();
@@ -137,14 +137,14 @@ public class InteractiveMapController implements MouseListener, MouseMotionListe
 			//Clear the highlighted cells
 			for (JLabel cell : highlightedCells){
 				cell.setBackground(Color.white);
-				cell.setOpaque(false);
+				//cell.setOpaque(false);
 			}
 			navMapModel.clearAllCells();
 			//Was the target cell not highlighted previously?
 			if (!highlightedCells.contains(target)){
 				//If not: Highlight it
 				target.setBackground(Colors.lblSelectColor);
-				target.setOpaque(true);
+				//target.setOpaque(true);
 				highlightedCells.clear();
 				highlightedCells.add(target);
 				String cellTxt = target.getText();
@@ -166,12 +166,12 @@ public class InteractiveMapController implements MouseListener, MouseMotionListe
 			if (!highlightedCells.contains(target)){
 				target.setBackground(Colors.lblSelectColor);
 				highlightedCells.add(target);
-				target.setOpaque(true);
+				//target.setOpaque(true);
 			}
 			else{
 				target.setBackground(Color.white);
 				highlightedCells.remove(target);
-				target.setOpaque(false);
+				//target.setOpaque(false);
 			}
 		}
 	}

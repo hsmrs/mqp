@@ -117,7 +117,7 @@ void Hermes::teleOpCallback(const geometry_msgs::Twist::ConstPtr& msg){
 	double angularVel = msg->linear.y * angularSpeed;
 
 	geometry_msgs::Twist velMsg;
-	velMsg.linear.x = linearVel;
+	velMsg.linear.y = linearVel;
 	velMsg.angular.z = angularVel;
 
 	vel_pub.publish(velMsg);

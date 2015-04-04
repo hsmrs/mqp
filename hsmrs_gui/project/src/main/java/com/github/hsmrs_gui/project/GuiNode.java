@@ -108,8 +108,8 @@ public class GuiNode extends AbstractNodeMain {
             	TaskSpecificationListModel tslm = TaskSpecificationListModel.getInstance();
             	
             	List<String> goToParams = new ArrayList<String>();
-            	goToParams.add("Location(x):Integer");
-            	goToParams.add("Location(y):Integer");
+            	goToParams.add("Location(x):Double");
+            	goToParams.add("Location(y):Double");
             	TaskSpecification goToSpec = new TaskSpecification("GoTo", goToParams);
             	
             	List<String> followTagParams = new ArrayList<String>();
