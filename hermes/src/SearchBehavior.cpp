@@ -116,7 +116,7 @@ void SearchBehavior::progressCallback(const std_msgs::String::ConstPtr& msg){
 
 SearchBehavior::SearchBehavior(Robot* parent, double maxLinearVelocity, double maxAngularVelocity, double resolution, 
 	int tagID, std::vector<geometry_msgs::PointStamped> boundaryVertices, ros::NodeHandle n, std::string cmdVelTopic) : 
-MARKER_TOPIC("ar_pose_marker")
+MARKER_TOPIC("obj/ar_pose_marker")
 {
 	//this->parent = parent;
 	g_parent = parent;
