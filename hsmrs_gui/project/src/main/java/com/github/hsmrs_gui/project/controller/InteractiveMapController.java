@@ -189,8 +189,9 @@ public class InteractiveMapController implements MouseListener, MouseMotionListe
 	 * @param robotName The robot whose location needs to be updated
 	 * @param location The new location of the robot.
 	 */
-	public void updateRobotLocation(String robotName, Pair<Integer, Integer> location){
-		navMapView.updateRobotLocation(robotName, location);
+	public void updateRobotLocation(String robotName, Pair<Double, Double> location){
+		navMapView.updateRobotLocation(robotName, new Pair<Integer, Integer>(
+				(int)(location.X/defaultResolution), (int)(location.Y/defaultResolution)));
 	}
 	
 	
