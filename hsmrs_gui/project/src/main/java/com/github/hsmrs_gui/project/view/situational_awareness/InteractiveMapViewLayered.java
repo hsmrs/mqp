@@ -98,14 +98,14 @@ public class InteractiveMapViewLayered extends JPanel{
 		RobotModel robot = RobotListModel.getInstance().getRobotModelByName(robotName);
 		JLabel target = labelMatrix[location.Y][location.X];
 		//System.out.println("Coloring the map");
-		target.setOpaque(true);
+		//target.setOpaque(true);
 		target.setBackground(robot.getColor());
 		
 		
 		Pair<Integer, Integer> oldLocation = robot.getLocation();
 		if (!oldLocation.equalTo(location)){
 			JLabel oldLabel = labelMatrix[oldLocation.Y][oldLocation.X];
-			oldLabel.setOpaque(false);
+			//oldLabel.setOpaque(false);
 			oldLabel.setBackground(Color.white);
 		}
 		

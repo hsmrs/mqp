@@ -27,6 +27,7 @@ private:
 
 	int mapGridHeight;
 	int mapGridWidth;
+	double mapResolution;
 	int** mapData;
 
 public:
