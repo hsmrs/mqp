@@ -127,10 +127,14 @@ public class MainFrame extends JFrame {
       rootPane.add(robotPane, "right, push, grow, wrap");
       rootPane.add(feedbackPane, "push, grow, span 3"); 
       
-      addAction("UP", TeleOpPublisher.UP);
-      addAction("DOWN", TeleOpPublisher.DOWN);
-      addAction("LEFT", TeleOpPublisher.LEFT);
-      addAction("RIGHT", TeleOpPublisher.RIGHT);
+      addPressedAction("UP", TeleOpPublisher.UP);
+      addPressedAction("DOWN", TeleOpPublisher.DOWN);
+      addPressedAction("LEFT", TeleOpPublisher.LEFT);
+      addPressedAction("RIGHT", TeleOpPublisher.RIGHT);
+      
+      String releasedNames[] = {"R_UP", "R_DOWN", "R_LEFT", "R_RIGHT"};
+      int keycodes[] = {38, 40, 37, 39};
+      addReleasedAction(releasedNames, keycodes);
       
       cp.add(rootPane);
       
@@ -143,7 +147,7 @@ public class MainFrame extends JFrame {
      * @param direction The tele-op direction to be bound to the keystroke. Directions are defined in TeleOpPublisher.
      * @return The TeleOpAction that was bound to the keystroke.
      */
-    public TeleOpAction addAction(String name, String direction)
+    public TeleOpAction addPressedAction(String name, String direction)
 	{
     	TeleOpAction action = new TeleOpAction(name, direction);
 
@@ -153,6 +157,30 @@ public class MainFrame extends JFrame {
 		rootPane.getActionMap().put(name, action);
 
 		return action;
+	}
+    
+    /**
+     * Binds tele-op actions to keystrokes on the keyboard.
+     * @param name The name of the keystroke to be bound.
+     * @param direction The tele-op direction to be bound to the keystroke. Directions are defined in TeleOpPublisher.
+     * @return The TeleOpAction that was bound to the keystroke.
+     */
+    public TeleOpAction[] addReleasedAction(String[] names, int[] keyCodes)
+	{
+    	TeleOpAction actions[] = new TeleOpAction[names.length];
+    	for (int i = 0; i < names.length; i++){
+    		TeleOpAction action = new TeleOpAction(names[i], TeleOpPublisher.STOP);
+
+    		KeyStroke pressedKeyStroke = KeyStroke.getKeyStroke(keyCodes[i], 0, true);
+    		InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+    		inputMap.put(pressedKeyStroke, names[i]);
+    		rootPane.getActionMap().put(names[i], action);
+    		
+    		actions[i] = action;
+    		i++;
+    	}
+
+		return actions;
 	}
     
     public void receiveText(String text){

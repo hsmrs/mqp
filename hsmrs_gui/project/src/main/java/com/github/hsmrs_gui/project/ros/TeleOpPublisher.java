@@ -13,6 +13,7 @@ public class TeleOpPublisher {
 	public static final String DOWN = "down";
 	public static final String LEFT = "left";
 	public static final String RIGHT = "right";
+	public static final String STOP = "stop";
 	
 	private Publisher<geometry_msgs.Twist> publisher;
 	private ConnectedNode connectedNode;
@@ -45,6 +46,7 @@ public class TeleOpPublisher {
 		else if (direction.equals(RIGHT)){
 			msg.getLinear().setY(-1);
 		}
+		//No else is needed for STOP, just publish empty twist.
 		
         publisher.publish(msg);
 	}
