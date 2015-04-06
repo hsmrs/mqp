@@ -8,6 +8,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class DefaultListItemRenderer<T> implements ListItemRenderer<T> {
+	
+	/**
+	 * Initializes each list item with a default list item renderable component and a rendered component.
+	 * @param listPanel Unused
+	 * @param listItems The list items to be initialized.
+	 */
 	@Override
 	public void createRenderedListComponents(SRList<T> listPanel, List<ListItem<T>> listItems) {
 		for(ListItem<T> listItem: listItems) {
@@ -17,6 +23,11 @@ public class DefaultListItemRenderer<T> implements ListItemRenderer<T> {
 		}
 	}
 
+	/**
+	 * Updates the renderable component of all of the given listItems.
+	 * @param listPanel Unused.
+	 * @param listItems The list items to be updated.
+	 */
 	@Override
 	public void updateRenderedListComponents(SRList<T> listPanel, List<ListItem<T>> listItems) {
 		for(ListItem<T> listItem: listItems)

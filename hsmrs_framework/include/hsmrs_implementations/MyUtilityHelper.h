@@ -4,6 +4,8 @@
 #include "hsmrs_framework/UtilityHelper.h"
 #include "hsmrs_framework/Robot.h"
 #include "hsmrs_framework/Task.h"
+#include <hsmrs_framework/TaskMsg.h>
+#include "ros/ros.h"
 #include <map>
 #include <exception>
 #include <typeinfo>

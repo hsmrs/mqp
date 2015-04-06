@@ -43,7 +43,7 @@ void FollowTagBehavior::tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr
 
 FollowTagBehavior::FollowTagBehavior(Thor* parent, double maxLinearVelocity, double maxAngularVelocity, int tagID, 
 	ros::NodeHandle n, std::string cmdVelTopic, std::string laserTopic) : 
-MARKER_TOPIC("/thor/ar_pose_marker")
+MARKER_TOPIC("ar_pose_marker")
 {
 	isExecuting = false;
 	isObstacle = false;
@@ -55,6 +55,12 @@ MARKER_TOPIC("/thor/ar_pose_marker")
 	cmdVelPub = n.advertise<geometry_msgs::Twist>(cmdVelTopic, 1000);
 	laserSub = n.subscribe(laserTopic, 1000, &FollowTagBehavior::laserCallback, this);
 	markerSub = n.subscribe(MARKER_TOPIC, 1000, &FollowTagBehavior::tagCallback, this);
+}
+
+FollowTagBehavior::~FollowTagBehavior(){
+	cmdVelPub.shutdown();
+	laserSub.shutdown();
+	markerSub.shutdown();
 }
 
 void FollowTagBehavior::execute(){
@@ -71,4 +77,9 @@ void FollowTagBehavior::pause(){
 
 void FollowTagBehavior::stop(){
 	isExecuting = false;
+}
+
+std::string FollowTagBehavior::checkProgress(){
+	boost::mutex::scoped_lock progressLock(progressMutex);
+	return progress;
 }

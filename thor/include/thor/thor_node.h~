@@ -12,23 +12,53 @@
 #include <tf/transform_broadcaster.h>
 #include <tf/transform_listener.h>
 #include "nav_msgs/Odometry.h"
+#include "geometry_msgs/PoseWithCovarianceStamped.h"
 
 #include <sstream>
 #include <typeinfo>
 
 #include "hsmrs_framework/Robot.h"
+#include "hsmrs_framework/Role.h"
 #include "hsmrs_framework/TaskList.h"
 #include "hsmrs_implementations/GoToTask.h"
 #include "hsmrs_implementations/FollowTagTask.h"
 #include "hsmrs_implementations/SearchTask.h"
 #include "hsmrs_implementations/MyTaskList.h"
+#include "hsmrs_implementations/MyUtilityHelper.h"
+#include "hsmrs_implementations/MyTask.h"
+#include "hsmrs_implementations/MyAgentState.cpp"
+#include "hsmrs_implementations/MyRole.cpp"
 #include "hsmrs_framework/TaskMsg.h"
+#include "hsmrs_framework/RoleMsg.h"
 #include "thor/Behavior.h"
 #include "thor/FollowTagBehavior.h"
 #include "thor/GoToBehavior.h"
 #include "thor/SearchBehavior.h"
 
+#include <boost/thread/mutex.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/thread/thread.hpp>
+
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
+
+class AuctionTracker
+{
+private:
+
+public:
+    std::string topBidder;
+    double topUtility;
+    bool haveBidded;
+    bool taskClaimed;
+    
+    AuctionTracker()
+    {
+        topBidder = "";
+        topUtility = -1;
+        haveBidded = false;
+        taskClaimed = false;
+    }
+};
 
 class Thor: public Robot {
 
@@ -36,23 +66,37 @@ private:
 	friend class FollowTagBehavior;
 	friend class GoToBehavior;
 
+    boost::mutex atMutex;
+    boost::mutex listMutex;
+    boost::mutex currentTaskMutex;
+
 	ros::NodeHandle n;
 	ros::Publisher registration_pub;
 	ros::Publisher log_pub;
 	ros::Publisher status_pub;
 	ros::Publisher help_pub;
 	ros::Publisher pose_pub;
+	ros::Publisher updatedTaskPub;
 
 	ros::Subscriber request_sub;
 	ros::Subscriber teleOp_sub;
-	ros::Subscriber new_task_sub;
 	ros::Subscriber updated_task_sub;
+    ros::Subscriber tag_sub;
+    
+	ros::Publisher bidPub;
+	ros::Publisher claimPub;
+	
+	ros::Subscriber bidSub;
+	ros::Subscriber newTaskSub;
+	ros::Subscriber claimSub;
+	ros::Subscriber taskProgressSub;
 
+	ros::Subscriber roleSub;
 
 	ros::Publisher vel_pub;
 	ros::Subscriber bumper_sub;
 	ros::Subscriber laser_sub;
-	ros::Subscriber odom_sub;
+	ros::Subscriber pose_sub;
 
 	tf::TransformBroadcaster br;
 	tf::TransformListener listener;
@@ -68,14 +112,25 @@ private:
 	const std::string TELE_OP_TOPIC;
 	const std::string NEW_TASK_TOPIC;
 	const std::string UPDATED_TASK_TOPIC;
+	const std::string AUCTION_TOPIC;
+	const std::string CLAIM_TOPIC;
+	const std::string TASK_PROGRESS_TOPIC;
+	const std::string ROLE_TOPIC;
 
 	const std::string VEL_TOPIC;
 	const std::string BUMPER_TOPIC;
 	const std::string LASER_TOPIC;
-	const std::string ODOM_TOPIC;
+	const std::string IN_POSE_TOPIC;
+	const std::string MARKER_TOPIC;
 
 	TaskList* taskList;
 	Task* p_currentTask;
+	UtilityHelper* utiHelp;
+	AgentState* state;
+	Role* p_currentRole;
+		
+	std::map<int, AuctionTracker> auctionList;
+	
 	std::string status;
 	Behavior* p_currentBehavior;
 	double linearSpeed;
@@ -85,6 +140,8 @@ private:
 	 * Makes this Robot bid on the given task
 	 */
 	double bid(const hsmrs_framework::BidMsg::ConstPtr& msg);
+	
+	double bid(const hsmrs_framework::TaskMsg::ConstPtr& msg);
 
 	/**
 	 * Begins the Robot's execution of its current Task.
@@ -113,18 +170,26 @@ private:
 
 	void bumperCallback(const kobuki_msgs::BumperEvent::ConstPtr& msg);
 
-	void newTaskFromStringCallback(const std_msgs::String::ConstPtr& msg);
-
-	void newTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg);
-
-	void updatedTaskCallback(const std_msgs::String::ConstPtr& msg);
+	void updatedTaskCallback(const hsmrs_framework::TaskMsg::ConstPtr& msg);
 
 	void laserCallback(const sensor_msgs::LaserScan::ConstPtr& msg);
 
-	void odomCallback(const nav_msgs::Odometry::ConstPtr& msg);
+	void poseCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& msg);
+	
+	void tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& msg);
+	
+	void handleNewTask(const hsmrs_framework::TaskMsg::ConstPtr& msg);
+	
+	void handleClaims(const hsmrs_framework::BidMsg::ConstPtr& msg);
+	
+	void claimWorker(hsmrs_framework::TaskMsg taskMsg, int id, double myBid);
+	
+	void handleProgress(const std_msgs::String::ConstPtr& msg);
+
+	void handleRoleAssign(const hsmrs_framework::RoleMsg::ConstPtr& msg);
 
 public:
-	Thor();
+	Thor(std::string name, double speed);
 
 	virtual std::string getName();
 

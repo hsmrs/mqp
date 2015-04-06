@@ -31,6 +31,7 @@
 	void AStar::mapCallback(const nav_msgs::OccupancyGrid::ConstPtr& map_msg){
 		mapGridHeight = map_msg->info.height;
 		mapGridWidth = map_msg->info.width;
+		mapResolution = map_msg->info.resolution;
 		mapData = new int*[mapGridHeight];
 
 		int i = 0;
@@ -52,8 +53,8 @@
 		//ROS_INFO("Creating heuristic");
 		target = new int*[mapGridHeight];
 
-		int goalX = goalPoint.x;
-		int goalY = goalPoint.y;
+		int goalX = (goalPoint.x)/mapResolution;
+		int goalY = (goalPoint.y)/mapResolution;
 
 		for (int y = 0; y < mapGridHeight; ++y){
 			target[y] = new int[mapGridWidth];
@@ -76,8 +77,8 @@
 		//ROS_INFO("Creating heuristic");
 		int** heuristic = new int*[mapGridHeight];
 
-		int goalX = goalPoint.x;
-		int goalY = goalPoint.y;
+		int goalX = (goalPoint.x)/mapResolution;
+		int goalY = (goalPoint.y)/mapResolution;
 
 		for (int y = 0; y < mapGridHeight; ++y){
 			heuristic[y] = new int[mapGridWidth];
@@ -109,8 +110,8 @@
 			}
 		}
 
-		int x = startPoint.x;
-		int y = startPoint.y;
+		int x = (startPoint.x)/mapResolution;
+		int y = (startPoint.y)/mapResolution;
 		int startCost = heuristic[y][x];
 		AStarNode startNode(x, y, startCost);
 		
@@ -130,7 +131,7 @@
 
 			//ROS_INFO("At node: (%d, %d)", cur_x, cur_y);
 
-			if (cur_x == goalPoint.x && cur_y == goalPoint.y){
+			if (cur_x == (goalPoint.x)/mapResolution && cur_y == (goalPoint.y)/mapResolution){
 				//ROS_INFO("Path found! Reconstructing");
 				reconstructPath(&current, parents);
 				return; 
@@ -225,8 +226,11 @@
 		nav_msgs::Path pathMsg;
 		pathMsg.poses.resize(path.size());
 		for (int i = 0; i < path.size(); ++i){
-			pathMsg.poses[i].pose.position.x = path[i].getX();
-			pathMsg.poses[i].pose.position.y = path[i].getY();
+			pathMsg.poses[i].pose.position.x = (path[i].getX())*mapResolution;
+			pathMsg.poses[i].pose.position.y = (path[i].getY())*mapResolution;
+		}
+		for (int i = 0; i < path.size(); ++i){
+			ROS_INFO("(%f, %f)", path[i].getX()*mapResolution, path[i].getY()*mapResolution);
 		}
 		pathMsg.header.frame_id = "map";
 		pathPub.publish(pathMsg);

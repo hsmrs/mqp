@@ -5,17 +5,17 @@ class MyRole : public Role
 private:
 	std::vector<std::string> tasks;
 public:
-	MyRole::MyRole()
+	MyRole()
 	{
 		tasks = std::vector<std::string>();
 	}
 
-	void Role::addTask(std::string task)
+	void addTask(std::string task)
 	{
 		tasks.push_back(task);
 	}
 
-	void Role::removeTask(std::string task)
+	void removeTask(std::string task)
 	{
 		for (int i = 0; i < tasks.size(); i++)
 		{
@@ -27,7 +27,7 @@ public:
 		}
 	}
 
-	std::vector<std::string> Role::getTasks()
+	std::vector<std::string> getTasks()
 	{
 		return std::vector<std::string>(tasks);
 	}

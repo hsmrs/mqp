@@ -6,10 +6,13 @@
 #include "nav_msgs/Odometry.h"
 #include <tf/transform_broadcaster.h>
 #include <tf/transform_listener.h>
+#include <deque>
 
 class ArTagLocalization {
 private:
 	const std::string ODOM_PUB_TOPIC;
+
+	std::string target_frame;
 
 	ros::Subscriber tagSub;
 	ros::Publisher odomPub;
@@ -23,8 +26,13 @@ private:
 	
 	bool isFirst;
 	tf::Transform odomAnchor;
+	std::string odomFrame;
+	std::string filteredOdomFrame;
+	
+	std::deque<geometry_msgs::Pose> lastPoses;
 
 	void tagCallback(const ar_track_alvar::AlvarMarkers::ConstPtr& msg);
+	geometry_msgs::Pose getOutputPose(double x, double y, double z, geometry_msgs::Quaternion q);
 
 public:
 

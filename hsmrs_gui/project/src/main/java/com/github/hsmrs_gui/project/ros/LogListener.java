@@ -27,8 +27,9 @@ public class LogListener implements MessageListener<std_msgs.String>{
 	private RobotModel robot;
 
 	/**
-	 * The constructor for the SystemLogListener class.
-	 * @param connectedNode The ROS node handle
+	 * The constructor for the LogListener class.
+	 * @param robot The robot associated with this log listener
+	 * @param topicName The topic to listen for log messages on.
 	 */
 	public LogListener(RobotModel robot, String topicName) {
 		log = GuiNode.getLog();
@@ -43,8 +44,8 @@ public class LogListener implements MessageListener<std_msgs.String>{
 
 	/**
 	 * This method is called whenever a message is received through ROS.
-	 * Messages are written to the node's log and to the GUI console in
-	 * the System channel.
+	 * Messages are written to the node's log and to the GUI console on the
+	 * robot's channel.
 	 * @param message The String message received through the topic.
 	 */
 	@Override

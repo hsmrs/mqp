@@ -20,6 +20,9 @@ public class ImageView extends JPanel{
 	private BufferedImage currentImg;
 	private JLabel lblImage;
 	
+	/**
+	 * The constructor for the ImageView class.
+	 */
 	public ImageView() {
 		String path = String.format("%s/project/%s", System.getProperty("user.dir"), this.getClass().getPackage().getName().replace(".", "/"));
 	    path += "/images/wall_e.jpg";
@@ -43,26 +46,33 @@ public class ImageView extends JPanel{
 	    currentImg = img;
 	}
 	
+	/**
+	 * Sets the image to be displayed by this panel.
+	 * @param newImg The image to be displayed.
+	 */
 	public void setImage(BufferedImage newImg){
 		currentImg = newImg;
 		lblImage.setIcon(new ImageIcon(newImg));
 		repaint();
 	}
 	
+	/**
+	 * Paints the image to the component with a relative scale.
+	 */
 	@Override
 	protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         int w = currentImg.getWidth();
         int h = currentImg.getHeight();
         if (w >= h){
-        	System.out.println("Paint greater width");
+        	//System.out.println("Paint greater width");
         	double scale = (double)h / w;
         	//g.drawImage(currentImg, 0, 0, getWidth(), (int)(getWidth() * scale), this);
         	Image scaledCurrentImage = currentImg.getScaledInstance(getWidth(), -1, Image.SCALE_SMOOTH);
         	g.drawImage(scaledCurrentImage, 0, 0, this);
         }
         else{
-        	System.out.println("Paint greater height");
+        	//System.out.println("Paint greater height");
         	double scale = (double)w / h;
         	int offset = (int)((getWidth() - (getHeight() * scale)) / 2);
         	g.drawImage(currentImg, offset, 0, (int)(getHeight() * scale), getHeight(), this);

@@ -30,6 +30,8 @@ public:
 	SearchTask();
 
 	SearchTask(const hsmrs_framework::TaskMsg::ConstPtr& msg);
+	
+	SearchTask(hsmrs_framework::TaskMsg msg);
 
 	SearchTask(std::string strDelimitedTask);
 	

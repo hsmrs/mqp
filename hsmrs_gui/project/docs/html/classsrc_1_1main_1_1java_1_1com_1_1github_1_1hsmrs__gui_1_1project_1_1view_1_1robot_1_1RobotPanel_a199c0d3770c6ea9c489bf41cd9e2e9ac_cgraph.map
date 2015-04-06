@@ -1,0 +1,5 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RoleListPanel.html#a29d1ce8a6d7118650a9c17b19f46f1ec" title="src.main.java.com.github.hsmrs_gui.project.view.robot.RoleListPanel.getSelectedRole" alt="" coords="567,5,1089,35"/>
+<area shape="rect" id="node5" href="$classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RoleListModel.html#a011724752607d065153d389922dcd0ed" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RoleListModel.getInstance" alt="" coords="1139,5,1645,35"/>
+<area shape="rect" id="node7" href="$classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RoleListModel.html#a05d10218a5935dbb61b82e4d3e9bc49f" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RoleListModel.RoleListModel" alt="" coords="1695,5,2215,35"/>
+</map>

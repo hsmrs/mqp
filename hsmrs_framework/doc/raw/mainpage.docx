@@ -1,0 +1,17 @@
+/*! \mainpage Welcome to the Human Supervised Multi-Robot Systems (HSMRS) Framework!
+*
+*\section intro Introduction
+*This framework was created in order to establish a structured approach to implementing multi-robot systems which take input from and produce output for a human supervisor. The framework was implemented as a test to evaluate its effectiveness. The implementation was done using ROS, and the hsmrs_framework package contains many implementation files which can serve as examples for future implementations.
+*
+*\section requirements Requirements to implement
+*In order to use this framework, the developer must do the following things: 
+* - Implement the robot class for their specific robot. The turtlebot_node.cpp file can be used as an example.
+* - Create extensions of the Task class to represent all of the tasks the robots in the system can perform.
+* - Write code for the robots that will allow them to carry out their tasks.
+* - Evaluate the attributes and parameters of the robots to build into their utility functions.
+* - Create a GUI that will allow the user to supervise their robots. For a generalized GUI the hsmrs_gui can be used.
+*
+*The presented steps are very high level and will require more work than immediately apparent to complete. They are also the bare minimum requirements to make the system work. 
+*
+*
+*/

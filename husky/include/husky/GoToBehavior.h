@@ -4,30 +4,44 @@
 
 #include "husky/Behavior.h"
 #include "ros/ros.h"
-#include <move_base_msgs/MoveBaseAction.h>
-#include <actionlib/client/simple_action_client.h>
+#include "std_msgs/String.h"
 #include "geometry_msgs/Pose.h"
 #include "hsmrs_framework/Robot.h"
-
-typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
+#include "geometry_msgs/PointStamped.h"
+#include <boost/thread/mutex.hpp>
+#include <mutex>
+#include <atomic>
 
 class GoToBehavior : public Behavior{
 
 private:
 	
 	Robot* parent;
-	MoveBaseClient* ac;
 	bool isExecuting;
-	move_base_msgs::MoveBaseGoal goalMsg;
+	geometry_msgs::PointStamped goalMsg;
+	std_msgs::String cancelMsg;
+	ros::Publisher goalPub;
+	ros::Publisher cancelPub;
+	ros::Publisher progressPub;
+	ros::Subscriber progressSub;
+	
+	std::string info;
+	std::string progress;
+	std::atomic_uint protected_progress;
+	std::atomic_bool protected_isExecuting;
 
-	void goalCallback(const actionlib::SimpleClientGoalState& state,
-              			const move_base_msgs::MoveBaseResult::ConstPtr& result);
-
-	void feebackCallback(const move_base_msgs::MoveBaseFeedback::ConstPtr &feedback);
+	//boost::mutex isExecutingMutex;
+	//boost::mutex progressMutex;
+	std::recursive_mutex isExecutingMutex;
+	std::recursive_mutex progressMutex;
+	
+	int myInstance;
 
 public:
 
-	GoToBehavior(Robot* parent, geometry_msgs::Pose goal, ros::NodeHandle n);
+	GoToBehavior(Robot* parent, geometry_msgs::Point goal, ros::NodeHandle n);
+
+	~GoToBehavior();
 
 	virtual void execute();
 
@@ -36,6 +50,10 @@ public:
 	virtual void pause();
 
 	virtual void stop();
+
+	virtual std::string checkProgress();
+	
+	void progressCallback(const std_msgs::String::ConstPtr& msg);
 };
 
 

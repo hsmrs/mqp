@@ -7,9 +7,14 @@
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-
-<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
   $(document).ready(function() { searchBox.OnSelectItem(0); });
@@ -47,7 +52,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Packages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -74,36 +81,52 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
-  <div id="nav-path" class="navpath">
-    <ul>
-      <li class="navelem"><b>src</b>      </li>
-      <li class="navelem"><b>main</b>      </li>
-      <li class="navelem"><b>java</b>      </li>
-      <li class="navelem"><b>com</b>      </li>
-      <li class="navelem"><b>github</b>      </li>
-      <li class="navelem"><b>hsmrs_gui</b>      </li>
-      <li class="navelem"><b>project</b>      </li>
-      <li class="navelem"><b>view</b>      </li>
-      <li class="navelem"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html">MainFrame</a>      </li>
-    </ul>
+</div>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
   </div>
 </div>
+<script type="text/javascript">
+  initNavTree('classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html','');
+</script>
+<div id="doc-content">
 <div class="header">
   <div class="headertitle">
 <div class="title">src.main.java.com.github.hsmrs_gui.project.view.MainFrame Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 This is the complete list of members for <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html">src.main.java.com.github.hsmrs_gui.project.view.MainFrame</a>, including all inherited members.<table>
-  <tr bgcolor="#f0f0f0"><td><b>MainFrame</b>(ListModel roboListModel, ListModel taskListModel) (defined in <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html">src.main.java.com.github.hsmrs_gui.project.view.MainFrame</a>)</td><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html">src.main.java.com.github.hsmrs_gui.project.view.MainFrame</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>receiveText</b>(String text) (defined in <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html">src.main.java.com.github.hsmrs_gui.project.view.MainFrame</a>)</td><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html">src.main.java.com.github.hsmrs_gui.project.view.MainFrame</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>setup</b>() (defined in <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html">src.main.java.com.github.hsmrs_gui.project.view.MainFrame</a>)</td><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html">src.main.java.com.github.hsmrs_gui.project.view.MainFrame</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html#a54e031b76a3d6a0379d4fca65dff6be3">addAction</a>(String name, String direction)</td><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html">src.main.java.com.github.hsmrs_gui.project.view.MainFrame</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html#a038060344e7dd413be0d01ef50210022">bottomPane</a></td><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html">src.main.java.com.github.hsmrs_gui.project.view.MainFrame</a></td><td><code> [private]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html#a4db7338db1b4e3c46508a91a2dfbde47">centerPane</a></td><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html">src.main.java.com.github.hsmrs_gui.project.view.MainFrame</a></td><td><code> [private]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html#ae69eb9602f6934949021ad1917359ce8">console</a></td><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html">src.main.java.com.github.hsmrs_gui.project.view.MainFrame</a></td><td><code> [private]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html#a053d19bbb01ce1343a301d60ddcc7b97">defaultImage</a></td><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html">src.main.java.com.github.hsmrs_gui.project.view.MainFrame</a></td><td><code> [private]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html#ad881097f4c5140058d2e657b89ba6db9">feedbackPane</a></td><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html">src.main.java.com.github.hsmrs_gui.project.view.MainFrame</a></td><td><code> [private]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html#a5ef5836aea73d0e8b84b16b82a8caebe">imageDisplay</a></td><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html">src.main.java.com.github.hsmrs_gui.project.view.MainFrame</a></td><td><code> [private]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html#a14a8b734d4147785a0bdaa503fda5c24">log</a></td><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html">src.main.java.com.github.hsmrs_gui.project.view.MainFrame</a></td><td><code> [private]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html#a5fc1e6764846e576e49bd4b53ec0d165">MainFrame</a>(ListModel roboListModel, ListModel taskListModel)</td><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html">src.main.java.com.github.hsmrs_gui.project.view.MainFrame</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html#a5196ebf7de8d712df34495afc8f299f2">receiveText</a>(String text)</td><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html">src.main.java.com.github.hsmrs_gui.project.view.MainFrame</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html#a70e7716bb4b0eef27b5121a65ae0077b">rightList</a></td><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html">src.main.java.com.github.hsmrs_gui.project.view.MainFrame</a></td><td><code> [private]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html#a59135f9942f6c090add413b80c63e608">robotListModel</a></td><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html">src.main.java.com.github.hsmrs_gui.project.view.MainFrame</a></td><td><code> [private]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html#ace928859c8477e8fd56b01d0e3d72301">robotPane</a></td><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html">src.main.java.com.github.hsmrs_gui.project.view.MainFrame</a></td><td><code> [private]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html#a3697ecec7298e7a2ed2b8267508c2ef9">rootPane</a></td><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html">src.main.java.com.github.hsmrs_gui.project.view.MainFrame</a></td><td><code> [private]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html#a7301493238e63cd043e9d7bed54ed569">setup</a>()</td><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html">src.main.java.com.github.hsmrs_gui.project.view.MainFrame</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html#af580a5fea38bcf1868b0bb0e55f2fac3">situAwareView</a></td><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html">src.main.java.com.github.hsmrs_gui.project.view.MainFrame</a></td><td><code> [private]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html#a38f7b2f6441d9c2aa251a83bd5282626">taskList</a></td><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html">src.main.java.com.github.hsmrs_gui.project.view.MainFrame</a></td><td><code> [private]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html#ab454b93aae5ea536d7e0f3a861a98bb0">taskListModel</a></td><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html">src.main.java.com.github.hsmrs_gui.project.view.MainFrame</a></td><td><code> [private]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html#aabdadfd364f30a21c0cfd8ae9ebfa6af">taskPane</a></td><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1MainFrame.html">src.main.java.com.github.hsmrs_gui.project.view.MainFrame</a></td><td><code> [private]</code></td></tr>
 </table></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -112,13 +135,16 @@ This is the complete list of members for <a class="el" href="classsrc_1_1main_1_
 </iframe>
 </div>
 
+</div>
+  <div id="nav-path" class="navpath">
+    <ul>
 
+    <li class="footer">Generated on Mon Mar 23 2015 22:29:02 for HSMRSGUI by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
+   </ul>
+ </div>
 
-<hr class="footer"/><address class="footer"><small>
-Generated on Thu Dec 25 2014 01:42:02 for HSMRSGUI by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.7.6.1
-</small></address>
 
 </body>
 </html>

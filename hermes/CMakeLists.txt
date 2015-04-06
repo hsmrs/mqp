@@ -1,13 +1,14 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(hermes)
 
+set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS}")
+
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   geometry_msgs 
   hsmrs_framework 
-  kobuki_msgs 
   nav_msgs 
   roscpp 
   std_msgs 
@@ -86,8 +87,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-#  LIBRARIES hermes
-  CATKIN_DEPENDS geometry_msgs hsmrs_framework kobuki_msgs nav_msgs roscpp std_msgs ar_track_alvar sensor_msgs
+#  LIBRARIES thor
+  CATKIN_DEPENDS geometry_msgs hsmrs_framework nav_msgs roscpp std_msgs ar_track_alvar sensor_msgs
 #  DEPENDS system_lib
 )
 
@@ -103,18 +104,19 @@ include_directories(
 )
 
 ## Declare a cpp library
-# add_library(hermes
-#   src/${PROJECT_NAME}/hermes.cpp
+# add_library(thor
+#   src/${PROJECT_NAME}/thor.cpp
 # )
 
 ## Declare a cpp executable
  add_executable(hermes_node src/hermes_node.cpp
  						  src/FollowTagBehavior.cpp
- 						  src/GoToBehavior.cpp)
+ 						  src/GoToBehavior.cpp
+              src/SearchBehavior.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-# add_dependencies(hermes_node hermes_generate_messages_cpp)
+# add_dependencies(thor_node thor_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
  target_link_libraries(hermes_node
@@ -136,7 +138,7 @@ include_directories(
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS hermes hermes_node
+# install(TARGETS thor thor_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -161,7 +163,7 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_hermes.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_thor.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

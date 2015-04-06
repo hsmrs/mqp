@@ -1,0 +1,27 @@
+var namespaces =
+[
+    [ "com", "namespacecom.html", null ],
+    [ "com::github", "namespacecom_1_1github.html", null ],
+    [ "com::github::hsmrs_gui", "namespacecom_1_1github_1_1hsmrs__gui.html", null ],
+    [ "com.github.hsmrs_gui.project", "namespacecom_1_1github_1_1hsmrs__gui_1_1project.html", "namespacecom_1_1github_1_1hsmrs__gui_1_1project" ],
+    [ "src", "namespacesrc.html", null ],
+    [ "src::main", "namespacesrc_1_1main.html", null ],
+    [ "src::main::java", "namespacesrc_1_1main_1_1java.html", null ],
+    [ "src::main::java::com", "namespacesrc_1_1main_1_1java_1_1com.html", null ],
+    [ "src::main::java::com::github", "namespacesrc_1_1main_1_1java_1_1com_1_1github.html", null ],
+    [ "src::main::java::com::github::hsmrs_gui", "namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui.html", null ],
+    [ "src.main.java.com.github.hsmrs_gui.project", "namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project.html", "namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project" ],
+    [ "src.main.java.com.github.hsmrs_gui.project.controller", "namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller.html", "namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller" ],
+    [ "src.main.java.com.github.hsmrs_gui.project.model", "namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model.html", "namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model" ],
+    [ "src.main.java.com.github.hsmrs_gui.project.model.robot", "namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot.html", "namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot" ],
+    [ "src.main.java.com.github.hsmrs_gui.project.model.task", "namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1task.html", "namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1task" ],
+    [ "src.main.java.com.github.hsmrs_gui.project.ros", "namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros.html", "namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros" ],
+    [ "src.main.java.com.github.hsmrs_gui.project.util", "namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1util.html", "namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1util" ],
+    [ "src.main.java.com.github.hsmrs_gui.project.view", "namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view.html", "namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view" ],
+    [ "src.main.java.com.github.hsmrs_gui.project.view.buttons", "namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1buttons.html", "namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1buttons" ],
+    [ "src.main.java.com.github.hsmrs_gui.project.view.feedback", "namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback.html", "namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback" ],
+    [ "src.main.java.com.github.hsmrs_gui.project.view.list", "namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list.html", "namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list" ],
+    [ "src.main.java.com.github.hsmrs_gui.project.view.robot", "namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot.html", "namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot" ],
+    [ "src.main.java.com.github.hsmrs_gui.project.view.situational_awareness", "namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1situational__awareness.html", "namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1situational__awareness" ],
+    [ "src.main.java.com.github.hsmrs_gui.project.view.task", "namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1task.html", "namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1task" ]
+];

@@ -23,7 +23,7 @@ public class ConsoleModel {
 	
 	/**
 	 * Default constructor for the ConsoleModel. This creates a console
-	 * with only the findamental channels: "All" and "System".
+	 * with only the fundamental channels: "All" and "System".
 	 */
 	public ConsoleModel(){
 		this.channels = new ArrayList<ConsoleChannelModel>();

@@ -32,6 +32,11 @@ public class SRList<T> extends JScrollPane implements MouseListener, ListDataLis
 
 	List<ListItemListener<T>> listItemListeners;
 
+	/**
+	 * The constructor for the SRList, which is a vertical list of renderable list item components.
+	 * @param listModel The model which contains the items in the list.
+	 * @param listItemRenderer The rendering engine which renders the ListItems.
+	 */
 	public SRList(ListModel listModel, ListItemRenderer<T> listItemRenderer) {
 		this.listModel = listModel;
 		listItems = new ArrayList<ListItem<T>>();
@@ -53,12 +58,19 @@ public class SRList<T> extends JScrollPane implements MouseListener, ListDataLis
 	}
 	
 	// ListPanel Settings
-
+	/**
+	 * Sets the rendering engine for ListItems.
+	 * @param renderer The new rendering engine.
+	 */
 	public void setListItemRenderer(ListItemRenderer<T> renderer) {
 		this.listItemRenderer = renderer;
 		GuiNode.getLog().info("Set List Item Renderer");
 	}
 
+	/**
+	 * Sets whether or not the list can scroll horizontally or not.
+	 * @param policy Either JScrollPane.HORIZONTAL_SCROLLBAR_[ALWAYS, AS_NEEDED, NEVER]. 
+	 */
 	@Override
 	public void setHorizontalScrollBarPolicy(int policy) {
 		if(listPanel != null) {
@@ -67,6 +79,10 @@ public class SRList<T> extends JScrollPane implements MouseListener, ListDataLis
 		}
 	}
 
+	/**
+	 * Sets whether or not the list can scroll vertically or not.
+	 * @param policy Either JScrollPane.VERTICAL_SCROLLBAR_[ALWAYS, AS_NEEDED, NEVER]. 
+	 */
 	@Override
 	public void setVerticalScrollBarPolicy(int policy) {
 		if(listPanel != null) {
@@ -76,12 +92,18 @@ public class SRList<T> extends JScrollPane implements MouseListener, ListDataLis
 	}
 
 	// Logic / Data Builders / Other
+	/**
+	 * This method pulls all of the items from the ListModel and adds them as ListItems to the SRList.
+	 */
 	private void fillListItems() {
 		listItems.clear();
 		selectedListItems.clear();
 		for(int i = 0; i < listModel.getSize(); i++) listItems.add(new ListItem<T>(this, (T)listModel.getElementAt(i)));
 	}
 
+	/**
+	 * Use the rendering engine to turn the ListItems into AWT Components.
+	 */
 	private void createComponents() {
 		listPanel.clear();
 		listItemRenderer.createRenderedListComponents(this, listItems);
@@ -92,12 +114,18 @@ public class SRList<T> extends JScrollPane implements MouseListener, ListDataLis
 		this.repaint();
 	}
 
+	/**
+	 * Use the rendering engine to update the ListItem AWT Components.
+	 */
 	public void updateComponents() {
 		listItemRenderer.updateRenderedListComponents(this, listItems);
 		this.revalidate();
 		this.repaint();
 	}
 
+	/**
+	 * Clears all of the selected ListItems.
+	 */
 	private void clearSelection() {
 		for(ListItem<T> listItem: selectedListItems) {
 			listItem.setSelected(false);
@@ -106,6 +134,10 @@ public class SRList<T> extends JScrollPane implements MouseListener, ListDataLis
 		this.selectedListItems.clear();
 	}
 
+	/**
+	 * Gets a list of the selected ListItems' underlying objects.
+	 * @return A list of the selected ListItems' underlying objects.
+	 */
 	public List<T> getSelectedItems() {
 		List<T> selected = new ArrayList<T>();
 		for(ListItem<T> listItem: selectedListItems) selected.add(listItem.getListObject());
@@ -113,6 +145,9 @@ public class SRList<T> extends JScrollPane implements MouseListener, ListDataLis
 	}
 
 	// Listeners
+	/**
+	 * This method is called whenever the mouse is pressed within the SRList.
+	 */
 	@Override
 	public void mousePressed(MouseEvent e) {
 		int indexOfMousePress = listPanel.getIndexOfComponent(listPanel.getComponentAt(e.getPoint()));
@@ -188,6 +223,9 @@ public class SRList<T> extends JScrollPane implements MouseListener, ListDataLis
 		updateComponents();
 	}
 
+	/**
+	 * This method is called whenever the mouse is released within the SRList.
+	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		if (e.isPopupTrigger()) {
@@ -198,27 +236,45 @@ public class SRList<T> extends JScrollPane implements MouseListener, ListDataLis
 		}
 	}
 
+	/**
+	 * This method is called when the contents of the ListModel is changed. It recreates all of the SRList components.
+	 */
 	@Override
 	public void contentsChanged(ListDataEvent e) {
 		createComponents();
 	}
 
+	/**
+	 * This method is called when items are added to the ListModel. It recreates the components in the SRList.
+	 */
 	@Override
 	public void intervalAdded(ListDataEvent e) {
 		fillListItems();
 		createComponents();
 	}
 
+	/**
+	 * This method is called when items are removed from the ListModel. It recreates the components in the SRList.
+	 */
 	@Override
 	public void intervalRemoved(ListDataEvent e) {
 		fillListItems();
 		createComponents();
 	}
 
+	/**
+	 * This method is called when an item is double clicked.
+	 * @param listObject The object contained within the ListItem that was double clicked.
+	 */
 	public void fireItemDoubleClicked(T listObject) {
 		for(ListItemListener<T> l: listItemListeners) l.itemDoubleClicked(listObject);
 	}
 
+	/**
+	 * This method is called when an item is right clicked.
+	 * @param listObject The underlying object of the right clicked list item.
+	 * @param p The location of the right click.
+	 */
 	public void fireItemRightClicked(T listObject, Point p) {
 		for(ListItemListener<T> l: listItemListeners) l.itemRightClicked(listObject, p);
 	}

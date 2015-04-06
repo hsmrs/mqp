@@ -47,6 +47,9 @@ public class NewTaskPanel extends JPanel implements ListSelectionListener {
 	private JLabel[] paramlbls;
 	private JTextField[] paramtxts;
 
+	/**
+	 * The constructor for the NewTaskPanel class.
+	 */
 	public NewTaskPanel() {
 
 		lblTitle = new JLabel("New Task", JLabel.CENTER);
@@ -120,8 +123,13 @@ public class NewTaskPanel extends JPanel implements ListSelectionListener {
 		this.add(btnCancel, "gapright 10, center");
 	}
 
+	/**
+	 * Generate a form which allows the user to input the parameters for a specific task type.
+	 * @param spec The TaskSpecification that describes the desired Task.
+	 * @return A JPanel encapsulating the parameter form.
+	 */
 	private JPanel generateParamPanel(TaskSpecification spec) {
-		System.out.println("Generating parameter panel for " + spec.getType());
+		System.out.println("Generating parameter panel for " + spec.getName());
 		JPanel returnPanel = new JPanel();
 		returnPanel.setLayout(new MigLayout("", "[]30[]", "[]"));
 
@@ -142,12 +150,20 @@ public class NewTaskPanel extends JPanel implements ListSelectionListener {
 		return returnPanel;
 	}
 
+	/**
+	 * Get the TaskSpecification for the new Task.
+	 * @return The TaskSpecification for the new Task.
+	 */
 	public TaskSpecification getNewTaskSpec() {
 		int selIndex = typeListView.getSelectedIndex();
 		System.out.println("Index = " + selIndex);
 		return TaskSpecificationListModel.getInstance().getElementAt(selIndex);
 	}
 
+	/**
+	 * Get the values of the new task's parameters as a list of String.
+	 * @return The values of the new task's parameters as a list of String.
+	 */
 	public List<String> getNewTaskParamValues() {
 		ArrayList<String> paramValues = new ArrayList<String>();
 		for (JTextField txt : paramtxts) {
@@ -161,7 +177,7 @@ public class NewTaskPanel extends JPanel implements ListSelectionListener {
 					continue;
 				}
 				try{
-				paramValues.add(Globals.gui_vars.get(varName).toString());
+					paramValues.add(Globals.gui_vars.get(varName).toString());
 				}
 				catch(NullPointerException e)
 				{
@@ -174,6 +190,10 @@ public class NewTaskPanel extends JPanel implements ListSelectionListener {
 		return paramValues;
 	}
 	
+	/**
+	 * Get the prioirty of the new Task.
+	 * @return The prioirty of the new Task.
+	 */
 	public double getNewTaskPrioirty() {
 		try {
 			return Double.parseDouble(txtPriority.getText());
@@ -184,10 +204,17 @@ public class NewTaskPanel extends JPanel implements ListSelectionListener {
 		}
 	}
 	
+	/**
+	 * Get the owner of the new Task.
+	 * @return The owner of the new Task.
+	 */
 	public String getNewTaskOwner(){
 		return (String)ownerSelBox.getSelectedItem();
 	}
 
+	/**
+	 * Callback for when a new Task is selected from the JList. This generates a new Parameter Panel.
+	 */
 	public void valueChanged(ListSelectionEvent e) {
 		if (e.getValueIsAdjusting()) {
 			ListSelectionModel lsm = (ListSelectionModel) e.getSource();

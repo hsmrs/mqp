@@ -34,7 +34,10 @@ import src.main.java.com.github.hsmrs_gui.project.model.task.TaskSpecificationLi
 import src.main.java.com.github.hsmrs_gui.project.ros.ImageListener;
 import src.main.java.com.github.hsmrs_gui.project.ros.NewTaskPublisher;
 import src.main.java.com.github.hsmrs_gui.project.ros.RobotRegistrationListener;
+import src.main.java.com.github.hsmrs_gui.project.ros.RolePublisher;
 import src.main.java.com.github.hsmrs_gui.project.ros.SystemLogListener;
+import src.main.java.com.github.hsmrs_gui.project.ros.UpdatedTaskListener;
+import src.main.java.com.github.hsmrs_gui.project.ros.UpdatedTaskPublisher;
 import src.main.java.com.github.hsmrs_gui.project.util.Pair;
 import src.main.java.com.github.hsmrs_gui.project.view.MainFrame;
 
@@ -49,6 +52,7 @@ public class GuiNode extends AbstractNodeMain {
 	private MessageListener<std_msgs.String> robotRegistrationListener;
 	private MessageListener<std_msgs.String> systemLogListener;
 	private MessageListener<sensor_msgs.Image> imageListener;
+	private MessageListener<hsmrs_framework.TaskMsg> updatedTaskListener;
 	private NewTaskPublisher taskPublisher;
 	
 	
@@ -67,6 +71,7 @@ public class GuiNode extends AbstractNodeMain {
 
   @Override
   public void onStart(final ConnectedNode connectedNode) {
+	  System.out.println("Launching HSMRS GUI");
 	  this.connectedNode = connectedNode;
     log = connectedNode.getLog();
 
@@ -103,8 +108,8 @@ public class GuiNode extends AbstractNodeMain {
             	TaskSpecificationListModel tslm = TaskSpecificationListModel.getInstance();
             	
             	List<String> goToParams = new ArrayList<String>();
-            	goToParams.add("Location(x):Integer");
-            	goToParams.add("Location(y):Integer");
+            	goToParams.add("Location(x):Double");
+            	goToParams.add("Location(y):Double");
             	TaskSpecification goToSpec = new TaskSpecification("GoTo", goToParams);
             	
             	List<String> followTagParams = new ArrayList<String>();
@@ -126,6 +131,9 @@ public class GuiNode extends AbstractNodeMain {
             	robotRegistrationListener = new RobotRegistrationListener(connectedNode);
             	systemLogListener = new SystemLogListener(connectedNode);
             	imageListener = new ImageListener(connectedNode);
+            	updatedTaskListener = new UpdatedTaskListener();
+            	UpdatedTaskPublisher.getInstance();
+            	RolePublisher.getInstance();
             	
             	taskPublisher = new NewTaskPublisher(connectedNode);
             	

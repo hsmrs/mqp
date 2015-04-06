@@ -7,9 +7,14 @@
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-
-<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
   $(document).ready(function() { searchBox.OnSelectItem(0); });
@@ -47,7 +52,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Packages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -74,38 +81,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
-<!-- window showing the filter options -->
-<div id="MSearchSelectWindow"
-     onmouseover="return searchBox.OnSearchSelectShow()"
-     onmouseout="return searchBox.OnSearchSelectHide()"
-     onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
-
-<!-- iframe showing the search results (closed by default) -->
-<div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
 </div>
-
-  <div id="nav-path" class="navpath">
-    <ul>
-      <li class="navelem"><b>src</b>      </li>
-      <li class="navelem"><b>main</b>      </li>
-      <li class="navelem"><b>java</b>      </li>
-      <li class="navelem"><b>com</b>      </li>
-      <li class="navelem"><b>github</b>      </li>
-      <li class="navelem"><b>hsmrs_gui</b>      </li>
-      <li class="navelem"><b>project</b>      </li>
-      <li class="navelem"><b>view</b>      </li>
-      <li class="navelem"><b>feedback</b>      </li>
-      <li class="navelem"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html">ConsoleView</a>      </li>
-    </ul>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
   </div>
 </div>
+<script type="text/javascript">
+  initNavTree('classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html','');
+</script>
+<div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a>  </div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">src.main.java.com.github.hsmrs_gui.project.view.feedback.ConsoleView Class Reference</div>  </div>
 </div><!--header-->
@@ -114,16 +108,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Inheritance diagram for src.main.java.com.github.hsmrs_gui.project.view.feedback.ConsoleView:</div>
 <div class="dyncontent">
 <div class="center"><img src="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView__inherit__graph.png" border="0" usemap="#src_8main_8java_8com_8github_8hsmrs__gui_8project_8view_8feedback_8ConsoleView_inherit__map" alt="Inheritance graph"/></div>
-<map name="src_8main_8java_8com_8github_8hsmrs__gui_8project_8view_8feedback_8ConsoleView_inherit__map" id="src_8main_8java_8com_8github_8hsmrs__gui_8project_8view_8feedback_8ConsoleView_inherit__map">
-</map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for src.main.java.com.github.hsmrs_gui.project.view.feedback.ConsoleView:</div>
 <div class="dyncontent">
 <div class="center"><img src="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView__coll__graph.png" border="0" usemap="#src_8main_8java_8com_8github_8hsmrs__gui_8project_8view_8feedback_8ConsoleView_coll__map" alt="Collaboration graph"/></div>
-<map name="src_8main_8java_8com_8github_8hsmrs__gui_8project_8view_8feedback_8ConsoleView_coll__map" id="src_8main_8java_8com_8github_8hsmrs__gui_8project_8view_8feedback_8ConsoleView_coll__map">
-</map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 
 <p><a href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView-members.html">List of all members.</a></p>
 <table class="memberdecls">
@@ -134,12 +124,18 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html#a0e3f6b50654be0895721a694135fd97a">removeChannel</a> (String name)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html#a221f0ea55fdfc9200dd2887ee00584d5">removeChannel</a> (int index)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html#a6f18741c0d2c38a0f4c94221077f7f51">setChannelLogText</a> (String channelName, String logText)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abbdb34eeda3fbb7ed709fef9000cdc91"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::feedback::ConsoleView::contentsChanged" ref="abbdb34eeda3fbb7ed709fef9000cdc91" args="(ListDataEvent e)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>contentsChanged</b> (ListDataEvent e)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5eb75be1a06e02fa2ac4db5038886540"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::feedback::ConsoleView::intervalAdded" ref="a5eb75be1a06e02fa2ac4db5038886540" args="(ListDataEvent e)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>intervalAdded</b> (ListDataEvent e)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a61d2b9cca3be23937e9354764b448ee6"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::feedback::ConsoleView::intervalRemoved" ref="a61d2b9cca3be23937e9354764b448ee6" args="(ListDataEvent e)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>intervalRemoved</b> (ListDataEvent e)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html#abbdb34eeda3fbb7ed709fef9000cdc91">contentsChanged</a> (ListDataEvent e)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html#a5eb75be1a06e02fa2ac4db5038886540">intervalAdded</a> (ListDataEvent e)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html#a61d2b9cca3be23937e9354764b448ee6">intervalRemoved</a> (ListDataEvent e)</td></tr>
+<tr><td colspan="2"><h2><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">JTextPane&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html#abce7c3fde09c0e7d023432b0ae4d485e">extractTextPane</a> (String channelName)</td></tr>
+<tr><td colspan="2"><h2><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">JTabbedPane&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html#a0cb1b722710dedf9d6af025bcfaaa5d1">sourceTabbedPane</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">JTextArea&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html#a9b25aa3f55541e9d11d17ba767e284b7">output</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">Map&lt; <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html">RobotModel</a>, String &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html#ae8202a813d609a90106fbc8eeb11de13">outputs</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html#ae115f4c0c376777a40c0ef80cf725d59">allOutput</a> = &quot;&quot;</td></tr>
 </table>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ae7075ef7bdeea73adf92218d0be8d8ad"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::feedback::ConsoleView::ConsoleView" ref="ae7075ef7bdeea73adf92218d0be8d8ad" args="()" -->
@@ -156,6 +152,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>intervalRemoved</b> (
 </div>
 <div class="memdoc">
 <p>The constructor for the <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html">ConsoleView</a> class. This creates all of the GUI elements for the Console module. </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView_ae7075ef7bdeea73adf92218d0be8d8ad_cgraph.png" border="0" usemap="#classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView_ae7075ef7bdeea73adf92218d0be8d8ad_cgraph" alt=""/></div>
+<map name="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView_ae7075ef7bdeea73adf92218d0be8d8ad_cgraph" id="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView_ae7075ef7bdeea73adf92218d0be8d8ad_cgraph">
+<area shape="rect" id="node3" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1ConsoleController.html#aebdfbb7ad0fe7d552c66b11dc394d2b1" title="src.main.java.com.github.hsmrs_gui.project.controller.ConsoleController.getInstance" alt="" coords="599,5,1111,35"/><area shape="rect" id="node7" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1ConsoleController.html#a906e0fc3f464ec88de012d62a8629674" title="src.main.java.com.github.hsmrs_gui.project.controller.ConsoleController.setConsoleView" alt="" coords="585,59,1124,88"/><area shape="rect" id="node9" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1ConsoleController.html#a6227136abc9fb4b81382c215edbef93c" title="src.main.java.com.github.hsmrs_gui.project.controller.ConsoleController.getChannelNames" alt="" coords="579,112,1131,141"/><area shape="rect" id="node13" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotListModel.html#ae15051ca765a4ddb1a433f2b642e0b8f" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RobotListModel.getInstance" alt="" coords="597,165,1112,195"/><area shape="rect" id="node5" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1ConsoleController.html#a733fd793c19cbbe5554320f95e482929" title="src.main.java.com.github.hsmrs_gui.project.controller.ConsoleController.ConsoleController" alt="" coords="1180,5,1727,35"/><area shape="rect" id="node11" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1ConsoleModel.html#a936eb102707bea72e02e88b130f64c67" title="src.main.java.com.github.hsmrs_gui.project.model.ConsoleModel.getChannelNames" alt="" coords="1197,112,1709,141"/><area shape="rect" id="node15" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotListModel.html#ae64e386343be88f0f5a81d53b4d1ff2f" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RobotListModel.RobotListModel" alt="" coords="1185,165,1721,195"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -181,6 +186,82 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>intervalRemoved</b> (
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="abbdb34eeda3fbb7ed709fef9000cdc91"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::feedback::ConsoleView::contentsChanged" ref="abbdb34eeda3fbb7ed709fef9000cdc91" args="(ListDataEvent e)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html#abbdb34eeda3fbb7ed709fef9000cdc91">src.main.java.com.github.hsmrs_gui.project.view.feedback.ConsoleView.contentsChanged</a> </td>
+          <td>(</td>
+          <td class="paramtype">ListDataEvent&#160;</td>
+          <td class="paramname"><em>e</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="abce7c3fde09c0e7d023432b0ae4d485e"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::feedback::ConsoleView::extractTextPane" ref="abce7c3fde09c0e7d023432b0ae4d485e" args="(String channelName)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">JTextPane <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html#abce7c3fde09c0e7d023432b0ae4d485e">src.main.java.com.github.hsmrs_gui.project.view.feedback.ConsoleView.extractTextPane</a> </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>channelName</em></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>This method returns the text pane which displays the log of the channel whose name is given as an argument. </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">channelName</td><td>The name of the channel. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The text pane of the named channel. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a5eb75be1a06e02fa2ac4db5038886540"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::feedback::ConsoleView::intervalAdded" ref="a5eb75be1a06e02fa2ac4db5038886540" args="(ListDataEvent e)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html#a5eb75be1a06e02fa2ac4db5038886540">src.main.java.com.github.hsmrs_gui.project.view.feedback.ConsoleView.intervalAdded</a> </td>
+          <td>(</td>
+          <td class="paramtype">ListDataEvent&#160;</td>
+          <td class="paramname"><em>e</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a61d2b9cca3be23937e9354764b448ee6"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::feedback::ConsoleView::intervalRemoved" ref="a61d2b9cca3be23937e9354764b448ee6" args="(ListDataEvent e)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html#a61d2b9cca3be23937e9354764b448ee6">src.main.java.com.github.hsmrs_gui.project.view.feedback.ConsoleView.intervalRemoved</a> </td>
+          <td>(</td>
+          <td class="paramtype">ListDataEvent&#160;</td>
+          <td class="paramname"><em>e</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
 </div>
 </div>
@@ -265,18 +346,81 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>intervalRemoved</b> (
   </dd>
 </dl>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView_a6f18741c0d2c38a0f4c94221077f7f51_cgraph.png" border="0" usemap="#classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView_a6f18741c0d2c38a0f4c94221077f7f51_cgraph" alt=""/></div>
+<map name="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView_a6f18741c0d2c38a0f4c94221077f7f51_cgraph" id="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView_a6f18741c0d2c38a0f4c94221077f7f51_cgraph">
+<area shape="rect" id="node3" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html#abce7c3fde09c0e7d023432b0ae4d485e" title="src.main.java.com.github.hsmrs_gui.project.view.feedback.ConsoleView.extractTextPane" alt="" coords="616,5,1160,35"/><area shape="rect" id="node5" href="classcom_1_1github_1_1hsmrs__gui_1_1project_1_1GuiNode.html#a61ed501273c5de3f2ac64a54150614a4" title="com.github.hsmrs_gui.project.GuiNode.getLog" alt="" coords="743,59,1033,88"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="ae115f4c0c376777a40c0ef80cf725d59"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::feedback::ConsoleView::allOutput" ref="ae115f4c0c376777a40c0ef80cf725d59" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">String <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html#ae115f4c0c376777a40c0ef80cf725d59">src.main.java.com.github.hsmrs_gui.project.view.feedback.ConsoleView.allOutput</a> = &quot;&quot;<code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a9b25aa3f55541e9d11d17ba767e284b7"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::feedback::ConsoleView::output" ref="a9b25aa3f55541e9d11d17ba767e284b7" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">JTextArea <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html#a9b25aa3f55541e9d11d17ba767e284b7">src.main.java.com.github.hsmrs_gui.project.view.feedback.ConsoleView.output</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae8202a813d609a90106fbc8eeb11de13"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::feedback::ConsoleView::outputs" ref="ae8202a813d609a90106fbc8eeb11de13" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Map&lt;<a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html">RobotModel</a>, String&gt; <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html#ae8202a813d609a90106fbc8eeb11de13">src.main.java.com.github.hsmrs_gui.project.view.feedback.ConsoleView.outputs</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a0cb1b722710dedf9d6af025bcfaaa5d1"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::feedback::ConsoleView::sourceTabbedPane" ref="a0cb1b722710dedf9d6af025bcfaaa5d1" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">JTabbedPane <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html#a0cb1b722710dedf9d6af025bcfaaa5d1">src.main.java.com.github.hsmrs_gui.project.view.feedback.ConsoleView.sourceTabbedPane</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>project/src/main/java/com/github/hsmrs_gui/project/view/feedback/ConsoleView.java</li>
+<li>project/src/main/java/com/github/hsmrs_gui/project/view/feedback/<a class="el" href="ConsoleView_8java.html">ConsoleView.java</a></li>
 </ul>
 </div><!-- contents -->
+</div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -285,13 +429,25 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>intervalRemoved</b> (
 </iframe>
 </div>
 
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><a class="el" href="namespacesrc.html">src</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main.html">main</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java.html">java</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com.html">com</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github.html">github</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui.html">hsmrs_gui</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project.html">project</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view.html">view</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback.html">feedback</a>      </li>
+      <li class="navelem"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html">ConsoleView</a>      </li>
 
+    <li class="footer">Generated on Mon Mar 23 2015 22:29:02 for HSMRSGUI by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
+   </ul>
+ </div>
 
-<hr class="footer"/><address class="footer"><small>
-Generated on Thu Dec 25 2014 01:42:02 for HSMRSGUI by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.7.6.1
-</small></address>
 
 </body>
 </html>

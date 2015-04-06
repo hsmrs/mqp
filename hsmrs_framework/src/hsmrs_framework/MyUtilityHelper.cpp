@@ -14,12 +14,69 @@ double MyUtilityHelper::calculate(Robot* robot, Task* task)
 	{
 	    double speed = 0;
 	    double distance = 0;
-	    double time = 1000;
+	    double time = 0;
 	    
 	    if(robotAttributes.count("speed") > 0)
 	        speed = robotAttributes["speed"];
 	    if(robotAttributes.count("distance") > 0)
 	        distance = robotAttributes["distance"];
+        
+        if(speed > 0)
+        {
+            time = distance/speed;
+        }
+        
+        return time == 0 ? 0 : 1./time;
+	}
+	else if(task->getType() == "GoToTask")
+	{
+	    double speed = 0;
+	    double distance = 0;
+	    double time = 0;
+	    hsmrs_framework::TaskMsg* msg = task->toMsg();
+	    double destX = std::stod(msg->param_values[0]);
+	    double destY = std::stod(msg->param_values[1]);
+	    double robotX, robotY;
+	    
+	    if(robotAttributes.count("speed") > 0)
+	        speed = robotAttributes["speed"];
+	    if(robotAttributes.count("x") > 0 && robotAttributes.count("y") > 0)
+	    {
+	        robotX = robotAttributes["x"];
+	        robotY = robotAttributes["y"];
+	        distance = sqrt((robotX - destX)*(robotX - destX) + (robotY - destY)*(robotY - destY));
+        }
+        
+        if(speed > 0)
+        {
+            time = distance/speed;
+        }
+        
+        return time == 0 ? 0 : 1./time;
+	}
+	else if(task->getType() == "SearchTask")
+	{
+	    double speed = 0;
+	    double distance = 0;
+	    double time = 0;
+	    hsmrs_framework::TaskMsg* msg = task->toMsg();
+	    printf("vertices %s\n", msg->param_values[1].c_str());
+		std::string temp = msg->param_values[1].substr(0, msg->param_values[1].find(";"));
+    	int pos = temp.find(",");
+	    
+	    printf("temp %s\n", temp.c_str());
+	    double destX = std::stod(temp.substr(1, pos - 1));
+	    double destY = std::stod(temp.substr(pos + 1, temp.size() - pos - 1));
+	    double robotX, robotY;
+	    
+	    if(robotAttributes.count("speed") > 0)
+	        speed = robotAttributes["speed"];
+	    if(robotAttributes.count("x") > 0 && robotAttributes.count("y") > 0)
+	    {
+	        robotX = robotAttributes["x"];
+	        robotY = robotAttributes["y"];
+	        distance = sqrt((robotX - destX)*(robotX - destX) + (robotY - destY)*(robotY - destY));
+        }
         
         if(speed > 0)
         {

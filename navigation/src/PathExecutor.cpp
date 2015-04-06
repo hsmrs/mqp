@@ -27,6 +27,7 @@ PlanExecutor::PlanExecutor(){
 	poseSub = nh.subscribe(poseTopic, 1000, &PlanExecutor::poseCallback, this);
 	pathSub = nh.subscribe("navigation/path", 1000, &PlanExecutor::pathCallback, this);
 	cancelSub = nh.subscribe("navigation/cancel", 1000, &PlanExecutor::cancelCallback, this);
+	nextPointPub = nh.advertise<geometry_msgs::PointStamped>("navigation/next_point", 1000);
 	
 	ros::spin();
 }
@@ -37,12 +38,13 @@ void PlanExecutor::poseCallback(const geometry_msgs::PoseStamped::ConstPtr& pose
 
 void PlanExecutor::pathCallback(const nav_msgs::Path::ConstPtr& pathMsg){
 	ROS_INFO("Path received!");
+	path.clear();
 	for (geometry_msgs::PoseStamped pose : pathMsg->poses){
 		path.push_back(pose.pose);
 	}
 
 	isCanceled = false;
-	ROS_INFO("Execuing!");
+	ROS_INFO("Executing!");
 	executePath();
 }
 
@@ -52,17 +54,23 @@ void PlanExecutor::cancelCallback(const std_msgs::String::ConstPtr cancelMsg){
 
 void PlanExecutor::executePath(){
 	double x1, x2, y1, y2, theta;
-	double linearKp = 0.8, angularKp = 0.3;
+	double linearKp = 0.8, angularKp = 1.2;
 
 	for (auto pose : path){
-		ROS_INFO("Next waypoint!");
+		//ROS_INFO("Next waypoint!");
 		x1 = currentPose.position.x;
 		x2 = pose.position.x;
 		y1 = currentPose.position.y;
 		y2 = pose.position.y;
+		geometry_msgs::PointStamped nextPointMsg;
+		nextPointMsg.header.frame_id = "map";
+		nextPointMsg.point.x = x2;
+		nextPointMsg.point.y = y2;
+		nextPointPub.publish(nextPointMsg);
 		ROS_INFO("Driving to: (%f, %f)", x2, y2);
-		ROS_INFO("Distance: %f", distance(x1, y1, x2, y2));
+		//ROS_INFO("Distance: %f", distance(x1, y1, x2, y2));
 		while (distance(x1, y1, x2, y2) > 0.5 && !isCanceled && ros::ok()){
+			//ROS_INFO("Driving to: (%f, %f)", x2, y2);
 			//ROS_INFO("Distance: %f", distance(x1, y1, x2, y2));
 			x1 = currentPose.position.x;
 			y1 = currentPose.position.y;
@@ -80,9 +88,18 @@ void PlanExecutor::executePath(){
 
 			linearError = distance(x1, y1, x2, y2);
 			angularError = atan2(y2-y1, x2-x1) - theta;
-			//ROS_INFO("Angular error: %f", angularError);
+			//ROS_INFO("Raw angular error: %f", angularError*180/M_PI);
+			if (abs(angularError) > M_PI){
+				int sign = -1*(angularError/abs(angularError));
+				angularError = 2*M_PI - abs(angularError);
+				angularError *= sign;
+			}
+			
+			//ROS_INFO("My angle: %f", theta*180/M_PI);
+			//ROS_INFO("Angle to goal: %f", atan2(y2-y1, x2-x1)*180/M_PI);
+			//ROS_INFO("Angular error: %f", angularError*180/M_PI);
 
-			if (abs(angularError) >= 25*M_PI/180){
+			if (abs(angularError) >= 10*M_PI/180){
 				linearVelocity = 0;
 				angularVelocity = angularError * angularKp;
 				//ROS_INFO("Facing target");
@@ -109,12 +126,13 @@ void PlanExecutor::executePath(){
 
 		if (isCanceled) break;
 	}
-	ROS_INFO("Done!");
 	if (!isCanceled){
+		ROS_INFO("Plan Executed!");
 		std_msgs::String progressMsg;
 		progressMsg.data = "complete";
 		progressPub.publish(progressMsg);
 	} else {
+		ROS_INFO("Plan Execution Canceled!");
 		std_msgs::String progressMsg;
 		progressMsg.data = "canceled";
 		progressPub.publish(progressMsg);

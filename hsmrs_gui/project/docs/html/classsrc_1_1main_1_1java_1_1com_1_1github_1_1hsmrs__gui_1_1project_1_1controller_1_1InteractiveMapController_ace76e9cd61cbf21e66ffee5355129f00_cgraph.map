@@ -1,0 +1,6 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1NavigationMapModel.html#abb67b16606e4e0e83d7addf27fb0490f" title="src.main.java.com.github.hsmrs_gui.project.model.NavigationMapModel.clearAllCells" alt="" coords="619,5,1136,35"/>
+<area shape="rect" id="node5" href="$classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1NavigationMapModel.html#ae386455fd9eff47eb7406cefcb0d03f1" title="src.main.java.com.github.hsmrs_gui.project.model.NavigationMapModel.toggleSelectCell" alt="" coords="608,59,1147,88"/>
+<area shape="rect" id="node7" href="$classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1MapGridCellModel.html#af220101c9f96fcf694506fee4c43ff97" title="src.main.java.com.github.hsmrs_gui.project.model.MapGridCellModel.toggleSelected" alt="" coords="1215,32,1729,61"/>
+<area shape="rect" id="node9" href="$classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1NavigationMapModel.html#adf28cb8c93903bea0ac67f2c8bf5e363" title="src.main.java.com.github.hsmrs_gui.project.model.NavigationMapModel.refreshSelectedVar" alt="" coords="1195,85,1749,115"/>
+</map>

@@ -26,6 +26,10 @@ public class TaskListPanel extends JPanel implements ListItemListener<TaskModel>
 	private JButton btnAddTask;
 	private JButton btnRemoveTask;
 	
+	/**
+	 * The constructor of the TaskListPanel class.
+	 * @param listModel The underlying ListModel for this view.
+	 */
 	public TaskListPanel(ListModel listModel) {
 		lblTitle = new JLabel("Task List", JLabel.CENTER);
 		lblTitle.setBackground(Color.decode("0XC0BCB6"));
@@ -53,10 +57,17 @@ public class TaskListPanel extends JPanel implements ListItemListener<TaskModel>
 		
 	}
 	
+	/**
+	 * Get the list of selected Tasks.
+	 * @return The list of selected tasks.
+	 */
 	public List<TaskModel> getSelectedTask(){
 		return taskListView.getSelectedItems();
 	}
 
+	/**
+	 * Updates the components which represent the Tasks in the list.
+	 */
 	public void update(){
 		taskListView.updateComponents();
 	}
@@ -71,6 +82,11 @@ public class TaskListPanel extends JPanel implements ListItemListener<TaskModel>
 		
 	}
 
+	/**
+	 * This method is called when a Task component is right clicked. It launches the right click popup.
+	 * @param listObject The Task which was right clicked
+	 * @param p The point where the right click occurred.
+	 */
 	public void itemRightClicked(TaskModel listObject, Point p) {
 		TaskListComponentPopup popup = new TaskListComponentPopup(listObject, this);
 		popup.show(this, p.x, p.y);

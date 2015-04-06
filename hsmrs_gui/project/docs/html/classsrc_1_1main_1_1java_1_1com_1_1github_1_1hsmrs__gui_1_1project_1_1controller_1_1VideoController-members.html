@@ -7,9 +7,14 @@
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-
-<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
   $(document).ready(function() { searchBox.OnSelectItem(0); });
@@ -47,7 +52,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Packages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -74,36 +81,40 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
-  <div id="nav-path" class="navpath">
-    <ul>
-      <li class="navelem"><b>src</b>      </li>
-      <li class="navelem"><b>main</b>      </li>
-      <li class="navelem"><b>java</b>      </li>
-      <li class="navelem"><b>com</b>      </li>
-      <li class="navelem"><b>github</b>      </li>
-      <li class="navelem"><b>hsmrs_gui</b>      </li>
-      <li class="navelem"><b>project</b>      </li>
-      <li class="navelem"><b>controller</b>      </li>
-      <li class="navelem"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1VideoController.html">VideoController</a>      </li>
-    </ul>
+</div>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
   </div>
 </div>
+<script type="text/javascript">
+  initNavTree('classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1VideoController.html','');
+</script>
+<div id="doc-content">
 <div class="header">
   <div class="headertitle">
 <div class="title">src.main.java.com.github.hsmrs_gui.project.controller.VideoController Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 This is the complete list of members for <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1VideoController.html">src.main.java.com.github.hsmrs_gui.project.controller.VideoController</a>, including all inherited members.<table>
-  <tr class="memlist"><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1VideoController.html#acba18cc3d4c0c2fb817dfd6014989b78">getInstance</a>()</td><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1VideoController.html">src.main.java.com.github.hsmrs_gui.project.controller.VideoController</a></td><td><code> [static]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1VideoController.html#a120df170433d48a217d4d0e8c8b0eb11">getInstance</a>()</td><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1VideoController.html">src.main.java.com.github.hsmrs_gui.project.controller.VideoController</a></td><td><code> [static]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1VideoController.html#ad28e1a31a956ce906de30ffd4a0e5764">imgView</a></td><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1VideoController.html">src.main.java.com.github.hsmrs_gui.project.controller.VideoController</a></td><td><code> [private]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1VideoController.html#a5316beff0f7a8a1d1aa763730c18d330">instance</a></td><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1VideoController.html">src.main.java.com.github.hsmrs_gui.project.controller.VideoController</a></td><td><code> [private, static]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1VideoController.html#adaf06517513f3d34e543d9493ac3567d">receiveNewImage</a>(String source, BufferedImage img)</td><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1VideoController.html">src.main.java.com.github.hsmrs_gui.project.controller.VideoController</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1VideoController.html#a523cb5d9b8b965e3c7e9fcaa953eea03">setImageView</a>(ImageView imgView)</td><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1VideoController.html">src.main.java.com.github.hsmrs_gui.project.controller.VideoController</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1VideoController.html#a41a5ab6c1049c520ec8ba59289efaeed">source</a></td><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1VideoController.html">src.main.java.com.github.hsmrs_gui.project.controller.VideoController</a></td><td><code> [private]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1VideoController.html#aa2892fb0966e5811116e564c760d6c3e">VideoController</a>()</td><td><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1VideoController.html">src.main.java.com.github.hsmrs_gui.project.controller.VideoController</a></td><td><code> [private]</code></td></tr>
 </table></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -112,13 +123,16 @@ This is the complete list of members for <a class="el" href="classsrc_1_1main_1_
 </iframe>
 </div>
 
+</div>
+  <div id="nav-path" class="navpath">
+    <ul>
 
+    <li class="footer">Generated on Mon Mar 23 2015 22:29:02 for HSMRSGUI by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
+   </ul>
+ </div>
 
-<hr class="footer"/><address class="footer"><small>
-Generated on Thu Dec 25 2014 01:42:02 for HSMRSGUI by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.7.6.1
-</small></address>
 
 </body>
 </html>

@@ -49,11 +49,9 @@ public class PoseListener implements MessageListener<geometry_msgs.PoseStamped> 
 	public void onNewMessage(geometry_msgs.PoseStamped message) {
 		geometry_msgs.Pose pose = message.getPose();
 		geometry_msgs.Point position = pose.getPosition();
-		int x = (int)Math.round(position.getX());
-		int y = (int)Math.round(position.getY());
 		
 		InteractiveMapController.getInstance()
 		.updateRobotLocation(robotModel.getName(), 
-				new Pair<Integer, Integer>(x, y));
+				new Pair<Double, Double>(position.getX(), position.getY()));
 	}
 }

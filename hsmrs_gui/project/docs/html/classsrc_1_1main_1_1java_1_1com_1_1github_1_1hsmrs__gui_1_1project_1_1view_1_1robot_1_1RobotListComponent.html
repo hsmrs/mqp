@@ -7,9 +7,14 @@
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-
-<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
   $(document).ready(function() { searchBox.OnSelectItem(0); });
@@ -47,7 +52,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Packages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -74,12 +81,231 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
+</div>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+  initNavTree('classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent.html','');
+</script>
+<div id="doc-content">
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a>  </div>
+  <div class="headertitle">
+<div class="title">src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListComponent Class Reference</div>  </div>
+</div><!--header-->
+<div class="contents">
+<!-- doxytag: class="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListComponent" --><!-- doxytag: inherits="src::main::java::com::github::hsmrs_gui::project::view::list::RenderableComponent" --><div class="dynheader">
+Inheritance diagram for src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListComponent:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent__inherit__graph.png" border="0" usemap="#src_8main_8java_8com_8github_8hsmrs__gui_8project_8view_8robot_8RobotListComponent_inherit__map" alt="Inheritance graph"/></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListComponent:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent__coll__graph.png" border="0" usemap="#src_8main_8java_8com_8github_8hsmrs__gui_8project_8view_8robot_8RobotListComponent_coll__map" alt="Collaboration graph"/></div>
+<map name="src_8main_8java_8com_8github_8hsmrs__gui_8project_8view_8robot_8RobotListComponent_coll__map" id="src_8main_8java_8com_8github_8hsmrs__gui_8project_8view_8robot_8RobotListComponent_coll__map">
+<area shape="rect" id="node4" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel" alt="" coords="1228,653,1649,683"/><area shape="rect" id="node12" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1HelpListener.html" title="src.main.java.com.github.hsmrs_gui.project.ros.HelpListener" alt="" coords="1937,836,2311,865"/><area shape="rect" id="node32" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1StatusListener.html" title="src.main.java.com.github.hsmrs_gui.project.ros.StatusListener" alt="" coords="1932,980,2316,1009"/><area shape="rect" id="node51" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1PoseListener.html" title="src.main.java.com.github.hsmrs_gui.project.ros.PoseListener" alt="" coords="1936,385,2312,415"/><area shape="rect" id="node58" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1LogListener.html" title="src.main.java.com.github.hsmrs_gui.project.ros.LogListener" alt="" coords="1940,563,2308,592"/><area shape="rect" id="node6" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1TeleOpPublisher.html" title="src.main.java.com.github.hsmrs_gui.project.ros.TeleOpPublisher" alt="" coords="571,627,968,656"/><area shape="rect" id="node46" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1RequestPublisher.html" title="src.main.java.com.github.hsmrs_gui.project.ros.RequestPublisher" alt="" coords="568,733,971,763"/><area shape="rect" id="node22" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1ImageListener.html" title="src.main.java.com.github.hsmrs_gui.project.ros.ImageListener" alt="" coords="579,937,960,967"/><area shape="rect" id="node26" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RoleModel.html" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RoleModel" alt="" coords="563,573,976,603"/><area shape="rect" id="node38" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1task_1_1TaskModel.html" title="src.main.java.com.github.hsmrs_gui.project.model.task.TaskModel" alt="" coords="564,519,975,548"/><area shape="rect" id="node62" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1ConsoleController.html" title="src.main.java.com.github.hsmrs_gui.project.controller.ConsoleController" alt="" coords="1219,411,1659,440"/><area shape="rect" id="node64" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html" title="src.main.java.com.github.hsmrs_gui.project.view.feedback.ConsoleView" alt="" coords="548,280,991,309"/><area shape="rect" id="node77" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1ConsoleModel.html" title="src.main.java.com.github.hsmrs_gui.project.model.ConsoleModel" alt="" coords="569,411,969,440"/></map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+
+<p><a href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent-members.html">List of all members.</a></p>
+<table class="memberdecls">
+<tr><td colspan="2"><h2><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent.html#a9a33c969201b02abbe4ef132a50e4720">RobotListComponent</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">JComponent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent.html#aff4ff958d01db35f46918b7b895374e2">create</a> (ListItem&lt; <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html">RobotModel</a> &gt; listItem)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent.html#aba755f866c31ff498ac5c53a89339f33">update</a> (ListItem&lt; <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html">RobotModel</a> &gt; listItem)</td></tr>
+<tr><td colspan="2"><h2><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">JPanel&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent.html#a74abc852c406bb08b1f0e1ef96849f8a">panel</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">JLabel&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent.html#ac275549ceb870a22bab737d5e8a2cd6f">lblColor</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">JLabel&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent.html#ade48b6a054889bdd84e5de63d3b39415">lblName</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">JLabel&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent.html#aa9f6f989cffc62b8cf88178e58da4939">lblStatus</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">JLabel&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent.html#a33a410dafef8c5d76c073894cd6a2fb1">lblTask</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html">RobotModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent.html#ab5359bdab1a136e72644c819471de66e">robot</a></td></tr>
+</table>
+<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a9a33c969201b02abbe4ef132a50e4720"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListComponent::RobotListComponent" ref="a9a33c969201b02abbe4ef132a50e4720" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent.html#a9a33c969201b02abbe4ef132a50e4720">src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListComponent.RobotListComponent</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="aff4ff958d01db35f46918b7b895374e2"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListComponent::create" ref="aff4ff958d01db35f46918b7b895374e2" args="(ListItem&lt; RobotModel &gt; listItem)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">JComponent <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent.html#aff4ff958d01db35f46918b7b895374e2">src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListComponent.create</a> </td>
+          <td>(</td>
+          <td class="paramtype">ListItem&lt; <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html">RobotModel</a> &gt;&#160;</td>
+          <td class="paramname"><em>listItem</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>This method creates a JComponent from a given ListItem. </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">The</td><td>ListItem to turn into a JComponent. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent_aff4ff958d01db35f46918b7b895374e2_cgraph.png" border="0" usemap="#classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent_aff4ff958d01db35f46918b7b895374e2_cgraph" alt=""/></div>
+<map name="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent_aff4ff958d01db35f46918b7b895374e2_cgraph" id="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent_aff4ff958d01db35f46918b7b895374e2_cgraph">
+<area shape="rect" id="node3" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html#a7cccff73365f90ce38df9ad80ede1381" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel.getNeedsHelp" alt="" coords="571,5,1077,35"/><area shape="rect" id="node5" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html#a54ad9fce703080fafbee421025bf0cf3" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel.getColor" alt="" coords="587,59,1061,88"/><area shape="rect" id="node7" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html#a182a2987dbd626380204e6eefa4f796b" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel.getName" alt="" coords="585,112,1063,141"/><area shape="rect" id="node9" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html#aa99b6c34a8bed0dc16b4d9352c0eb1fd" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel.getRole" alt="" coords="589,165,1059,195"/><area shape="rect" id="node11" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RoleModel.html#ad38e0b940e6ac5c037241e570b2a1754" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RoleModel.getType" alt="" coords="592,219,1056,248"/><area shape="rect" id="node13" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html#acec0e6d229dd22c23a0e66bf2e8fcff2" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel.getStatus" alt="" coords="584,272,1064,301"/><area shape="rect" id="node15" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html#a55a1e47da0d36f93d36e1a6aabdb3ee6" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel.getAssignedTask" alt="" coords="561,325,1087,355"/><area shape="rect" id="node17" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1task_1_1TaskModel.html#a812401c2784b6802805d87b84f5b34fc" title="src.main.java.com.github.hsmrs_gui.project.model.task.TaskModel.getType" alt="" coords="593,379,1055,408"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="aba755f866c31ff498ac5c53a89339f33"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListComponent::update" ref="aba755f866c31ff498ac5c53a89339f33" args="(ListItem&lt; RobotModel &gt; listItem)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent.html#aba755f866c31ff498ac5c53a89339f33">src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListComponent.update</a> </td>
+          <td>(</td>
+          <td class="paramtype">ListItem&lt; <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html">RobotModel</a> &gt;&#160;</td>
+          <td class="paramname"><em>listItem</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Recreates the JComponent from a given listItem. </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">The</td><td>ListItem to create a JComponent from. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent_aba755f866c31ff498ac5c53a89339f33_cgraph.png" border="0" usemap="#classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent_aba755f866c31ff498ac5c53a89339f33_cgraph" alt=""/></div>
+<map name="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent_aba755f866c31ff498ac5c53a89339f33_cgraph" id="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent_aba755f866c31ff498ac5c53a89339f33_cgraph">
+<area shape="rect" id="node3" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html#a7cccff73365f90ce38df9ad80ede1381" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel.getNeedsHelp" alt="" coords="573,5,1080,35"/><area shape="rect" id="node5" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html#a182a2987dbd626380204e6eefa4f796b" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel.getName" alt="" coords="588,59,1065,88"/><area shape="rect" id="node7" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html#aa99b6c34a8bed0dc16b4d9352c0eb1fd" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel.getRole" alt="" coords="592,112,1061,141"/><area shape="rect" id="node9" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RoleModel.html#ad38e0b940e6ac5c037241e570b2a1754" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RoleModel.getType" alt="" coords="595,165,1059,195"/><area shape="rect" id="node11" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html#acec0e6d229dd22c23a0e66bf2e8fcff2" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel.getStatus" alt="" coords="587,219,1067,248"/><area shape="rect" id="node13" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html#a55a1e47da0d36f93d36e1a6aabdb3ee6" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RobotModel.getAssignedTask" alt="" coords="564,272,1089,301"/><area shape="rect" id="node15" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1task_1_1TaskModel.html#a812401c2784b6802805d87b84f5b34fc" title="src.main.java.com.github.hsmrs_gui.project.model.task.TaskModel.getType" alt="" coords="596,325,1057,355"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="ac275549ceb870a22bab737d5e8a2cd6f"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListComponent::lblColor" ref="ac275549ceb870a22bab737d5e8a2cd6f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">JLabel <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent.html#ac275549ceb870a22bab737d5e8a2cd6f">src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListComponent.lblColor</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ade48b6a054889bdd84e5de63d3b39415"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListComponent::lblName" ref="ade48b6a054889bdd84e5de63d3b39415" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">JLabel <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent.html#ade48b6a054889bdd84e5de63d3b39415">src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListComponent.lblName</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa9f6f989cffc62b8cf88178e58da4939"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListComponent::lblStatus" ref="aa9f6f989cffc62b8cf88178e58da4939" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">JLabel <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent.html#aa9f6f989cffc62b8cf88178e58da4939">src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListComponent.lblStatus</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a33a410dafef8c5d76c073894cd6a2fb1"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListComponent::lblTask" ref="a33a410dafef8c5d76c073894cd6a2fb1" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">JLabel <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent.html#a33a410dafef8c5d76c073894cd6a2fb1">src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListComponent.lblTask</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a74abc852c406bb08b1f0e1ef96849f8a"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListComponent::panel" ref="a74abc852c406bb08b1f0e1ef96849f8a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">JPanel <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent.html#a74abc852c406bb08b1f0e1ef96849f8a">src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListComponent.panel</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab5359bdab1a136e72644c819471de66e"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListComponent::robot" ref="ab5359bdab1a136e72644c819471de66e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RobotModel.html">RobotModel</a> <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent.html#ab5359bdab1a136e72644c819471de66e">src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListComponent.robot</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>project/src/main/java/com/github/hsmrs_gui/project/view/robot/<a class="el" href="RobotListComponent_8java.html">RobotListComponent.java</a></li>
+</ul>
+</div><!-- contents -->
+</div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -90,84 +316,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
   <div id="nav-path" class="navpath">
     <ul>
-      <li class="navelem"><b>src</b>      </li>
-      <li class="navelem"><b>main</b>      </li>
-      <li class="navelem"><b>java</b>      </li>
-      <li class="navelem"><b>com</b>      </li>
-      <li class="navelem"><b>github</b>      </li>
-      <li class="navelem"><b>hsmrs_gui</b>      </li>
-      <li class="navelem"><b>project</b>      </li>
-      <li class="navelem"><b>view</b>      </li>
-      <li class="navelem"><b>robot</b>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc.html">src</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main.html">main</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java.html">java</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com.html">com</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github.html">github</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui.html">hsmrs_gui</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project.html">project</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view.html">view</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot.html">robot</a>      </li>
       <li class="navelem"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent.html">RobotListComponent</a>      </li>
-    </ul>
-  </div>
-</div>
-<div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pac-attribs">Package Attributes</a>  </div>
-  <div class="headertitle">
-<div class="title">src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListComponent Class Reference</div>  </div>
-</div><!--header-->
-<div class="contents">
-<!-- doxytag: class="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListComponent" --><!-- doxytag: inherits="src::main::java::com::github::hsmrs_gui::project::view::list::RenderableComponent" --><div class="dynheader">
-Inheritance diagram for src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListComponent:</div>
-<div class="dyncontent">
-<div class="center"><img src="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent__inherit__graph.png" border="0" usemap="#src_8main_8java_8com_8github_8hsmrs__gui_8project_8view_8robot_8RobotListComponent_inherit__map" alt="Inheritance graph"/></div>
-<map name="src_8main_8java_8com_8github_8hsmrs__gui_8project_8view_8robot_8RobotListComponent_inherit__map" id="src_8main_8java_8com_8github_8hsmrs__gui_8project_8view_8robot_8RobotListComponent_inherit__map">
-</map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for src.main.java.com.github.hsmrs_gui.project.view.robot.RobotListComponent:</div>
-<div class="dyncontent">
-<div class="center"><img src="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent__coll__graph.png" border="0" usemap="#src_8main_8java_8com_8github_8hsmrs__gui_8project_8view_8robot_8RobotListComponent_coll__map" alt="Collaboration graph"/></div>
-<map name="src_8main_8java_8com_8github_8hsmrs__gui_8project_8view_8robot_8RobotListComponent_coll__map" id="src_8main_8java_8com_8github_8hsmrs__gui_8project_8view_8robot_8RobotListComponent_coll__map">
-</map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 
-<p><a href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1robot_1_1RobotListComponent-members.html">List of all members.</a></p>
-<table class="memberdecls">
-<tr><td colspan="2"><h2><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aff4ff958d01db35f46918b7b895374e2"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListComponent::create" ref="aff4ff958d01db35f46918b7b895374e2" args="(ListItem&lt; RobotModel &gt; listItem)" -->
-JComponent&#160;</td><td class="memItemRight" valign="bottom"><b>create</b> (ListItem&lt; <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1RobotModel.html">RobotModel</a> &gt; listItem)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aba755f866c31ff498ac5c53a89339f33"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListComponent::update" ref="aba755f866c31ff498ac5c53a89339f33" args="(ListItem&lt; RobotModel &gt; listItem)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (ListItem&lt; <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1RobotModel.html">RobotModel</a> &gt; listItem)</td></tr>
-<tr><td colspan="2"><h2><a name="pac-attribs"></a>
-Package Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a74abc852c406bb08b1f0e1ef96849f8a"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListComponent::panel" ref="a74abc852c406bb08b1f0e1ef96849f8a" args="" -->
-JPanel&#160;</td><td class="memItemRight" valign="bottom"><b>panel</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ade48b6a054889bdd84e5de63d3b39415"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListComponent::lblName" ref="ade48b6a054889bdd84e5de63d3b39415" args="" -->
-JLabel&#160;</td><td class="memItemRight" valign="bottom"><b>lblName</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a33a410dafef8c5d76c073894cd6a2fb1"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::robot::RobotListComponent::lblTask" ref="a33a410dafef8c5d76c073894cd6a2fb1" args="" -->
-JLabel&#160;</td><td class="memItemRight" valign="bottom"><b>lblTask</b></td></tr>
-</table>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>project/src/main/java/com/github/hsmrs_gui/project/view/robot/RobotListComponent.java</li>
-</ul>
-</div><!-- contents -->
-<!-- window showing the filter options -->
-<div id="MSearchSelectWindow"
-     onmouseover="return searchBox.OnSearchSelectShow()"
-     onmouseout="return searchBox.OnSearchSelectHide()"
-     onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+    <li class="footer">Generated on Mon Mar 23 2015 22:29:02 for HSMRSGUI by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
+   </ul>
+ </div>
 
-<!-- iframe showing the search results (closed by default) -->
-<div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
-</div>
-
-
-
-<hr class="footer"/><address class="footer"><small>
-Generated on Thu Dec 25 2014 01:42:02 for HSMRSGUI by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.7.6.1
-</small></address>
 
 </body>
 </html>

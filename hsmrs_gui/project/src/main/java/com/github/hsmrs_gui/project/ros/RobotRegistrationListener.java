@@ -85,7 +85,7 @@ public class RobotRegistrationListener implements
 		//consoleController.addConsoleChannel(newRobot.getName());
 		InteractiveMapController.getInstance()
 		.updateRobotLocation(newRobot.getName(), 
-				new Pair<Integer, Integer>(0, 0));
+				new Pair<Double, Double>(0.0, 0.0));
 		
 		//End registration process
 		log.info("Successful registration: " + messageData[0]);

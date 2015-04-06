@@ -1,0 +1,7 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RoleListModel.html#a011724752607d065153d389922dcd0ed" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RoleListModel.getInstance" alt="" coords="572,5,1079,35"/>
+<area shape="rect" id="node7" href="$classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RoleListModel.html#a607518bf5b06f8517be27f2d2a61485f" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RoleListModel.getRoleNames" alt="" coords="563,59,1088,88"/>
+<area shape="rect" id="node9" href="$classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1RobotController.html#a4c8bef57087f63ce65541d1001408957" title="src.main.java.com.github.hsmrs_gui.project.controller.RobotController.getInstance" alt="" coords="576,112,1075,141"/>
+<area shape="rect" id="node5" href="$classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1robot_1_1RoleListModel.html#a05d10218a5935dbb61b82e4d3e9bc49f" title="src.main.java.com.github.hsmrs_gui.project.model.robot.RoleListModel.RoleListModel" alt="" coords="1137,5,1657,35"/>
+<area shape="rect" id="node11" href="$classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1RobotController.html#a29952d6232a54a0d042f92e4ebfe6926" title="src.main.java.com.github.hsmrs_gui.project.controller.RobotController.RobotController" alt="" coords="1136,112,1659,141"/>
+</map>

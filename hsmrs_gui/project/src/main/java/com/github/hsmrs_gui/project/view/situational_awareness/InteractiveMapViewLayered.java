@@ -34,13 +34,16 @@ public class InteractiveMapViewLayered extends JPanel{
 	
 	private BufferedImage mapImage;
 	
+	/**
+	 * Constructor for the InteractiveMapViewLayered class.
+	 */
 	public InteractiveMapViewLayered() {
 		
 		setLayout(new MigLayout("insets 0, gap 0, align center"));
 		addMouseListener(InteractiveMapController.getInstance());
 		addMouseMotionListener(InteractiveMapController.getInstance());
 		
-		createGrid(60, 60, 10);
+		createGrid(24, 24, 10);
 		
 		for (String robotName : RobotListModel.getInstance().getRobotNames()){
 			RobotModel robot = RobotListModel.getInstance().getRobotModelByName(robotName);
@@ -50,9 +53,15 @@ public class InteractiveMapViewLayered extends JPanel{
 		InteractiveMapController.getInstance().setNavMapView(this);
 	}
 	
+	/**
+	 * Creates a grid of JLabels with the given height width and grid cell size.
+	 * @param height The number of grid cells vertically in the grid.
+	 * @param width The number of grid cells horizontally in the grid.
+	 * @param gridCellDimPixels The size of the grid cells in the grid in pixels.
+	 */
 	public void createGrid(int height, int width, int gridCellDimPixels){
 		removeAll();
-		setBackground(Color.white);
+		setBackground(Color.black);
 		
 		labelMatrix = new JLabel[height][width];
 		for (int y = 0; y < height; y++){
@@ -80,18 +89,23 @@ public class InteractiveMapViewLayered extends JPanel{
 		}
 	}
 	
+	/**
+	 * Updates the location of a robot on the grid. 
+	 * @param robotName The name of the robot whose location is being updated.
+	 * @param location The Pair describing the new location of the robot.
+	 */
 	public void updateRobotLocation(String robotName, Pair<Integer, Integer> location){	
 		RobotModel robot = RobotListModel.getInstance().getRobotModelByName(robotName);
 		JLabel target = labelMatrix[location.Y][location.X];
 		//System.out.println("Coloring the map");
-		target.setOpaque(true);
+		//target.setOpaque(true);
 		target.setBackground(robot.getColor());
 		
 		
 		Pair<Integer, Integer> oldLocation = robot.getLocation();
 		if (!oldLocation.equalTo(location)){
 			JLabel oldLabel = labelMatrix[oldLocation.Y][oldLocation.X];
-			oldLabel.setOpaque(false);
+			//oldLabel.setOpaque(false);
 			oldLabel.setBackground(Color.white);
 		}
 		
@@ -101,10 +115,17 @@ public class InteractiveMapViewLayered extends JPanel{
 		repaint();
 	}
 	
+	/**
+	 * Sets the background image for this grid.
+	 * @param backgroundImage The background image.
+	 */
 	public void setBackgroundImage(BufferedImage backgroundImage){
 		mapImage = backgroundImage;
 	}
 	
+	/**
+	 * This method draws the background image behind the grid.
+	 */
 	@Override
 	 public void paintComponent(Graphics g) {
 	    super.paintComponent(g);

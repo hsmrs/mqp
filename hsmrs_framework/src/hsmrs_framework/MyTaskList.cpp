@@ -1,9 +1,10 @@
 #include <hsmrs_implementations/MyTaskList.h>
 #include <algorithm>
+#include "ros/console.h"
 
 MyTaskList::MyTaskList()
 {
-	list = new std::vector<Task*>;
+	list = new std::vector<Task*>();
 	sorted = true;
 }
 
@@ -31,7 +32,7 @@ bool MyTaskList::isEmpty()
 {
 	return list->size() == 0;
 }
-
+ 
 Task* MyTaskList::pullNextTask()
 {
 	for (int i = 0; i < list->size(); i++)
@@ -43,19 +44,16 @@ Task* MyTaskList::pullNextTask()
 	return NULL;
 }
 
-Task* MyTaskList::removeTask(int id)
-{
+void MyTaskList::removeTask(int id)
+{    
 	for (int i = 0; i < list->size(); i++)
 	{
+	    ROS_INFO("%d", i);
 		if ((*list)[i]->getID() == id)
 		{
-			Task* ret = (*list)[i];
 			list->erase(list->begin() + i);
-			return ret;
 		}
 	}
-
-	return NULL;
 }
 
 void MyTaskList::setPriority(int task, double priority)

@@ -17,12 +17,20 @@ public class TeleOpPublisher {
 	private Publisher<geometry_msgs.Twist> publisher;
 	private ConnectedNode connectedNode;
 	
+	/**
+	 * The constructor of the TeleOpPublisher class.
+	 * @param topicName The topic to publish tele-op messages to.
+	 */
 	public TeleOpPublisher(String topicName){
 		connectedNode = GuiNode.getConnectedNode();
 		publisher =
 		        connectedNode.newPublisher(topicName, geometry_msgs.Twist._TYPE);
 	}
 	
+	/**
+	 * Publishes a twist message which corresponds to the given direction.
+	 * @param direction
+	 */
 	public void publishMessage(String direction){
 		geometry_msgs.Twist msg = publisher.newMessage();
 		if (direction.equals(UP)){

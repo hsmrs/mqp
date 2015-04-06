@@ -111,6 +111,7 @@ include_directories(
 add_executable(astar src/AStar.cpp)
 add_executable(path_executor src/PathExecutor.cpp)
 add_executable(ar_tag_localization src/ArTagLocalization.cpp)
+add_executable(odom_frame_swap src/OdomFrameSwap.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
@@ -126,6 +127,10 @@ target_link_libraries(path_executor
 )
 
 target_link_libraries(ar_tag_localization
+	${catkin_LIBRARIES}
+)
+
+target_link_libraries(odom_frame_swap
 	${catkin_LIBRARIES}
 )
 

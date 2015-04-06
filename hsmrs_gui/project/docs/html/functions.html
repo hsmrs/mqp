@@ -7,9 +7,14 @@
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-
-<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
   $(document).ready(function() { searchBox.OnSelectItem(0); });
@@ -47,7 +52,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Packages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -78,140 +85,57 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li class="current"><a href="functions.html"><span>All</span></a></li>
       <li><a href="functions_func.html"><span>Functions</span></a></li>
+      <li><a href="functions_vars.html"><span>Variables</span></a></li>
     </ul>
   </div>
   <div id="navrow4" class="tabs3">
     <ul class="tablist">
-      <li><a href="#index_a"><span>a</span></a></li>
-      <li><a href="#index_c"><span>c</span></a></li>
-      <li><a href="#index_g"><span>g</span></a></li>
-      <li><a href="#index_h"><span>h</span></a></li>
-      <li><a href="#index_i"><span>i</span></a></li>
-      <li><a href="#index_m"><span>m</span></a></li>
-      <li><a href="#index_o"><span>o</span></a></li>
-      <li><a href="#index_r"><span>r</span></a></li>
-      <li><a href="#index_s"><span>s</span></a></li>
+      <li class="current"><a href="functions.html#index_0x5b"><span>[</span></a></li>
+      <li><a href="functions_0x61.html#index_a"><span>a</span></a></li>
+      <li><a href="functions_0x62.html#index_b"><span>b</span></a></li>
+      <li><a href="functions_0x63.html#index_c"><span>c</span></a></li>
+      <li><a href="functions_0x64.html#index_d"><span>d</span></a></li>
+      <li><a href="functions_0x65.html#index_e"><span>e</span></a></li>
+      <li><a href="functions_0x66.html#index_f"><span>f</span></a></li>
+      <li><a href="functions_0x67.html#index_g"><span>g</span></a></li>
+      <li><a href="functions_0x68.html#index_h"><span>h</span></a></li>
+      <li><a href="functions_0x69.html#index_i"><span>i</span></a></li>
+      <li><a href="functions_0x6c.html#index_l"><span>l</span></a></li>
+      <li><a href="functions_0x6d.html#index_m"><span>m</span></a></li>
+      <li><a href="functions_0x6e.html#index_n"><span>n</span></a></li>
+      <li><a href="functions_0x6f.html#index_o"><span>o</span></a></li>
+      <li><a href="functions_0x70.html#index_p"><span>p</span></a></li>
+      <li><a href="functions_0x72.html#index_r"><span>r</span></a></li>
+      <li><a href="functions_0x73.html#index_s"><span>s</span></a></li>
+      <li><a href="functions_0x74.html#index_t"><span>t</span></a></li>
+      <li><a href="functions_0x75.html#index_u"><span>u</span></a></li>
+      <li><a href="functions_0x76.html#index_v"><span>v</span></a></li>
+      <li><a href="functions_0x77.html#index_w"><span>w</span></a></li>
+      <li><a href="functions_0x78.html#index_x"><span>x</span></a></li>
+      <li><a href="functions_0x79.html#index_y"><span>y</span></a></li>
     </ul>
   </div>
 </div>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+  initNavTree('functions.html','');
+</script>
+<div id="doc-content">
 <div class="contents">
-<div class="textblock">Here is a list of all documented class members with links to the class documentation for each member:</div>
+<div class="textblock">Here is a list of all class members with links to the classes they belong to:</div>
 
-<h3><a class="anchor" id="index_a"></a>- a -</h3><ul>
-<li>addChannel()
-: <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1ConsoleModel.html#a5c9ef1875cbb0d6d67008abdbb0d1fcd">src.main.java.com.github.hsmrs_gui.project.model.ConsoleModel</a>
-, <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html#aa29ed15302aa1254303ae40a69ab2e6b">src.main.java.com.github.hsmrs_gui.project.view.feedback.ConsoleView</a>
-</li>
-<li>addConsoleChannel()
-: <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1ConsoleController.html#aaecb3e80868566796139598b591dead4">src.main.java.com.github.hsmrs_gui.project.controller.ConsoleController</a>
-</li>
-<li>addLog()
-: <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1ConsoleController.html#ae318dae9a519b21147373274f7fde025">src.main.java.com.github.hsmrs_gui.project.controller.ConsoleController</a>
-, <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1ConsoleModel.html#a20cf46b35bda25bc2dc9591c75a91772">src.main.java.com.github.hsmrs_gui.project.model.ConsoleModel</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_c"></a>- c -</h3><ul>
-<li>clearCells()
-: <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a81f7d90cc0d2f08aed011dcb80be6169">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController</a>
-</li>
-<li>ConsoleChannelModel()
-: <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1ConsoleChannelModel.html#a1068b3f60c8616e607fcdd483e405770">src.main.java.com.github.hsmrs_gui.project.model.ConsoleChannelModel</a>
-</li>
-<li>ConsoleModel()
-: <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1ConsoleModel.html#a5b5150c48eb8530dce25fb77cc00e028">src.main.java.com.github.hsmrs_gui.project.model.ConsoleModel</a>
-</li>
-<li>ConsoleView()
-: <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html#ae7075ef7bdeea73adf92218d0be8d8ad">src.main.java.com.github.hsmrs_gui.project.view.feedback.ConsoleView</a>
-</li>
-<li>createConsole()
-: <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1ConsoleController.html#a1155a31072e708e0fbde01c23a56b8fd">src.main.java.com.github.hsmrs_gui.project.controller.ConsoleController</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_g"></a>- g -</h3><ul>
-<li>getChannel()
-: <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1ConsoleModel.html#a9b87a0054136da6e1ccc8f9c9171db31">src.main.java.com.github.hsmrs_gui.project.model.ConsoleModel</a>
-</li>
-<li>getChannelNames()
-: <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1ConsoleController.html#a6227136abc9fb4b81382c215edbef93c">src.main.java.com.github.hsmrs_gui.project.controller.ConsoleController</a>
-, <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1ConsoleModel.html#a936eb102707bea72e02e88b130f64c67">src.main.java.com.github.hsmrs_gui.project.model.ConsoleModel</a>
-</li>
-<li>getInstance()
-: <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#a35302fa8faa9226b116aba713e2cdd06">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController</a>
-, <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1ConsoleController.html#a9bc10473a68e49ec62f54684eabfebea">src.main.java.com.github.hsmrs_gui.project.controller.ConsoleController</a>
-, <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1VideoController.html#acba18cc3d4c0c2fb817dfd6014989b78">src.main.java.com.github.hsmrs_gui.project.controller.VideoController</a>
-</li>
-<li>getLogFor()
-: <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1ConsoleModel.html#a687bb3f22a8b2da73ebf73c69ea4d466">src.main.java.com.github.hsmrs_gui.project.model.ConsoleModel</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_h"></a>- h -</h3><ul>
-<li>highlightCell()
-: <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1InteractiveMapController.html#ace76e9cd61cbf21e66ffee5355129f00">src.main.java.com.github.hsmrs_gui.project.controller.InteractiveMapController</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_i"></a>- i -</h3><ul>
-<li>ImageListener()
-: <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1ImageListener.html#a4d9f0f81b1db72a48f798e7808231567">src.main.java.com.github.hsmrs_gui.project.ros.ImageListener</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_m"></a>- m -</h3><ul>
-<li>messageToBufferedImage()
-: <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1ImageListener.html#a51b62a0a50163c65c5cdbf1b91569845">src.main.java.com.github.hsmrs_gui.project.ros.ImageListener</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_o"></a>- o -</h3><ul>
-<li>onNewMessage()
-: <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1ImageListener.html#a1b45a868770c61262128a078286ad7d0">src.main.java.com.github.hsmrs_gui.project.ros.ImageListener</a>
-, <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1SystemLogListener.html#af7f915959eece9cd5def6724c26f4c79">src.main.java.com.github.hsmrs_gui.project.ros.SystemLogListener</a>
-, <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1RobotRegistrationListener.html#a0245ddbc60de2aa3929f855c708da15c">src.main.java.com.github.hsmrs_gui.project.ros.RobotRegistrationListener</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_r"></a>- r -</h3><ul>
-<li>receiveNewImage()
-: <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1VideoController.html#adaf06517513f3d34e543d9493ac3567d">src.main.java.com.github.hsmrs_gui.project.controller.VideoController</a>
-</li>
-<li>removeChannel()
-: <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1model_1_1ConsoleModel.html#a1e59602d59b45c54314f6c0b983a13bb">src.main.java.com.github.hsmrs_gui.project.model.ConsoleModel</a>
-, <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html#a221f0ea55fdfc9200dd2887ee00584d5">src.main.java.com.github.hsmrs_gui.project.view.feedback.ConsoleView</a>
-</li>
-<li>removeConsoleChannel()
-: <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1ConsoleController.html#a9a2c189e696b169a7c8033ce9a0d3339">src.main.java.com.github.hsmrs_gui.project.controller.ConsoleController</a>
-</li>
-<li>RobotRegistrationListener()
-: <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1RobotRegistrationListener.html#a0289a63827c414e374be05be1e968d84">src.main.java.com.github.hsmrs_gui.project.ros.RobotRegistrationListener</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_s"></a>- s -</h3><ul>
-<li>setChannelLogText()
-: <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1feedback_1_1ConsoleView.html#a6f18741c0d2c38a0f4c94221077f7f51">src.main.java.com.github.hsmrs_gui.project.view.feedback.ConsoleView</a>
-</li>
-<li>setConsoleModel()
-: <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1ConsoleController.html#a6f2526195c78556075f31417008f0c29">src.main.java.com.github.hsmrs_gui.project.controller.ConsoleController</a>
-</li>
-<li>setConsoleView()
-: <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1ConsoleController.html#a906e0fc3f464ec88de012d62a8629674">src.main.java.com.github.hsmrs_gui.project.controller.ConsoleController</a>
-</li>
-<li>setImageView()
-: <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1controller_1_1VideoController.html#a523cb5d9b8b965e3c7e9fcaa953eea03">src.main.java.com.github.hsmrs_gui.project.controller.VideoController</a>
-</li>
-<li>SystemLogListener()
-: <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1ros_1_1SystemLogListener.html#a0fa7220e7a71cbe0fc1b5927def900d8">src.main.java.com.github.hsmrs_gui.project.ros.SystemLogListener</a>
+<h3><a class="anchor" id="index_0x5b"></a>- [ -</h3><ul>
+<li>[static initializer]()
+: <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1Globals.html#a13c082dfacee9e8a82ae5a99d3068d3a">src.main.java.com.github.hsmrs_gui.project.Globals</a>
+, <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1VerticalLabelUI.html#a3fe632273b6db89b082427a456d415e8">src.main.java.com.github.hsmrs_gui.project.view.VerticalLabelUI</a>
 </li>
 </ul>
 </div><!-- contents -->
@@ -220,7 +144,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -229,13 +153,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
+</div>
+  <div id="nav-path" class="navpath">
+    <ul>
 
+    <li class="footer">Generated on Mon Mar 23 2015 22:29:02 for HSMRSGUI by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
+   </ul>
+ </div>
 
-<hr class="footer"/><address class="footer"><small>
-Generated on Thu Dec 25 2014 01:42:02 for HSMRSGUI by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.7.6.1
-</small></address>
 
 </body>
 </html>

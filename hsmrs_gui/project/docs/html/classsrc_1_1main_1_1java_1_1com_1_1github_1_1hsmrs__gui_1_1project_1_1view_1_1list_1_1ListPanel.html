@@ -7,9 +7,14 @@
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-
-<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
   $(document).ready(function() { searchBox.OnSelectItem(0); });
@@ -47,7 +52,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Packages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -74,12 +81,365 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
+</div>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+  initNavTree('classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html','');
+</script>
+<div id="doc-content">
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a>  </div>
+  <div class="headertitle">
+<div class="title">src.main.java.com.github.hsmrs_gui.project.view.list.ListPanel Class Reference</div>  </div>
+</div><!--header-->
+<div class="contents">
+<!-- doxytag: class="src::main::java::com::github::hsmrs_gui::project::view::list::ListPanel" --><!-- doxytag: inherits="javax::swing::JPanel,javax::swing::Scrollable" --><div class="dynheader">
+Inheritance diagram for src.main.java.com.github.hsmrs_gui.project.view.list.ListPanel:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel__inherit__graph.png" border="0" usemap="#src_8main_8java_8com_8github_8hsmrs__gui_8project_8view_8list_8ListPanel_inherit__map" alt="Inheritance graph"/></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for src.main.java.com.github.hsmrs_gui.project.view.list.ListPanel:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel__coll__graph.png" border="0" usemap="#src_8main_8java_8com_8github_8hsmrs__gui_8project_8view_8list_8ListPanel_coll__map" alt="Collaboration graph"/></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+
+<p><a href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel-members.html">List of all members.</a></p>
+<table class="memberdecls">
+<tr><td colspan="2"><h2><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html#ab3fa78d11c25e9fc091d552a287167d5">ListPanel</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html#a4ec6b478c6b98a6a26af32ca4ad8b298">setTracksViewportHeight</a> (boolean <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html#aa8bfb9bfaf3f9df869ef60eacfffca47">tracksViewportHeight</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html#a6abde816bfc26e2f6b32cf0d51549e7a">setTracksViewportWidth</a> (boolean <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html#aa73588fe07367e8534d291f4c608e701">tracksViewportWidth</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html#a8fcc8e9f48496f8d34a05c5a127166f6">getIndexOfComponent</a> (Component c)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">Component&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html#ab5af85be9603c6fbefeac1046696e06c">add</a> (Component c)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html#a2a77f1e809f04f786167ea31c550a25f">getScrollableTracksViewportHeight</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html#aeb7ce06bc4ad2fb0160ba344893355fb">getScrollableTracksViewportWidth</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">Dimension&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html#a4dbb01cc43e55e94483bea2ef743e087">getPreferredScrollableViewportSize</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html#a563f52f6f3fb24c382390cf77bed5ce7">getScrollableBlockIncrement</a> (Rectangle visibleRect, int orientation, int direction)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html#a877ddb0d39dc73f415b67f89be221b0c">getScrollableUnitIncrement</a> (Rectangle visibleRect, int orientation, int direction)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html#a734087b29929dcbddbeedf8898890444">clear</a> ()</td></tr>
+<tr><td colspan="2"><h2><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html#aa8bfb9bfaf3f9df869ef60eacfffca47">tracksViewportHeight</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html#aa73588fe07367e8534d291f4c608e701">tracksViewportWidth</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">List&lt; Component &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html#a73a5f2efda8e6606b3635cd5c6f4da0e">components</a></td></tr>
+</table>
+<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="ab3fa78d11c25e9fc091d552a287167d5"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::list::ListPanel::ListPanel" ref="ab3fa78d11c25e9fc091d552a287167d5" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html#ab3fa78d11c25e9fc091d552a287167d5">src.main.java.com.github.hsmrs_gui.project.view.list.ListPanel.ListPanel</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>The constructor for the <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html">ListPanel</a> class. </p>
+
+</div>
+</div>
+<hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="ab5af85be9603c6fbefeac1046696e06c"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::list::ListPanel::add" ref="ab5af85be9603c6fbefeac1046696e06c" args="(Component c)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Component <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html#ab5af85be9603c6fbefeac1046696e06c">src.main.java.com.github.hsmrs_gui.project.view.list.ListPanel.add</a> </td>
+          <td>(</td>
+          <td class="paramtype">Component&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Add an AWT Component to the <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html">ListPanel</a>. </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">c</td><td>The Component to add to the list panel. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a734087b29929dcbddbeedf8898890444"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::list::ListPanel::clear" ref="a734087b29929dcbddbeedf8898890444" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html#a734087b29929dcbddbeedf8898890444">src.main.java.com.github.hsmrs_gui.project.view.list.ListPanel.clear</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a8fcc8e9f48496f8d34a05c5a127166f6"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::list::ListPanel::getIndexOfComponent" ref="a8fcc8e9f48496f8d34a05c5a127166f6" args="(Component c)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html#a8fcc8e9f48496f8d34a05c5a127166f6">src.main.java.com.github.hsmrs_gui.project.view.list.ListPanel.getIndexOfComponent</a> </td>
+          <td>(</td>
+          <td class="paramtype">Component&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Get the index of the given AWT Component in the list. </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">c</td><td>The Component whose index is desired. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The index of the Component. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a4dbb01cc43e55e94483bea2ef743e087"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::list::ListPanel::getPreferredScrollableViewportSize" ref="a4dbb01cc43e55e94483bea2ef743e087" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Dimension <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html#a4dbb01cc43e55e94483bea2ef743e087">src.main.java.com.github.hsmrs_gui.project.view.list.ListPanel.getPreferredScrollableViewportSize</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Get the preferred Dimension of the listpanel visible area. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The preferred Dimension of the listpanel visible area. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a563f52f6f3fb24c382390cf77bed5ce7"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::list::ListPanel::getScrollableBlockIncrement" ref="a563f52f6f3fb24c382390cf77bed5ce7" args="(Rectangle visibleRect, int orientation, int direction)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html#a563f52f6f3fb24c382390cf77bed5ce7">src.main.java.com.github.hsmrs_gui.project.view.list.ListPanel.getScrollableBlockIncrement</a> </td>
+          <td>(</td>
+          <td class="paramtype">Rectangle&#160;</td>
+          <td class="paramname"><em>visibleRect</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>orientation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>direction</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Gets the minimum number of pixels moved during a scroll. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The minimum number of pixels moved during a scroll. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a2a77f1e809f04f786167ea31c550a25f"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::list::ListPanel::getScrollableTracksViewportHeight" ref="a2a77f1e809f04f786167ea31c550a25f" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boolean <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html#a2a77f1e809f04f786167ea31c550a25f">src.main.java.com.github.hsmrs_gui.project.view.list.ListPanel.getScrollableTracksViewportHeight</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Get the height of the listpanel visible area. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The height of the listpanel visible area. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aeb7ce06bc4ad2fb0160ba344893355fb"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::list::ListPanel::getScrollableTracksViewportWidth" ref="aeb7ce06bc4ad2fb0160ba344893355fb" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boolean <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html#aeb7ce06bc4ad2fb0160ba344893355fb">src.main.java.com.github.hsmrs_gui.project.view.list.ListPanel.getScrollableTracksViewportWidth</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Get the width of the listpanel visible area. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The width of the listpanel visible area. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a877ddb0d39dc73f415b67f89be221b0c"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::list::ListPanel::getScrollableUnitIncrement" ref="a877ddb0d39dc73f415b67f89be221b0c" args="(Rectangle visibleRect, int orientation, int direction)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html#a877ddb0d39dc73f415b67f89be221b0c">src.main.java.com.github.hsmrs_gui.project.view.list.ListPanel.getScrollableUnitIncrement</a> </td>
+          <td>(</td>
+          <td class="paramtype">Rectangle&#160;</td>
+          <td class="paramname"><em>visibleRect</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>orientation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>direction</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a4ec6b478c6b98a6a26af32ca4ad8b298"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::list::ListPanel::setTracksViewportHeight" ref="a4ec6b478c6b98a6a26af32ca4ad8b298" args="(boolean tracksViewportHeight)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html#a4ec6b478c6b98a6a26af32ca4ad8b298">src.main.java.com.github.hsmrs_gui.project.view.list.ListPanel.setTracksViewportHeight</a> </td>
+          <td>(</td>
+          <td class="paramtype">boolean&#160;</td>
+          <td class="paramname"><em>tracksViewportHeight</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>This function sets whether or not the list panel scrolls to the end of the list. </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tracksViewportHeight</td><td>True if the <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html">ListPanel</a> tracks to the bottom of the list. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a6abde816bfc26e2f6b32cf0d51549e7a"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::list::ListPanel::setTracksViewportWidth" ref="a6abde816bfc26e2f6b32cf0d51549e7a" args="(boolean tracksViewportWidth)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html#a6abde816bfc26e2f6b32cf0d51549e7a">src.main.java.com.github.hsmrs_gui.project.view.list.ListPanel.setTracksViewportWidth</a> </td>
+          <td>(</td>
+          <td class="paramtype">boolean&#160;</td>
+          <td class="paramname"><em>tracksViewportWidth</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>This function sets whether or not the list panel scrolls to the right most side of the panel. </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tracksViewportWidth</td><td>True if the list panel scrolls to the right most side of the panel. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="a73a5f2efda8e6606b3635cd5c6f4da0e"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::list::ListPanel::components" ref="a73a5f2efda8e6606b3635cd5c6f4da0e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">List&lt;Component&gt; <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html#a73a5f2efda8e6606b3635cd5c6f4da0e">src.main.java.com.github.hsmrs_gui.project.view.list.ListPanel.components</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa8bfb9bfaf3f9df869ef60eacfffca47"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::list::ListPanel::tracksViewportHeight" ref="aa8bfb9bfaf3f9df869ef60eacfffca47" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boolean <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html#aa8bfb9bfaf3f9df869ef60eacfffca47">src.main.java.com.github.hsmrs_gui.project.view.list.ListPanel.tracksViewportHeight</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa73588fe07367e8534d291f4c608e701"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::list::ListPanel::tracksViewportWidth" ref="aa73588fe07367e8534d291f4c608e701" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boolean <a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html#aa73588fe07367e8534d291f4c608e701">src.main.java.com.github.hsmrs_gui.project.view.list.ListPanel.tracksViewportWidth</a><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>project/src/main/java/com/github/hsmrs_gui/project/view/list/<a class="el" href="ListPanel_8java.html">ListPanel.java</a></li>
+</ul>
+</div><!-- contents -->
+</div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -90,91 +450,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
   <div id="nav-path" class="navpath">
     <ul>
-      <li class="navelem"><b>src</b>      </li>
-      <li class="navelem"><b>main</b>      </li>
-      <li class="navelem"><b>java</b>      </li>
-      <li class="navelem"><b>com</b>      </li>
-      <li class="navelem"><b>github</b>      </li>
-      <li class="navelem"><b>hsmrs_gui</b>      </li>
-      <li class="navelem"><b>project</b>      </li>
-      <li class="navelem"><b>view</b>      </li>
-      <li class="navelem"><b>list</b>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc.html">src</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main.html">main</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java.html">java</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com.html">com</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github.html">github</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui.html">hsmrs_gui</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project.html">project</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view.html">view</a>      </li>
+      <li class="navelem"><a class="el" href="namespacesrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list.html">list</a>      </li>
       <li class="navelem"><a class="el" href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel.html">ListPanel</a>      </li>
-    </ul>
-  </div>
-</div>
-<div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a>  </div>
-  <div class="headertitle">
-<div class="title">src.main.java.com.github.hsmrs_gui.project.view.list.ListPanel Class Reference</div>  </div>
-</div><!--header-->
-<div class="contents">
-<!-- doxytag: class="src::main::java::com::github::hsmrs_gui::project::view::list::ListPanel" --><!-- doxytag: inherits="javax::swing::JPanel,javax::swing::Scrollable" --><div class="dynheader">
-Inheritance diagram for src.main.java.com.github.hsmrs_gui.project.view.list.ListPanel:</div>
-<div class="dyncontent">
-<div class="center"><img src="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel__inherit__graph.png" border="0" usemap="#src_8main_8java_8com_8github_8hsmrs__gui_8project_8view_8list_8ListPanel_inherit__map" alt="Inheritance graph"/></div>
-<map name="src_8main_8java_8com_8github_8hsmrs__gui_8project_8view_8list_8ListPanel_inherit__map" id="src_8main_8java_8com_8github_8hsmrs__gui_8project_8view_8list_8ListPanel_inherit__map">
-</map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for src.main.java.com.github.hsmrs_gui.project.view.list.ListPanel:</div>
-<div class="dyncontent">
-<div class="center"><img src="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel__coll__graph.png" border="0" usemap="#src_8main_8java_8com_8github_8hsmrs__gui_8project_8view_8list_8ListPanel_coll__map" alt="Collaboration graph"/></div>
-<map name="src_8main_8java_8com_8github_8hsmrs__gui_8project_8view_8list_8ListPanel_coll__map" id="src_8main_8java_8com_8github_8hsmrs__gui_8project_8view_8list_8ListPanel_coll__map">
-</map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 
-<p><a href="classsrc_1_1main_1_1java_1_1com_1_1github_1_1hsmrs__gui_1_1project_1_1view_1_1list_1_1ListPanel-members.html">List of all members.</a></p>
-<table class="memberdecls">
-<tr><td colspan="2"><h2><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4ec6b478c6b98a6a26af32ca4ad8b298"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::list::ListPanel::setTracksViewportHeight" ref="a4ec6b478c6b98a6a26af32ca4ad8b298" args="(boolean tracksViewportHeight)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setTracksViewportHeight</b> (boolean tracksViewportHeight)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6abde816bfc26e2f6b32cf0d51549e7a"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::list::ListPanel::setTracksViewportWidth" ref="a6abde816bfc26e2f6b32cf0d51549e7a" args="(boolean tracksViewportWidth)" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setTracksViewportWidth</b> (boolean tracksViewportWidth)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8fcc8e9f48496f8d34a05c5a127166f6"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::list::ListPanel::getIndexOfComponent" ref="a8fcc8e9f48496f8d34a05c5a127166f6" args="(Component c)" -->
-int&#160;</td><td class="memItemRight" valign="bottom"><b>getIndexOfComponent</b> (Component c)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab5af85be9603c6fbefeac1046696e06c"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::list::ListPanel::add" ref="ab5af85be9603c6fbefeac1046696e06c" args="(Component c)" -->
-Component&#160;</td><td class="memItemRight" valign="bottom"><b>add</b> (Component c)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2a77f1e809f04f786167ea31c550a25f"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::list::ListPanel::getScrollableTracksViewportHeight" ref="a2a77f1e809f04f786167ea31c550a25f" args="()" -->
-boolean&#160;</td><td class="memItemRight" valign="bottom"><b>getScrollableTracksViewportHeight</b> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aeb7ce06bc4ad2fb0160ba344893355fb"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::list::ListPanel::getScrollableTracksViewportWidth" ref="aeb7ce06bc4ad2fb0160ba344893355fb" args="()" -->
-boolean&#160;</td><td class="memItemRight" valign="bottom"><b>getScrollableTracksViewportWidth</b> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4dbb01cc43e55e94483bea2ef743e087"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::list::ListPanel::getPreferredScrollableViewportSize" ref="a4dbb01cc43e55e94483bea2ef743e087" args="()" -->
-Dimension&#160;</td><td class="memItemRight" valign="bottom"><b>getPreferredScrollableViewportSize</b> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a563f52f6f3fb24c382390cf77bed5ce7"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::list::ListPanel::getScrollableBlockIncrement" ref="a563f52f6f3fb24c382390cf77bed5ce7" args="(Rectangle visibleRect, int orientation, int direction)" -->
-int&#160;</td><td class="memItemRight" valign="bottom"><b>getScrollableBlockIncrement</b> (Rectangle visibleRect, int orientation, int direction)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a877ddb0d39dc73f415b67f89be221b0c"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::list::ListPanel::getScrollableUnitIncrement" ref="a877ddb0d39dc73f415b67f89be221b0c" args="(Rectangle visibleRect, int orientation, int direction)" -->
-int&#160;</td><td class="memItemRight" valign="bottom"><b>getScrollableUnitIncrement</b> (Rectangle visibleRect, int orientation, int direction)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a734087b29929dcbddbeedf8898890444"></a><!-- doxytag: member="src::main::java::com::github::hsmrs_gui::project::view::list::ListPanel::clear" ref="a734087b29929dcbddbeedf8898890444" args="()" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>clear</b> ()</td></tr>
-</table>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>project/src/main/java/com/github/hsmrs_gui/project/view/list/ListPanel.java</li>
-</ul>
-</div><!-- contents -->
-<!-- window showing the filter options -->
-<div id="MSearchSelectWindow"
-     onmouseover="return searchBox.OnSearchSelectShow()"
-     onmouseout="return searchBox.OnSearchSelectHide()"
-     onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+    <li class="footer">Generated on Mon Mar 23 2015 22:29:02 for HSMRSGUI by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
+   </ul>
+ </div>
 
-<!-- iframe showing the search results (closed by default) -->
-<div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
-</div>
-
-
-
-<hr class="footer"/><address class="footer"><small>
-Generated on Thu Dec 25 2014 01:42:02 for HSMRSGUI by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.7.6.1
-</small></address>
 
 </body>
 </html>
